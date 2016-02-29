@@ -1,0 +1,225 @@
+fileFormatVersion: 2
+guid: 14792a5d71c116e41a2bcf3dedf778b7
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: Allosaur
+    100002: AllosaurHead
+    100004: AllosaurHeadBone0
+    100006: AllosaurLArm1
+    100008: AllosaurLArm21
+    100010: AllosaurLArm22
+    100012: AllosaurLArmCollarbone
+    100014: AllosaurLLeg1
+    100016: AllosaurLLeg2
+    100018: AllosaurLLegDigit11
+    100020: AllosaurLLegDigit12
+    100022: AllosaurLLegPalm
+    100024: AllosaurLLegPlatform
+    100026: AllosaurNeck1
+    100028: AllosaurNeck2
+    100030: AllosaurPelvis
+    100032: AllosaurRArm1
+    100034: AllosaurRArm21
+    100036: AllosaurRArm22
+    100038: AllosaurRArmCollarbone
+    100040: AllosaurRibcage
+    100042: AllosaurRLeg1
+    100044: AllosaurRLeg2
+    100046: AllosaurRLegDigit11
+    100048: AllosaurRLegDigit12
+    100050: AllosaurRLegPalm
+    100052: AllosaurRLegPlatform
+    100054: AllosaurSpine
+    100056: AllosaurTail01
+    100058: AllosaurTail02
+    100060: AllosaurTail3
+    100062: AllosaurTail4
+    100064: Group2
+    100066: //RootNode
+    400000: Allosaur
+    400002: AllosaurHead
+    400004: AllosaurHeadBone0
+    400006: AllosaurLArm1
+    400008: AllosaurLArm21
+    400010: AllosaurLArm22
+    400012: AllosaurLArmCollarbone
+    400014: AllosaurLLeg1
+    400016: AllosaurLLeg2
+    400018: AllosaurLLegDigit11
+    400020: AllosaurLLegDigit12
+    400022: AllosaurLLegPalm
+    400024: AllosaurLLegPlatform
+    400026: AllosaurNeck1
+    400028: AllosaurNeck2
+    400030: AllosaurPelvis
+    400032: AllosaurRArm1
+    400034: AllosaurRArm21
+    400036: AllosaurRArm22
+    400038: AllosaurRArmCollarbone
+    400040: AllosaurRibcage
+    400042: AllosaurRLeg1
+    400044: AllosaurRLeg2
+    400046: AllosaurRLegDigit11
+    400048: AllosaurRLegDigit12
+    400050: AllosaurRLegPalm
+    400052: AllosaurRLegPlatform
+    400054: AllosaurSpine
+    400056: AllosaurTail01
+    400058: AllosaurTail02
+    400060: AllosaurTail3
+    400062: AllosaurTail4
+    400064: Group2
+    400066: //RootNode
+    4300000: Group2
+    7400000: Kangaroo_jump!
+    9500000: //RootNode
+    13700000: Group2
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 3
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Kangaroo_jump!
+      takeName: Take 001
+      firstFrame: 10
+      lastFrame: 35
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Allosaur
+        weight: 1
+      - path: AllosaurLLegPlatform
+        weight: 1
+      - path: AllosaurPelvis
+        weight: 1
+      - path: AllosaurPelvis/AllosaurLLeg1
+        weight: 1
+      - path: AllosaurPelvis/AllosaurLLeg1/AllosaurLLeg2
+        weight: 1
+      - path: AllosaurPelvis/AllosaurLLeg1/AllosaurLLeg2/AllosaurLLegPalm
+        weight: 1
+      - path: AllosaurPelvis/AllosaurLLeg1/AllosaurLLeg2/AllosaurLLegPalm/AllosaurLLegDigit11
+        weight: 1
+      - path: AllosaurPelvis/AllosaurLLeg1/AllosaurLLeg2/AllosaurLLegPalm/AllosaurLLegDigit11/AllosaurLLegDigit12
+        weight: 1
+      - path: AllosaurPelvis/AllosaurRLeg1
+        weight: 1
+      - path: AllosaurPelvis/AllosaurRLeg1/AllosaurRLeg2
+        weight: 1
+      - path: AllosaurPelvis/AllosaurRLeg1/AllosaurRLeg2/AllosaurRLegPalm
+        weight: 1
+      - path: AllosaurPelvis/AllosaurRLeg1/AllosaurRLeg2/AllosaurRLegPalm/AllosaurRLegDigit11
+        weight: 1
+      - path: AllosaurPelvis/AllosaurRLeg1/AllosaurRLeg2/AllosaurRLegPalm/AllosaurRLegDigit11/AllosaurRLegDigit12
+        weight: 1
+      - path: AllosaurPelvis/AllosaurSpine
+        weight: 1
+      - path: AllosaurPelvis/AllosaurSpine/AllosaurRibcage
+        weight: 1
+      - path: AllosaurPelvis/AllosaurSpine/AllosaurRibcage/AllosaurLArmCollarbone
+        weight: 1
+      - path: AllosaurPelvis/AllosaurSpine/AllosaurRibcage/AllosaurLArmCollarbone/AllosaurLArm1
+        weight: 1
+      - path: AllosaurPelvis/AllosaurSpine/AllosaurRibcage/AllosaurLArmCollarbone/AllosaurLArm1/AllosaurLArm21
+        weight: 1
+      - path: AllosaurPelvis/AllosaurSpine/AllosaurRibcage/AllosaurLArmCollarbone/AllosaurLArm1/AllosaurLArm21/AllosaurLArm22
+        weight: 1
+      - path: AllosaurPelvis/AllosaurSpine/AllosaurRibcage/AllosaurNeck1
+        weight: 1
+      - path: AllosaurPelvis/AllosaurSpine/AllosaurRibcage/AllosaurNeck1/AllosaurNeck2
+        weight: 1
+      - path: AllosaurPelvis/AllosaurSpine/AllosaurRibcage/AllosaurNeck1/AllosaurNeck2/AllosaurHead
+        weight: 1
+      - path: AllosaurPelvis/AllosaurSpine/AllosaurRibcage/AllosaurNeck1/AllosaurNeck2/AllosaurHead/AllosaurHeadBone0
+        weight: 1
+      - path: AllosaurPelvis/AllosaurSpine/AllosaurRibcage/AllosaurRArmCollarbone
+        weight: 1
+      - path: AllosaurPelvis/AllosaurSpine/AllosaurRibcage/AllosaurRArmCollarbone/AllosaurRArm1
+        weight: 1
+      - path: AllosaurPelvis/AllosaurSpine/AllosaurRibcage/AllosaurRArmCollarbone/AllosaurRArm1/AllosaurRArm21
+        weight: 1
+      - path: AllosaurPelvis/AllosaurSpine/AllosaurRibcage/AllosaurRArmCollarbone/AllosaurRArm1/AllosaurRArm21/AllosaurRArm22
+        weight: 1
+      - path: AllosaurPelvis/AllosaurTail01
+        weight: 1
+      - path: AllosaurPelvis/AllosaurTail01/AllosaurTail02
+        weight: 1
+      - path: AllosaurPelvis/AllosaurTail01/AllosaurTail02/AllosaurTail3
+        weight: 1
+      - path: AllosaurPelvis/AllosaurTail01/AllosaurTail02/AllosaurTail3/AllosaurTail4
+        weight: 1
+      - path: AllosaurRLegPlatform
+        weight: 1
+      - path: Group2
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .0399999991
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 

@@ -1,0 +1,1348 @@
+fileFormatVersion: 2
+guid: 9491d57f3e633f941b2b23a3e2c8b4bc
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: Alexis:Head
+    100002: Alexis:HeadTop_End
+    100004: Alexis:Hips
+    100006: Alexis:Jaw
+    100008: Alexis:JawEND
+    100010: Alexis:LeftArm
+    100012: Alexis:LeftCheek
+    100014: Alexis:LeftEye
+    100016: Alexis:LeftEyelidLower
+    100018: Alexis:LeftEyelidUpper
+    100020: Alexis:LeftFoot
+    100022: Alexis:LeftFootToeBase_End
+    100024: Alexis:LeftForeArm
+    100026: Alexis:LeftHand
+    100028: Alexis:LeftHandIndex1
+    100030: Alexis:LeftHandIndex2
+    100032: Alexis:LeftHandIndex3
+    100034: Alexis:LeftHandIndex4
+    100036: Alexis:LeftHandMiddle1
+    100038: Alexis:LeftHandMiddle2
+    100040: Alexis:LeftHandMiddle3
+    100042: Alexis:LeftHandMiddle4
+    100044: Alexis:LeftHandPinky1
+    100046: Alexis:LeftHandPinky2
+    100048: Alexis:LeftHandPinky3
+    100050: Alexis:LeftHandPinky4
+    100052: Alexis:LeftHandRing1
+    100054: Alexis:LeftHandRing2
+    100056: Alexis:LeftHandRing3
+    100058: Alexis:LeftHandRing4
+    100060: Alexis:LeftHandThumb1
+    100062: Alexis:LeftHandThumb2
+    100064: Alexis:LeftHandThumb3
+    100066: Alexis:LeftHandThumb4
+    100068: Alexis:LeftInnerBrow
+    100070: Alexis:LeftIOuterBrow
+    100072: Alexis:LeftLeg
+    100074: Alexis:LeftLipCorner
+    100076: Alexis:LeftLipLower
+    100078: Alexis:LeftLipUpper
+    100080: Alexis:LeftNostril
+    100082: Alexis:LeftShoulder
+    100084: Alexis:LeftToeBase
+    100086: Alexis:LeftUpLeg
+    100088: Alexis:Neck
+    100090: Alexis:Neck1
+    100092: Alexis:RightArm
+    100094: Alexis:RightCheek
+    100096: Alexis:RightEye
+    100098: Alexis:RightEyelidLower
+    100100: Alexis:RightEyelidUpper
+    100102: Alexis:RightFoot
+    100104: Alexis:RightFootToeBase_End
+    100106: Alexis:RightForeArm
+    100108: Alexis:RightHand
+    100110: Alexis:RightHandIndex1
+    100112: Alexis:RightHandIndex2
+    100114: Alexis:RightHandIndex3
+    100116: Alexis:RightHandIndex4
+    100118: Alexis:RightHandMiddle1
+    100120: Alexis:RightHandMiddle2
+    100122: Alexis:RightHandMiddle3
+    100124: Alexis:RightHandMiddle4
+    100126: Alexis:RightHandPinky1
+    100128: Alexis:RightHandPinky2
+    100130: Alexis:RightHandPinky3
+    100132: Alexis:RightHandPinky4
+    100134: Alexis:RightHandRing1
+    100136: Alexis:RightHandRing2
+    100138: Alexis:RightHandRing3
+    100140: Alexis:RightHandRing4
+    100142: Alexis:RightHandThumb1
+    100144: Alexis:RightHandThumb2
+    100146: Alexis:RightHandThumb3
+    100148: Alexis:RightHandThumb4
+    100150: Alexis:RightInnerBrow
+    100152: Alexis:RightIOuterBrow
+    100154: Alexis:RightLeg
+    100156: Alexis:RightLipCorner
+    100158: Alexis:RightLipLower
+    100160: Alexis:RightLipUpper
+    100162: Alexis:RightNostril
+    100164: Alexis:RightShoulder
+    100166: Alexis:RightToeBase
+    100168: Alexis:RightUpLeg
+    100170: Alexis:Spine
+    100172: Alexis:Spine1
+    100174: Alexis:Spine2
+    100176: Alexis:TongueBack
+    100178: Alexis:TongueTip
+    100180: //RootNode
+    100182: Alexis_Geo_High
+    400000: Alexis:Head
+    400002: Alexis:HeadTop_End
+    400004: Alexis:Hips
+    400006: Alexis:Jaw
+    400008: Alexis:JawEND
+    400010: Alexis:LeftArm
+    400012: Alexis:LeftCheek
+    400014: Alexis:LeftEye
+    400016: Alexis:LeftEyelidLower
+    400018: Alexis:LeftEyelidUpper
+    400020: Alexis:LeftFoot
+    400022: Alexis:LeftFootToeBase_End
+    400024: Alexis:LeftForeArm
+    400026: Alexis:LeftHand
+    400028: Alexis:LeftHandIndex1
+    400030: Alexis:LeftHandIndex2
+    400032: Alexis:LeftHandIndex3
+    400034: Alexis:LeftHandIndex4
+    400036: Alexis:LeftHandMiddle1
+    400038: Alexis:LeftHandMiddle2
+    400040: Alexis:LeftHandMiddle3
+    400042: Alexis:LeftHandMiddle4
+    400044: Alexis:LeftHandPinky1
+    400046: Alexis:LeftHandPinky2
+    400048: Alexis:LeftHandPinky3
+    400050: Alexis:LeftHandPinky4
+    400052: Alexis:LeftHandRing1
+    400054: Alexis:LeftHandRing2
+    400056: Alexis:LeftHandRing3
+    400058: Alexis:LeftHandRing4
+    400060: Alexis:LeftHandThumb1
+    400062: Alexis:LeftHandThumb2
+    400064: Alexis:LeftHandThumb3
+    400066: Alexis:LeftHandThumb4
+    400068: Alexis:LeftInnerBrow
+    400070: Alexis:LeftIOuterBrow
+    400072: Alexis:LeftLeg
+    400074: Alexis:LeftLipCorner
+    400076: Alexis:LeftLipLower
+    400078: Alexis:LeftLipUpper
+    400080: Alexis:LeftNostril
+    400082: Alexis:LeftShoulder
+    400084: Alexis:LeftToeBase
+    400086: Alexis:LeftUpLeg
+    400088: Alexis:Neck
+    400090: Alexis:Neck1
+    400092: Alexis:RightArm
+    400094: Alexis:RightCheek
+    400096: Alexis:RightEye
+    400098: Alexis:RightEyelidLower
+    400100: Alexis:RightEyelidUpper
+    400102: Alexis:RightFoot
+    400104: Alexis:RightFootToeBase_End
+    400106: Alexis:RightForeArm
+    400108: Alexis:RightHand
+    400110: Alexis:RightHandIndex1
+    400112: Alexis:RightHandIndex2
+    400114: Alexis:RightHandIndex3
+    400116: Alexis:RightHandIndex4
+    400118: Alexis:RightHandMiddle1
+    400120: Alexis:RightHandMiddle2
+    400122: Alexis:RightHandMiddle3
+    400124: Alexis:RightHandMiddle4
+    400126: Alexis:RightHandPinky1
+    400128: Alexis:RightHandPinky2
+    400130: Alexis:RightHandPinky3
+    400132: Alexis:RightHandPinky4
+    400134: Alexis:RightHandRing1
+    400136: Alexis:RightHandRing2
+    400138: Alexis:RightHandRing3
+    400140: Alexis:RightHandRing4
+    400142: Alexis:RightHandThumb1
+    400144: Alexis:RightHandThumb2
+    400146: Alexis:RightHandThumb3
+    400148: Alexis:RightHandThumb4
+    400150: Alexis:RightInnerBrow
+    400152: Alexis:RightIOuterBrow
+    400154: Alexis:RightLeg
+    400156: Alexis:RightLipCorner
+    400158: Alexis:RightLipLower
+    400160: Alexis:RightLipUpper
+    400162: Alexis:RightNostril
+    400164: Alexis:RightShoulder
+    400166: Alexis:RightToeBase
+    400168: Alexis:RightUpLeg
+    400170: Alexis:Spine
+    400172: Alexis:Spine1
+    400174: Alexis:Spine2
+    400176: Alexis:TongueBack
+    400178: Alexis:TongueTip
+    400180: //RootNode
+    400182: Alexis_Geo_High
+    4300000: Alexis_Geo_High
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: Alexis_Geo_High
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    animationCompression: 3
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 510
+      lastFrame: 534
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Alexis:Hips
+        weight: 1
+      - path: Alexis:Hips/Alexis:LeftUpLeg
+        weight: 1
+      - path: Alexis:Hips/Alexis:LeftUpLeg/Alexis:LeftLeg
+        weight: 1
+      - path: Alexis:Hips/Alexis:LeftUpLeg/Alexis:LeftLeg/Alexis:LeftFoot
+        weight: 1
+      - path: Alexis:Hips/Alexis:LeftUpLeg/Alexis:LeftLeg/Alexis:LeftFoot/Alexis:LeftToeBase
+        weight: 1
+      - path: Alexis:Hips/Alexis:LeftUpLeg/Alexis:LeftLeg/Alexis:LeftFoot/Alexis:LeftToeBase/Alexis:LeftFootToeBase_End
+        weight: 0
+      - path: Alexis:Hips/Alexis:RightUpLeg
+        weight: 1
+      - path: Alexis:Hips/Alexis:RightUpLeg/Alexis:RightLeg
+        weight: 1
+      - path: Alexis:Hips/Alexis:RightUpLeg/Alexis:RightLeg/Alexis:RightFoot
+        weight: 1
+      - path: Alexis:Hips/Alexis:RightUpLeg/Alexis:RightLeg/Alexis:RightFoot/Alexis:RightToeBase
+        weight: 1
+      - path: Alexis:Hips/Alexis:RightUpLeg/Alexis:RightLeg/Alexis:RightFoot/Alexis:RightToeBase/Alexis:RightFootToeBase_End
+        weight: 0
+      - path: Alexis:Hips/Alexis:Spine
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:LeftShoulder
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:LeftShoulder/Alexis:LeftArm
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:LeftShoulder/Alexis:LeftArm/Alexis:LeftForeArm
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:LeftShoulder/Alexis:LeftArm/Alexis:LeftForeArm/Alexis:LeftHand
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:LeftShoulder/Alexis:LeftArm/Alexis:LeftForeArm/Alexis:LeftHand/Alexis:LeftHandIndex1
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:LeftShoulder/Alexis:LeftArm/Alexis:LeftForeArm/Alexis:LeftHand/Alexis:LeftHandIndex1/Alexis:LeftHandIndex2
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:LeftShoulder/Alexis:LeftArm/Alexis:LeftForeArm/Alexis:LeftHand/Alexis:LeftHandIndex1/Alexis:LeftHandIndex2/Alexis:LeftHandIndex3
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:LeftShoulder/Alexis:LeftArm/Alexis:LeftForeArm/Alexis:LeftHand/Alexis:LeftHandIndex1/Alexis:LeftHandIndex2/Alexis:LeftHandIndex3/Alexis:LeftHandIndex4
+        weight: 0
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:LeftShoulder/Alexis:LeftArm/Alexis:LeftForeArm/Alexis:LeftHand/Alexis:LeftHandMiddle1
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:LeftShoulder/Alexis:LeftArm/Alexis:LeftForeArm/Alexis:LeftHand/Alexis:LeftHandMiddle1/Alexis:LeftHandMiddle2
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:LeftShoulder/Alexis:LeftArm/Alexis:LeftForeArm/Alexis:LeftHand/Alexis:LeftHandMiddle1/Alexis:LeftHandMiddle2/Alexis:LeftHandMiddle3
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:LeftShoulder/Alexis:LeftArm/Alexis:LeftForeArm/Alexis:LeftHand/Alexis:LeftHandMiddle1/Alexis:LeftHandMiddle2/Alexis:LeftHandMiddle3/Alexis:LeftHandMiddle4
+        weight: 0
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:LeftShoulder/Alexis:LeftArm/Alexis:LeftForeArm/Alexis:LeftHand/Alexis:LeftHandPinky1
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:LeftShoulder/Alexis:LeftArm/Alexis:LeftForeArm/Alexis:LeftHand/Alexis:LeftHandPinky1/Alexis:LeftHandPinky2
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:LeftShoulder/Alexis:LeftArm/Alexis:LeftForeArm/Alexis:LeftHand/Alexis:LeftHandPinky1/Alexis:LeftHandPinky2/Alexis:LeftHandPinky3
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:LeftShoulder/Alexis:LeftArm/Alexis:LeftForeArm/Alexis:LeftHand/Alexis:LeftHandPinky1/Alexis:LeftHandPinky2/Alexis:LeftHandPinky3/Alexis:LeftHandPinky4
+        weight: 0
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:LeftShoulder/Alexis:LeftArm/Alexis:LeftForeArm/Alexis:LeftHand/Alexis:LeftHandRing1
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:LeftShoulder/Alexis:LeftArm/Alexis:LeftForeArm/Alexis:LeftHand/Alexis:LeftHandRing1/Alexis:LeftHandRing2
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:LeftShoulder/Alexis:LeftArm/Alexis:LeftForeArm/Alexis:LeftHand/Alexis:LeftHandRing1/Alexis:LeftHandRing2/Alexis:LeftHandRing3
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:LeftShoulder/Alexis:LeftArm/Alexis:LeftForeArm/Alexis:LeftHand/Alexis:LeftHandRing1/Alexis:LeftHandRing2/Alexis:LeftHandRing3/Alexis:LeftHandRing4
+        weight: 0
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:LeftShoulder/Alexis:LeftArm/Alexis:LeftForeArm/Alexis:LeftHand/Alexis:LeftHandThumb1
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:LeftShoulder/Alexis:LeftArm/Alexis:LeftForeArm/Alexis:LeftHand/Alexis:LeftHandThumb1/Alexis:LeftHandThumb2
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:LeftShoulder/Alexis:LeftArm/Alexis:LeftForeArm/Alexis:LeftHand/Alexis:LeftHandThumb1/Alexis:LeftHandThumb2/Alexis:LeftHandThumb3
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:LeftShoulder/Alexis:LeftArm/Alexis:LeftForeArm/Alexis:LeftHand/Alexis:LeftHandThumb1/Alexis:LeftHandThumb2/Alexis:LeftHandThumb3/Alexis:LeftHandThumb4
+        weight: 0
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:Neck
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:Neck/Alexis:Neck1
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:Neck/Alexis:Neck1/Alexis:Head
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:Neck/Alexis:Neck1/Alexis:Head/Alexis:HeadTop_End
+        weight: 0
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:Neck/Alexis:Neck1/Alexis:Head/Alexis:Jaw
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:Neck/Alexis:Neck1/Alexis:Head/Alexis:Jaw/Alexis:JawEND
+        weight: 0
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:Neck/Alexis:Neck1/Alexis:Head/Alexis:Jaw/Alexis:LeftLipCorner
+        weight: 0
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:Neck/Alexis:Neck1/Alexis:Head/Alexis:Jaw/Alexis:LeftLipLower
+        weight: 0
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:Neck/Alexis:Neck1/Alexis:Head/Alexis:Jaw/Alexis:RightLipCorner
+        weight: 0
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:Neck/Alexis:Neck1/Alexis:Head/Alexis:Jaw/Alexis:RightLipLower
+        weight: 0
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:Neck/Alexis:Neck1/Alexis:Head/Alexis:Jaw/Alexis:TongueBack
+        weight: 0
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:Neck/Alexis:Neck1/Alexis:Head/Alexis:Jaw/Alexis:TongueTip
+        weight: 0
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:Neck/Alexis:Neck1/Alexis:Head/Alexis:LeftCheek
+        weight: 0
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:Neck/Alexis:Neck1/Alexis:Head/Alexis:LeftEye
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:Neck/Alexis:Neck1/Alexis:Head/Alexis:LeftEyelidLower
+        weight: 0
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:Neck/Alexis:Neck1/Alexis:Head/Alexis:LeftEyelidUpper
+        weight: 0
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:Neck/Alexis:Neck1/Alexis:Head/Alexis:LeftInnerBrow
+        weight: 0
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:Neck/Alexis:Neck1/Alexis:Head/Alexis:LeftIOuterBrow
+        weight: 0
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:Neck/Alexis:Neck1/Alexis:Head/Alexis:LeftLipUpper
+        weight: 0
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:Neck/Alexis:Neck1/Alexis:Head/Alexis:LeftNostril
+        weight: 0
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:Neck/Alexis:Neck1/Alexis:Head/Alexis:RightCheek
+        weight: 0
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:Neck/Alexis:Neck1/Alexis:Head/Alexis:RightEye
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:Neck/Alexis:Neck1/Alexis:Head/Alexis:RightEyelidLower
+        weight: 0
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:Neck/Alexis:Neck1/Alexis:Head/Alexis:RightEyelidUpper
+        weight: 0
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:Neck/Alexis:Neck1/Alexis:Head/Alexis:RightInnerBrow
+        weight: 0
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:Neck/Alexis:Neck1/Alexis:Head/Alexis:RightIOuterBrow
+        weight: 0
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:Neck/Alexis:Neck1/Alexis:Head/Alexis:RightLipUpper
+        weight: 0
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:Neck/Alexis:Neck1/Alexis:Head/Alexis:RightNostril
+        weight: 0
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:RightShoulder
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:RightShoulder/Alexis:RightArm
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:RightShoulder/Alexis:RightArm/Alexis:RightForeArm
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:RightShoulder/Alexis:RightArm/Alexis:RightForeArm/Alexis:RightHand
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:RightShoulder/Alexis:RightArm/Alexis:RightForeArm/Alexis:RightHand/Alexis:RightHandIndex1
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:RightShoulder/Alexis:RightArm/Alexis:RightForeArm/Alexis:RightHand/Alexis:RightHandIndex1/Alexis:RightHandIndex2
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:RightShoulder/Alexis:RightArm/Alexis:RightForeArm/Alexis:RightHand/Alexis:RightHandIndex1/Alexis:RightHandIndex2/Alexis:RightHandIndex3
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:RightShoulder/Alexis:RightArm/Alexis:RightForeArm/Alexis:RightHand/Alexis:RightHandIndex1/Alexis:RightHandIndex2/Alexis:RightHandIndex3/Alexis:RightHandIndex4
+        weight: 0
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:RightShoulder/Alexis:RightArm/Alexis:RightForeArm/Alexis:RightHand/Alexis:RightHandMiddle1
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:RightShoulder/Alexis:RightArm/Alexis:RightForeArm/Alexis:RightHand/Alexis:RightHandMiddle1/Alexis:RightHandMiddle2
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:RightShoulder/Alexis:RightArm/Alexis:RightForeArm/Alexis:RightHand/Alexis:RightHandMiddle1/Alexis:RightHandMiddle2/Alexis:RightHandMiddle3
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:RightShoulder/Alexis:RightArm/Alexis:RightForeArm/Alexis:RightHand/Alexis:RightHandMiddle1/Alexis:RightHandMiddle2/Alexis:RightHandMiddle3/Alexis:RightHandMiddle4
+        weight: 0
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:RightShoulder/Alexis:RightArm/Alexis:RightForeArm/Alexis:RightHand/Alexis:RightHandPinky1
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:RightShoulder/Alexis:RightArm/Alexis:RightForeArm/Alexis:RightHand/Alexis:RightHandPinky1/Alexis:RightHandPinky2
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:RightShoulder/Alexis:RightArm/Alexis:RightForeArm/Alexis:RightHand/Alexis:RightHandPinky1/Alexis:RightHandPinky2/Alexis:RightHandPinky3
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:RightShoulder/Alexis:RightArm/Alexis:RightForeArm/Alexis:RightHand/Alexis:RightHandPinky1/Alexis:RightHandPinky2/Alexis:RightHandPinky3/Alexis:RightHandPinky4
+        weight: 0
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:RightShoulder/Alexis:RightArm/Alexis:RightForeArm/Alexis:RightHand/Alexis:RightHandRing1
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:RightShoulder/Alexis:RightArm/Alexis:RightForeArm/Alexis:RightHand/Alexis:RightHandRing1/Alexis:RightHandRing2
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:RightShoulder/Alexis:RightArm/Alexis:RightForeArm/Alexis:RightHand/Alexis:RightHandRing1/Alexis:RightHandRing2/Alexis:RightHandRing3
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:RightShoulder/Alexis:RightArm/Alexis:RightForeArm/Alexis:RightHand/Alexis:RightHandRing1/Alexis:RightHandRing2/Alexis:RightHandRing3/Alexis:RightHandRing4
+        weight: 0
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:RightShoulder/Alexis:RightArm/Alexis:RightForeArm/Alexis:RightHand/Alexis:RightHandThumb1
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:RightShoulder/Alexis:RightArm/Alexis:RightForeArm/Alexis:RightHand/Alexis:RightHandThumb1/Alexis:RightHandThumb2
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:RightShoulder/Alexis:RightArm/Alexis:RightForeArm/Alexis:RightHand/Alexis:RightHandThumb1/Alexis:RightHandThumb2/Alexis:RightHandThumb3
+        weight: 1
+      - path: Alexis:Hips/Alexis:Spine/Alexis:Spine1/Alexis:Spine2/Alexis:RightShoulder/Alexis:RightArm/Alexis:RightForeArm/Alexis:RightHand/Alexis:RightHandThumb1/Alexis:RightHandThumb2/Alexis:RightHandThumb3/Alexis:RightHandThumb4
+        weight: 0
+      - path: Alexis_Geo_High
+        weight: 0
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human:
+    - boneName: Alexis:Hips
+      humanName: Hips
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:LeftUpLeg
+      humanName: LeftUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:RightUpLeg
+      humanName: RightUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:LeftLeg
+      humanName: LeftLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:RightLeg
+      humanName: RightLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:LeftFoot
+      humanName: LeftFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:RightFoot
+      humanName: RightFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:Spine
+      humanName: Spine
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:Spine1
+      humanName: Chest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:Neck
+      humanName: Neck
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:Head
+      humanName: Head
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:LeftShoulder
+      humanName: LeftShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:RightShoulder
+      humanName: RightShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:LeftArm
+      humanName: LeftUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:RightArm
+      humanName: RightUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:LeftForeArm
+      humanName: LeftLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:RightForeArm
+      humanName: RightLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:LeftHand
+      humanName: LeftHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:RightHand
+      humanName: RightHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:LeftToeBase
+      humanName: LeftToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:RightToeBase
+      humanName: RightToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:LeftEye
+      humanName: LeftEye
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:RightEye
+      humanName: RightEye
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:Jaw
+      humanName: Jaw
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:LeftHandThumb1
+      humanName: Left Thumb Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:LeftHandThumb2
+      humanName: Left Thumb Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:LeftHandThumb3
+      humanName: Left Thumb Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:LeftHandIndex1
+      humanName: Left Index Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:LeftHandIndex2
+      humanName: Left Index Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:LeftHandIndex3
+      humanName: Left Index Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:LeftHandMiddle1
+      humanName: Left Middle Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:LeftHandMiddle2
+      humanName: Left Middle Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:LeftHandMiddle3
+      humanName: Left Middle Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:LeftHandRing1
+      humanName: Left Ring Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:LeftHandRing2
+      humanName: Left Ring Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:LeftHandRing3
+      humanName: Left Ring Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:LeftHandPinky1
+      humanName: Left Little Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:LeftHandPinky2
+      humanName: Left Little Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:LeftHandPinky3
+      humanName: Left Little Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:RightHandThumb1
+      humanName: Right Thumb Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:RightHandThumb2
+      humanName: Right Thumb Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:RightHandThumb3
+      humanName: Right Thumb Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:RightHandIndex1
+      humanName: Right Index Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:RightHandIndex2
+      humanName: Right Index Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:RightHandIndex3
+      humanName: Right Index Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:RightHandMiddle1
+      humanName: Right Middle Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:RightHandMiddle2
+      humanName: Right Middle Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:RightHandMiddle3
+      humanName: Right Middle Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:RightHandRing1
+      humanName: Right Ring Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:RightHandRing2
+      humanName: Right Ring Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:RightHandRing3
+      humanName: Right Ring Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:RightHandPinky1
+      humanName: Right Little Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:RightHandPinky2
+      humanName: Right Little Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Alexis:RightHandPinky3
+      humanName: Right Little Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    skeleton:
+    - name: Alexis_Animation_Redone(Clone)
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Alexis:Hips
+      position: {x: -.000527114607, y: .390469015, z: .023586005}
+      rotation: {x: 8.14603425e-08, y: 2.22263265e-17, z: -2.72848411e-10, w: 1}
+      scale: {x: .393700749, y: .393700719, z: .393700778}
+      transformModified: 1
+    - name: Alexis:LeftUpLeg
+      position: {x: -.0963378623, y: -.0327327624, z: -4.19783461e-08}
+      rotation: {x: -7.10225098e-15, y: -1.16415322e-08, z: -4.82032236e-09, w: 1}
+      scale: {x: 1, y: 1, z: .999999821}
+      transformModified: 1
+    - name: Alexis:LeftLeg
+      position: {x: -3.34921637e-08, y: -.467250764, z: -.0172996279}
+      rotation: {x: -5.82075899e-09, y: 1.16415322e-08, z: 8.73114914e-09, w: 1}
+      scale: {x: 1.00000024, y: 1, z: 1.00000012}
+      transformModified: 1
+    - name: Alexis:LeftFoot
+      position: {x: -.0001260438, y: -.341943383, z: -.00847687759}
+      rotation: {x: 5.82075899e-09, y: -2.96461498e-17, z: -3.63797836e-09, w: 1}
+      scale: {x: 1, y: .99999994, z: .999999881}
+      transformModified: 1
+    - name: Alexis:LeftToeBase
+      position: {x: .0018328802, y: -.121930897, z: .0828225985}
+      rotation: {x: -1.42108547e-14, y: -2.91038349e-09, z: 2.77555756e-15, w: 1}
+      scale: {x: .99999994, y: 1.00000012, z: 1}
+      transformModified: 1
+    - name: Alexis:LeftFootToeBase_End
+      position: {x: 9.53674295e-09, y: -9.72938578e-05, z: .0960000008}
+      rotation: {x: -3.30873113e-24, y: -3.72530007e-09, z: -8.8817842e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Alexis:RightUpLeg
+      position: {x: .0963378772, y: -.0327326097, z: -8.86053719e-09}
+      rotation: {x: -7.10542736e-15, y: 1.47341547e-24, z: 1.72803993e-09, w: 1}
+      scale: {x: 1, y: .99999994, z: .999999821}
+      transformModified: 1
+    - name: Alexis:RightLeg
+      position: {x: -1.65160188e-08, y: -.467251033, z: -.0172996745}
+      rotation: {x: 1.21973437e-32, y: 8.38195162e-24, z: -2.22044605e-16, w: 1}
+      scale: {x: 1, y: .999999762, z: 1}
+      transformModified: 1
+    - name: Alexis:RightFoot
+      position: {x: -.00012602775, y: -.341943294, z: -.00847685337}
+      rotation: {x: 9.09565895e-11, y: 1.16415322e-08, z: -1.40971657e-09, w: 1}
+      scale: {x: 1, y: 1, z: 1.00000012}
+      transformModified: 1
+    - name: Alexis:RightToeBase
+      position: {x: .0018330717, y: -.121930897, z: .0828226283}
+      rotation: {x: -9.09921027e-11, y: 1.16415304e-08, z: -4.5469184e-11, w: 1}
+      scale: {x: 1.00000012, y: .999999821, z: .999999821}
+      transformModified: 1
+    - name: Alexis:RightFootToeBase_End
+      position: {x: -3.19671635e-05, y: -9.72938506e-05, z: .0960000083}
+      rotation: {x: 2.8421706e-14, y: -1.49011683e-08, z: -1.77635599e-15, w: 1}
+      scale: {x: 1.00000012, y: 1.00000012, z: 1.00000012}
+      transformModified: 1
+    - name: Alexis:Spine
+      position: {x: -6.41737496e-10, y: .092262961, z: .0157713052}
+      rotation: {x: 1.45519152e-09, y: -3.63797881e-10, z: 3.63797881e-10, w: 1}
+      scale: {x: .999999881, y: 1.00000012, z: .999999881}
+      transformModified: 1
+    - name: Alexis:Spine1
+      position: {x: 1.7620852e-10, y: .162540585, z: -.00165602739}
+      rotation: {x: -2.91038305e-09, y: 7.27595761e-10, z: -2.04636308e-10, w: 1}
+      scale: {x: 1.00000012, y: 1, z: 1}
+      transformModified: 1
+    - name: Alexis:Spine2
+      position: {x: 1.75255954e-09, y: .136395723, z: -.0129230823}
+      rotation: {x: 1.45519152e-09, y: 2.19947143e-17, z: 2.72848411e-10, w: 1}
+      scale: {x: .99999994, y: .999999821, z: .999999821}
+      transformModified: 1
+    - name: Alexis:LeftShoulder
+      position: {x: -.0614422932, y: .10187076, z: -.0379324295}
+      rotation: {x: -1.02260203e-18, y: 6.93284473e-18, z: 2.81090706e-09, w: 1}
+      scale: {x: 1, y: .99999994, z: 1}
+      transformModified: 1
+    - name: Alexis:LeftArm
+      position: {x: -.0901903734, y: -.0111301085, z: -.0179347433}
+      rotation: {x: -1.05879129e-18, y: -3.63797936e-10, z: -5.9685562e-11, w: 1}
+      scale: {x: 1, y: 1, z: 1.00000024}
+      transformModified: 1
+    - name: Alexis:LeftForeArm
+      position: {x: -.276870131, y: -1.48113344e-07, z: 1.34311904e-07}
+      rotation: {x: -1.16415393e-08, y: -3.4924593e-08, z: -2.91038349e-09, w: 1}
+      scale: {x: 1, y: 1, z: .999999821}
+      transformModified: 1
+    - name: Alexis:LeftHand
+      position: {x: -.278737605, y: -1.48804716e-07, z: -5.48334107e-08}
+      rotation: {x: -5.82076538e-08, y: 3.4924593e-08, z: 2.88354389e-15, w: 1}
+      scale: {x: 1, y: .99999994, z: .999999881}
+      transformModified: 1
+    - name: Alexis:LeftHandIndex1
+      position: {x: -.10072428, y: .0048959814, z: .0276109558}
+      rotation: {x: 4.65661287e-08, y: 1.16415322e-08, z: 1.05644649e-15, w: 1}
+      scale: {x: .99999994, y: .999999881, z: 1}
+      transformModified: 1
+    - name: Alexis:LeftHandIndex2
+      position: {x: -.0373407006, y: -4.17927914e-10, z: .000512532017}
+      rotation: {x: 1.16415322e-08, y: 1.1641534e-08, z: -3.49245965e-08, w: 1}
+      scale: {x: 1.00000012, y: 1.00000024, z: 1.00000012}
+      transformModified: 1
+    - name: Alexis:LeftHandIndex3
+      position: {x: -.0287371986, y: -.00136407861, z: 5.32601767e-08}
+      rotation: {x: 5.02472503e-05, y: -.00105638604, z: .0517315976, w: .998660505}
+      scale: {x: .999999642, y: .999999702, z: .999999881}
+      transformModified: 1
+    - name: Alexis:LeftHandIndex4
+      position: {x: -.0193719473, y: .00261611934, z: 7.22312907e-05}
+      rotation: {x: 1.86264568e-08, y: -1.30385169e-08, z: 2.98023259e-08, w: 1}
+      scale: {x: .99999994, y: .99999994, z: 1}
+      transformModified: 1
+    - name: Alexis:LeftHandMiddle1
+      position: {x: -.101948023, y: .00718161371, z: .00978171267}
+      rotation: {x: 9.31322504e-08, y: 6.2260945e-17, z: -2.77555756e-17, w: 1}
+      scale: {x: .99999994, y: 1, z: .999999881}
+      transformModified: 1
+    - name: Alexis:LeftHandMiddle2
+      position: {x: -.0396013856, y: -.000470847241, z: .000641435501}
+      rotation: {x: -4.65661287e-08, y: 2.32830608e-08, z: 2.47644264e-22, w: 1}
+      scale: {x: 1, y: 1.00000024, z: 1.00000012}
+      transformModified: 1
+    - name: Alexis:LeftHandMiddle3
+      position: {x: -.0286003388, y: -.00226094504, z: 5.51649791e-05}
+      rotation: {x: -1.70156345e-05, y: .00124693697, z: .0422765873, w: .999105155}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Alexis:LeftHandMiddle4
+      position: {x: -.0199950412, y: .00169826508, z: -5.81550594e-05}
+      rotation: {x: -7.45058237e-09, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: .99999994, z: .99999994}
+      transformModified: 1
+    - name: Alexis:LeftHandPinky1
+      position: {x: -.0967796445, y: -.00119149394, z: -.0255252291}
+      rotation: {x: 9.31322575e-08, y: -2.32830608e-08, z: 1.16415304e-08, w: 1}
+      scale: {x: 1, y: 1.00000012, z: .99999994}
+      transformModified: 1
+    - name: Alexis:LeftHandPinky2
+      position: {x: -.0309386849, y: -.000761805393, z: .000167967475}
+      rotation: {x: -8.13151576e-16, y: -7.21083468e-15, z: -3.49245965e-08, w: 1}
+      scale: {x: 1.00000012, y: .999999821, z: 1}
+      transformModified: 1
+    - name: Alexis:LeftHandPinky3
+      position: {x: -.0272250175, y: -.000640095561, z: .000231550526}
+      rotation: {x: .000137405703, y: .00276837451, z: .0238072276, w: .999712765}
+      scale: {x: 1, y: .99999994, z: 1.00000024}
+      transformModified: 1
+    - name: Alexis:LeftHandPinky4
+      position: {x: -.0172827151, y: .00181087491, z: -.000110845562}
+      rotation: {x: 1.86264515e-09, y: -2.88709963e-08, z: 1.49011594e-08, w: 1}
+      scale: {x: 1, y: 1.00000012, z: 1.00000012}
+      transformModified: 1
+    - name: Alexis:LeftHandRing1
+      position: {x: -.0993022919, y: .00591957709, z: -.0095861461}
+      rotation: {x: 6.98491931e-08, y: -1.1641534e-08, z: 5.82076609e-09, w: 1}
+      scale: {x: .999999821, y: 1.00000012, z: .999999881}
+      transformModified: 1
+    - name: Alexis:LeftHandRing2
+      position: {x: -.0386450887, y: -.00198948383, z: -.000147454193}
+      rotation: {x: -2.06795342e-23, y: -3.4924593e-08, z: 1.74622947e-08, w: 1}
+      scale: {x: .999999881, y: .99999994, z: 1.00000012}
+      transformModified: 1
+    - name: Alexis:LeftHandRing3
+      position: {x: -.0291198492, y: -.00134879176, z: -.000284102629}
+      rotation: {x: -1.16415331e-08, y: 4.65661287e-08, z: -3.4924593e-08, w: 1}
+      scale: {x: .999999881, y: .999999762, z: .999999881}
+      transformModified: 1
+    - name: Alexis:LeftHandRing4
+      position: {x: -.0208331291, y: .00063007354, z: -.000199966424}
+      rotation: {x: 0, y: -1.67638081e-08, z: -0, w: 1}
+      scale: {x: .999999881, y: .999999821, z: .99999994}
+      transformModified: 1
+    - name: Alexis:LeftHandThumb1
+      position: {x: -.0251777787, y: -.00936657563, z: .0251366217}
+      rotation: {x: -.0613084696, y: .0416107811, z: -.0530008897, w: .995841742}
+      scale: {x: .999999821, y: 1, z: 1.00000012}
+      transformModified: 1
+    - name: Alexis:LeftHandThumb2
+      position: {x: -.0330887437, y: -.0114918323, z: .0292530879}
+      rotation: {x: .0131327463, y: .0559449345, z: .0368322171, w: .997667849}
+      scale: {x: 1.00000024, y: 1.00000024, z: 1.00000012}
+      transformModified: 1
+    - name: Alexis:LeftHandThumb3
+      position: {x: -.0282794908, y: -.00457367348, z: .0170300789}
+      rotation: {x: .000173082008, y: -.0315506384, z: -.00818597712, w: .999468684}
+      scale: {x: 1.00000012, y: 1.00000012, z: 1}
+      transformModified: 1
+    - name: Alexis:LeftHandThumb4
+      position: {x: -.031520918, y: -.00686702691, z: .0258004759}
+      rotation: {x: -3.72529119e-09, y: 0, z: -0, w: 1}
+      scale: {x: .999999821, y: .99999994, z: .99999994}
+      transformModified: 1
+    - name: Alexis:Neck
+      position: {x: -6.63381072e-10, y: .138774276, z: -.0435418636}
+      rotation: {x: 4.54676297e-11, y: -6.94098435e-17, z: -1.70530257e-10, w: 1}
+      scale: {x: 1.00000012, y: 1.00000024, z: .999999881}
+      transformModified: 1
+    - name: Alexis:Neck1
+      position: {x: -2.22544272e-09, y: .0434003286, z: .00926894508}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: .999999881, y: .99999994, z: .999999881}
+      transformModified: 1
+    - name: Alexis:Head
+      position: {x: 2.06270268e-09, y: .0402656794, z: .00858516619}
+      rotation: {x: 5.77529846e-09, y: -3.63797825e-10, z: 1.0231814e-10, w: 1}
+      scale: {x: 1, y: 1.00000012, z: 1}
+      transformModified: 1
+    - name: Alexis:HeadTop_End
+      position: {x: -0, y: .178865969, z: .00123128889}
+      rotation: {x: -3.7252903e-09, y: 5.09317033e-10, z: 1.16415322e-10, w: 1}
+      scale: {x: 1, y: 1, z: 1.00000024}
+      transformModified: 1
+    - name: Alexis:Jaw
+      position: {x: -1.03477915e-09, y: .000842072419, z: .0522751473}
+      rotation: {x: -1.32348859e-19, y: -1.4551913e-09, z: -9.09494424e-11, w: 1}
+      scale: {x: 1, y: 1, z: 1.00000024}
+      transformModified: 1
+    - name: Alexis:JawEND
+      position: {x: -3.13711244e-11, y: -.0234805215, z: .0908210725}
+      rotation: {x: 1.32348885e-19, y: 7.9381711e-18, z: 9.09494771e-11, w: 1}
+      scale: {x: 1.00000012, y: 1, z: 1.00000024}
+      transformModified: 1
+    - name: Alexis:LeftLipCorner
+      position: {x: -.0364342146, y: .00174106553, z: .0800041556}
+      rotation: {x: 1.32348885e-19, y: 7.9381711e-18, z: 9.09494702e-11, w: 1}
+      scale: {x: 1, y: 1, z: 1.00000012}
+      transformModified: 1
+    - name: Alexis:LeftLipLower
+      position: {x: -.0142508149, y: -.00884497818, z: .0968549401}
+      rotation: {x: 1.32348885e-19, y: 7.9381711e-18, z: 9.09494702e-11, w: 1}
+      scale: {x: 1, y: 1, z: 1.00000012}
+      transformModified: 1
+    - name: Alexis:RightLipCorner
+      position: {x: .0364342108, y: .00174091884, z: .0800041556}
+      rotation: {x: 1.32348885e-19, y: 7.9381711e-18, z: 9.09494702e-11, w: 1}
+      scale: {x: 1, y: 1, z: 1.00000012}
+      transformModified: 1
+    - name: Alexis:RightLipLower
+      position: {x: .014250814, y: -.00884512998, z: .0968548954}
+      rotation: {x: 1.32348885e-19, y: 7.9381711e-18, z: 9.09494702e-11, w: 1}
+      scale: {x: 1, y: 1, z: 1.00000012}
+      transformModified: 1
+    - name: Alexis:TongueBack
+      position: {x: 1.62255293e-10, y: -.00818005577, z: .0557505153}
+      rotation: {x: 1.32348872e-19, y: 7.93817027e-18, z: 9.09494702e-11, w: 1}
+      scale: {x: 1, y: 1, z: 1.00000012}
+      transformModified: 1
+    - name: Alexis:TongueTip
+      position: {x: -6.25769506e-11, y: -.0139680626, z: .0800987631}
+      rotation: {x: 1.32348885e-19, y: 7.9381711e-18, z: 9.09494702e-11, w: 1}
+      scale: {x: 1, y: 1, z: 1.00000012}
+      transformModified: 1
+    - name: Alexis:LeftCheek
+      position: {x: -.0492222011, y: .033220008, z: .133515641}
+      rotation: {x: -1.32348859e-19, y: -1.4551913e-09, z: -9.09494424e-11, w: 1}
+      scale: {x: 1, y: 1.00000012, z: 1.00000024}
+      transformModified: 1
+    - name: Alexis:LeftEye
+      position: {x: -.0357169807, y: .0765716136, z: .11582233}
+      rotation: {x: -1.32348859e-19, y: -1.4551913e-09, z: -9.09494424e-11, w: 1}
+      scale: {x: 1, y: 1, z: 1.00000024}
+      transformModified: 1
+    - name: Alexis:LeftEyelidLower
+      position: {x: -.0357169844, y: .076572217, z: .115822308}
+      rotation: {x: -.0348995179, y: -7.27152505e-10, z: -2.53927331e-11, w: .999390841}
+      scale: {x: 1, y: 1.00000036, z: 1.00000024}
+      transformModified: 1
+    - name: Alexis:LeftEyelidUpper
+      position: {x: -.0357169807, y: .076571472, z: .11582233}
+      rotation: {x: -1.32348859e-19, y: -1.4551913e-09, z: -9.09494424e-11, w: 1}
+      scale: {x: 1, y: 1, z: 1.00000012}
+      transformModified: 1
+    - name: Alexis:LeftInnerBrow
+      position: {x: -.0186104309, y: .0967900902, z: .152297497}
+      rotation: {x: -1.32348833e-19, y: -1.4551913e-09, z: -9.09494285e-11, w: 1}
+      scale: {x: 1.00000012, y: 1, z: 1.00000036}
+      transformModified: 1
+    - name: Alexis:LeftIOuterBrow
+      position: {x: -.0530204959, y: .0944440514, z: .134605274}
+      rotation: {x: -1.32348833e-19, y: -1.4551913e-09, z: -9.09494285e-11, w: 1}
+      scale: {x: 1.00000012, y: 1, z: 1.00000036}
+      transformModified: 1
+    - name: Alexis:LeftLipUpper
+      position: {x: -.0145013137, y: .00518609397, z: .156133816}
+      rotation: {x: -1.32348859e-19, y: -1.4551913e-09, z: -9.09494424e-11, w: 1}
+      scale: {x: 1, y: 1, z: 1.00000012}
+      transformModified: 1
+    - name: Alexis:LeftNostril
+      position: {x: -.0214520693, y: .0244439412, z: .155013755}
+      rotation: {x: -1.32348833e-19, y: -1.4551913e-09, z: -9.09494285e-11, w: 1}
+      scale: {x: 1.00000012, y: 1, z: 1.00000036}
+      transformModified: 1
+    - name: Alexis:RightCheek
+      position: {x: .0492221937, y: .0332201868, z: .133515671}
+      rotation: {x: -1.32348833e-19, y: -1.4551913e-09, z: -9.09494285e-11, w: 1}
+      scale: {x: 1.00000012, y: 1, z: 1.00000036}
+      transformModified: 1
+    - name: Alexis:RightEye
+      position: {x: .0357169844, y: .0765716136, z: .115822345}
+      rotation: {x: -1.32348859e-19, y: -1.4551913e-09, z: -9.09494424e-11, w: 1}
+      scale: {x: 1, y: 1, z: 1.00000024}
+      transformModified: 1
+    - name: Alexis:RightEyelidLower
+      position: {x: .0357169881, y: .076572217, z: .115822323}
+      rotation: {x: -.0348995179, y: -7.27152505e-10, z: -2.53927331e-11, w: .999390841}
+      scale: {x: 1, y: 1.00000036, z: 1.00000024}
+      transformModified: 1
+    - name: Alexis:RightEyelidUpper
+      position: {x: .0357169844, y: .0765716136, z: .115822345}
+      rotation: {x: -1.32348859e-19, y: -1.4551913e-09, z: -9.09494424e-11, w: 1}
+      scale: {x: 1, y: 1, z: 1.00000024}
+      transformModified: 1
+    - name: Alexis:RightInnerBrow
+      position: {x: .0186104253, y: .0967900902, z: .152297467}
+      rotation: {x: -1.32348833e-19, y: -1.4551913e-09, z: -9.09494285e-11, w: 1}
+      scale: {x: 1.00000012, y: 1, z: 1.00000036}
+      transformModified: 1
+    - name: Alexis:RightIOuterBrow
+      position: {x: .0530204959, y: .0944440514, z: .134605303}
+      rotation: {x: -1.32348833e-19, y: -1.4551913e-09, z: -9.09494285e-11, w: 1}
+      scale: {x: 1.00000012, y: 1, z: 1.00000036}
+      transformModified: 1
+    - name: Alexis:RightLipUpper
+      position: {x: .01450131, y: .00518609397, z: .156133831}
+      rotation: {x: -1.32348859e-19, y: -1.4551913e-09, z: -9.09494424e-11, w: 1}
+      scale: {x: 1, y: 1, z: 1.00000012}
+      transformModified: 1
+    - name: Alexis:RightNostril
+      position: {x: .0214520637, y: .0244440604, z: .155013755}
+      rotation: {x: -1.32348833e-19, y: -1.4551913e-09, z: -9.09494285e-11, w: 1}
+      scale: {x: 1.00000012, y: 1, z: 1.00000036}
+      transformModified: 1
+    - name: Alexis:RightShoulder
+      position: {x: .0614019297, y: .101871073, z: -.0379324257}
+      rotation: {x: 1.09140075e-09, y: -6.18456397e-09, z: 7.50333073e-10, w: 1}
+      scale: {x: 1, y: 1.00000012, z: 1}
+      transformModified: 1
+    - name: Alexis:RightArm
+      position: {x: .0902308524, y: -.0111302733, z: -.0179347042}
+      rotation: {x: -2.43744651e-08, y: 5.82076609e-09, z: 2.72848477e-09, w: 1}
+      scale: {x: 1.00000012, y: 1, z: 1.00000024}
+      transformModified: 1
+    - name: Alexis:RightForeArm
+      position: {x: .27687034, y: 2.95581032e-07, z: 1.87625076e-07}
+      rotation: {x: 1.16415322e-08, y: -1.16415322e-08, z: -1.5279511e-08, w: 1}
+      scale: {x: .999999821, y: .99999994, z: .999999881}
+      transformModified: 1
+    - name: Alexis:RightHand
+      position: {x: .278737694, y: -4.40037951e-07, z: -1.8578416e-07}
+      rotation: {x: 3.49245894e-08, y: -7.52037871e-17, z: 5.82076476e-09, w: 1}
+      scale: {x: 1, y: 1.00000012, z: .99999994}
+      transformModified: 1
+    - name: Alexis:RightHandIndex1
+      position: {x: .100723624, y: .0048952424, z: .0276108291}
+      rotation: {x: -4.65661216e-08, y: 3.63797916e-08, z: 1.01863415e-08, w: 1}
+      scale: {x: .999999821, y: .999999762, z: 1}
+      transformModified: 1
+    - name: Alexis:RightHandIndex2
+      position: {x: .0373409986, y: 2.98146063e-07, z: .000512684637}
+      rotation: {x: -4.57397897e-16, y: -3.05590255e-08, z: 1.30967228e-08, w: 1}
+      scale: {x: 1.00000036, y: 1.00000024, z: 1}
+      transformModified: 1
+    - name: Alexis:RightHandIndex3
+      position: {x: .0287373438, y: -.00136392575, z: -4.27559321e-08}
+      rotation: {x: .000165094985, y: .00347823976, z: -.0194962043, w: .999803901}
+      scale: {x: .999999821, y: .999999642, z: 1}
+      transformModified: 1
+    - name: Alexis:RightHandIndex4
+      position: {x: .0190396123, y: .00136451714, z: .000404644001}
+      rotation: {x: -7.45058149e-09, y: 2.23517436e-08, z: 1.6653348e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Alexis:RightHandMiddle1
+      position: {x: .101947665, y: .00718161603, z: .00978163257}
+      rotation: {x: -6.9849186e-08, y: 2.18278751e-09, z: 6.54836185e-09, w: 1}
+      scale: {x: .99999994, y: 1, z: 1.00000012}
+      transformModified: 1
+    - name: Alexis:RightHandMiddle2
+      position: {x: .0396018028, y: -.000470400002, z: .000641486724}
+      rotation: {x: 6.9849186e-08, y: 9.4587449e-09, z: -7.27595317e-10, w: 1}
+      scale: {x: 1.00000012, y: .999999881, z: .999999821}
+      transformModified: 1
+    - name: Alexis:RightHandMiddle3
+      position: {x: .0285999589, y: -.00226170197, z: 5.51901794e-05}
+      rotation: {x: 2.48354877e-06, y: -.000187371304, z: -.00898825563, w: .999959588}
+      scale: {x: 1, y: 1, z: .99999994}
+      transformModified: 1
+    - name: Alexis:RightHandMiddle4
+      position: {x: .0209564213, y: .000446472171, z: -3.40461725e-06}
+      rotation: {x: 7.4505806e-09, y: 2.23517418e-08, z: -1.49011612e-08, w: 1}
+      scale: {x: .99999994, y: 1, z: .99999994}
+      transformModified: 1
+    - name: Alexis:RightHandPinky1
+      position: {x: .0967799425, y: -.00119116891, z: -.0255253557}
+      rotation: {x: 2.32830715e-08, y: -7.27595983e-09, z: 9.45874579e-09, w: 1}
+      scale: {x: 1.00000012, y: 1.00000012, z: 1.00000012}
+      transformModified: 1
+    - name: Alexis:RightHandPinky2
+      position: {x: .0309380293, y: -.000762433046, z: .000168028811}
+      rotation: {x: -4.65661287e-08, y: 3.05590255e-08, z: -2.69210467e-08, w: 1}
+      scale: {x: .999999821, y: .999999702, z: .999999821}
+      transformModified: 1
+    - name: Alexis:RightHandPinky3
+      position: {x: .0272247791, y: -.000640271639, z: .000231520564}
+      rotation: {x: .000236429987, y: .005031629, z: -.0138879949, w: .999890864}
+      scale: {x: .999999821, y: .999999702, z: .99999994}
+      transformModified: 1
+    - name: Alexis:RightHandPinky4
+      position: {x: .0172469318, y: .00140296936, z: .000801906572}
+      rotation: {x: -7.4505806e-09, y: 7.4505806e-09, z: 1.49011612e-08, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Alexis:RightHandRing1
+      position: {x: .0993020535, y: .00591942668, z: -.00958618894}
+      rotation: {x: -2.32830573e-08, y: 1.2005331e-08, z: 6.18456397e-09, w: 1}
+      scale: {x: 1.00000024, y: 1.00000024, z: 1}
+      transformModified: 1
+    - name: Alexis:RightHandRing2
+      position: {x: .0386450291, y: -.00198948337, z: -.000147319501}
+      rotation: {x: 2.32830573e-08, y: 2.29192629e-08, z: 3.45607987e-08, w: 1}
+      scale: {x: .99999994, y: .999999523, z: 1.00000012}
+      transformModified: 1
+    - name: Alexis:RightHandRing3
+      position: {x: .0291198492, y: -.00134864601, z: -.000284178008}
+      rotation: {x: 6.00765634e-05, y: .00425580377, z: -.0140431961, w: .999892354}
+      scale: {x: .999999762, y: 1, z: 1}
+      transformModified: 1
+    - name: Alexis:RightHandRing4
+      position: {x: .0215934757, y: .00129760744, z: .000485620491}
+      rotation: {x: -7.45057971e-09, y: -7.45057971e-09, z: -5.5511138e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1.00000012}
+      transformModified: 1
+    - name: Alexis:RightHandThumb1
+      position: {x: .025177598, y: -.009366869, z: .0251366422}
+      rotation: {x: -.0613105893, y: -.0416077748, z: .053002432, w: .995841682}
+      scale: {x: .99999994, y: .99999994, z: 1.00000024}
+      transformModified: 1
+    - name: Alexis:RightHandThumb2
+      position: {x: .0330882072, y: -.0114921331, z: .0292532817}
+      rotation: {x: .0131345801, y: -.0559546314, z: -.0368379876, w: .997667074}
+      scale: {x: .99999994, y: .999999881, z: .999999821}
+      transformModified: 1
+    - name: Alexis:RightHandThumb3
+      position: {x: .0282799006, y: -.00457337545, z: .0170299485}
+      rotation: {x: -.000615925936, y: .0412071869, z: .0120892413, w: .99907738}
+      scale: {x: .999999881, y: 1, z: 1}
+      transformModified: 1
+    - name: Alexis:RightHandThumb4
+      position: {x: .0299635306, y: -.00702125533, z: .0254590213}
+      rotation: {x: -2.88710034e-08, y: 0, z: -0, w: 1}
+      scale: {x: .999999881, y: .999999881, z: .999999881}
+      transformModified: 1
+    - name: Alexis_Geo_High
+      position: {x: -.00052711484, y: 0, z: .0078948969}
+      rotation: {x: 8.14603425e-08, y: 0, z: 0, w: 1}
+      scale: {x: .393700778, y: .393700778, z: .393700778}
+      transformModified: 1
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 3
+  additionalBone: 0
+  userData: 

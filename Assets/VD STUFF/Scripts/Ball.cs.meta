@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: 7c89265e4cd44a34abf642c6d2589ef9
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - hitParticle: {fileID: 100000, guid: 65a49b17825fd0340915d813519f8dfb, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 

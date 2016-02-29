@@ -1,0 +1,948 @@
+fileFormatVersion: 2
+guid: 03dadb9041955b14bb387811e1cf9ca0
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: abdomen_mid
+    100002: abdomen_pivot
+    100004: body_root
+    100006: ebdomen_end
+    100008: face
+    100010: joint_GRP
+    100012: l_ankle_A
+    100014: l_ankle_B
+    100016: l_ankle_C
+    100018: l_ankle_D
+    100020: l_ball_A
+    100022: l_ball_B
+    100024: l_ball_C
+    100026: l_ball_D
+    100028: l_knee1_A
+    100030: l_knee1_B
+    100032: l_knee1_C
+    100034: l_knee1_D
+    100036: l_knee2_A
+    100038: l_knee2_B
+    100040: l_knee2_C
+    100042: l_knee2_D
+    100044: l_palp_end
+    100046: l_palp_mid
+    100048: l_palp_root
+    100050: l_toe_A
+    100052: l_toe_B
+    100054: l_toe_C
+    100056: l_toe_D
+    100058: l_upleg_A
+    100060: l_upleg_B
+    100062: l_upleg_C
+    100064: l_upleg_D
+    100066: r_ankle_A
+    100068: r_ankle_B
+    100070: r_ankle_C
+    100072: r_ankle_D
+    100074: r_ball_A
+    100076: r_ball_B
+    100078: r_ball_C
+    100080: r_ball_D
+    100082: r_knee1_A
+    100084: r_knee1_B
+    100086: r_knee1_C
+    100088: r_knee1_D
+    100090: r_knee2_A
+    100092: r_knee2_B
+    100094: r_knee2_C
+    100096: r_knee2_D
+    100098: r_palp_end
+    100100: r_palp_mid
+    100102: r_palp_root
+    100104: r_toe_A
+    100106: r_toe_B
+    100108: r_toe_C
+    100110: r_toe_D
+    100112: r_upleg_A
+    100114: r_upleg_B
+    100116: r_upleg_C
+    100118: r_upleg_D
+    100120: SpiderFriend
+    100122: //RootNode
+    400000: abdomen_mid
+    400002: abdomen_pivot
+    400004: body_root
+    400006: ebdomen_end
+    400008: face
+    400010: joint_GRP
+    400012: l_ankle_A
+    400014: l_ankle_B
+    400016: l_ankle_C
+    400018: l_ankle_D
+    400020: l_ball_A
+    400022: l_ball_B
+    400024: l_ball_C
+    400026: l_ball_D
+    400028: l_knee1_A
+    400030: l_knee1_B
+    400032: l_knee1_C
+    400034: l_knee1_D
+    400036: l_knee2_A
+    400038: l_knee2_B
+    400040: l_knee2_C
+    400042: l_knee2_D
+    400044: l_palp_end
+    400046: l_palp_mid
+    400048: l_palp_root
+    400050: l_toe_A
+    400052: l_toe_B
+    400054: l_toe_C
+    400056: l_toe_D
+    400058: l_upleg_A
+    400060: l_upleg_B
+    400062: l_upleg_C
+    400064: l_upleg_D
+    400066: r_ankle_A
+    400068: r_ankle_B
+    400070: r_ankle_C
+    400072: r_ankle_D
+    400074: r_ball_A
+    400076: r_ball_B
+    400078: r_ball_C
+    400080: r_ball_D
+    400082: r_knee1_A
+    400084: r_knee1_B
+    400086: r_knee1_C
+    400088: r_knee1_D
+    400090: r_knee2_A
+    400092: r_knee2_B
+    400094: r_knee2_C
+    400096: r_knee2_D
+    400098: r_palp_end
+    400100: r_palp_mid
+    400102: r_palp_root
+    400104: r_toe_A
+    400106: r_toe_B
+    400108: r_toe_C
+    400110: r_toe_D
+    400112: r_upleg_A
+    400114: r_upleg_B
+    400116: r_upleg_C
+    400118: r_upleg_D
+    400120: SpiderFriend
+    400122: //RootNode
+    4300000: SpiderFriend
+    7400000: Take 001
+    7400002: spiderDrop
+    7400004: spiderIdle
+    7400006: SpiderUp
+    7400008: spiderStart
+    9500000: //RootNode
+    13700000: SpiderFriend
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 200
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: joint_GRP
+        weight: 1
+      - path: joint_GRP/body_root
+        weight: 1
+      - path: joint_GRP/body_root/abdomen_pivot
+        weight: 1
+      - path: joint_GRP/body_root/abdomen_pivot/abdomen_mid
+        weight: 1
+      - path: joint_GRP/body_root/abdomen_pivot/abdomen_mid/ebdomen_end
+        weight: 1
+      - path: joint_GRP/body_root/face
+        weight: 1
+      - path: joint_GRP/body_root/face/l_palp_root
+        weight: 1
+      - path: joint_GRP/body_root/face/l_palp_root/l_palp_mid
+        weight: 1
+      - path: joint_GRP/body_root/face/l_palp_root/l_palp_mid/l_palp_end
+        weight: 1
+      - path: joint_GRP/body_root/face/r_palp_root
+        weight: 1
+      - path: joint_GRP/body_root/face/r_palp_root/r_palp_mid
+        weight: 1
+      - path: joint_GRP/body_root/face/r_palp_root/r_palp_mid/r_palp_end
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_A
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_A/l_knee1_A
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_A/l_knee1_A/l_knee2_A
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_A/l_knee1_A/l_knee2_A/l_ankle_A
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_A/l_knee1_A/l_knee2_A/l_ankle_A/l_ball_A
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_A/l_knee1_A/l_knee2_A/l_ankle_A/l_ball_A/l_toe_A
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_B
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_B/l_knee1_B
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_B/l_knee1_B/l_knee2_B
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_B/l_knee1_B/l_knee2_B/l_ankle_B
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_B/l_knee1_B/l_knee2_B/l_ankle_B/l_ball_B
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_B/l_knee1_B/l_knee2_B/l_ankle_B/l_ball_B/l_toe_B
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_C
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_C/l_knee1_C
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_C/l_knee1_C/l_knee2_C
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_C/l_knee1_C/l_knee2_C/l_ankle_C
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_C/l_knee1_C/l_knee2_C/l_ankle_C/l_ball_C
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_C/l_knee1_C/l_knee2_C/l_ankle_C/l_ball_C/l_toe_C
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_D
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_D/l_knee1_D
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_D/l_knee1_D/l_knee2_D
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_D/l_knee1_D/l_knee2_D/l_ankle_D
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_D/l_knee1_D/l_knee2_D/l_ankle_D/l_ball_D
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_D/l_knee1_D/l_knee2_D/l_ankle_D/l_ball_D/l_toe_D
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_A
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_A/r_knee1_A
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_A/r_knee1_A/r_knee2_A
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_A/r_knee1_A/r_knee2_A/r_ankle_A
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_A/r_knee1_A/r_knee2_A/r_ankle_A/r_ball_A
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_A/r_knee1_A/r_knee2_A/r_ankle_A/r_ball_A/r_toe_A
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_B
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_B/r_knee1_B
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_B/r_knee1_B/r_knee2_B
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_B/r_knee1_B/r_knee2_B/r_ankle_B
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_B/r_knee1_B/r_knee2_B/r_ankle_B/r_ball_B
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_B/r_knee1_B/r_knee2_B/r_ankle_B/r_ball_B/r_toe_B
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_C
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_C/r_knee1_C
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_C/r_knee1_C/r_knee2_C
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_C/r_knee1_C/r_knee2_C/r_ankle_C
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_C/r_knee1_C/r_knee2_C/r_ankle_C/r_ball_C
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_C/r_knee1_C/r_knee2_C/r_ankle_C/r_ball_C/r_toe_C
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_D
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_D/r_knee1_D
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_D/r_knee1_D/r_knee2_D
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_D/r_knee1_D/r_knee2_D/r_ankle_D
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_D/r_knee1_D/r_knee2_D/r_ankle_D/r_ball_D
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_D/r_knee1_D/r_knee2_D/r_ankle_D/r_ball_D/r_toe_D
+        weight: 1
+      - path: SpiderFriend
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: spiderDrop
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 49
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: joint_GRP
+        weight: 1
+      - path: joint_GRP/body_root
+        weight: 1
+      - path: joint_GRP/body_root/abdomen_pivot
+        weight: 1
+      - path: joint_GRP/body_root/abdomen_pivot/abdomen_mid
+        weight: 1
+      - path: joint_GRP/body_root/abdomen_pivot/abdomen_mid/ebdomen_end
+        weight: 1
+      - path: joint_GRP/body_root/face
+        weight: 1
+      - path: joint_GRP/body_root/face/l_palp_root
+        weight: 1
+      - path: joint_GRP/body_root/face/l_palp_root/l_palp_mid
+        weight: 1
+      - path: joint_GRP/body_root/face/l_palp_root/l_palp_mid/l_palp_end
+        weight: 1
+      - path: joint_GRP/body_root/face/r_palp_root
+        weight: 1
+      - path: joint_GRP/body_root/face/r_palp_root/r_palp_mid
+        weight: 1
+      - path: joint_GRP/body_root/face/r_palp_root/r_palp_mid/r_palp_end
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_A
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_A/l_knee1_A
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_A/l_knee1_A/l_knee2_A
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_A/l_knee1_A/l_knee2_A/l_ankle_A
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_A/l_knee1_A/l_knee2_A/l_ankle_A/l_ball_A
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_A/l_knee1_A/l_knee2_A/l_ankle_A/l_ball_A/l_toe_A
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_B
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_B/l_knee1_B
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_B/l_knee1_B/l_knee2_B
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_B/l_knee1_B/l_knee2_B/l_ankle_B
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_B/l_knee1_B/l_knee2_B/l_ankle_B/l_ball_B
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_B/l_knee1_B/l_knee2_B/l_ankle_B/l_ball_B/l_toe_B
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_C
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_C/l_knee1_C
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_C/l_knee1_C/l_knee2_C
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_C/l_knee1_C/l_knee2_C/l_ankle_C
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_C/l_knee1_C/l_knee2_C/l_ankle_C/l_ball_C
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_C/l_knee1_C/l_knee2_C/l_ankle_C/l_ball_C/l_toe_C
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_D
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_D/l_knee1_D
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_D/l_knee1_D/l_knee2_D
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_D/l_knee1_D/l_knee2_D/l_ankle_D
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_D/l_knee1_D/l_knee2_D/l_ankle_D/l_ball_D
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_D/l_knee1_D/l_knee2_D/l_ankle_D/l_ball_D/l_toe_D
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_A
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_A/r_knee1_A
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_A/r_knee1_A/r_knee2_A
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_A/r_knee1_A/r_knee2_A/r_ankle_A
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_A/r_knee1_A/r_knee2_A/r_ankle_A/r_ball_A
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_A/r_knee1_A/r_knee2_A/r_ankle_A/r_ball_A/r_toe_A
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_B
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_B/r_knee1_B
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_B/r_knee1_B/r_knee2_B
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_B/r_knee1_B/r_knee2_B/r_ankle_B
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_B/r_knee1_B/r_knee2_B/r_ankle_B/r_ball_B
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_B/r_knee1_B/r_knee2_B/r_ankle_B/r_ball_B/r_toe_B
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_C
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_C/r_knee1_C
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_C/r_knee1_C/r_knee2_C
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_C/r_knee1_C/r_knee2_C/r_ankle_C
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_C/r_knee1_C/r_knee2_C/r_ankle_C/r_ball_C
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_C/r_knee1_C/r_knee2_C/r_ankle_C/r_ball_C/r_toe_C
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_D
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_D/r_knee1_D
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_D/r_knee1_D/r_knee2_D
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_D/r_knee1_D/r_knee2_D/r_ankle_D
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_D/r_knee1_D/r_knee2_D/r_ankle_D/r_ball_D
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_D/r_knee1_D/r_knee2_D/r_ankle_D/r_ball_D/r_toe_D
+        weight: 1
+      - path: SpiderFriend
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: spiderIdle
+      takeName: Take 001
+      firstFrame: 50
+      lastFrame: 139
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: joint_GRP
+        weight: 1
+      - path: joint_GRP/body_root
+        weight: 1
+      - path: joint_GRP/body_root/abdomen_pivot
+        weight: 1
+      - path: joint_GRP/body_root/abdomen_pivot/abdomen_mid
+        weight: 1
+      - path: joint_GRP/body_root/abdomen_pivot/abdomen_mid/ebdomen_end
+        weight: 1
+      - path: joint_GRP/body_root/face
+        weight: 1
+      - path: joint_GRP/body_root/face/l_palp_root
+        weight: 1
+      - path: joint_GRP/body_root/face/l_palp_root/l_palp_mid
+        weight: 1
+      - path: joint_GRP/body_root/face/l_palp_root/l_palp_mid/l_palp_end
+        weight: 1
+      - path: joint_GRP/body_root/face/r_palp_root
+        weight: 1
+      - path: joint_GRP/body_root/face/r_palp_root/r_palp_mid
+        weight: 1
+      - path: joint_GRP/body_root/face/r_palp_root/r_palp_mid/r_palp_end
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_A
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_A/l_knee1_A
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_A/l_knee1_A/l_knee2_A
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_A/l_knee1_A/l_knee2_A/l_ankle_A
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_A/l_knee1_A/l_knee2_A/l_ankle_A/l_ball_A
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_A/l_knee1_A/l_knee2_A/l_ankle_A/l_ball_A/l_toe_A
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_B
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_B/l_knee1_B
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_B/l_knee1_B/l_knee2_B
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_B/l_knee1_B/l_knee2_B/l_ankle_B
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_B/l_knee1_B/l_knee2_B/l_ankle_B/l_ball_B
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_B/l_knee1_B/l_knee2_B/l_ankle_B/l_ball_B/l_toe_B
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_C
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_C/l_knee1_C
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_C/l_knee1_C/l_knee2_C
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_C/l_knee1_C/l_knee2_C/l_ankle_C
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_C/l_knee1_C/l_knee2_C/l_ankle_C/l_ball_C
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_C/l_knee1_C/l_knee2_C/l_ankle_C/l_ball_C/l_toe_C
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_D
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_D/l_knee1_D
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_D/l_knee1_D/l_knee2_D
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_D/l_knee1_D/l_knee2_D/l_ankle_D
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_D/l_knee1_D/l_knee2_D/l_ankle_D/l_ball_D
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_D/l_knee1_D/l_knee2_D/l_ankle_D/l_ball_D/l_toe_D
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_A
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_A/r_knee1_A
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_A/r_knee1_A/r_knee2_A
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_A/r_knee1_A/r_knee2_A/r_ankle_A
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_A/r_knee1_A/r_knee2_A/r_ankle_A/r_ball_A
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_A/r_knee1_A/r_knee2_A/r_ankle_A/r_ball_A/r_toe_A
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_B
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_B/r_knee1_B
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_B/r_knee1_B/r_knee2_B
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_B/r_knee1_B/r_knee2_B/r_ankle_B
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_B/r_knee1_B/r_knee2_B/r_ankle_B/r_ball_B
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_B/r_knee1_B/r_knee2_B/r_ankle_B/r_ball_B/r_toe_B
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_C
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_C/r_knee1_C
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_C/r_knee1_C/r_knee2_C
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_C/r_knee1_C/r_knee2_C/r_ankle_C
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_C/r_knee1_C/r_knee2_C/r_ankle_C/r_ball_C
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_C/r_knee1_C/r_knee2_C/r_ankle_C/r_ball_C/r_toe_C
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_D
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_D/r_knee1_D
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_D/r_knee1_D/r_knee2_D
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_D/r_knee1_D/r_knee2_D/r_ankle_D
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_D/r_knee1_D/r_knee2_D/r_ankle_D/r_ball_D
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_D/r_knee1_D/r_knee2_D/r_ankle_D/r_ball_D/r_toe_D
+        weight: 1
+      - path: SpiderFriend
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: SpiderUp
+      takeName: Take 001
+      firstFrame: 150
+      lastFrame: 200
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: .995025039
+        functionName: Reset
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask:
+      - path: 
+        weight: 1
+      - path: joint_GRP
+        weight: 1
+      - path: joint_GRP/body_root
+        weight: 1
+      - path: joint_GRP/body_root/abdomen_pivot
+        weight: 1
+      - path: joint_GRP/body_root/abdomen_pivot/abdomen_mid
+        weight: 1
+      - path: joint_GRP/body_root/abdomen_pivot/abdomen_mid/ebdomen_end
+        weight: 1
+      - path: joint_GRP/body_root/face
+        weight: 1
+      - path: joint_GRP/body_root/face/l_palp_root
+        weight: 1
+      - path: joint_GRP/body_root/face/l_palp_root/l_palp_mid
+        weight: 1
+      - path: joint_GRP/body_root/face/l_palp_root/l_palp_mid/l_palp_end
+        weight: 1
+      - path: joint_GRP/body_root/face/r_palp_root
+        weight: 1
+      - path: joint_GRP/body_root/face/r_palp_root/r_palp_mid
+        weight: 1
+      - path: joint_GRP/body_root/face/r_palp_root/r_palp_mid/r_palp_end
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_A
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_A/l_knee1_A
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_A/l_knee1_A/l_knee2_A
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_A/l_knee1_A/l_knee2_A/l_ankle_A
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_A/l_knee1_A/l_knee2_A/l_ankle_A/l_ball_A
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_A/l_knee1_A/l_knee2_A/l_ankle_A/l_ball_A/l_toe_A
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_B
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_B/l_knee1_B
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_B/l_knee1_B/l_knee2_B
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_B/l_knee1_B/l_knee2_B/l_ankle_B
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_B/l_knee1_B/l_knee2_B/l_ankle_B/l_ball_B
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_B/l_knee1_B/l_knee2_B/l_ankle_B/l_ball_B/l_toe_B
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_C
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_C/l_knee1_C
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_C/l_knee1_C/l_knee2_C
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_C/l_knee1_C/l_knee2_C/l_ankle_C
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_C/l_knee1_C/l_knee2_C/l_ankle_C/l_ball_C
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_C/l_knee1_C/l_knee2_C/l_ankle_C/l_ball_C/l_toe_C
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_D
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_D/l_knee1_D
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_D/l_knee1_D/l_knee2_D
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_D/l_knee1_D/l_knee2_D/l_ankle_D
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_D/l_knee1_D/l_knee2_D/l_ankle_D/l_ball_D
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_D/l_knee1_D/l_knee2_D/l_ankle_D/l_ball_D/l_toe_D
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_A
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_A/r_knee1_A
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_A/r_knee1_A/r_knee2_A
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_A/r_knee1_A/r_knee2_A/r_ankle_A
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_A/r_knee1_A/r_knee2_A/r_ankle_A/r_ball_A
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_A/r_knee1_A/r_knee2_A/r_ankle_A/r_ball_A/r_toe_A
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_B
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_B/r_knee1_B
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_B/r_knee1_B/r_knee2_B
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_B/r_knee1_B/r_knee2_B/r_ankle_B
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_B/r_knee1_B/r_knee2_B/r_ankle_B/r_ball_B
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_B/r_knee1_B/r_knee2_B/r_ankle_B/r_ball_B/r_toe_B
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_C
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_C/r_knee1_C
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_C/r_knee1_C/r_knee2_C
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_C/r_knee1_C/r_knee2_C/r_ankle_C
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_C/r_knee1_C/r_knee2_C/r_ankle_C/r_ball_C
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_C/r_knee1_C/r_knee2_C/r_ankle_C/r_ball_C/r_toe_C
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_D
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_D/r_knee1_D
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_D/r_knee1_D/r_knee2_D
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_D/r_knee1_D/r_knee2_D/r_ankle_D
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_D/r_knee1_D/r_knee2_D/r_ankle_D/r_ball_D
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_D/r_knee1_D/r_knee2_D/r_ankle_D/r_ball_D/r_toe_D
+        weight: 1
+      - path: SpiderFriend
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: spiderStart
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 1.10000002
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: joint_GRP
+        weight: 1
+      - path: joint_GRP/body_root
+        weight: 1
+      - path: joint_GRP/body_root/abdomen_pivot
+        weight: 1
+      - path: joint_GRP/body_root/abdomen_pivot/abdomen_mid
+        weight: 1
+      - path: joint_GRP/body_root/abdomen_pivot/abdomen_mid/ebdomen_end
+        weight: 1
+      - path: joint_GRP/body_root/face
+        weight: 1
+      - path: joint_GRP/body_root/face/l_palp_root
+        weight: 1
+      - path: joint_GRP/body_root/face/l_palp_root/l_palp_mid
+        weight: 1
+      - path: joint_GRP/body_root/face/l_palp_root/l_palp_mid/l_palp_end
+        weight: 1
+      - path: joint_GRP/body_root/face/r_palp_root
+        weight: 1
+      - path: joint_GRP/body_root/face/r_palp_root/r_palp_mid
+        weight: 1
+      - path: joint_GRP/body_root/face/r_palp_root/r_palp_mid/r_palp_end
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_A
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_A/l_knee1_A
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_A/l_knee1_A/l_knee2_A
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_A/l_knee1_A/l_knee2_A/l_ankle_A
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_A/l_knee1_A/l_knee2_A/l_ankle_A/l_ball_A
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_A/l_knee1_A/l_knee2_A/l_ankle_A/l_ball_A/l_toe_A
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_B
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_B/l_knee1_B
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_B/l_knee1_B/l_knee2_B
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_B/l_knee1_B/l_knee2_B/l_ankle_B
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_B/l_knee1_B/l_knee2_B/l_ankle_B/l_ball_B
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_B/l_knee1_B/l_knee2_B/l_ankle_B/l_ball_B/l_toe_B
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_C
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_C/l_knee1_C
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_C/l_knee1_C/l_knee2_C
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_C/l_knee1_C/l_knee2_C/l_ankle_C
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_C/l_knee1_C/l_knee2_C/l_ankle_C/l_ball_C
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_C/l_knee1_C/l_knee2_C/l_ankle_C/l_ball_C/l_toe_C
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_D
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_D/l_knee1_D
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_D/l_knee1_D/l_knee2_D
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_D/l_knee1_D/l_knee2_D/l_ankle_D
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_D/l_knee1_D/l_knee2_D/l_ankle_D/l_ball_D
+        weight: 1
+      - path: joint_GRP/body_root/l_upleg_D/l_knee1_D/l_knee2_D/l_ankle_D/l_ball_D/l_toe_D
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_A
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_A/r_knee1_A
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_A/r_knee1_A/r_knee2_A
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_A/r_knee1_A/r_knee2_A/r_ankle_A
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_A/r_knee1_A/r_knee2_A/r_ankle_A/r_ball_A
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_A/r_knee1_A/r_knee2_A/r_ankle_A/r_ball_A/r_toe_A
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_B
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_B/r_knee1_B
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_B/r_knee1_B/r_knee2_B
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_B/r_knee1_B/r_knee2_B/r_ankle_B
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_B/r_knee1_B/r_knee2_B/r_ankle_B/r_ball_B
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_B/r_knee1_B/r_knee2_B/r_ankle_B/r_ball_B/r_toe_B
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_C
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_C/r_knee1_C
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_C/r_knee1_C/r_knee2_C
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_C/r_knee1_C/r_knee2_C/r_ankle_C
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_C/r_knee1_C/r_knee2_C/r_ankle_C/r_ball_C
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_C/r_knee1_C/r_knee2_C/r_ankle_C/r_ball_C/r_toe_C
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_D
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_D/r_knee1_D
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_D/r_knee1_D/r_knee2_D
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_D/r_knee1_D/r_knee2_D/r_ankle_D
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_D/r_knee1_D/r_knee2_D/r_ankle_D/r_ball_D
+        weight: 1
+      - path: joint_GRP/body_root/r_upleg_D/r_knee1_D/r_knee2_D/r_ankle_D/r_ball_D/r_toe_D
+        weight: 1
+      - path: SpiderFriend
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .400000006
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 

@@ -1,0 +1,12 @@
+*THROW A BALL AT THE SCREEN TO START!* flashing at bottom of screen at all times.
+
+--Looping video of play session. Video freezes at special key frames and
+	shows these on a pop-up--
+
+HIT THE KIDS JUMPING ON THE TRAMPOLINES WITH YOUR COLOR BALL TO SCORE POINTS
+
+BE CAREFUL! THEY CAN TRHOW BALLS TOO!
+AVOID BEING HIT BY THEM BY THROWING YOUR BALL AT THEIRS
+
+
+GETTING HIT BY BALLS MAKES YOU LOSE POINTS
