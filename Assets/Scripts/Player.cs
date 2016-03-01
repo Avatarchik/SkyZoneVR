@@ -14,6 +14,10 @@ public class Player : MonoBehaviour
 
 	void Update () 
 	{
+		//Re-Center HMD
+		if(Input.GetKeyDown(KeyCode.C))
+			OVRManager.display.RecenterPose();
+
 		//Keyboard Camera Movement
 		if (Input.GetKey (KeyCode.A))
 			transform.Rotate (Vector3.up, -1F, Space.World);
@@ -46,7 +50,7 @@ public class Player : MonoBehaviour
 							hit.rigidbody.GetComponent<EnemyBall> ().PlayerHit ();
 					}
 				}
-				print ("You clicked this: " + hit.rigidbody);
+				//print ("You clicked this: " + hit.rigidbody);
 			}
 		}
 	}

@@ -61,8 +61,6 @@ public class GameManager : MonoBehaviour {
 //	public TextMesh scoreText;
 //	GUIText redGameScore, yellowGameScore, greenGameScore, purpleGameScore; //In-game score gui
 
-	IntroGUI introGUI;
-
 	StaticPool staticPool;
 
 	public GameObject[] warpParticles;
@@ -104,64 +102,26 @@ public class GameManager : MonoBehaviour {
 
 	void OnLevelWasLoaded(int level) {
 		if(level == 0) {
-			introGUI = GameObject.Find("IntroGUI").GetComponent<IntroGUI>();
 			gameStarted = false;
 		} else if(level == 1) {
 			StaticPool.DestroyAllObjects(); // Ghetto fix for now. Wasting an allocation somewhere also I think.
 			queueManager = GameObject.Find( "QueueManager" ).GetComponent<QueueManager>();
-
-			// Find Spider and set corresponding values
-			InitSpider();
 
 //			redGameScore = GameObject.Find("RedScore").GetComponent<GUIText>();
 //			yellowGameScore = GameObject.Find("YellowScore").GetComponent<GUIText>();
 //			greenGameScore = GameObject.Find("GreenScore").GetComponent<GUIText>();
 //			purpleGameScore = GameObject.Find("PurpleScore").GetComponent<GUIText>();
 
-			redScoreBox = GameObject.Find( "InGameScoreRed" );
+//			redScoreBox = GameObject.Find( "InGameScoreRed" );
 //			yellowScoreBox = GameObject.Find( "InGameScoreYellow" );
 //			blueScoreBox = GameObject.Find( "InGameScoreBlue" );
-			greenScoreBox = GameObject.Find( "InGameScoreGreen" );
+//			greenScoreBox = GameObject.Find( "InGameScoreGreen" );
 
 			StartCoroutine ("SpawnEnemy");
 			StartCoroutine( "StartEnemyMove" );
-			GameObject.Find("GameCamera").GetComponent<Camera>().enabled = true;
-			GameObject.Find("Timer").SetActive(true);
-
-			TextMesh[] texts = redScoreBox.GetComponentsInChildren<TextMesh>();			
-			foreach( TextMesh text in texts ) {
-				if( text.name.Contains( "Score" ) )
-					redScoreTxt = text;
-				if( text.name.Contains( "Accuracy" ) )
-					redAccTxt = text;
-			}		
-
-//			texts = yellowScoreBox.GetComponentsInChildren<TextMesh>();			
-//			foreach( TextMesh text in texts ) {
-//				if( text.name.Contains( "Score" ) )
-//					yellowScoreTxt = text;
-//				if( text.name.Contains( "Accuracy" ) )
-//					yellowAccTxt = text;
-//			}			
-//			texts = blueScoreBox.GetComponentsInChildren<TextMesh>();			
-//			foreach( TextMesh text in texts ) {
-//				if( text.name.Contains( "Score" ) )
-//					blueScoreTxt = text;
-//				if( text.name.Contains( "Accuracy" ) )
-//					blueAccTxt = text;
-//			}			
-			texts = greenScoreBox.GetComponentsInChildren<TextMesh>();			
-			foreach( TextMesh text in texts ) {
-				if( text.name.Contains( "Score" ) )
-					greenScoreTxt = text;
-				if( text.name.Contains( "Accuracy" ) )
-					greenAccTxt = text;
-			}
-
-			redScoreBox.SetActive( false );
-//			yellowScoreBox.SetActive( false );
-//			blueScoreBox.SetActive( false );
-			greenScoreBox.SetActive( false );
+//			GameObject.Find("GameCamera").GetComponent<Camera>().enabled = true;
+//			GameObject.Find("Timer").SetActive(true);
+				
 		} else if(level == 2) { //Config level
 			OSCSender.SendEmptyMessage("/config/start");
 			mode = GameMode.Config;
@@ -172,7 +132,7 @@ public class GameManager : MonoBehaviour {
 
 	void Update() {
 
-		//Score
+		//Score Text (UI)
 		scoreText = GameObject.Find ("ScoreText");
 		scoreText.GetComponent<Text> ().text = "Score: " + score;
 
@@ -199,7 +159,7 @@ public class GameManager : MonoBehaviour {
 					}
 				}
 			}
-			if(Input.GetKeyDown(KeyCode.C)) {
+			if(Input.GetKeyDown(KeyCode.K)) {
 				Application.LoadLevel("Config");
 
 				ballManager.StopAllCoroutines();
@@ -222,7 +182,7 @@ public class GameManager : MonoBehaviour {
 			}
 			break;
 		case GameMode.Main:
-			if(Input.GetKeyDown(KeyCode.C)) {
+			if(Input.GetKeyDown(KeyCode.K)) {
 				Application.LoadLevel("Config");
 
 				ballManager.StopAllCoroutines();
@@ -249,86 +209,25 @@ public class GameManager : MonoBehaviour {
 				timer = scoreboardTimer;
 				mode = GameMode.Scoreboard;
 
-				redScoreBox.SetActive( false );
-//				yellowScoreBox.SetActive( false );
-//				blueScoreBox.SetActive( false );
-				greenScoreBox.SetActive( false );
-
 				GameObject.Find("ScoreGUI").GetComponent<ScoreGUI>().Activate();
 				GameObject.Find("Timer").SetActive(false);
-
-				for(int i = 0; i < playerManager.playerData.Count; i++) {
-					HighScoreManager.AddScore(playerManager.playerData[i].score);
-				}
 
 				Enemy[] enemies = GameObject.FindObjectsOfType<Enemy>();
 				foreach( Enemy enemy in enemies ) {
 					enemy.StopAllCoroutines();
 //					enemy.gameObject.SetActive( false );
 				}
-
 				// Fuck you eric
-				Spider[] spiders = GameObject.FindObjectsOfType<Spider>();
-				foreach(Spider spider in spiders ) {
-					spider.StopAllCoroutines();
-//					spider.gameObject.SetActive( false );
-				}
 
 				queueManager.Reset();
 
 				return;
 			}
 
-			// Update score gui
-			if( redScoreBox.activeSelf == false && playerManager.Added( PlayerColor.Red ))
-				redScoreBox.SetActive( true );
-//			if( yellowScoreBox.activeSelf == false && playerManager.Added( PlayerColor.Yellow ))
-//				yellowScoreBox.SetActive( true );
-//			if( blueScoreBox.activeSelf == false && playerManager.Added( PlayerColor.Blue ))
-//				blueScoreBox.SetActive( true );
-			if( greenScoreBox.activeSelf == false && playerManager.Added( PlayerColor.Green ))
-				greenScoreBox.SetActive( true );
-
-			for(int i = 0; i < playerManager.playerData.Count; i++) {
-				string tempScoreStr = playerManager.playerData[i].score.ToString();
-
-				string tempAccStr;
-				if( playerManager.playerData[i].totalShots > 0 ) {
-					float percent = ((float)playerManager.playerData[i].shotsHit/(float)playerManager.playerData[i].totalShots) * 100f;
-					tempAccStr = ((int)percent).ToString();
-				} else {
-					tempAccStr = "0";
-				}
-				
-				if(tempScoreStr.Length < 2)
-					tempScoreStr = " " + tempScoreStr;
-				if(tempAccStr.Length < 2)
-					tempAccStr = " " + tempAccStr;
-				
-				switch( playerManager.playerData[i].color ) {
-				case PlayerColor.Red:
-					redScoreTxt.text = "Score: " + tempScoreStr;
-					redAccTxt.text = "Accuracy: " + tempAccStr + "%";
-					break;
-//				case PlayerColor.Yellow:
-//					yellowScoreTxt.text = "Score: " + tempScoreStr;
-//					yellowAccTxt.text = "Accuracy: " + tempAccStr + "%";
-//					break;
-				case PlayerColor.Green:
-					greenScoreTxt.text = "Score: " + tempScoreStr;
-					greenAccTxt.text = "Accuracy: " + tempAccStr + "%";
-					break;
-//				case PlayerColor.Blue:
-//					blueScoreTxt.text = "Score: " + tempScoreStr;
-//					blueAccTxt.text = "Accuracy: " + tempAccStr + "%";
-//					break;
-				}
-			}
-
 			timer -= Time.deltaTime;
 			break;
 		case GameMode.Scoreboard:
-			if(Input.GetKeyDown(KeyCode.C)) {
+			if(Input.GetKeyDown(KeyCode.K)) {
 				Application.LoadLevel("Config");
 			}
 			if(timer <= 0) {
@@ -338,7 +237,7 @@ public class GameManager : MonoBehaviour {
 			timer -= Time.deltaTime;
 			break;
 		case GameMode.Config:
-			if(Input.GetKeyDown(KeyCode.V)) {
+			if(Input.GetKeyDown(KeyCode.L)) {
 				mode = GameMode.Intro;
 				Application.LoadLevel("Intro");
 			}
@@ -484,24 +383,6 @@ public class GameManager : MonoBehaviour {
 				kinectErrorObj.SetActive(false);
 			}
 		}
-	}
-	
-	/// <summary>
-	/// Finds spider in scene and sets values corresponding to it.
-	/// </summary>
-	private void InitSpider() {
-		// Find spider.
-		gameSpider = FindObjectOfType<Spider>();
-
-		if( gameSpider == null ) {
-			Debug.LogWarning( "No spider found in scene." );
-			return;
-		}
-
-		// Calculate interval of spiders appearing in game.
-		float appearInterval = gameTimer / (float)numSpiderAppearances;
-
-		gameSpider.Init( numSpiderAppearances, appearInterval );
 	}
 	
 	public void AdjustGameSetting(string setting, float value) {

@@ -127,40 +127,15 @@ public class Enemy : MonoBehaviour {
 		}
 	}
 
-//	void OnCollisionEnter(Collision col) {
-//		if(GameManager.instance.enemiesKnockback) {
-//			if(col.gameObject.tag == "Enemy") {
-//				hitBy = col.transform.GetComponentInParent<Enemy>().hitBy;
-//				Hit (hitBy);
-//			//	col.gameObject.SendMessageUpwards("Hit", hitBy, SendMessageOptions.DontRequireReceiver);
-//			}
-//		}
-//	}
-
 	void Hit(GameObject p_hitBy) {
 		if(!hit) {
 			hitBy = p_hitBy;
 
 			int pointsToAdd = 1;
-
 			gameMan.GetComponent<GameManager> ().AddScore (pointsToAdd);
 
 			if(animator == transform.GetChild(2).GetComponent<Animator>())
 				pointsToAdd++;
-
-			if(p_hitBy.name.Contains("Red")) {
-				PlayerManager.AddPoints(PlayerColor.Red, pointsToAdd);
-			} 
-//			else if(p_hitBy.name.Contains("Yellow")) {
-//				PlayerManager.AddPoints(PlayerColor.Yellow, pointsToAdd);
-//			} 
-			else if(p_hitBy.name.Contains("Green")) {
-				PlayerManager.AddPoints(PlayerColor.Green, pointsToAdd);
-//			} else if(p_hitBy.name.Contains("Blue")) {
-//				PlayerManager.AddPoints(PlayerColor.Blue, pointsToAdd);
-			} else {
-				print ("wtf");
-			}
 
 			hit = true;
 			StopCoroutine ("Move");
@@ -319,7 +294,7 @@ public class Enemy : MonoBehaviour {
 		ballRB.velocity = ballDir;
 		ballRB.AddTorque (Random.insideUnitSphere * 100f);
 
-		print("Ball thrown by enemy");
+		//print("Ball thrown by enemy");
 	}
 
 	Transform ClosestTile(Vector3 pos) {
@@ -368,4 +343,14 @@ public class Enemy : MonoBehaviour {
 			}
 		}
 	}
+
+	//	void OnCollisionEnter(Collision col) {
+	//		if(GameManager.instance.enemiesKnockback) {
+	//			if(col.gameObject.tag == "Enemy") {
+	//				hitBy = col.transform.GetComponentInParent<Enemy>().hitBy;
+	//				Hit (hitBy);
+	//			//	col.gameObject.SendMessageUpwards("Hit", hitBy, SendMessageOptions.DontRequireReceiver);
+	//			}
+	//		}
+	//	}
 }
