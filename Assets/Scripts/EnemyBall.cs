@@ -5,29 +5,44 @@ public class EnemyBall : MonoBehaviour {
 
 	public float destroyTime = 10f;
 	float lifeEndTime = 0;
+	float colliderTimer = 0.0f;
 
 	public bool fromEnemy = true;
 
 	// Use this for initialization
-	void Start () {
+	void Start () 
+	{
 		
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		if (Time.time > lifeEndTime) {
+	void Update ()
+	{
+		if( colliderTimer > 0.0f )
+		{
+			colliderTimer -= Time.deltaTime;
+
+			if( colliderTimer <= 0.0f )
+				gameObject.GetComponent<SphereCollider>().enabled = true;
+		}
+
+		if (Time.time > lifeEndTime) 
+		{
 			gameObject.SetActive (false);
 		}
+			
 	}
 
-	public void Reset(){
+	public void Reset()
+	{
 		lifeEndTime = Time.time + destroyTime;
 		fromEnemy = true;
 
 		//print (Time.time + " , " + lifeEndTime);
 	}
 
-	public void PlayerHit() {
+	public void PlayerHit() 
+	{
 		fromEnemy = false;
 	}
 
@@ -39,4 +54,10 @@ public class EnemyBall : MonoBehaviour {
         if (coll.collider.tag == "Ball" && coll.collider.gameObject.GetComponent<EnemyBall>().fromEnemy == false)
             fromEnemy = false;
     }
+
+	public void SetColliderEnableTime( float time )
+	{
+		gameObject.GetComponent<SphereCollider>().enabled = false;
+		colliderTimer = time;
+	}
 }

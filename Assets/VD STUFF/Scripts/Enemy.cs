@@ -17,7 +17,7 @@ public class Enemy : MonoBehaviour {
 	private GameObject gameMan;
 
 	public GameObject ballPrefab;
-	public float throwInterval = 3f;
+	public float throwInterval = 2f;
 	public float timeToPlayer = 3f;
 	Vector3 dir;
 	Vector3 playerPos;
@@ -122,7 +122,7 @@ public class Enemy : MonoBehaviour {
 
 		//Throw
 		if (canThrow) {
-			Throw ();
+			//Throw ();
 			StartCoroutine ("ThrowRoutine");
 		}
 	}
@@ -272,6 +272,8 @@ public class Enemy : MonoBehaviour {
 
 		yield return new WaitForSeconds (throwInterval);
 
+		Throw ();
+
 		canThrow = true;
 	}
 
@@ -280,6 +282,7 @@ public class Enemy : MonoBehaviour {
 		GameObject ball = StaticPool.GetObj (ballPrefab);
 
 		ball.GetComponent<EnemyBall> ().Reset ();
+		ball.GetComponent<EnemyBall> ().SetColliderEnableTime( timeToPlayer / 4f );
 		ball.transform.position = transform.localPosition + new Vector3(0,2.5f,0) - Vector3.forward;
 
 		float hVel = Vector3.Distance (playerPos, transform.position) / timeToPlayer;
