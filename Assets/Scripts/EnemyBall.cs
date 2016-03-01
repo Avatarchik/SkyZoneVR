@@ -30,4 +30,13 @@ public class EnemyBall : MonoBehaviour {
 	public void PlayerHit() {
 		fromEnemy = false;
 	}
+
+    void OnCollisionEnter(Collision coll)
+    {
+        if (coll.collider.tag == "Bat")
+            fromEnemy = false;
+
+        if (coll.collider.tag == "Ball" && coll.collider.gameObject.GetComponent<EnemyBall>().fromEnemy == false)
+            fromEnemy = false;
+    }
 }
