@@ -287,7 +287,7 @@ public class Enemy : MonoBehaviour {
 		GameObject ball = StaticPool.GetObj (ballPrefab);
 
 		ball.GetComponent<EnemyBall> ().Reset ();
-		ball.GetComponent<EnemyBall> ().SetColliderEnableTime( timeToPlayer / 4f );
+		ball.GetComponent<EnemyBall> ().SetColliderEnableTime( timeToPlayer * 3f / 4f );
 		ball.transform.position = transform.localPosition + new Vector3(0,2.5f,0) - Vector3.forward;
 
 		float hVel = Vector3.Distance (playerPos, transform.position) / timeToPlayer;

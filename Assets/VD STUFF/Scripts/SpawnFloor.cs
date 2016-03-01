@@ -26,4 +26,15 @@ public class SpawnFloor : MonoBehaviour {
 			}
 		}
 	}
+
+	public void ResetTilesFilled()
+	{
+		for(int i = 0; i < columns; i++) 
+		{
+			for(int j = 0; j < rows; j++) 
+			{
+				tilesFilled[i,j] = false;
+			}
+		}
+	}
 }

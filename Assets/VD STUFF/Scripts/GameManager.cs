@@ -6,7 +6,14 @@ public class GameManager : MonoBehaviour {
 
 	private static GameManager _instance;
 
-	enum GameMode {Intro, Main, Scoreboard, Config}
+	enum GameMode 
+	{
+		STANDBY, 
+		COUNTDOWN,
+		GAME, 
+		GAMEOVER, 
+		CONFIG
+	}
 
 	private GameObject scoreText;
 	private GameObject timerText;
@@ -20,11 +27,13 @@ public class GameManager : MonoBehaviour {
 	bool screenChanged;
 	public float randomRange = 1f;
 
-	GameMode mode = GameMode.Intro;
+	GameMode mode = GameMode.STANDBY;
 	bool gameStarted = false;
 
+	public SpawnFloor spawnFloor;
+
 	public float joinTimer = 5f;
-	public float gameTimer = 180f;
+	public float gameTimer = 10f;
 	public float scoreboardTimer = 15f;
 
 	[System.NonSerialized]
@@ -101,35 +110,35 @@ public class GameManager : MonoBehaviour {
 		//Application.LoadLevel ("Config");
 	}
 
-	void OnLevelWasLoaded(int level) {
-		if(level == 0) {
-			gameStarted = false;
-		} else if(level == 1) {
-			StaticPool.DestroyAllObjects(); // Ghetto fix for now. Wasting an allocation somewhere also I think.
-			queueManager = GameObject.Find( "QueueManager" ).GetComponent<QueueManager>();
-
-//			redGameScore = GameObject.Find("RedScore").GetComponent<GUIText>();
-//			yellowGameScore = GameObject.Find("YellowScore").GetComponent<GUIText>();
-//			greenGameScore = GameObject.Find("GreenScore").GetComponent<GUIText>();
-//			purpleGameScore = GameObject.Find("PurpleScore").GetComponent<GUIText>();
-
-//			redScoreBox = GameObject.Find( "InGameScoreRed" );
-//			yellowScoreBox = GameObject.Find( "InGameScoreYellow" );
-//			blueScoreBox = GameObject.Find( "InGameScoreBlue" );
-//			greenScoreBox = GameObject.Find( "InGameScoreGreen" );
-
-			StartCoroutine ("SpawnEnemy");
-			StartCoroutine( "StartEnemyMove" );
-//			GameObject.Find("GameCamera").GetComponent<Camera>().enabled = true;
-//			GameObject.Find("Timer").SetActive(true);
-				
-		} else if(level == 2) { //Config level
-			OSCSender.SendEmptyMessage("/config/start");
-			mode = GameMode.Config;
-			kinectErrorObj = GameObject.Find("KinectError");
-			kinectErrorObj.SetActive(false);
-		}
-	}
+//	void OnLevelWasLoaded(int level) {
+//		if(level == 0) {
+//			gameStarted = false;
+//		} else if(level == 1) {
+//			StaticPool.DestroyAllObjects(); // Ghetto fix for now. Wasting an allocation somewhere also I think.
+//			queueManager = GameObject.Find( "QueueManager" ).GetComponent<QueueManager>();
+//
+////			redGameScore = GameObject.Find("RedScore").GetComponent<GUIText>();
+////			yellowGameScore = GameObject.Find("YellowScore").GetComponent<GUIText>();
+////			greenGameScore = GameObject.Find("GreenScore").GetComponent<GUIText>();
+////			purpleGameScore = GameObject.Find("PurpleScore").GetComponent<GUIText>();
+//
+////			redScoreBox = GameObject.Find( "InGameScoreRed" );
+////			yellowScoreBox = GameObject.Find( "InGameScoreYellow" );
+////			blueScoreBox = GameObject.Find( "InGameScoreBlue" );
+////			greenScoreBox = GameObject.Find( "InGameScoreGreen" );
+//
+//			StartCoroutine ("SpawnEnemy");
+//			StartCoroutine( "StartEnemyMove" );
+////			GameObject.Find("GameCamera").GetComponent<Camera>().enabled = true;
+////			GameObject.Find("Timer").SetActive(true);
+//				
+//		} else if(level == 2) { //Config level
+//			OSCSender.SendEmptyMessage("/config/start");
+//			mode = GameMode.CONFIG;
+//			kinectErrorObj = GameObject.Find("KinectError");
+//			kinectErrorObj.SetActive(false);
+//		}
+//	}
 
 	void Update() {
 
@@ -144,91 +153,85 @@ public class GameManager : MonoBehaviour {
 
 		timerText = GameObject.Find ("TimerText");
 		timerText.GetComponent<Text>().text = "Time: " + stringTimer;
-
-
-		if(DebugMode.SHOWGUI) {
-			if(Input.GetKeyDown(KeyCode.R)) {
-				QualitySettings.DecreaseLevel();
-			}
-			if(Input.GetKeyDown(KeyCode.T)) {
-				QualitySettings.IncreaseLevel();
-			}
-		}
 		
 		switch(mode)
 		{
-		case GameMode.Intro:
-			if(gameStarted) {
-				if(timer > 0f) {
-					timer -= Time.deltaTime;
-					if(timer <= 0f) {
-						timer = 0f;
-						StartCoroutine("ShowInstructions");
-//						ChangeScene( "Main" );
-						return;
-					}
-				}
-			}
-			if(Input.GetKeyDown(KeyCode.K)) {
-				Application.LoadLevel("Config");
+		case GameMode.STANDBY:
+//			if(gameStarted) {
+//				if(timer > 0f) {
+//					timer -= Time.deltaTime;
+//					if(timer <= 0f) {
+//						timer = 0f;
+//						StartCoroutine("ShowInstructions");
+////						ChangeScene( "Main" );
+//						return;
+//					}
+//				}
+//			}
+//			if(Input.GetKeyDown(KeyCode.K)) {
+//				Application.LoadLevel("Config");
+//
+//				ballManager.StopAllCoroutines();
+//				StopAllCoroutines();
+//				
+//				Enemy[] enemies = GameObject.FindObjectsOfType<Enemy>();
+//				foreach( Enemy enemy in enemies ) {
+//					enemy.StopAllCoroutines();
+////					enemy.gameObject.SetActive( false );
+//				}
+//				
+//				Spider[] spiders = GameObject.FindObjectsOfType<Spider>();
+//				foreach(Spider spider in spiders ) {
+//					spider.StopAllCoroutines();
+////					spider.gameObject.SetActive( false );
+//				}
+//				
+//				StaticPool.DestroyAllObjects();
+//
+//			}
+			if( Input.GetKeyDown(KeyCode.Space) )
+				SwitchGameMode( GameMode.GAME );
 
-				ballManager.StopAllCoroutines();
-				StopAllCoroutines();
-				
-				Enemy[] enemies = GameObject.FindObjectsOfType<Enemy>();
-				foreach( Enemy enemy in enemies ) {
-					enemy.StopAllCoroutines();
-//					enemy.gameObject.SetActive( false );
-				}
-				
-				Spider[] spiders = GameObject.FindObjectsOfType<Spider>();
-				foreach(Spider spider in spiders ) {
-					spider.StopAllCoroutines();
-//					spider.gameObject.SetActive( false );
-				}
-				
-				StaticPool.DestroyAllObjects();
-
-			}
 			break;
-		case GameMode.Main:
-			if(Input.GetKeyDown(KeyCode.K)) {
-				Application.LoadLevel("Config");
-
-				ballManager.StopAllCoroutines();
-				StopAllCoroutines();
-
-				Enemy[] enemies = GameObject.FindObjectsOfType<Enemy>();
-				foreach( Enemy enemy in enemies ) {
-					enemy.StopAllCoroutines();
-//					enemy.gameObject.SetActive( false );
-				}
-
-				Spider[] spiders = GameObject.FindObjectsOfType<Spider>();
-				foreach(Spider spider in spiders ) {
-					spider.StopAllCoroutines();
-//					spider.gameObject.SetActive( false );
-				}
-
-				StaticPool.DestroyAllObjects();
-			}
+		case GameMode.GAME:
+//			if(Input.GetKeyDown(KeyCode.K)) {
+//				Application.LoadLevel("Config");
+//
+//				ballManager.StopAllCoroutines();
+//				StopAllCoroutines();
+//
+//				Enemy[] enemies = GameObject.FindObjectsOfType<Enemy>();
+//				foreach( Enemy enemy in enemies ) {
+//					enemy.StopAllCoroutines();
+////					enemy.gameObject.SetActive( false );
+//				}
+//
+//				Spider[] spiders = GameObject.FindObjectsOfType<Spider>();
+//				foreach(Spider spider in spiders ) {
+//					spider.StopAllCoroutines();
+////					spider.gameObject.SetActive( false );
+//				}
+//
+//				StaticPool.DestroyAllObjects();
+//			}
 			// Once timer goes down to zero
 			if(timer <= 0) {
 				ballManager.StopAllCoroutines();
 				StopAllCoroutines();
 				timer = scoreboardTimer;
-				mode = GameMode.Scoreboard;
+				SwitchGameMode(GameMode.STANDBY);
+				//mode = GameMode.GAMEOVER;
 
-				GameObject.Find("ScoreGUI").GetComponent<ScoreGUI>().Activate();
-				GameObject.Find("Timer").SetActive(false);
+				//GameObject.Find("ScoreGUI").GetComponent<ScoreGUI>().Activate();
+				//GameObject.Find("Timer").SetActive(false);
 
 				Enemy[] enemies = GameObject.FindObjectsOfType<Enemy>();
 				foreach( Enemy enemy in enemies ) {
 					enemy.StopAllCoroutines();
-//					enemy.gameObject.SetActive( false );
+					enemy.gameObject.SetActive( false );
 				}
 				// Fuck you eric
-
+				spawnFloor.ResetTilesFilled();
 				queueManager.Reset();
 
 				return;
@@ -236,7 +239,7 @@ public class GameManager : MonoBehaviour {
 
 			timer -= Time.deltaTime;
 			break;
-		case GameMode.Scoreboard:
+		case GameMode.GAMEOVER:
 			if(Input.GetKeyDown(KeyCode.K)) {
 				Application.LoadLevel("Config");
 			}
@@ -246,62 +249,91 @@ public class GameManager : MonoBehaviour {
 			}
 			timer -= Time.deltaTime;
 			break;
-		case GameMode.Config:
+		case GameMode.CONFIG:
 			if(Input.GetKeyDown(KeyCode.L)) {
-				mode = GameMode.Intro;
+				//mode = GameMode.STANDBY;
 				Application.LoadLevel("Intro");
 			}
 			break;
 		}
 	}
 
-	public void BallHit(ArrayList args) {
-		float x = (float)(args[0]);
-		x = Mathf.Abs(x - 1);
-		float y = (float)(args[1]);
-		y = Mathf.Abs(y - 1);
-		Vector2 pos = new Vector2(x,y);
-
-		int colorID =  (int)args[2];
-
-		PlayerColor color = PlayerColor.Red;
-
-		switch(colorID) {
-		case 0:
-			color = PlayerColor.Red;
-			break;
-		case 3:
-			color = PlayerColor.Green;
-			break;
-//		case 1:
-//			color = PlayerColor.Yellow;
+//	public void BallHit(ArrayList args) {
+//		float x = (float)(args[0]);
+//		x = Mathf.Abs(x - 1);
+//		float y = (float)(args[1]);
+//		y = Mathf.Abs(y - 1);
+//		Vector2 pos = new Vector2(x,y);
+//
+//		int colorID =  (int)args[2];
+//
+//		PlayerColor color = PlayerColor.Red;
+//
+//		switch(colorID) {
+//		case 0:
+//			color = PlayerColor.Red;
 //			break;
-//		case 2:
-//			color = PlayerColor.Blue;
+//		case 3:
+//			color = PlayerColor.Green;
 //			break;
-		default:
-			print("Bad Color");
+////		case 1:
+////			color = PlayerColor.Yellow;
+////			break;
+////		case 2:
+////			color = PlayerColor.Blue;
+////			break;
+//		default:
+//			print("Bad Color");
+//			break;
+//		}
+//
+//		if(!playerManager.Added(color)) {
+//			playerManager.AddPlayer(color);
+//			if(mode == GameMode.STANDBY) {
+//				//introGUI.TurnOnColor(color);
+//				timer = joinTimer;
+//			}
+//		}
+//		if(!gameStarted) {
+//			gameStarted = true;
+//			timer = joinTimer;
+//		}
+//
+//		if(mode == GameMode.GAME) {
+//			pos.x *= Screen.width;
+//			pos.y = 1 - pos.y;
+//			pos.y *= Screen.height;
+//			ballManager.Shoot(pos, color);
+//		}
+//	}
+
+	void SwitchGameMode( GameMode gm )
+	{
+		switch( gm )
+		{
+		case GameMode.STANDBY:
+			playerManager.playerData.Clear();
+			StaticPool.DestroyAllObjects();
+			break;
+		case GameMode.GAME:
+			timer = gameTimer;
+
+			//StaticPool.DisableAllObjects();
+			//StaticPool.DestroyAllObjects(); // Ghetto fix for now. Wasting an allocation somewhere also I think.
+			queueManager = GameObject.Find( "QueueManager" ).GetComponent<QueueManager>();
+			queueManager.Reset();
+
+			StartCoroutine ("SpawnEnemy");
+			StartCoroutine( "StartEnemyMove" );
+
+			break;
+		case GameMode.GAMEOVER:
+			break;
+		case GameMode.CONFIG:
 			break;
 		}
-
-		if(!playerManager.Added(color)) {
-			playerManager.AddPlayer(color);
-			if(mode == GameMode.Intro) {
-				//introGUI.TurnOnColor(color);
-				timer = joinTimer;
-			}
-		}
-		if(!gameStarted) {
-			gameStarted = true;
-			timer = joinTimer;
-		}
-
-		if(mode == GameMode.Main) {
-			pos.x *= Screen.width;
-			pos.y = 1 - pos.y;
-			pos.y *= Screen.height;
-			ballManager.Shoot(pos, color);
-		}
+		
+		mode = gm;
 	}
 
 	IEnumerator SpawnEnemy() {
@@ -331,12 +363,12 @@ public class GameManager : MonoBehaviour {
 			timer = 0f;
 			gameStarted = false;
 			playerManager.playerData.Clear();
-			mode = GameMode.Intro;			
+			//mode = GameMode.STANDBY;			
 			Application.LoadLevel("Intro");
 			break;
 		case "Main":
 			timer = gameTimer;
-			mode = GameMode.Main;
+			//mode = GameMode.GAME;
 			Application.LoadLevel("Main");
 			break;
 		}
@@ -344,7 +376,7 @@ public class GameManager : MonoBehaviour {
 
 	public void OSCMessageReceived(OSC.NET.OSCMessage message){
 		if(message.Address == "/checkColor") {
-			if(mode != GameMode.Intro) {
+			if(mode != GameMode.STANDBY) {
 				print ("RENDERER IS TRUE");
 				Camera.main.GetComponent<screenChange>().screenChanged = true;
 				float xPos = (1 - (float)message.Values[0]) * Screen.width;
@@ -355,19 +387,19 @@ public class GameManager : MonoBehaviour {
 				args.Add(0f);
 				args.Add(0f);
 				args.Add(0);
-				BallHit(args);
+				//BallHit(args);
 			}
 		} else if(message.Address == "/shoot"){
-			if(mode != GameMode.Config) {
+			if(mode != GameMode.CONFIG) {
 				//whiteScreen.SetActive(false);
-				BallHit(message.Values); 
+				//BallHit(message.Values); 
 			}
 		} else if(message.Address == "/config/done") {
 //			print ("config done");
 			Application.LoadLevel("Intro");
-			mode = GameMode.Intro;
+			//mode = GameMode.STANDBY;
 		} else if(message.Address == "/config/start") {
-			if(mode != GameMode.Config) {
+			if(mode != GameMode.CONFIG) {
 				StopAllCoroutines();
 				Enemy[] enemies = FindObjectsOfType<Enemy>();
 				foreach(Enemy enemy in enemies) {
@@ -381,15 +413,15 @@ public class GameManager : MonoBehaviour {
 
 				StaticPool.DestroyAllObjects();
 
-				mode = GameMode.Config;
+				//mode = GameMode.CONFIG;
 				Application.LoadLevel("Config");
 			}
 		} else if(message.Address == "/config/noKinect") {
-			if(mode == GameMode.Config) {
+			if(mode == GameMode.CONFIG) {
 				kinectErrorObj.SetActive(true);
 			}
 		} else if(message.Address == "/config/kinectFound") {
-			if(mode == GameMode.Config) {
+			if(mode == GameMode.CONFIG) {
 				kinectErrorObj.SetActive(false);
 			}
 		}

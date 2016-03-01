@@ -79,6 +79,17 @@ public class StaticPool {
 		}
 	}
 
+	public static void DisableAllObjects()
+	{
+		foreach (GameObject objKey in s_instance.objLists.Keys) 
+		{
+			foreach(GameObject obj in s_instance.objLists[objKey]) 
+			{
+				obj.SetActive(false);
+			}
+		}
+	}
+
 	static void AddToList(GameObject prefab, int count, Transform holder) {
 		for(int i = 0; i < count; i++) {
 			GameObject obj = (GameObject)GameObject.Instantiate(prefab, Vector3.one * 1000f, Quaternion.identity);

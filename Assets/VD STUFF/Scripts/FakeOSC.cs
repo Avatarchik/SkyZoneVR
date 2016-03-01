@@ -43,6 +43,6 @@ public class FakeOSC : MonoBehaviour {
 		list.Add(pos.x);
 		list.Add(pos.y);
 		list.Add(color);
-		gameManager.BallHit(list);
+		//gameManager.BallHit(list);
 	}
 }

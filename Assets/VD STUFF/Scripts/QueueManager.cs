@@ -122,6 +122,7 @@ public class QueueManager : MonoBehaviour {
 
 			temp = temp.m_next;
 		}
+		m_queueEnd = m_queueFront;
 	}
 
 	void OnDrawGizmos() {
