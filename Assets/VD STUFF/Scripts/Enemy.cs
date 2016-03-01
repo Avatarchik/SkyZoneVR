@@ -169,13 +169,13 @@ public class Enemy : MonoBehaviour {
 				if(curColumn > 0) {
 					if(!floor.tilesFilled[curColumn-1, curRow])
 						availableTiles.Add(new int2(curColumn-1, curRow));
-					if(!floor.tilesFilled[curColumn-1, curRow+1])
+					if(!floor.tilesFilled[curColumn-1, curRow+1] && (curRow != 2 || ( curColumn != 1 && curColumn != 2 ) ) )
 						availableTiles.Add(new int2(curColumn-1, curRow+1));
 				}
 				if(curColumn < floor.columns - 1) {
 					if(!floor.tilesFilled[curColumn+1, curRow])
 						availableTiles.Add(new int2(curColumn+1, curRow));
-					if(!floor.tilesFilled[curColumn+1, curRow+1])
+					if(!floor.tilesFilled[curColumn+1, curRow+1] && (curRow != 2 || ( curColumn != 1 && curColumn != 2 ) ) )
 						availableTiles.Add(new int2(curColumn+1, curRow+1));
 				}
 				if(!floor.tilesFilled[curColumn, curRow+1])
