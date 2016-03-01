@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour {
 	public float hopHeight = 2.25f;
 
 	private GameObject gameMan;
+	private GameObject audioMan;
 
 	public GameObject ballPrefab;
 	public float throwInterval = 2f;
@@ -55,6 +56,7 @@ public class Enemy : MonoBehaviour {
 //		moveForwardChancePct = Mathf.Clamp(moveForwardChancePct, 0f, 100f);
 
 		gameMan = GameObject.Find ("GameManager");
+		audioMan = GameObject.Find ("AudioManager");
 
 		floor = GameObject.Find ("Floor").GetComponent<SpawnFloor> ();
 
@@ -132,7 +134,10 @@ public class Enemy : MonoBehaviour {
 			hitBy = p_hitBy;
 
 			int pointsToAdd = 1;
+
 			gameMan.GetComponent<GameManager> ().AddScore (pointsToAdd);
+
+			audioMan.GetComponent<AudioManager> ().DodgeballHitSound ();
 
 			if(animator == transform.GetChild(2).GetComponent<Animator>())
 				pointsToAdd++;

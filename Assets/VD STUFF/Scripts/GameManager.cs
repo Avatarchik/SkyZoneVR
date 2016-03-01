@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour {
 	enum GameMode {Intro, Main, Scoreboard, Config}
 
 	private GameObject scoreText;
+	private GameObject timerText;
 	private int score;
 
 	public GameObject enemy;
@@ -132,9 +133,18 @@ public class GameManager : MonoBehaviour {
 
 	void Update() {
 
-		//Score Text (UI)
+		//SCORE TEXT
 		scoreText = GameObject.Find ("ScoreText");
 		scoreText.GetComponent<Text> ().text = "Score: " + score;
+
+		//TIMER TEXT
+		int minutes = Mathf.FloorToInt(timer / 60F);
+		int seconds = Mathf.FloorToInt(timer - minutes * 60);
+		string stringTimer = string.Format ("{0:0}:{1:00}", minutes, seconds);
+
+		timerText = GameObject.Find ("TimerText");
+		timerText.GetComponent<Text>().text = "Time: " + stringTimer;
+
 
 		if(DebugMode.SHOWGUI) {
 			if(Input.GetKeyDown(KeyCode.R)) {
