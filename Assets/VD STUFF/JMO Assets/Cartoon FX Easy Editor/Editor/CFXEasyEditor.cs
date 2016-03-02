@@ -4,7 +4,7 @@ using System.Collections;
 using System.Reflection;
 
 // Cartoon FX Easy Editor
-// (c) 2013, 2014 - Jean Moreno
+// (c) 2013-2015 - Jean Moreno
 
 public class CFXEasyEditor : EditorWindow
 {
@@ -935,7 +935,7 @@ public class CFXEasyEditor : EditorWindow
 		SerializedObject psSource = new SerializedObject(source);
 		SerializedObject psDest = new SerializedObject(dest);
 		
-		//Inial Module
+		//Initial Module
 		if(b_modules[0])
 		{
 			psDest.FindProperty("prewarm").boolValue = psSource.FindProperty("prewarm").boolValue;
@@ -948,7 +948,9 @@ public class CFXEasyEditor : EditorWindow
 			dest.loop = source.loop;
 			dest.playOnAwake = source.playOnAwake;
 			dest.playbackSpeed = source.playbackSpeed;
+		#if UNITY_5_0 || UNITY_5_1 || UNITY_5_2
 			dest.emissionRate = source.emissionRate;
+		#endif
 			dest.startSpeed = source.startSpeed;
 			dest.startSize = source.startSize;
 			dest.startColor = source.startColor;
@@ -1247,6 +1249,11 @@ public class CFXEasyEditor : EditorWindow
 			//(ShapeModule.type 6 == Mesh)
 			if(psSerial.FindProperty("ShapeModule.type").intValue == 6)
 			{
+#if !UNITY_3_5
+				//Unity 4+ : changing the Transform scale will affect the shape Mesh
+				ps.transform.localScale = ps.transform.localScale * ScalingValue;
+				EditorUtility.SetDirty(ps);
+#else
 				Object obj = psSerial.FindProperty("ShapeModule.m_Mesh").objectReferenceValue;
 				if(obj != null)
 				{
@@ -1318,6 +1325,7 @@ public class CFXEasyEditor : EditorWindow
 					//Apply new Mesh
 					psSerial.FindProperty("ShapeModule.m_Mesh").objectReferenceValue = meshToUse;
 				}
+#endif
 			}
 		}
 		

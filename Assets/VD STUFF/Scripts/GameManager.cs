@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour {
 
 	private GameObject scoreText;
 	private GameObject timerText;
+	private GameObject countdownText;
 	private int score;
 
 	public GameObject enemy;
@@ -189,11 +190,33 @@ public class GameManager : MonoBehaviour {
 //				StaticPool.DestroyAllObjects();
 //
 //			}
+			countdownText = GameObject.Find ("CountdownText");
+			countdownText.transform.localScale = Vector3.zero;
+
 			if( Input.GetKeyDown(KeyCode.Space) )
-				SwitchGameMode( GameMode.GAME );
+				SwitchGameMode( GameMode.COUNTDOWN );
 
 			break;
+		case GameMode.COUNTDOWN:
+			countdownText.transform.localScale = new Vector3 (1, 1, 1);
+
+			int countdown = 5;
+
+			countdown -= (int)Time.time;
+
+			countdownText.GetComponent<Text> ().text = countdown.ToString ();
+
+			if(countdown == 0)
+				countdownText.GetComponent<Text> ().text = "Go!";
+
+			if (countdown <= -1) 
+			{
+				countdownText.transform.localScale = Vector3.zero;
+				SwitchGameMode (GameMode.GAME);
+			}
+			break;
 		case GameMode.GAME:
+
 //			if(Input.GetKeyDown(KeyCode.K)) {
 //				Application.LoadLevel("Config");
 //
