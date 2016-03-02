@@ -108,6 +108,12 @@ public class GameManager : MonoBehaviour {
 		ballManager = GetComponent<BallManager> ();
 		playerManager = GetComponent<PlayerManager> ();
 
+		scoreText = GameObject.Find ("ScoreText");
+		timerText = GameObject.Find ("TimerText");
+		countdownText = GameObject.Find ("CountdownText");
+
+		SwitchGameMode(GameMode.STANDBY);
+
 		//Application.LoadLevel ("Config");
 	}
 
@@ -144,7 +150,7 @@ public class GameManager : MonoBehaviour {
 	void Update() {
 
 		//SCORE TEXT
-		scoreText = GameObject.Find ("ScoreText");
+		//scoreText = GameObject.Find ("ScoreText");
 		scoreText.GetComponent<Text> ().text = "Score: " + score;
 
 		//TIMER TEXT
@@ -152,7 +158,7 @@ public class GameManager : MonoBehaviour {
 		int seconds = Mathf.FloorToInt(timer - minutes * 60);
 		string stringTimer = string.Format ("{0:0}:{1:00}", minutes, seconds);
 
-		timerText = GameObject.Find ("TimerText");
+		//timerText = GameObject.Find ("TimerText");
 		timerText.GetComponent<Text>().text = "Time: " + stringTimer;
 		
 		switch(mode)
@@ -190,31 +196,29 @@ public class GameManager : MonoBehaviour {
 //				StaticPool.DestroyAllObjects();
 //
 //			}
-			countdownText = GameObject.Find ("CountdownText");
-			countdownText.transform.localScale = Vector3.zero;
+			//countdownText.transform.localScale = Vector3.zero;
 
 			if( Input.GetKeyDown(KeyCode.Space) )
 				SwitchGameMode( GameMode.COUNTDOWN );
 
 			break;
+
 		case GameMode.COUNTDOWN:
-			countdownText.transform.localScale = new Vector3 (1, 1, 1);
-
-			int countdown = 5;
-
-			countdown -= (int)Time.time;
-
-			countdownText.GetComponent<Text> ().text = countdown.ToString ();
-
-			if(countdown == 0)
-				countdownText.GetComponent<Text> ().text = "Go!";
-
-			if (countdown <= -1) 
+			if( timer <= 0 )
 			{
-				countdownText.transform.localScale = Vector3.zero;
-				SwitchGameMode (GameMode.GAME);
+				SwitchGameMode( GameMode.GAME );
 			}
+			else if( timer <= 1 )
+			{
+				countdownText.GetComponent<Text>().text = "Go!";
+			}
+			else
+			{
+				countdownText.GetComponent<Text>().text = ((int)timer).ToString();
+			}
+			timer -= Time.deltaTime;
 			break;
+			
 		case GameMode.GAME:
 
 //			if(Input.GetKeyDown(KeyCode.K)) {
@@ -337,9 +341,19 @@ public class GameManager : MonoBehaviour {
 		case GameMode.STANDBY:
 			playerManager.playerData.Clear();
 			StaticPool.DestroyAllObjects();
+			scoreText.SetActive(false);
+			timerText.SetActive(false);
+			countdownText.SetActive(false);
+			break;
+		case GameMode.COUNTDOWN:
+			timer = 5f;
+			countdownText.SetActive(true);
 			break;
 		case GameMode.GAME:
 			timer = gameTimer;
+			countdownText.SetActive(false);
+			scoreText.SetActive(true);
+			timerText.SetActive(true);
 
 			//StaticPool.DisableAllObjects();
 			//StaticPool.DestroyAllObjects(); // Ghetto fix for now. Wasting an allocation somewhere also I think.
