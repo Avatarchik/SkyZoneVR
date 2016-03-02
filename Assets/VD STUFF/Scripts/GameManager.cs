@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
@@ -23,6 +24,8 @@ public class GameManager : MonoBehaviour {
 	public GameObject enemy;
 	public Transform enemySpawnPoint;
 	public float spawnRate = 3f;
+
+	public List<Material> gridMats;
 
 	public bool randomSpawnTime = false;
 	bool screenChanged;
@@ -204,9 +207,13 @@ public class GameManager : MonoBehaviour {
 			break;
 
 		case GameMode.COUNTDOWN:
+			foreach( Material mat in gridMats )
+				mat.SetFloat("_Opacity_Slider", timer );
+
 			if( timer <= 0 )
 			{
 				SwitchGameMode( GameMode.GAME );
+				return;
 			}
 			else if( timer <= 1 )
 			{
@@ -216,6 +223,7 @@ public class GameManager : MonoBehaviour {
 			{
 				countdownText.GetComponent<Text>().text = ((int)timer).ToString();
 			}
+
 			timer -= Time.deltaTime;
 			break;
 			
@@ -246,7 +254,7 @@ public class GameManager : MonoBehaviour {
 				ballManager.StopAllCoroutines();
 				StopAllCoroutines();
 				timer = scoreboardTimer;
-				SwitchGameMode(GameMode.STANDBY);
+				SwitchGameMode(GameMode.GAMEOVER);
 				//mode = GameMode.GAMEOVER;
 
 				//GameObject.Find("ScoreGUI").GetComponent<ScoreGUI>().Activate();
@@ -267,13 +275,15 @@ public class GameManager : MonoBehaviour {
 			timer -= Time.deltaTime;
 			break;
 		case GameMode.GAMEOVER:
-			if(Input.GetKeyDown(KeyCode.K)) {
-				Application.LoadLevel("Config");
-			}
-			if(timer <= 0) {
-				ChangeScene( "Intro" );
+			foreach( Material mat in gridMats )
+				mat.SetFloat("_Opacity_Slider", 2.5f - timer );
+
+			if( timer <= 0 )
+			{
+				SwitchGameMode( GameMode.STANDBY );
 				return;
 			}
+
 			timer -= Time.deltaTime;
 			break;
 		case GameMode.CONFIG:
@@ -341,9 +351,11 @@ public class GameManager : MonoBehaviour {
 		case GameMode.STANDBY:
 			playerManager.playerData.Clear();
 			StaticPool.DestroyAllObjects();
+			countdownText.SetActive(false);
 			scoreText.SetActive(false);
 			timerText.SetActive(false);
-			countdownText.SetActive(false);
+			foreach( Material mat in gridMats )
+				mat.SetFloat("_Opacity_Slider", 2.5f);
 			break;
 		case GameMode.COUNTDOWN:
 			timer = 5f;
@@ -365,6 +377,9 @@ public class GameManager : MonoBehaviour {
 
 			break;
 		case GameMode.GAMEOVER:
+			timer = 3f;
+			scoreText.SetActive(false);
+			timerText.SetActive(false);
 			break;
 		case GameMode.CONFIG:
 			break;
