@@ -9,10 +9,17 @@ public class EnemyBall : MonoBehaviour {
 
 	public bool fromEnemy = true;
 
+	TrailRenderer trail;
+
+	AudioManager am;
+
 	// Use this for initialization
 	void Start () 
 	{
-		
+		trail = GetComponent<TrailRenderer> ();
+		trail.enabled = false;
+
+		am = GameObject.Find ("AudioManager").GetComponent<AudioManager> ();
 	}
 	
 	// Update is called once per frame
@@ -30,7 +37,15 @@ public class EnemyBall : MonoBehaviour {
 		{
 			gameObject.SetActive (false);
 		}
-			
+
+		if (!fromEnemy) {
+			trail.enabled = true;
+			trail.time = 1;
+		} 
+		else 
+		{
+			trail.enabled = false;
+			trail.time = 0;		}
 	}
 
 	public void Reset()
@@ -38,7 +53,7 @@ public class EnemyBall : MonoBehaviour {
 		lifeEndTime = Time.time + destroyTime;
 		fromEnemy = true;
 
-		//print (Time.time + " , " + lifeEndTime);
+		//print ("Ball Reset");
 	}
 
 	public void PlayerHit() 
@@ -48,8 +63,11 @@ public class EnemyBall : MonoBehaviour {
 
     void OnCollisionEnter(Collision coll)
     {
-        if (coll.collider.tag == "Bat")
-            fromEnemy = false;
+		if (coll.collider.tag == "Bat") 
+		{
+			fromEnemy = false;
+			am.DodgeballHitSound ();
+		}
 
         if (coll.collider.tag == "Ball" && coll.collider.gameObject.GetComponent<EnemyBall>().fromEnemy == false)
             fromEnemy = false;

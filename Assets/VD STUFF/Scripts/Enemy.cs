@@ -24,6 +24,8 @@ public class Enemy : MonoBehaviour {
 	Vector3 playerPos;
 	bool canThrow = false;
 
+	public GameObject hitParticle;
+
 	SpawnFloor floor;
 
 	Animator animator;
@@ -134,10 +136,10 @@ public class Enemy : MonoBehaviour {
 			hitBy = p_hitBy;
 
 			int pointsToAdd = 1;
-
 			gameMan.GetComponent<GameManager> ().AddScore (pointsToAdd);
+			audioMan.GetComponent<AudioManager> ().EnemyHitSound ();
 
-			audioMan.GetComponent<AudioManager> ().DodgeballHitSound ();
+			Instantiate (hitParticle, p_hitBy.transform.position, Quaternion.LookRotation(dir));
 
 			if(animator == transform.GetChild(2).GetComponent<Animator>())
 				pointsToAdd++;
@@ -348,6 +350,8 @@ public class Enemy : MonoBehaviour {
 		if (coll.collider.tag == "Ball") {
 			if (coll.collider.gameObject.GetComponent<EnemyBall> ().fromEnemy == false) {
 				Hit (coll.collider.gameObject);
+
+
 			}
 		}
 	}
