@@ -426,57 +426,77 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-	public void OSCMessageReceived(OSC.NET.OSCMessage message){
-		if(message.Address == "/checkColor") {
-			if(mode != GameMode.STANDBY) {
-				print ("RENDERER IS TRUE");
-				Camera.main.GetComponent<screenChange>().screenChanged = true;
-				float xPos = (1 - (float)message.Values[0]) * Screen.width;
-				float yPos = (float)message.Values[1] * Screen.height;
-				Instantiate(warpParticles[DebugMode.CURWARPPARTICLE], Camera.main.ScreenToWorldPoint(new Vector3(xPos, yPos, 4f)), Quaternion.Euler(0f, 180f, 0f));
-			} else {
-				ArrayList args = new ArrayList();
-				args.Add(0f);
-				args.Add(0f);
-				args.Add(0);
-				//BallHit(args);
-			}
-		} else if(message.Address == "/shoot"){
-			if(mode != GameMode.CONFIG) {
-				//whiteScreen.SetActive(false);
-				//BallHit(message.Values); 
-			}
-		} else if(message.Address == "/config/done") {
-//			print ("config done");
-			Application.LoadLevel("Intro");
-			//mode = GameMode.STANDBY;
-		} else if(message.Address == "/config/start") {
-			if(mode != GameMode.CONFIG) {
-				StopAllCoroutines();
-				Enemy[] enemies = FindObjectsOfType<Enemy>();
-				foreach(Enemy enemy in enemies) {
-					enemy.StopAllCoroutines();
-				}
-
-				Spider[] spiders = FindObjectsOfType<Spider>();
-				foreach(Spider spider in spiders) {
-					spider.StopAllCoroutines();
-				}
-
-				StaticPool.DestroyAllObjects();
-
-				//mode = GameMode.CONFIG;
-				Application.LoadLevel("Config");
-			}
-		} else if(message.Address == "/config/noKinect") {
-			if(mode == GameMode.CONFIG) {
-				kinectErrorObj.SetActive(true);
-			}
-		} else if(message.Address == "/config/kinectFound") {
-			if(mode == GameMode.CONFIG) {
-				kinectErrorObj.SetActive(false);
-			}
+	public void OSCMessageReceived(OSC.NET.OSCMessage message)
+	{
+		switch( message.Address )
+		{
+		case "/timeChange":
+			break;
+		case "/startGame":
+			SwitchGameMode(GameMode.GAME);
+			break;
+		case "/skipTutorial":
+			break;
+		case "/endGame":
+			break;
+		case "/enterConfig":
+			break;
+		case "/centerConfig":
+			OVRManager.display.RecenterPose();
+			break;
+		case "/exitConfig":
+			break;
 		}
+//		if(message.Address == "/checkColor") {
+//			if(mode != GameMode.STANDBY) {
+//				print ("RENDERER IS TRUE");
+//				Camera.main.GetComponent<screenChange>().screenChanged = true;
+//				float xPos = (1 - (float)message.Values[0]) * Screen.width;
+//				float yPos = (float)message.Values[1] * Screen.height;
+//				Instantiate(warpParticles[DebugMode.CURWARPPARTICLE], Camera.main.ScreenToWorldPoint(new Vector3(xPos, yPos, 4f)), Quaternion.Euler(0f, 180f, 0f));
+//			} else {
+//				ArrayList args = new ArrayList();
+//				args.Add(0f);
+//				args.Add(0f);
+//				args.Add(0);
+//				//BallHit(args);
+//			}
+//		} else if(message.Address == "/shoot"){
+//			if(mode != GameMode.CONFIG) {
+//				//whiteScreen.SetActive(false);
+//				//BallHit(message.Values); 
+//			}
+//		} else if(message.Address == "/config/done") {
+////			print ("config done");
+//			Application.LoadLevel("Intro");
+//			//mode = GameMode.STANDBY;
+//		} else if(message.Address == "/config/start") {
+//			if(mode != GameMode.CONFIG) {
+//				StopAllCoroutines();
+//				Enemy[] enemies = FindObjectsOfType<Enemy>();
+//				foreach(Enemy enemy in enemies) {
+//					enemy.StopAllCoroutines();
+//				}
+//
+//				Spider[] spiders = FindObjectsOfType<Spider>();
+//				foreach(Spider spider in spiders) {
+//					spider.StopAllCoroutines();
+//				}
+//
+//				StaticPool.DestroyAllObjects();
+//
+//				//mode = GameMode.CONFIG;
+//				Application.LoadLevel("Config");
+//			}
+//		} else if(message.Address == "/config/noKinect") {
+//			if(mode == GameMode.CONFIG) {
+//				kinectErrorObj.SetActive(true);
+//			}
+//		} else if(message.Address == "/config/kinectFound") {
+//			if(mode == GameMode.CONFIG) {
+//				kinectErrorObj.SetActive(false);
+//			}
+//		}
 	}
 	
 	public void AdjustGameSetting(string setting, float value) {
