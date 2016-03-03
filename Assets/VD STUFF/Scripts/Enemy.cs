@@ -288,7 +288,7 @@ public class Enemy : MonoBehaviour {
 
 		GameObject ball = StaticPool.GetObj (ballPrefab);
 
-		timeToPlayer *= Vector3.Distance (transform.position, playerPos) / 14f;
+		timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 14f;
 		//print(Vector3.Distance (transform.position, playerPos));
 
 		ball.GetComponent<EnemyBall> ().Reset ();
