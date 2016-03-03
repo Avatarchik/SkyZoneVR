@@ -137,7 +137,7 @@ public class Enemy : MonoBehaviour {
 
 			gameMan.GetComponent<GameManager> ().AddScore (pointsToAdd);
 
-			audioMan.GetComponent<AudioManager> ().DodgeballHitSound ();
+			audioMan.GetComponent<AudioManager> ().EnemyHitSound ();
 
 			if(animator == transform.GetChild(2).GetComponent<Animator>())
 				pointsToAdd++;

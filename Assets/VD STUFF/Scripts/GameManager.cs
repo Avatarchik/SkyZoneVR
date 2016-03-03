@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour {
 		CONFIG
 	}
 
+	private AudioManager am;
+
 	private GameObject scoreText;
 	private GameObject timerText;
 	private GameObject countdownText;
@@ -110,6 +112,7 @@ public class GameManager : MonoBehaviour {
 		//introGUI = GameObject.Find("IntroGUI").GetComponent<IntroGUI>();
 		ballManager = GetComponent<BallManager> ();
 		playerManager = GetComponent<PlayerManager> ();
+		am = GameObject.Find ("AudioManager").GetComponent<AudioManager> ();
 
 		scoreText = GameObject.Find ("ScoreText");
 		timerText = GameObject.Find ("TimerText");
@@ -153,15 +156,12 @@ public class GameManager : MonoBehaviour {
 	void Update() {
 
 		//SCORE TEXT
-		//scoreText = GameObject.Find ("ScoreText");
 		scoreText.GetComponent<Text> ().text = "Score: " + score;
 
 		//TIMER TEXT
 		int minutes = Mathf.FloorToInt(timer / 60F);
 		int seconds = Mathf.FloorToInt(timer - minutes * 60);
 		string stringTimer = string.Format ("{0:0}:{1:00}", minutes, seconds);
-
-		//timerText = GameObject.Find ("TimerText");
 		timerText.GetComponent<Text>().text = "Time: " + stringTimer;
 		
 		switch(mode)
@@ -210,14 +210,19 @@ public class GameManager : MonoBehaviour {
 			foreach( Material mat in gridMats )
 				mat.SetFloat("_Opacity_Slider", timer );
 
-			if( timer <= 0 )
+
+			if (timer <= 0) 
 			{
-				SwitchGameMode( GameMode.GAME );
+				SwitchGameMode (GameMode.GAME);
 				return;
-			}
-			else if( timer <= 1 )
+			} 
+			else if (timer <= 1) 
 			{
-				countdownText.GetComponent<Text>().text = "Go!";
+				countdownText.GetComponent<Text> ().text = "Go!";
+			} 
+			else if (timer >= 4)
+			{
+				countdownText.GetComponent<Text> ().text = "Get Ready!";
 			}
 			else
 			{
@@ -349,19 +354,22 @@ public class GameManager : MonoBehaviour {
 		switch( gm )
 		{
 		case GameMode.STANDBY:
-			playerManager.playerData.Clear();
-			StaticPool.DestroyAllObjects();
-			countdownText.SetActive(false);
-			scoreText.SetActive(false);
-			timerText.SetActive(false);
+			playerManager.playerData.Clear ();
+			StaticPool.DestroyAllObjects ();
+			countdownText.SetActive (false);
+			scoreText.SetActive (false);
+			timerText.SetActive (false);
+			am.PlayAmbientCubeAudio ();
 			foreach( Material mat in gridMats )
 				mat.SetFloat("_Opacity_Slider", 2.5f);
 			break;
 		case GameMode.COUNTDOWN:
 			timer = 5f;
-			countdownText.SetActive(true);
+			countdownText.SetActive (true);
+			score = 0;
 			break;
 		case GameMode.GAME:
+			am.PlayBackgroundMusic ();
 			timer = gameTimer;
 			countdownText.SetActive(false);
 			scoreText.SetActive(true);

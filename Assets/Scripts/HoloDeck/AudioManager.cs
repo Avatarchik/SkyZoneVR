@@ -4,24 +4,56 @@ using System.Collections.Generic;
 
 public class AudioManager : MonoBehaviour {
 
-	//public List<AudioSource> soundEffects;
-
+	public AudioSource backgroundMusic;
+	public AudioSource ambientCubeAudio;
 	public AudioSource dodgeballHit;
+	public AudioSource enemyHit;
 
-	// Use this for initialization
-	void Start () 
-	{
-	
-	}
-	
-	// Update is called once per frame
+	bool updateBackgroundAudio = false;
+	AudioSource switchToAudio;
+	AudioSource switchFromAudio;
+
 	void Update () 
 	{
-	
+		if (!updateBackgroundAudio)
+			return;
+
+		if (switchToAudio.volume < 1f) 
+		{
+			switchToAudio.volume += Time.deltaTime;
+			switchFromAudio.volume = 1f - switchToAudio.volume;
+
+			if (switchToAudio.volume >= 1) 
+			{
+				switchToAudio.volume = 1;
+				switchFromAudio.Stop ();
+			}
+		}
+	}
+
+	public void PlayBackgroundMusic()
+	{
+		updateBackgroundAudio = true;
+		switchToAudio = backgroundMusic;
+		switchFromAudio = ambientCubeAudio;
+		backgroundMusic.Play ();
+	}
+
+	public void PlayAmbientCubeAudio()
+	{
+		updateBackgroundAudio = true;
+		switchToAudio = ambientCubeAudio;
+		switchFromAudio = backgroundMusic;
+		ambientCubeAudio.Play ();
 	}
 
 	public void DodgeballHitSound()
 	{
 		dodgeballHit.Play ();
+	}
+
+	public void EnemyHitSound()
+	{
+		enemyHit.Play ();
 	}
 }
