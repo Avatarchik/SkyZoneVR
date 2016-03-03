@@ -1,0 +1,144 @@
+fileFormatVersion: 2
+guid: b64b6ee255dba554396b07d5eb7a90c2
+timeCreated: 1457038375
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: VirsixLoadingBarEmpty_0
+    21300002: VirsixLoadingBarEmpty_1
+    21300004: VirsixLoadingBarEmpty_2
+    21300006: VirsixLoadingBarEmpty_3
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 9
+  spritePivot: {x: 0.5010552, y: 0.22649744}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 114}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: VirsixLoadingBarEmpty_0
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 139
+        width: 64
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -32, y: 51}
+        - {x: -32, y: -44}
+        - {x: -27, y: -51}
+        - {x: -3, y: -51}
+        - {x: 32, y: -7}
+        - {x: 32, y: 20}
+        - {x: -4, y: 51}
+    - name: VirsixLoadingBarEmpty_1
+      rect:
+        serializedVersion: 2
+        x: 371
+        y: 145
+        width: 56
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -22, y: 45}
+        - {x: -28, y: 42}
+        - {x: -28, y: -43}
+        - {x: -22, y: -45}
+        - {x: -8, y: -45}
+        - {x: 28, y: -7}
+        - {x: 28, y: 7}
+        - {x: -7, y: 45}
+    - name: VirsixLoadingBarEmpty_2
+      rect:
+        serializedVersion: 2
+        x: 429
+        y: 153
+        width: 46
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -19, y: 38}
+        - {x: -23, y: 36}
+        - {x: -23, y: -37}
+        - {x: -21, y: -38}
+        - {x: -5, y: -38}
+        - {x: 23, y: -8}
+        - {x: 23, y: 8}
+        - {x: -6, y: 38}
+    - name: VirsixLoadingBarEmpty_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 794
+        height: 121
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 397, y: 47.5}
+        - {x: 396, y: 50.5}
+        - {x: 388, y: 58.5}
+        - {x: 383, y: 60.5}
+        - {x: -383, y: 60.5}
+        - {x: -388, y: 58.5}
+        - {x: -396, y: 50.5}
+        - {x: -397, y: 47.5}
+        - {x: -397, y: -48.5}
+        - {x: -396, y: -51.5}
+        - {x: -388, y: -59.5}
+        - {x: -385, y: -60.5}
+        - {x: 385, y: -60.5}
+        - {x: 388, y: -59.5}
+        - {x: 396, y: -51.5}
+        - {x: 397, y: -48.5}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

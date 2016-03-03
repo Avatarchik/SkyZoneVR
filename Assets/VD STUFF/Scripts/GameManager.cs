@@ -117,6 +117,7 @@ public class GameManager : MonoBehaviour {
 		scoreText = GameObject.Find ("ScoreText");
 		timerText = GameObject.Find ("TimerText");
 		countdownText = GameObject.Find ("CountdownText");
+		queueManager = GameObject.Find( "QueueManager" ).GetComponent<QueueManager>();
 
 		SwitchGameMode(GameMode.STANDBY);
 
@@ -163,7 +164,7 @@ public class GameManager : MonoBehaviour {
 		int seconds = Mathf.FloorToInt(timer - minutes * 60);
 		string stringTimer = string.Format ("{0:0}:{1:00}", minutes, seconds);
 		timerText.GetComponent<Text>().text = "Time: " + stringTimer;
-		
+
 		switch(mode)
 		{
 		case GameMode.STANDBY:
@@ -377,7 +378,6 @@ public class GameManager : MonoBehaviour {
 
 			//StaticPool.DisableAllObjects();
 			//StaticPool.DestroyAllObjects(); // Ghetto fix for now. Wasting an allocation somewhere also I think.
-			queueManager = GameObject.Find( "QueueManager" ).GetComponent<QueueManager>();
 			queueManager.Reset();
 
 			StartCoroutine ("SpawnEnemy");
@@ -531,6 +531,11 @@ public class GameManager : MonoBehaviour {
 
 	public void AddScore(int p_score) {
 		score += p_score;
+	}
+
+	public void StartGame()
+	{
+		SwitchGameMode (GameMode.COUNTDOWN);
 	}
 }
  
