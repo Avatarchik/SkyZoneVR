@@ -38,21 +38,20 @@ public class EnemyBall : MonoBehaviour {
 			gameObject.SetActive (false);
 		}
 
-		if (!fromEnemy) {
-			trail.enabled = true;
-			trail.time = 1;
-		} 
-		else 
-		{
-			trail.enabled = false;
-			trail.time = 0;		}
+		if (trail.enabled && trail.time < 1) {
+			trail.time += Time.deltaTime;
+			if (trail.time >= 1f)
+				trail.time = 1;
+		}
 	}
 
 	public void Reset()
 	{
 		lifeEndTime = Time.time + destroyTime;
 		fromEnemy = true;
-
+		if( trail == null )
+			trail = GetComponent<TrailRenderer> ();
+		trail.enabled = false;
 		//print ("Ball Reset");
 	}
 
@@ -66,6 +65,8 @@ public class EnemyBall : MonoBehaviour {
 		if (coll.collider.tag == "Bat") 
 		{
 			fromEnemy = false;
+			trail.enabled = true;
+			trail.time = 0;
 			am.DodgeballHitSound ();
 		}
 
@@ -77,5 +78,6 @@ public class EnemyBall : MonoBehaviour {
 	{
 		gameObject.GetComponent<SphereCollider>().enabled = false;
 		colliderTimer = time;
+		trail.enabled = false;
 	}
 }

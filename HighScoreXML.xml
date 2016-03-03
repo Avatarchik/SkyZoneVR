@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <HighScore xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <DailyScores />
-  <weeklyScores>
-    <ScoreXML>
-      <score>2</score>
-      <time>2016-02-25T15:13:11.4841141-08:00</time>
-    </ScoreXML>
-  </weeklyScores>
+  <weeklyScores />
   <monthlyScores>
     <ScoreXML>
       <score>68</score>
