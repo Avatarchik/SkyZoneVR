@@ -42,6 +42,8 @@ public class GameManager : MonoBehaviour {
 	public float gameTimer = 10f;
 	public float scoreboardTimer = 15f;
 
+	public GameObject batHoldBox;
+
 	[System.NonSerialized]
 	public float timer = 0f;
 
@@ -360,6 +362,7 @@ public class GameManager : MonoBehaviour {
 			countdownText.SetActive (false);
 			scoreText.SetActive (false);
 			timerText.SetActive (false);
+			batHoldBox.SetActive(true);
 			am.PlayAmbientCubeAudio ();
 			foreach( Material mat in gridMats )
 				mat.SetFloat("_Opacity_Slider", 2.5f);
@@ -367,6 +370,7 @@ public class GameManager : MonoBehaviour {
 		case GameMode.COUNTDOWN:
 			timer = 5f;
 			countdownText.SetActive (true);
+			batHoldBox.SetActive(false);
 			score = 0;
 			break;
 		case GameMode.GAME:

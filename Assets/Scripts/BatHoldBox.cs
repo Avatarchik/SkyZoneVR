@@ -33,12 +33,14 @@ public class BatHoldBox : MonoBehaviour {
 			if (timer >= timeToHold) {
 				timer = 0f;
 				gm.StartGame ();
+				loadingBarGO.SetActive (false);
 			}
 		}
 	}
 
 	void OnTriggerExit(Collider coll)
 	{
-			timer = 0f;
+		timer = 0f;
+		loadingBar.fillAmount = 0;
 	}
 }
