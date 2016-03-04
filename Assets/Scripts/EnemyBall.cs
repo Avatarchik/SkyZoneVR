@@ -52,6 +52,7 @@ public class EnemyBall : MonoBehaviour {
 		if( trail == null )
 			trail = GetComponent<TrailRenderer> ();
 		trail.enabled = false;
+        gameObject.layer = 11;
 		//print ("Ball Reset");
 	}
 
