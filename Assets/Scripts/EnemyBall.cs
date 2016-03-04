@@ -68,6 +68,7 @@ public class EnemyBall : MonoBehaviour {
 			trail.enabled = true;
 			trail.time = 0;
 			am.DodgeballHitSound ();
+			gameObject.layer = 12;
 		}
 
         if (coll.collider.tag == "Ball" && coll.collider.gameObject.GetComponent<EnemyBall>().fromEnemy == false)

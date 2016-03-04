@@ -302,7 +302,7 @@ public class Enemy : MonoBehaviour {
 		//print(Vector3.Distance (transform.position, playerPos));
 
 		ball.GetComponent<EnemyBall> ().Reset ();
-		ball.GetComponent<EnemyBall> ().SetColliderEnableTime( timeToPlayer * 2f / 4f );
+		//ball.GetComponent<EnemyBall> ().SetColliderEnableTime( timeToPlayer * 1f / 4f );
 		ball.transform.position = transform.localPosition + new Vector3(0,2.5f,0) - Vector3.forward;
 
 		float hVel = Vector3.Distance (playerPos + new Vector3(0,-0.25f,0.25f), transform.position) / timeToPlayer;
