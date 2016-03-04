@@ -18,6 +18,14 @@ public class BatHoldBox : MonoBehaviour {
 		loadingBar.fillAmount = 0;
 	}
 
+	void Update()
+	{
+		if (timer <= 0) 
+		{
+			loadingBarGO.SetActive (false);
+		}
+	}
+
 	void OnTriggerEnter(Collider coll)
 	{
 		if(coll.gameObject.tag == "Bat")
