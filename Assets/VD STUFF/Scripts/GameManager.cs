@@ -371,6 +371,7 @@ public class GameManager : MonoBehaviour {
 			timer = 5f;
 			countdownText.SetActive (true);
 			batHoldBox.SetActive(false);
+            GameObject.Find("LoadingBarBackground").SetActive(false);
 			score = 0;
 			break;
 		case GameMode.GAME:

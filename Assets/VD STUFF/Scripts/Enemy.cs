@@ -54,6 +54,16 @@ public class Enemy : MonoBehaviour {
 		public int y;
 	}
 
+    //void Start()
+    //{
+    //    Rigidbody[] rbs = gameObject.GetComponentsInChildren<Rigidbody>();
+
+    //    foreach (Rigidbody rb in rbs)
+    //    {
+    //        rb.mass *= 8;
+    //    }
+    //}
+
 	void OnEnable() {
 //		moveForwardChancePct = Mathf.Clamp(moveForwardChancePct, 0f, 100f);
 
@@ -160,7 +170,7 @@ public class Enemy : MonoBehaviour {
 	IEnumerator Move() {
 		canThrow = true;
 		float timer = 0f;
-		while(curRow <= floor.rows - 2) {
+		while(curRow <= floor.rows - 5) {
 			float t_time = Time.time;
 
 			yield return StartCoroutine ("Hop", new HopData (floor.tiles[curColumn, curRow].transform.position, Random.Range(1.5f, 1.7f)));
@@ -292,7 +302,7 @@ public class Enemy : MonoBehaviour {
 		//print(Vector3.Distance (transform.position, playerPos));
 
 		ball.GetComponent<EnemyBall> ().Reset ();
-		ball.GetComponent<EnemyBall> ().SetColliderEnableTime( timeToPlayer * 1f / 4f );
+		ball.GetComponent<EnemyBall> ().SetColliderEnableTime( timeToPlayer * 2f / 4f );
 		ball.transform.position = transform.localPosition + new Vector3(0,2.5f,0) - Vector3.forward;
 
 		float hVel = Vector3.Distance (playerPos + new Vector3(0,-0.25f,0.25f), transform.position) / timeToPlayer;
