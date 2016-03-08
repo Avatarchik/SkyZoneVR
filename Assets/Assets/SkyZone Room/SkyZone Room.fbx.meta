@@ -1,0 +1,174 @@
+fileFormatVersion: 2
+guid: 95c9a6503b6b6194898440456d6af617
+timeCreated: 1457390234
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: BackPads
+    100002: BackPads1
+    100004: CeilingLamps01
+    100006: CeilingLamps02
+    100008: CeilingLamps03
+    100010: CeilingLamps04
+    100012: CeilingLamps05
+    100014: CrossBeams
+    100016: Crossbeams01
+    100018: group1
+    100020: LampPoles
+    100022: PadsHorizontal
+    100024: PadsVertical
+    100026: PasterBack
+    100028: polySurface1
+    100030: polySurface2
+    100032: PosterRules
+    100034: Room
+    100036: SidePads01
+    100038: SidePads02
+    100040: //RootNode
+    100042: SkyzonePoster
+    100044: transform1
+    400000: BackPads
+    400002: BackPads1
+    400004: CeilingLamps01
+    400006: CeilingLamps02
+    400008: CeilingLamps03
+    400010: CeilingLamps04
+    400012: CeilingLamps05
+    400014: CrossBeams
+    400016: Crossbeams01
+    400018: group1
+    400020: LampPoles
+    400022: PadsHorizontal
+    400024: PadsVertical
+    400026: PasterBack
+    400028: polySurface1
+    400030: polySurface2
+    400032: PosterRules
+    400034: Room
+    400036: SidePads01
+    400038: SidePads02
+    400040: //RootNode
+    400042: SkyzonePoster
+    400044: transform1
+    2300000: BackPads
+    2300002: BackPads1
+    2300004: CeilingLamps01
+    2300006: CeilingLamps02
+    2300008: CeilingLamps03
+    2300010: CeilingLamps04
+    2300012: CeilingLamps05
+    2300014: CrossBeams
+    2300016: Crossbeams01
+    2300018: LampPoles
+    2300020: PadsHorizontal
+    2300022: PadsVertical
+    2300024: PasterBack
+    2300026: polySurface1
+    2300028: polySurface2
+    2300030: PosterRules
+    2300032: SidePads01
+    2300034: SidePads02
+    2300036: SkyzonePoster
+    3300000: BackPads
+    3300002: BackPads1
+    3300004: CeilingLamps01
+    3300006: CeilingLamps02
+    3300008: CeilingLamps03
+    3300010: CeilingLamps04
+    3300012: CeilingLamps05
+    3300014: CrossBeams
+    3300016: Crossbeams01
+    3300018: LampPoles
+    3300020: PadsHorizontal
+    3300022: PadsVertical
+    3300024: PasterBack
+    3300026: polySurface1
+    3300028: polySurface2
+    3300030: PosterRules
+    3300032: SidePads01
+    3300034: SidePads02
+    3300036: SkyzonePoster
+    4300000: polySurface1
+    4300002: polySurface2
+    4300004: PadsHorizontal
+    4300006: SidePads02
+    4300008: SidePads01
+    4300010: PadsVertical
+    4300012: BackPads
+    4300014: PasterBack
+    4300016: SkyzonePoster
+    4300018: PosterRules
+    4300020: CrossBeams
+    4300022: CeilingLamps01
+    4300024: Crossbeams01
+    4300026: CeilingLamps02
+    4300028: CeilingLamps03
+    4300030: CeilingLamps04
+    4300032: CeilingLamps05
+    4300034: LampPoles
+    4300036: BackPads1
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

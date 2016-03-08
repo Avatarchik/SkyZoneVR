@@ -33,6 +33,8 @@ public class Enemy : MonoBehaviour {
 	public List<Texture> maleTextures;
 	public List<Texture> femaleTextures;
 
+	Rigidbody[] rbs;
+
 //	public float moveForwardChancePct = 50f;
 
 	bool hit;
@@ -54,23 +56,29 @@ public class Enemy : MonoBehaviour {
 		public int y;
 	}
 
-    //void Start()
-    //{
-    //    Rigidbody[] rbs = gameObject.GetComponentsInChildren<Rigidbody>();
+    void Start()
+    {
+        rbs = gameObject.GetComponentsInChildren<Rigidbody>();
 
-    //    foreach (Rigidbody rb in rbs)
-    //    {
-    //        rb.mass *= 8;
-    //    }
-    //}
-
-	void OnEnable() {
-//		moveForwardChancePct = Mathf.Clamp(moveForwardChancePct, 0f, 100f);
+//        foreach (Rigidbody rb in rbs)
+//        {
+//            //rb.mass *= 8;
+//			rb.useGravity = false;
+//			rb.isKinematic = true;
+//        }
 
 		gameMan = GameObject.Find ("GameManager");
 		audioMan = GameObject.Find ("AudioManager");
 
 		floor = GameObject.Find ("Floor").GetComponent<SpawnFloor> ();
+    }
+
+	void OnEnable() {
+//		moveForwardChancePct = Mathf.Clamp(moveForwardChancePct, 0f, 100f);
+
+//		gameMan = GameObject.Find ("GameManager");
+//		audioMan = GameObject.Find ("AudioManager");
+//		floor = GameObject.Find ("Floor").GetComponent<SpawnFloor> ();
 
 		Reset();
 	}
@@ -119,6 +127,12 @@ public class Enemy : MonoBehaviour {
 		lifeEndTime = -1f;
 
 		animator.enabled = true;
+
+//		foreach (Rigidbody rb in rbs)
+//		{
+//			rb.useGravity = false;
+//			rb.isKinematic = true;
+//		}
 	}
 
 	void Update() {
@@ -150,6 +164,12 @@ public class Enemy : MonoBehaviour {
 			audioMan.GetComponent<AudioManager> ().EnemyHitSound ();
 
 			Instantiate (hitParticle, p_hitBy.transform.position, Quaternion.LookRotation(dir));
+
+//			foreach (Rigidbody rb in rbs)
+//			{
+//				rb.useGravity = true;
+//				rb.isKinematic = false;
+//			}
 
 			if(animator == transform.GetChild(2).GetComponent<Animator>())
 				pointsToAdd++;
