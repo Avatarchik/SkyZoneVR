@@ -23,6 +23,7 @@ public class Enemy : MonoBehaviour {
 	Vector3 dir;
 	Vector3 playerPos;
 	bool canThrow = false;
+	GameObject player;
 
 	public GameObject hitParticle;
 
@@ -69,8 +70,9 @@ public class Enemy : MonoBehaviour {
 
 		gameMan = GameObject.Find ("GameManager");
 		audioMan = GameObject.Find ("AudioManager");
-
 		floor = GameObject.Find ("Floor").GetComponent<SpawnFloor> ();
+		player = GameObject.Find("Player");
+		playerPos = player.transform.position;
     }
 
 	void OnEnable() {
@@ -142,11 +144,11 @@ public class Enemy : MonoBehaviour {
 			}
 		}
 
-		//Face the player
-		playerPos = GameObject.FindGameObjectWithTag ("MainCamera").transform.position;
-		dir = playerPos - transform.position;
-		dir.y = 0;
-		transform.rotation = Quaternion.LookRotation (dir.normalized * -1);
+//		//Face the player
+//		playerPos = player.transform.position;
+//		dir = playerPos - transform.position;
+//		dir.y = 0;
+//		transform.rotation = Quaternion.LookRotation (dir.normalized * -1);
 
 		//Throw
 		if (canThrow) {
@@ -308,6 +310,11 @@ public class Enemy : MonoBehaviour {
 		canThrow = false;
 
 		yield return new WaitForSeconds (throwInterval);
+
+		playerPos = player.transform.position;
+		dir = playerPos - transform.position;
+		dir.y = 0;
+		transform.rotation = Quaternion.LookRotation (dir.normalized * -1);
 
 		Throw ();
 
