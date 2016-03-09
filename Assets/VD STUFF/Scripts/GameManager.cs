@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour {
 	private GameObject scoreText;
 	private GameObject timerText;
 	private GameObject countdownText;
+	private GameObject finalScoreText;
 	private int score;
 
 	public GameObject enemy;
@@ -119,6 +120,7 @@ public class GameManager : MonoBehaviour {
 		scoreText = GameObject.Find ("ScoreText");
 		timerText = GameObject.Find ("TimerText");
 		countdownText = GameObject.Find ("CountdownText");
+		finalScoreText = GameObject.Find ("FinalScoreText");
 		queueManager = GameObject.Find( "QueueManager" ).GetComponent<QueueManager>();
 
 		SwitchGameMode(GameMode.STANDBY);
@@ -357,11 +359,12 @@ public class GameManager : MonoBehaviour {
 		switch( gm )
 		{
 		case GameMode.STANDBY:
-			playerManager.playerData.Clear ();
+			//playerManager.playerData.Clear ();
 			StaticPool.DestroyAllObjects ();
 			countdownText.SetActive (false);
 			scoreText.SetActive (false);
 			timerText.SetActive (false);
+			finalScoreText.SetActive (false);
 			batHoldBox.SetActive(true);
 			am.PlayAmbientCubeAudio ();
 			foreach( Material mat in gridMats )
@@ -392,8 +395,10 @@ public class GameManager : MonoBehaviour {
 			break;
 		case GameMode.GAMEOVER:
 			timer = 3f;
-			scoreText.SetActive(false);
-			timerText.SetActive(false);
+			scoreText.SetActive (false);
+			timerText.SetActive (false);
+			finalScoreText.GetComponent<Text> ().text = "Score: " + score;
+			finalScoreText.SetActive (true);
 			break;
 		case GameMode.CONFIG:
 			break;

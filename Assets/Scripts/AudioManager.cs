@@ -13,6 +13,11 @@ public class AudioManager : MonoBehaviour {
 	AudioSource switchToAudio;
 	AudioSource switchFromAudio;
 
+	void Start()
+	{
+		updateBackgroundAudio = false;
+	}
+
 	void Update () 
 	{
 		if (!updateBackgroundAudio)
@@ -27,6 +32,7 @@ public class AudioManager : MonoBehaviour {
 			{
 				switchToAudio.volume = 1;
 				switchFromAudio.Stop ();
+				updateBackgroundAudio = false;
 			}
 		}
 	}
