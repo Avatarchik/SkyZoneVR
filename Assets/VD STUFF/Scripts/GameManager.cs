@@ -20,9 +20,12 @@ public class GameManager : MonoBehaviour {
 
 	private GameObject scoreText;
 	private GameObject timerText;
+	private GameObject streakText;
 	private GameObject countdownText;
 	private GameObject finalScoreText;
 	private int score;
+	private int streak = 0;
+	private int streakMultiplier;
 
 	public GameObject enemy;
 	public Transform enemySpawnPoint;
@@ -119,6 +122,7 @@ public class GameManager : MonoBehaviour {
 
 		scoreText = GameObject.Find ("ScoreText");
 		timerText = GameObject.Find ("TimerText");
+		streakText = GameObject.Find ("StreakText");
 		countdownText = GameObject.Find ("CountdownText");
 		finalScoreText = GameObject.Find ("FinalScoreText");
 		queueManager = GameObject.Find( "QueueManager" ).GetComponent<QueueManager>();
@@ -160,14 +164,14 @@ public class GameManager : MonoBehaviour {
 
 	void Update() {
 
-		//SCORE TEXT
-		scoreText.GetComponent<Text> ().text = "Score: " + score;
-
-		//TIMER TEXT
-		int minutes = Mathf.FloorToInt(timer / 60F);
-		int seconds = Mathf.FloorToInt(timer - minutes * 60);
-		string stringTimer = string.Format ("{0:0}:{1:00}", minutes, seconds);
-		timerText.GetComponent<Text>().text = "Time: " + stringTimer;
+//		//SCORE TEXT
+//		scoreText.GetComponent<Text> ().text = "Score: " + score;
+//
+//		//TIMER TEXT
+//		int minutes = Mathf.FloorToInt(timer / 60F);
+//		int seconds = Mathf.FloorToInt(timer - minutes * 60);
+//		string stringTimer = string.Format ("{0:0}:{1:00}", minutes, seconds);
+//		timerText.GetComponent<Text>().text = "Time: " + stringTimer;
 
 		switch(mode)
 		{
@@ -260,6 +264,25 @@ public class GameManager : MonoBehaviour {
 //				StaticPool.DestroyAllObjects();
 //			}
 			// Once timer goes down to zero
+
+			//SCORE TEXT
+			scoreText.GetComponent<Text> ().text = "Score: " + score;
+
+			//TIMER TEXT
+			int minutes = Mathf.FloorToInt (timer / 60F);
+			int seconds = Mathf.FloorToInt (timer - minutes * 60);
+			string stringTimer = string.Format ("{0:0}:{1:00}", minutes, seconds);
+			timerText.GetComponent<Text> ().text = "Time: " + stringTimer;
+
+			//STREAK TEXT
+			streakText.GetComponent<Text> ().text = "Streak: " + streak + " (x" + streakMultiplier + ")";
+			if (streak <= 0)
+				streakMultiplier = 1;
+			if (streak >= 1)
+				streakMultiplier = 2;
+			if (streak >= 3)
+				streakMultiplier = 3;
+
 			if(timer <= 0) {
 				ballManager.StopAllCoroutines();
 				StopAllCoroutines();
@@ -364,6 +387,7 @@ public class GameManager : MonoBehaviour {
 			countdownText.SetActive (false);
 			scoreText.SetActive (false);
 			timerText.SetActive (false);
+			streakText.SetActive (false);
 			finalScoreText.SetActive (false);
 			batHoldBox.SetActive(true);
 			am.PlayAmbientCubeAudio ();
@@ -373,10 +397,12 @@ public class GameManager : MonoBehaviour {
 		case GameMode.COUNTDOWN:
 			timer = 5f;
 			countdownText.SetActive (true);
-			batHoldBox.SetActive(false);
+			batHoldBox.SetActive (false);
 //			if(GameObject.Find("LoadingBarBackground").activeInHierarchy == true)
 //				GameObject.Find("LoadingBarBackground").SetActive(false);
 			score = 0;
+			streak = 0;
+			streakMultiplier = 1;
 			break;
 		case GameMode.GAME:
 			am.PlayBackgroundMusic ();
@@ -384,6 +410,7 @@ public class GameManager : MonoBehaviour {
 			countdownText.SetActive(false);
 			scoreText.SetActive(true);
 			timerText.SetActive(true);
+			streakText.SetActive (true);
 
 			//StaticPool.DisableAllObjects();
 			//StaticPool.DestroyAllObjects(); // Ghetto fix for now. Wasting an allocation somewhere also I think.
@@ -397,6 +424,7 @@ public class GameManager : MonoBehaviour {
 			timer = 3f;
 			scoreText.SetActive (false);
 			timerText.SetActive (false);
+			streakText.SetActive (false);
 			finalScoreText.GetComponent<Text> ().text = "Score: " + score;
 			finalScoreText.SetActive (true);
 			break;
@@ -518,35 +546,45 @@ public class GameManager : MonoBehaviour {
 //		}
 	}
 	
-	public void AdjustGameSetting(string setting, float value) {
-		switch(setting) 
-		{
-		case "Game Time":
-			gameTimer = value;
-			break;
-		default:
-			break;
-		}
-	}
-
-	public void AdjustGameSetting(string setting, bool value) {
-		switch(setting)
-		{
-		case "Quit Game":
-			ChangeScene( "Intro" );
-			break;
-		default:
-			break;
-		}
-	}
+//	public void AdjustGameSetting(string setting, float value) {
+//		switch(setting) 
+//		{
+//		case "Game Time":
+//			gameTimer = value;
+//			break;
+//		default:
+//			break;
+//		}
+//	}
+//
+//	public void AdjustGameSetting(string setting, bool value) {
+//		switch(setting)
+//		{
+//		case "Quit Game":
+//			ChangeScene( "Intro" );
+//			break;
+//		default:
+//			break;
+//		}
+//	}
 
 	public void AddScore(int p_score) {
-		score += p_score;
+		score += p_score * streakMultiplier;
 	}
 
 	public void StartGame()
 	{
 		SwitchGameMode (GameMode.COUNTDOWN);
+	}
+
+	public void AddToStreak()
+	{
+		streak += 1;
+	}
+
+	public void ResetStreak()
+	{
+		streak = 0;
 	}
 }
  

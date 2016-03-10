@@ -47,7 +47,7 @@ public class Player : MonoBehaviour
 						hit.rigidbody.AddForce (transform.forward * hit.distance * 10000);
 
 						if (hit.rigidbody.gameObject.tag == "Ball") 
-							hit.rigidbody.GetComponent<EnemyBall> ().PlayerHit ();
+							hit.rigidbody.GetComponent<EnemyBall> ().DebugHit ();
 					}
 				}
 				//print ("You clicked this: " + hit.rigidbody);

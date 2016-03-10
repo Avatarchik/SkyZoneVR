@@ -8,9 +8,11 @@ public class EnemyBall : MonoBehaviour {
 	float colliderTimer = 0.0f;
 
 	public bool fromEnemy = true;
+	bool streakChain;
 
 	TrailRenderer trail;
 
+	GameManager gm;
 	AudioManager am;
 
 	// Use this for initialization
@@ -20,6 +22,7 @@ public class EnemyBall : MonoBehaviour {
 		trail.enabled = false;
 
 		am = GameObject.Find ("AudioManager").GetComponent<AudioManager> ();
+		gm = GameObject.Find ("GameManager").GetComponent<GameManager> ();
 	}
 	
 	// Update is called once per frame
@@ -56,7 +59,7 @@ public class EnemyBall : MonoBehaviour {
 		//print ("Ball Reset");
 	}
 
-	public void PlayerHit() 
+	public void DebugHit() 
 	{
 		fromEnemy = false;
 	}
@@ -74,6 +77,17 @@ public class EnemyBall : MonoBehaviour {
 
         if (coll.collider.tag == "Ball" && coll.collider.gameObject.GetComponent<EnemyBall>().fromEnemy == false)
             fromEnemy = false;
+
+		if (gameObject.layer == 12 && coll.collider.gameObject.tag == "Enemy") 
+		{
+			gm.AddToStreak ();
+			streakChain = true;
+		}
+
+		if (gameObject.layer == 12 && coll.collider.gameObject.layer == 0 && !streakChain) 
+		{
+			gm.ResetStreak ();
+		}
     }
 
 	public void SetColliderEnableTime( float time )
