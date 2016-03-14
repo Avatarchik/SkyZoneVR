@@ -8,7 +8,8 @@ public class EnemyBall : MonoBehaviour {
 	float colliderTimer = 0.0f;
 
 	public bool fromEnemy = true;
-	bool streakChain;
+	bool streakChain = false;
+	bool hitGround = false;
 
 	TrailRenderer trail;
 
@@ -57,6 +58,7 @@ public class EnemyBall : MonoBehaviour {
 		trail.enabled = false;
         gameObject.layer = 11;
 		streakChain = false;
+		hitGround = false;
 		//print ("Ball Reset");
 	}
 
@@ -67,6 +69,9 @@ public class EnemyBall : MonoBehaviour {
 
     void OnCollisionEnter(Collision coll)
     {
+		if (hitGround)
+			return;
+		
 		if (coll.collider.tag == "Bat") 
 		{
 			fromEnemy = false;
@@ -81,13 +86,15 @@ public class EnemyBall : MonoBehaviour {
 
 		if (gameObject.layer == 12 && coll.collider.gameObject.tag == "Enemy") 
 		{
-			gm.AddToStreak ();
+			//gm.AddToStreak ();
 			streakChain = true;
 		}
 
-		if (gameObject.layer == 12 && coll.collider.gameObject.layer == 0 && !streakChain) 
+		if (gameObject.layer == 12 && coll.collider.gameObject.layer == 0 )//&& !streakChain) 
 		{
-			gm.ResetStreak ();
+			hitGround = true;
+			if( !streakChain )
+				gm.ResetStreak ();
 		}
     }
 
