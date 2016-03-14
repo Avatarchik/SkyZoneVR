@@ -276,12 +276,33 @@ public class GameManager : MonoBehaviour {
 
 			//STREAK TEXT
 			streakText.GetComponent<Text> ().text = "Streak: " + streak + " (x" + streakMultiplier + ")";
-			if (streak <= 0)
-				streakMultiplier = 1;
-			if (streak >= 1)
-				streakMultiplier = 2;
-			if (streak >= 3)
-				streakMultiplier = 3;
+
+			streakMultiplier = Mathf.Clamp (1 + Mathf.Clamp (streak, 0, 1) + (int)(streak / 3), 1, 3);
+//			if (streak <= 0) 
+//			{
+//				if (streak >= 1) 
+//				{
+//					if (streak >= 3) 
+//					{
+//						streakMultiplier = 3;
+//					}
+//					else
+//					{
+//						streakMultiplier = 2;
+//					}
+//				}
+//				else
+//				{
+//					streakMultiplier = 1;
+//				}
+//			}
+
+//			if(streak <= 0)
+//				streakMultiplier = 1;
+//			if (streak >= 1)
+//				streakMultiplier = 2;
+//			if (streak >= 3)
+//				streakMultiplier = 3;
 
 			if(timer <= 0) {
 				ballManager.StopAllCoroutines();
@@ -568,8 +589,10 @@ public class GameManager : MonoBehaviour {
 //		}
 //	}
 
-	public void AddScore(int p_score) {
+	public void AddScore(int p_score) 
+	{
 		score += p_score * streakMultiplier;
+		AddToStreak ();
 	}
 
 	public void StartGame()

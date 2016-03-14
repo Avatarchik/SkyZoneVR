@@ -56,6 +56,7 @@ public class EnemyBall : MonoBehaviour {
 			trail = GetComponent<TrailRenderer> ();
 		trail.enabled = false;
         gameObject.layer = 11;
+		streakChain = false;
 		//print ("Ball Reset");
 	}
 
