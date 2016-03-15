@@ -59,6 +59,8 @@ public class Enemy : MonoBehaviour {
 
 	public HopData tutorialHop;// = new HopData();
 	public bool inTutorialMode;
+	public bool waitToThrow;
+	public float throwWaitTime = 0f;
 
     void Start()
     {
@@ -71,7 +73,7 @@ public class Enemy : MonoBehaviour {
 //			rb.isKinematic = true;
 //        }
 
-		tutorialHop = new HopData(transform.position, 2f);
+		//tutorialHop = new HopData(transform.position, 1.7f);
 
 		gameMan = GameObject.Find ("GameManager");
 		audioMan = GameObject.Find ("AudioManager");
@@ -89,6 +91,8 @@ public class Enemy : MonoBehaviour {
 //		gameMan = GameObject.Find ("GameManager");
 //		audioMan = GameObject.Find ("AudioManager");
 //		floor = GameObject.Find ("Floor").GetComponent<SpawnFloor> ();
+
+		tutorialHop = new HopData(transform.position, 1.7f);
 
 		Reset();
 	}
@@ -326,6 +330,18 @@ public class Enemy : MonoBehaviour {
 	}
 
 	IEnumerator ThrowRoutine(){
+
+		if (inTutorialMode && waitToThrow) {
+			//throwWaitTime = Random.Range (0, 4);
+
+			waitToThrow = false;
+
+		} 
+		else if (!waitToThrow) 
+		{
+			throwWaitTime = 0;
+		}
+
 		canThrow = false;
 
 		yield return new WaitForSeconds (throwInterval);
@@ -334,6 +350,8 @@ public class Enemy : MonoBehaviour {
 		dir = playerPos - transform.position;
 		dir.y = 0;
 		transform.rotation = Quaternion.LookRotation (dir.normalized * -1);
+
+		yield return new WaitForSeconds (throwWaitTime);
 
 		Throw ();
 

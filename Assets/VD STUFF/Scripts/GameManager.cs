@@ -467,6 +467,8 @@ public class GameManager : MonoBehaviour {
 				tutorialEnemies [i].GetComponent<Enemy> ().StartCoroutine ("Hop", tutorialEnemies [i].GetComponent<Enemy> ().tutorialHop);
 				//tutorialEnemies[i].GetComponent<Enemy>().InvokeRepeating("Hop" 2f, 2f);
 				tutorialEnemies [i].GetComponent<Enemy> ().inTutorialMode = true;
+				tutorialEnemies [i].GetComponent<Enemy> ().waitToThrow = true;
+				tutorialEnemies [i].GetComponent<Enemy> ().throwWaitTime += i;
 				tutorialEnemies [i].GetComponent<Enemy> ().StartCoroutine ("ThrowRoutine");
 			}
 
@@ -478,6 +480,7 @@ public class GameManager : MonoBehaviour {
 				enemy.SetActive (false);
 			score = 0;
 			streak = 0;
+			streakMultiplier = 1;
 			am.PlayBackgroundMusic ();
 			timer = gameTimer;
 			countdownText.SetActive(false);
