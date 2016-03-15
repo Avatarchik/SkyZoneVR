@@ -45,7 +45,7 @@ public class Enemy : MonoBehaviour {
 	[System.NonSerialized]
 	public GameObject hitBy;
 
-	class HopData {
+	public class HopData {
 		public HopData(Vector3 p_dest, float p_time) {dest = p_dest; time = p_time;}
 		public Vector3 dest;
 		public float time;
@@ -56,6 +56,9 @@ public class Enemy : MonoBehaviour {
 		public int x;
 		public int y;
 	}
+
+	public HopData tutorialHop;// = new HopData();
+	public bool inTutorialMode;
 
     void Start()
     {
@@ -68,11 +71,16 @@ public class Enemy : MonoBehaviour {
 //			rb.isKinematic = true;
 //        }
 
+		tutorialHop = new HopData(transform.position, 2f);
+
 		gameMan = GameObject.Find ("GameManager");
 		audioMan = GameObject.Find ("AudioManager");
 		floor = GameObject.Find ("Floor").GetComponent<SpawnFloor> ();
 		player = GameObject.Find("Player");
 		playerPos = player.transform.position;
+
+//		tutorialHop.dest = transform.position + new Vector3(0, hopHeight, 0);
+//		tutorialHop.time = 2f;
     }
 
 	void OnEnable() {
@@ -161,6 +169,11 @@ public class Enemy : MonoBehaviour {
 		if(!hit) {
 			hitBy = p_hitBy;
 
+			if (inTutorialMode) 
+			{
+				gameMan.GetComponent<GameManager> ().tutorialEnemiesActive -= 1;
+			}
+
 			int pointsToAdd = 1;
 			gameMan.GetComponent<GameManager> ().AddScore (pointsToAdd);
 			audioMan.GetComponent<AudioManager> ().EnemyHitSound ();
@@ -248,6 +261,7 @@ public class Enemy : MonoBehaviour {
 	}
 
 	IEnumerator Hop(HopData data) {
+		bool coroutineRunning = true;
 		animator.transform.localPosition = Vector3.zero;
 		animator.SetBool("Jump", true);
 		if(animator == transform.GetChild(2).GetComponent<Animator>())
@@ -303,6 +317,11 @@ public class Enemy : MonoBehaviour {
 			
 			timer += Time.deltaTime / data.time;
 			yield return null;
+		}
+		coroutineRunning = false;
+
+		if (inTutorialMode && !coroutineRunning) {
+			yield return StartCoroutine ("Hop", tutorialHop);
 		}
 	}
 

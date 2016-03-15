@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour {
 	{
 		STANDBY, 
 		COUNTDOWN,
+		TUTORIAL,
 		GAME, 
 		GAMEOVER, 
 		CONFIG
@@ -47,6 +48,10 @@ public class GameManager : MonoBehaviour {
 	public float scoreboardTimer = 15f;
 
 	public GameObject batHoldBox;
+
+	public GameObject[] tutorialEnemies;
+	public int tutorialEnemiesActive;
+	bool inTutorialMode;
 
 	[System.NonSerialized]
 	public float timer = 0f;
@@ -126,6 +131,11 @@ public class GameManager : MonoBehaviour {
 		countdownText = GameObject.Find ("CountdownText");
 		finalScoreText = GameObject.Find ("FinalScoreText");
 		queueManager = GameObject.Find( "QueueManager" ).GetComponent<QueueManager>();
+
+		for (int i = 0; i < tutorialEnemies.Length; i++) 
+		{
+			tutorialEnemies [i].SetActive (false);
+		}
 
 		SwitchGameMode(GameMode.STANDBY);
 
@@ -210,8 +220,15 @@ public class GameManager : MonoBehaviour {
 //			}
 			//countdownText.transform.localScale = Vector3.zero;
 
-			if( Input.GetKeyDown(KeyCode.Space) )
-				SwitchGameMode( GameMode.COUNTDOWN );
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				SwitchGameMode (GameMode.COUNTDOWN);
+				inTutorialMode = false;
+			}
+
+			if (Input.GetKeyDown (KeyCode.T)) {
+				SwitchGameMode (GameMode.COUNTDOWN);
+				inTutorialMode = true;
+			}
 
 			break;
 
@@ -222,8 +239,13 @@ public class GameManager : MonoBehaviour {
 
 			if (timer <= 0) 
 			{
-				SwitchGameMode (GameMode.GAME);
-				return;
+				if (!inTutorialMode) {
+					SwitchGameMode (GameMode.GAME);
+					return;
+				} else {
+					SwitchGameMode (GameMode.TUTORIAL);
+					return;
+				}
 			} 
 			else if (timer <= 1) 
 			{
@@ -231,7 +253,10 @@ public class GameManager : MonoBehaviour {
 			} 
 			else if (timer >= 4)
 			{
-				countdownText.GetComponent<Text> ().text = "Get Ready!";
+				if (!inTutorialMode)
+					countdownText.GetComponent<Text> ().text = "Get Ready!";
+				else
+					countdownText.GetComponent<Text> ().text = "Tutorial";
 			}
 			else
 			{
@@ -240,7 +265,14 @@ public class GameManager : MonoBehaviour {
 
 			timer -= Time.deltaTime;
 			break;
-			
+
+		case GameMode.TUTORIAL:
+			if (tutorialEnemiesActive <= 2) 
+			{
+				SwitchGameMode (GameMode.GAME);
+			}
+			break;
+
 		case GameMode.GAME:
 
 //			if(Input.GetKeyDown(KeyCode.K)) {
@@ -411,6 +443,7 @@ public class GameManager : MonoBehaviour {
 			streakText.SetActive (false);
 			finalScoreText.SetActive (false);
 			batHoldBox.SetActive(true);
+			tutorialEnemiesActive = 0;
 			am.PlayAmbientCubeAudio ();
 			foreach( Material mat in gridMats )
 				mat.SetFloat("_Opacity_Slider", 2.5f);
@@ -424,8 +457,27 @@ public class GameManager : MonoBehaviour {
 			score = 0;
 			streak = 0;
 			streakMultiplier = 1;
+			tutorialEnemiesActive = 0;
+			break;
+		case GameMode.TUTORIAL:
+			countdownText.SetActive(false);
+
+			for (int i = 0; i < tutorialEnemies.Length; i++) {
+				tutorialEnemies [i].SetActive (true);
+				tutorialEnemies [i].GetComponent<Enemy> ().StartCoroutine ("Hop", tutorialEnemies [i].GetComponent<Enemy> ().tutorialHop);
+				//tutorialEnemies[i].GetComponent<Enemy>().InvokeRepeating("Hop" 2f, 2f);
+				tutorialEnemies [i].GetComponent<Enemy> ().inTutorialMode = true;
+				tutorialEnemies [i].GetComponent<Enemy> ().StartCoroutine ("ThrowRoutine");
+			}
+
+			tutorialEnemiesActive = tutorialEnemies.Length;
+
 			break;
 		case GameMode.GAME:
+			foreach (GameObject enemy in tutorialEnemies)
+				enemy.SetActive (false);
+			score = 0;
+			streak = 0;
 			am.PlayBackgroundMusic ();
 			timer = gameTimer;
 			countdownText.SetActive(false);
