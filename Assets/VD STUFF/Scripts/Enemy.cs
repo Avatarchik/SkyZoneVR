@@ -92,7 +92,7 @@ public class Enemy : MonoBehaviour {
 //		audioMan = GameObject.Find ("AudioManager");
 //		floor = GameObject.Find ("Floor").GetComponent<SpawnFloor> ();
 
-		tutorialHop = new HopData(transform.position, 1.7f);
+		tutorialHop = new HopData(new Vector3(transform.position.x, 3f, transform.position.z), 1.7f);
 
 		Reset();
 	}
@@ -275,6 +275,12 @@ public class Enemy : MonoBehaviour {
 
 		ClosestTile(transform.position).GetComponent<Animator>().SetTrigger("Bounce");
 		Vector3 startPos = transform.position;
+		if (!inTutorialMode) {
+			startPos = transform.position;
+		}
+		else {
+			startPos = new Vector3 (transform.position.x, 3f, transform.position.z);
+		}
 		float timer = 0.0f;
 
 		switch(animator.GetInteger("RandomJump")) {
