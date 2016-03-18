@@ -34,11 +34,11 @@ public class CubeBounds : MonoBehaviour
 			if( dist < maxDist )
 			{
 				maxDist = dist;
-				col.a = (0.5f - dist);// * 130;
+				col.a = (.85f - dist);// * 130;
 			}
 		}
 
-		col.a = Mathf.Clamp(col.a, 0, 0.5f);
+		col.a = Mathf.Clamp(col.a, 0, .85f);
 		
 		mat.color = col;
 	}
