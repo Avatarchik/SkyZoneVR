@@ -209,7 +209,7 @@ public class Enemy : MonoBehaviour {
 	IEnumerator Move() {
 		canThrow = true;
 		float timer = 0f;
-		while(curRow <= floor.rows - 5) {
+		while(curRow <= floor.rows - 6) {
 			float t_time = Time.time;
 
 			yield return StartCoroutine ("Hop", new HopData (floor.tiles[curColumn, curRow].transform.position, Random.Range(1.5f, 1.7f)));

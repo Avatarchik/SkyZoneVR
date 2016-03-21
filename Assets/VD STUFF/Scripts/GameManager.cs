@@ -17,6 +17,13 @@ public class GameManager : MonoBehaviour {
 		CONFIG
 	}
 
+	enum TutorialState
+	{
+		ONE,
+		TWO,
+		THREE
+	}
+
 	private AudioManager am;
 
 	private GameObject scoreText;
@@ -40,6 +47,7 @@ public class GameManager : MonoBehaviour {
 
 	GameMode mode = GameMode.STANDBY;
 	bool gameStarted = false;
+	TutorialState tutMode = TutorialState.ONE;
 
 	public SpawnFloor spawnFloor;
 
@@ -48,6 +56,7 @@ public class GameManager : MonoBehaviour {
 	public float scoreboardTimer = 15f;
 
 	public GameObject batHoldBox;
+	public GameObject ballPrefab;
 
 	public GameObject[] tutorialEnemies;
 	public int tutorialEnemiesActive;
@@ -271,6 +280,22 @@ public class GameManager : MonoBehaviour {
 			{
 				SwitchGameMode (GameMode.GAME);
 			}
+
+			switch (tutMode) 
+			{
+			case TutorialState.ONE:
+
+				break;
+
+			case TutorialState.TWO:
+
+				break;
+
+			case TutorialState.THREE:
+
+				break;
+			}
+
 			break;
 
 		case GameMode.GAME:
@@ -460,19 +485,8 @@ public class GameManager : MonoBehaviour {
 			tutorialEnemiesActive = 0;
 			break;
 		case GameMode.TUTORIAL:
-			countdownText.SetActive(false);
-
-			for (int i = 0; i < tutorialEnemies.Length; i++) {
-				tutorialEnemies [i].SetActive (true);
-				tutorialEnemies [i].GetComponent<Enemy> ().StartCoroutine ("Hop", tutorialEnemies [i].GetComponent<Enemy> ().tutorialHop);
-				//tutorialEnemies[i].GetComponent<Enemy>().InvokeRepeating("Hop" 2f, 2f);
-				tutorialEnemies [i].GetComponent<Enemy> ().inTutorialMode = true;
-				tutorialEnemies [i].GetComponent<Enemy> ().waitToThrow = true;
-				tutorialEnemies [i].GetComponent<Enemy> ().throwWaitTime += i;
-				tutorialEnemies [i].GetComponent<Enemy> ().StartCoroutine ("ThrowRoutine");
-			}
-
-			tutorialEnemiesActive = tutorialEnemies.Length;
+			countdownText.SetActive (false);
+			SwitchTutorialState (TutorialState.ONE);
 
 			break;
 		case GameMode.GAME:
@@ -509,6 +523,40 @@ public class GameManager : MonoBehaviour {
 		}
 		
 		mode = gm;
+	}
+
+	void SwitchTutorialState(TutorialState ts)
+	{
+		switch (ts) 
+		{
+		case TutorialState.ONE:
+			for (int i = 0; i < tutorialEnemies.Length; i++) {
+				tutorialEnemies [i].SetActive (true);
+				tutorialEnemies [i].GetComponent<Enemy> ().StartCoroutine ("Hop", tutorialEnemies [i].GetComponent<Enemy> ().tutorialHop);
+				//tutorialEnemies[i].GetComponent<Enemy>().InvokeRepeating("Hop" 2f, 2f);
+				tutorialEnemies [i].GetComponent<Enemy> ().inTutorialMode = true;
+				tutorialEnemies [i].GetComponent<Enemy> ().waitToThrow = true;
+				tutorialEnemies [i].GetComponent<Enemy> ().throwWaitTime = i + i;
+				tutorialEnemies [i].GetComponent<Enemy> ().StartCoroutine ("ThrowRoutine");
+			}
+			tutorialEnemiesActive = tutorialEnemies.Length;
+
+
+			GameObject stationaryBall = StaticPool.GetObj (ballPrefab);
+			stationaryBall.transform.position = new Vector3 (0, 5.25f, 7);
+
+			break;
+
+		case TutorialState.TWO:
+
+			break;
+		
+		case TutorialState.THREE:
+
+			break;
+		}
+
+		tutMode = ts;
 	}
 
 	IEnumerator SpawnEnemy() {
@@ -650,8 +698,9 @@ public class GameManager : MonoBehaviour {
 		AddToStreak ();
 	}
 
-	public void StartGame()
+	public void StartGame(bool tutorialOn)
 	{
+		inTutorialMode = tutorialOn;
 		SwitchGameMode (GameMode.COUNTDOWN);
 	}
 

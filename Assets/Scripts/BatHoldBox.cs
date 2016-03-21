@@ -9,6 +9,7 @@ public class BatHoldBox : MonoBehaviour {
 	public float timeToHold = 2f;
 	public Image loadingBar;
 	public GameObject loadingBarGO;
+	public bool tutorial;
 
 	void Start () 
 	{
@@ -38,11 +39,12 @@ public class BatHoldBox : MonoBehaviour {
 		{
 			timer += Time.deltaTime;
 			loadingBar.fillAmount = timer / timeToHold;
-			if (timer >= timeToHold) {
+			if (timer >= timeToHold) 
+			{
 				timer = 0f;
-				gm.StartGame ();
+				gm.StartGame (tutorial);
 				loadingBarGO.SetActive (false);
-			}
+			} 
 		}
 	}
 
