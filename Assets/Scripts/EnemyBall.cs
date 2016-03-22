@@ -4,29 +4,30 @@ using System.Collections;
 public class EnemyBall : MonoBehaviour {
 
 	public float destroyTime = 10f;
-	float lifeEndTime = 0;
+	float lifeTime = 0;
 	float colliderTimer = 0.0f;
 
+	public bool tutorialBall = false;
 	public bool fromEnemy = true;
 	bool streakChain = false;
 	bool hitGround = false;
 
+	Rigidbody rb;
 	TrailRenderer trail;
 
 	GameManager gm;
 	AudioManager am;
 
-	// Use this for initialization
 	void Start () 
 	{
+		rb = GetComponent<Rigidbody> ();
 		trail = GetComponent<TrailRenderer> ();
 		trail.enabled = false;
 
 		am = GameObject.Find ("AudioManager").GetComponent<AudioManager> ();
 		gm = GameObject.Find ("GameManager").GetComponent<GameManager> ();
 	}
-	
-	// Update is called once per frame
+
 	void Update ()
 	{
 		if( colliderTimer > 0.0f )
@@ -37,7 +38,8 @@ public class EnemyBall : MonoBehaviour {
 				gameObject.GetComponent<SphereCollider>().enabled = true;
 		}
 
-		if (Time.time > lifeEndTime) 
+		lifeTime += Time.deltaTime;
+		if (lifeTime > destroyTime) 
 		{
 			gameObject.SetActive (false);
 		}
@@ -47,11 +49,24 @@ public class EnemyBall : MonoBehaviour {
 			if (trail.time >= 1f)
 				trail.time = 1;
 		}
+
+		if (tutorialBall) 
+		{
+			rb.useGravity = false;
+			rb.velocity = Vector3.zero;
+			rb.angularVelocity = Vector3.zero;
+			lifeTime = 0;
+		}
+		else 
+		{
+			rb.useGravity = true;
+			//GetComponent<Rigidbody> ().isKinematic = false;
+		}
 	}
 
 	public void Reset()
 	{
-		lifeEndTime = Time.time + destroyTime;
+		lifeTime = 0;
 		fromEnemy = true;
 		if( trail == null )
 			trail = GetComponent<TrailRenderer> ();
@@ -74,6 +89,10 @@ public class EnemyBall : MonoBehaviour {
 		
 		if (coll.collider.tag == "Bat") 
 		{
+			if (tutorialBall) {
+				tutorialBall = false;
+			}
+
 			fromEnemy = false;
 			trail.enabled = true;
 			trail.time = 0;

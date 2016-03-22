@@ -371,6 +371,7 @@ public class Enemy : MonoBehaviour {
 		timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 14f;
 		//print(Vector3.Distance (transform.position, playerPos));
 
+		ball.GetComponent<EnemyBall> ().tutorialBall = false;
 		ball.GetComponent<EnemyBall> ().Reset ();
 		//ball.GetComponent<EnemyBall> ().SetColliderEnableTime( timeToPlayer * 1f / 4f );
 		ball.transform.position = transform.localPosition + new Vector3(0,2.5f,0) - Vector3.forward;

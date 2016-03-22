@@ -61,6 +61,10 @@ public class GameManager : MonoBehaviour {
 	public GameObject[] tutorialEnemies;
 	public int tutorialEnemiesActive;
 	bool inTutorialMode;
+	Vector3 tutorialBallSpawn;
+	float tutBallTimer;
+	float tutTransitionTimer = 0f;
+	GameObject tutorialBall;
 
 	[System.NonSerialized]
 	public float timer = 0f;
@@ -133,6 +137,7 @@ public class GameManager : MonoBehaviour {
 		ballManager = GetComponent<BallManager> ();
 		playerManager = GetComponent<PlayerManager> ();
 		am = GameObject.Find ("AudioManager").GetComponent<AudioManager> ();
+		tutorialBallSpawn = GameObject.Find ("TutBallSpawn").transform.position;
 
 		scoreText = GameObject.Find ("ScoreText");
 		timerText = GameObject.Find ("TimerText");
@@ -276,22 +281,64 @@ public class GameManager : MonoBehaviour {
 			break;
 
 		case GameMode.TUTORIAL:
-			if (tutorialEnemiesActive <= 2) 
-			{
-				SwitchGameMode (GameMode.GAME);
-			}
-
 			switch (tutMode) 
 			{
 			case TutorialState.ONE:
+				if (tutorialBall.GetComponent<EnemyBall> ().tutorialBall == false) {
+					tutBallTimer -= Time.deltaTime;
+				}
+
+				if (tutBallTimer < 0) {
+					tutorialBall = null;
+					TutorialBallSpawn ();
+					tutBallTimer = 1;
+				}
+
+				if (tutorialEnemiesActive < 4) 
+				{
+					tutTransitionTimer += Time.deltaTime;
+
+					if (tutTransitionTimer > 3) 
+					{
+						SwitchTutorialState (TutorialState.TWO);
+						tutTransitionTimer = 0f;
+					}						
+				}
 
 				break;
 
 			case TutorialState.TWO:
+				if (tutorialBall.GetComponent<EnemyBall> ().tutorialBall == false) {
+					tutBallTimer -= Time.deltaTime;
+				}
+
+				if (tutBallTimer < 0) {
+					tutorialBall = null;
+					TutorialBallSpawn ();
+					tutBallTimer = 1;
+				}
+
+				if (tutorialEnemiesActive < 4) 
+				{
+					tutTransitionTimer += Time.deltaTime;
+
+					if (tutTransitionTimer > 3) 
+					{
+						SwitchTutorialState (TutorialState.THREE);
+						tutTransitionTimer = 0f;
+					}	
+				}
 
 				break;
 
 			case TutorialState.THREE:
+				
+				tutorialBall.SetActive (false);
+
+				if (tutorialEnemiesActive < 4) 
+				{
+					SwitchGameMode (GameMode.GAME);
+				}
 
 				break;
 			}
@@ -532,6 +579,32 @@ public class GameManager : MonoBehaviour {
 		case TutorialState.ONE:
 			for (int i = 0; i < tutorialEnemies.Length; i++) {
 				tutorialEnemies [i].SetActive (true);
+				tutorialEnemies [i].GetComponent<Enemy> ().inTutorialMode = true;
+			}
+			tutorialEnemiesActive = tutorialEnemies.Length;
+
+			tutBallTimer = 1f;
+			TutorialBallSpawn ();
+
+			break;
+
+		case TutorialState.TWO:
+			for (int i = 0; i < tutorialEnemies.Length; i++) {
+				tutorialEnemies [i].SetActive (true);
+				tutorialEnemies [i].GetComponent<Enemy> ().StartCoroutine ("Hop", tutorialEnemies [i].GetComponent<Enemy> ().tutorialHop);
+				tutorialEnemies [i].GetComponent<Enemy> ().inTutorialMode = true;
+			}
+			tutorialEnemiesActive = tutorialEnemies.Length;
+
+			tutBallTimer = 1f;
+			if(tutorialBall == null)
+				TutorialBallSpawn ();
+
+			break;
+		
+		case TutorialState.THREE:
+			for (int i = 0; i < tutorialEnemies.Length; i++) {
+				tutorialEnemies [i].SetActive (true);
 				tutorialEnemies [i].GetComponent<Enemy> ().StartCoroutine ("Hop", tutorialEnemies [i].GetComponent<Enemy> ().tutorialHop);
 				//tutorialEnemies[i].GetComponent<Enemy>().InvokeRepeating("Hop" 2f, 2f);
 				tutorialEnemies [i].GetComponent<Enemy> ().inTutorialMode = true;
@@ -541,22 +614,24 @@ public class GameManager : MonoBehaviour {
 			}
 			tutorialEnemiesActive = tutorialEnemies.Length;
 
-
-			GameObject stationaryBall = StaticPool.GetObj (ballPrefab);
-			stationaryBall.transform.position = new Vector3 (0, 5.25f, 7);
-
-			break;
-
-		case TutorialState.TWO:
-
-			break;
-		
-		case TutorialState.THREE:
+			EnemyBall[] staticPoolBalls = GameObject.Find ("StaticPool").transform.FindChild ("Throwing_Ball").GetComponentsInChildren<EnemyBall> ();
+			foreach (EnemyBall ball in staticPoolBalls) 
+			{
+				ball.tutorialBall = false;
+			}
 
 			break;
 		}
 
 		tutMode = ts;
+	}
+
+	void TutorialBallSpawn()
+	{
+		tutorialBall = StaticPool.GetObj (ballPrefab);
+		tutorialBall.GetComponent<EnemyBall> ().Reset ();
+		tutorialBall.GetComponent<EnemyBall> ().tutorialBall = true;
+		tutorialBall.transform.position = tutorialBallSpawn;
 	}
 
 	IEnumerator SpawnEnemy() {
