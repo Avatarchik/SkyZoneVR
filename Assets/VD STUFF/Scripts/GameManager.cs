@@ -300,6 +300,7 @@ public class GameManager : MonoBehaviour {
 
 					if (tutTransitionTimer > 3) 
 					{
+						tutorialBall.SetActive (false);
 						SwitchTutorialState (TutorialState.TWO);
 						tutTransitionTimer = 0f;
 					}						
@@ -324,6 +325,7 @@ public class GameManager : MonoBehaviour {
 
 					if (tutTransitionTimer > 3) 
 					{
+						tutorialBall.SetActive (false);
 						SwitchTutorialState (TutorialState.THREE);
 						tutTransitionTimer = 0f;
 					}	
@@ -332,8 +334,6 @@ public class GameManager : MonoBehaviour {
 				break;
 
 			case TutorialState.THREE:
-				
-				tutorialBall.SetActive (false);
 
 				if (tutorialEnemiesActive < 4) 
 				{

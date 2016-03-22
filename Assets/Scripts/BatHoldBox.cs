@@ -29,8 +29,10 @@ public class BatHoldBox : MonoBehaviour {
 
 	void OnTriggerEnter(Collider coll)
 	{
-		if(coll.gameObject.tag == "Bat")
+		if (coll.gameObject.tag == "Bat") 
+		{
 			loadingBarGO.SetActive (true);
+		}
 	}
 
 	void OnTriggerStay (Collider coll) 
