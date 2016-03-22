@@ -60,11 +60,11 @@ public class GameManager : MonoBehaviour {
 
 	public GameObject[] tutorialEnemies;
 	public int tutorialEnemiesActive;
-	bool inTutorialMode;
+	GameObject tutorialBall;
 	Vector3 tutorialBallSpawn;
+	bool inTutorialMode;
 	float tutBallTimer;
 	float tutTransitionTimer = 0f;
-	GameObject tutorialBall;
 
 	[System.NonSerialized]
 	public float timer = 0f;
@@ -297,10 +297,10 @@ public class GameManager : MonoBehaviour {
 				if (tutorialEnemiesActive < 4) 
 				{
 					tutTransitionTimer += Time.deltaTime;
+					tutorialBall.SetActive (false);
 
 					if (tutTransitionTimer > 3) 
 					{
-						tutorialBall.SetActive (false);
 						SwitchTutorialState (TutorialState.TWO);
 						tutTransitionTimer = 0f;
 					}						
@@ -322,10 +322,10 @@ public class GameManager : MonoBehaviour {
 				if (tutorialEnemiesActive < 4) 
 				{
 					tutTransitionTimer += Time.deltaTime;
+					tutorialBall.SetActive (false);
 
 					if (tutTransitionTimer > 3) 
 					{
-						tutorialBall.SetActive (false);
 						SwitchTutorialState (TutorialState.THREE);
 						tutTransitionTimer = 0f;
 					}	
@@ -580,8 +580,12 @@ public class GameManager : MonoBehaviour {
 			for (int i = 0; i < tutorialEnemies.Length; i++) {
 				tutorialEnemies [i].SetActive (true);
 				tutorialEnemies [i].GetComponent<Enemy> ().inTutorialMode = true;
+				tutorialEnemies[i].transform.position = new Vector3(tutorialEnemies[i].transform.position.x, 3f, tutorialEnemies[i].transform.position.z);
 			}
 			tutorialEnemiesActive = tutorialEnemies.Length;
+
+//			if(tutorialBall.activeSelf == false)
+//				tutorialBall.SetActive (true);
 
 			tutBallTimer = 1f;
 			TutorialBallSpawn ();
@@ -595,6 +599,9 @@ public class GameManager : MonoBehaviour {
 				tutorialEnemies [i].GetComponent<Enemy> ().inTutorialMode = true;
 			}
 			tutorialEnemiesActive = tutorialEnemies.Length;
+
+			if(tutorialBall.activeSelf == false)
+				tutorialBall.SetActive (true);
 
 			tutBallTimer = 1f;
 			if(tutorialBall == null)
