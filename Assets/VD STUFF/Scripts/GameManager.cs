@@ -421,6 +421,13 @@ public class GameManager : MonoBehaviour {
 		case GameMode.GAME:
 			foreach (GameObject enemy in tutorialEnemies)
 				enemy.SetActive (false);
+
+			GameObject[] staticPoolBalls = GameObject.FindGameObjectsWithTag("Ball");
+			foreach (GameObject ball in staticPoolBalls) 
+			{
+				ball.SetActive (false);
+			}
+
 			score = 0;
 			streak = 0;
 			streakMultiplier = 1;
@@ -481,6 +488,12 @@ public class GameManager : MonoBehaviour {
 			}
 			tutorialEnemiesActive = tutorialEnemies.Length;
 
+			GameObject[] staticPoolBalls = GameObject.FindGameObjectsWithTag("Ball");
+			foreach (GameObject ball in staticPoolBalls) 
+			{
+				ball.SetActive (false);
+			}
+
 			tutBallTimer = 2.5f;
 			TutorialBallSpawn (tutorialBallSpawnPos);
 
@@ -493,6 +506,12 @@ public class GameManager : MonoBehaviour {
 				tutorialEnemies [i].GetComponent<Enemy> ().inTutorialMode = true;
 			}
 			tutorialEnemiesActive = tutorialEnemies.Length;
+
+			staticPoolBalls = GameObject.FindGameObjectsWithTag("Ball");
+			foreach (GameObject ball in staticPoolBalls) 
+			{
+				ball.SetActive (false);
+			}
 
 			if(tutorialBall.activeSelf == false)
 				tutorialBall.SetActive (true);
@@ -515,10 +534,11 @@ public class GameManager : MonoBehaviour {
 			}
 			tutorialEnemiesActive = tutorialEnemies.Length;
 
-			EnemyBall[] staticPoolBalls = GameObject.Find ("StaticPool").transform.FindChild ("Throwing_Ball").GetComponentsInChildren<EnemyBall> ();
-			foreach (EnemyBall ball in staticPoolBalls) 
+			staticPoolBalls = GameObject.FindGameObjectsWithTag("Ball");
+			foreach (GameObject ball in staticPoolBalls) 
 			{
-				ball.tutorialBall = false;
+				ball.SetActive (false);
+				ball.GetComponent<EnemyBall> ().tutorialBall = false;
 			}
 
 			break;
