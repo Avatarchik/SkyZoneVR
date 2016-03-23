@@ -244,10 +244,10 @@ public class GameManager : MonoBehaviour {
 				{
 					tutBallLerpTimer += Time.deltaTime;
 
-					if (tutBallLerpTimer >= 2)
-						tutBallLerpTimer = 2f;
+					if (tutBallLerpTimer >= 2.5f)
+						tutBallLerpTimer = 2.5f;
 
-					tutorialBall.transform.position = Vector3.Lerp(transform.position, tutorialBallSpawnPos, tutBallLerpTimer/2f);
+					tutorialBall.transform.position = Vector3.Lerp(new Vector3(tutorialBallSpawnPos.x, -3f, tutorialBallSpawnPos.z), tutorialBallSpawnPos, tutBallLerpTimer/2.5f);
 					print (tutBallLerpTimer);
 				} 
 				else 
@@ -477,7 +477,7 @@ public class GameManager : MonoBehaviour {
 		case TutorialState.HITBALL:
 			rotationBarBG.SetActive (false);
 			tutBallLerpTimer = 0f;
-			TutorialBallSpawn (tutorialBallSpawnPos + new Vector3(0, -3f, 0));
+			TutorialBallSpawn (new Vector3(0, -3f, 0) + tutorialBallSpawnPos);
 			break;
 
 		case TutorialState.HITENEMY:
