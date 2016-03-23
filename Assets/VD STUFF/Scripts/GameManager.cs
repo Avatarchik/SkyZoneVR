@@ -19,9 +19,11 @@ public class GameManager : MonoBehaviour {
 
 	enum TutorialState
 	{
-		ONE,
-		TWO,
-		THREE
+		ROTATE,
+		HITBALL,
+		HITENEMY,
+		ENEMYJUMP,
+		ENEMYTHROW
 	}
 
 	private AudioManager am;
@@ -47,7 +49,7 @@ public class GameManager : MonoBehaviour {
 
 	GameMode mode = GameMode.STANDBY;
 	bool gameStarted = false;
-	TutorialState tutMode = TutorialState.ONE;
+	TutorialState tutMode = TutorialState.HITENEMY;
 
 	public SpawnFloor spawnFloor;
 
@@ -58,13 +60,24 @@ public class GameManager : MonoBehaviour {
 	public GameObject batHoldBox;
 	public GameObject ballPrefab;
 
+	//Tutorial Variables
 	public GameObject[] tutorialEnemies;
 	public int tutorialEnemiesActive;
 	GameObject tutorialBall;
-	Vector3 tutorialBallSpawn;
+	Vector3 tutorialBallSpawnPos;
 	bool inTutorialMode;
 	float tutBallTimer;
 	float tutTransitionTimer = 0f;
+	//ROTATE Variables
+	float initialYRot;
+	float minRot;
+	float maxRot;
+	float rotationProgress;
+	public GameObject rotationBarBG;
+	public Image rotationBar;
+	Transform cameraTransform;
+	//HITBALL Variables
+	float tutBallLerpTimer = 0f;
 
 	[System.NonSerialized]
 	public float timer = 0f;
@@ -97,9 +110,6 @@ public class GameManager : MonoBehaviour {
 	QueueManager queueManager;
 
 	GameObject kinectErrorObj;
-	
-//	public TextMesh scoreText;
-//	GUIText redGameScore, yellowGameScore, greenGameScore, purpleGameScore; //In-game score gui
 
 	StaticPool staticPool;
 
@@ -130,14 +140,12 @@ public class GameManager : MonoBehaviour {
 	#endregion
 
 	void Start() {
-        // disable cursor
-        //Screen.showCursor = false;
-
-		//introGUI = GameObject.Find("IntroGUI").GetComponent<IntroGUI>();
 		ballManager = GetComponent<BallManager> ();
 		playerManager = GetComponent<PlayerManager> ();
 		am = GameObject.Find ("AudioManager").GetComponent<AudioManager> ();
-		tutorialBallSpawn = GameObject.Find ("TutBallSpawn").transform.position;
+
+		tutorialBallSpawnPos = GameObject.Find ("TutBallSpawn").transform.position;
+		cameraTransform = Camera.main.transform;
 
 		scoreText = GameObject.Find ("ScoreText");
 		timerText = GameObject.Find ("TimerText");
@@ -152,87 +160,12 @@ public class GameManager : MonoBehaviour {
 		}
 
 		SwitchGameMode(GameMode.STANDBY);
-
-		//Application.LoadLevel ("Config");
 	}
 
-//	void OnLevelWasLoaded(int level) {
-//		if(level == 0) {
-//			gameStarted = false;
-//		} else if(level == 1) {
-//			StaticPool.DestroyAllObjects(); // Ghetto fix for now. Wasting an allocation somewhere also I think.
-//			queueManager = GameObject.Find( "QueueManager" ).GetComponent<QueueManager>();
-//
-////			redGameScore = GameObject.Find("RedScore").GetComponent<GUIText>();
-////			yellowGameScore = GameObject.Find("YellowScore").GetComponent<GUIText>();
-////			greenGameScore = GameObject.Find("GreenScore").GetComponent<GUIText>();
-////			purpleGameScore = GameObject.Find("PurpleScore").GetComponent<GUIText>();
-//
-////			redScoreBox = GameObject.Find( "InGameScoreRed" );
-////			yellowScoreBox = GameObject.Find( "InGameScoreYellow" );
-////			blueScoreBox = GameObject.Find( "InGameScoreBlue" );
-////			greenScoreBox = GameObject.Find( "InGameScoreGreen" );
-//
-//			StartCoroutine ("SpawnEnemy");
-//			StartCoroutine( "StartEnemyMove" );
-////			GameObject.Find("GameCamera").GetComponent<Camera>().enabled = true;
-////			GameObject.Find("Timer").SetActive(true);
-//				
-//		} else if(level == 2) { //Config level
-//			OSCSender.SendEmptyMessage("/config/start");
-//			mode = GameMode.CONFIG;
-//			kinectErrorObj = GameObject.Find("KinectError");
-//			kinectErrorObj.SetActive(false);
-//		}
-//	}
-
 	void Update() {
-
-//		//SCORE TEXT
-//		scoreText.GetComponent<Text> ().text = "Score: " + score;
-//
-//		//TIMER TEXT
-//		int minutes = Mathf.FloorToInt(timer / 60F);
-//		int seconds = Mathf.FloorToInt(timer - minutes * 60);
-//		string stringTimer = string.Format ("{0:0}:{1:00}", minutes, seconds);
-//		timerText.GetComponent<Text>().text = "Time: " + stringTimer;
-
 		switch(mode)
 		{
 		case GameMode.STANDBY:
-//			if(gameStarted) {
-//				if(timer > 0f) {
-//					timer -= Time.deltaTime;
-//					if(timer <= 0f) {
-//						timer = 0f;
-//						StartCoroutine("ShowInstructions");
-////						ChangeScene( "Main" );
-//						return;
-//					}
-//				}
-//			}
-//			if(Input.GetKeyDown(KeyCode.K)) {
-//				Application.LoadLevel("Config");
-//
-//				ballManager.StopAllCoroutines();
-//				StopAllCoroutines();
-//				
-//				Enemy[] enemies = GameObject.FindObjectsOfType<Enemy>();
-//				foreach( Enemy enemy in enemies ) {
-//					enemy.StopAllCoroutines();
-////					enemy.gameObject.SetActive( false );
-//				}
-//				
-//				Spider[] spiders = GameObject.FindObjectsOfType<Spider>();
-//				foreach(Spider spider in spiders ) {
-//					spider.StopAllCoroutines();
-////					spider.gameObject.SetActive( false );
-//				}
-//				
-//				StaticPool.DestroyAllObjects();
-//
-//			}
-			//countdownText.transform.localScale = Vector3.zero;
 
 			if (Input.GetKeyDown (KeyCode.Space)) {
 				SwitchGameMode (GameMode.COUNTDOWN);
@@ -240,7 +173,7 @@ public class GameManager : MonoBehaviour {
 			}
 
 			if (Input.GetKeyDown (KeyCode.T)) {
-				SwitchGameMode (GameMode.COUNTDOWN);
+				SwitchGameMode (GameMode.TUTORIAL);
 				inTutorialMode = true;
 			}
 
@@ -249,7 +182,6 @@ public class GameManager : MonoBehaviour {
 		case GameMode.COUNTDOWN:
 			foreach( Material mat in gridMats )
 				mat.SetFloat("_Opacity_Slider", timer );
-
 
 			if (timer <= 0) 
 			{
@@ -283,15 +215,67 @@ public class GameManager : MonoBehaviour {
 		case GameMode.TUTORIAL:
 			switch (tutMode) 
 			{
-			case TutorialState.ONE:
+			case TutorialState.ROTATE:
+
+				float rot = cameraTransform.rotation.eulerAngles.y - initialYRot;
+
+				if( rot < 0 )
+					rot += 360;
+
+				if ( rot > minRot && Mathf.Abs( rot - minRot ) < 10  )
+					minRot = rot;
+				else if ( rot < maxRot && Mathf.Abs( rot - maxRot ) < 10 )
+					maxRot = rot;
+
+				rotationProgress = 1 - (maxRot - minRot) / 360;// (maxRot - minRot) / 360;
+
+				rotationBar.fillAmount = rotationProgress;
+
+				if ( rotationProgress >= 0.98f )
+				{
+					rotationBar.fillAmount = 1;
+					SwitchTutorialState(TutorialState.HITBALL);
+				}
+
+				break;
+
+			case TutorialState.HITBALL:
+				if (tutorialBall.GetComponent<EnemyBall> ().fromEnemy) 
+				{
+					tutBallLerpTimer += Time.deltaTime;
+
+					if (tutBallLerpTimer >= 2)
+						tutBallLerpTimer = 2f;
+
+					tutorialBall.transform.position = Vector3.Lerp(transform.position, tutorialBallSpawnPos, tutBallLerpTimer/2f);
+					print (tutBallLerpTimer);
+				} 
+				else 
+				{
+					tutTransitionTimer += Time.deltaTime;
+
+					foreach( Material mat in gridMats )
+						mat.SetFloat("_Opacity_Slider", 2.5f - tutTransitionTimer );
+
+					if (tutTransitionTimer > 2.5f) {
+						
+						tutTransitionTimer = 0;
+						SwitchTutorialState (TutorialState.HITENEMY);
+					}
+				}
+
+				break;
+
+			case TutorialState.HITENEMY:
+
 				if (tutorialBall.GetComponent<EnemyBall> ().tutorialBall == false) {
 					tutBallTimer -= Time.deltaTime;
 				}
 
 				if (tutBallTimer < 0) {
 					tutorialBall = null;
-					TutorialBallSpawn ();
-					tutBallTimer = 1;
+					TutorialBallSpawn (tutorialBallSpawnPos);
+					tutBallTimer = 2.5f;
 				}
 
 				if (tutorialEnemiesActive < 4) 
@@ -301,22 +285,22 @@ public class GameManager : MonoBehaviour {
 
 					if (tutTransitionTimer > 3) 
 					{
-						SwitchTutorialState (TutorialState.TWO);
+						SwitchTutorialState (TutorialState.ENEMYJUMP);
 						tutTransitionTimer = 0f;
 					}						
 				}
 
 				break;
 
-			case TutorialState.TWO:
+			case TutorialState.ENEMYJUMP:
 				if (tutorialBall.GetComponent<EnemyBall> ().tutorialBall == false) {
 					tutBallTimer -= Time.deltaTime;
 				}
 
 				if (tutBallTimer < 0) {
 					tutorialBall = null;
-					TutorialBallSpawn ();
-					tutBallTimer = 1;
+					TutorialBallSpawn (tutorialBallSpawnPos);
+					tutBallTimer = 2.5f;
 				}
 
 				if (tutorialEnemiesActive < 4) 
@@ -326,14 +310,14 @@ public class GameManager : MonoBehaviour {
 
 					if (tutTransitionTimer > 3) 
 					{
-						SwitchTutorialState (TutorialState.THREE);
+						SwitchTutorialState (TutorialState.ENEMYTHROW);
 						tutTransitionTimer = 0f;
 					}	
 				}
 
 				break;
 
-			case TutorialState.THREE:
+			case TutorialState.ENEMYTHROW:
 
 				if (tutorialEnemiesActive < 4) 
 				{
@@ -346,29 +330,6 @@ public class GameManager : MonoBehaviour {
 			break;
 
 		case GameMode.GAME:
-
-//			if(Input.GetKeyDown(KeyCode.K)) {
-//				Application.LoadLevel("Config");
-//
-//				ballManager.StopAllCoroutines();
-//				StopAllCoroutines();
-//
-//				Enemy[] enemies = GameObject.FindObjectsOfType<Enemy>();
-//				foreach( Enemy enemy in enemies ) {
-//					enemy.StopAllCoroutines();
-////					enemy.gameObject.SetActive( false );
-//				}
-//
-//				Spider[] spiders = GameObject.FindObjectsOfType<Spider>();
-//				foreach(Spider spider in spiders ) {
-//					spider.StopAllCoroutines();
-////					spider.gameObject.SetActive( false );
-//				}
-//
-//				StaticPool.DestroyAllObjects();
-//			}
-			// Once timer goes down to zero
-
 			//SCORE TEXT
 			scoreText.GetComponent<Text> ().text = "Score: " + score;
 
@@ -380,43 +341,13 @@ public class GameManager : MonoBehaviour {
 
 			//STREAK TEXT
 			streakText.GetComponent<Text> ().text = "Streak: " + streak + " (x" + streakMultiplier + ")";
-
 			streakMultiplier = Mathf.Clamp (1 + Mathf.Clamp (streak, 0, 1) + (int)(streak / 3), 1, 3);
-//			if (streak <= 0) 
-//			{
-//				if (streak >= 1) 
-//				{
-//					if (streak >= 3) 
-//					{
-//						streakMultiplier = 3;
-//					}
-//					else
-//					{
-//						streakMultiplier = 2;
-//					}
-//				}
-//				else
-//				{
-//					streakMultiplier = 1;
-//				}
-//			}
-
-//			if(streak <= 0)
-//				streakMultiplier = 1;
-//			if (streak >= 1)
-//				streakMultiplier = 2;
-//			if (streak >= 3)
-//				streakMultiplier = 3;
 
 			if(timer <= 0) {
 				ballManager.StopAllCoroutines();
 				StopAllCoroutines();
 				timer = scoreboardTimer;
 				SwitchGameMode(GameMode.GAMEOVER);
-				//mode = GameMode.GAMEOVER;
-
-				//GameObject.Find("ScoreGUI").GetComponent<ScoreGUI>().Activate();
-				//GameObject.Find("Timer").SetActive(false);
 
 				Enemy[] enemies = GameObject.FindObjectsOfType<Enemy>();
 				foreach( Enemy enemy in enemies ) {
@@ -453,68 +384,19 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-//	public void BallHit(ArrayList args) {
-//		float x = (float)(args[0]);
-//		x = Mathf.Abs(x - 1);
-//		float y = (float)(args[1]);
-//		y = Mathf.Abs(y - 1);
-//		Vector2 pos = new Vector2(x,y);
-//
-//		int colorID =  (int)args[2];
-//
-//		PlayerColor color = PlayerColor.Red;
-//
-//		switch(colorID) {
-//		case 0:
-//			color = PlayerColor.Red;
-//			break;
-//		case 3:
-//			color = PlayerColor.Green;
-//			break;
-////		case 1:
-////			color = PlayerColor.Yellow;
-////			break;
-////		case 2:
-////			color = PlayerColor.Blue;
-////			break;
-//		default:
-//			print("Bad Color");
-//			break;
-//		}
-//
-//		if(!playerManager.Added(color)) {
-//			playerManager.AddPlayer(color);
-//			if(mode == GameMode.STANDBY) {
-//				//introGUI.TurnOnColor(color);
-//				timer = joinTimer;
-//			}
-//		}
-//		if(!gameStarted) {
-//			gameStarted = true;
-//			timer = joinTimer;
-//		}
-//
-//		if(mode == GameMode.GAME) {
-//			pos.x *= Screen.width;
-//			pos.y = 1 - pos.y;
-//			pos.y *= Screen.height;
-//			ballManager.Shoot(pos, color);
-//		}
-//	}
-
 	void SwitchGameMode( GameMode gm )
 	{
 		switch( gm )
 		{
 		case GameMode.STANDBY:
-			//playerManager.playerData.Clear ();
 			StaticPool.DestroyAllObjects ();
 			countdownText.SetActive (false);
 			scoreText.SetActive (false);
 			timerText.SetActive (false);
 			streakText.SetActive (false);
 			finalScoreText.SetActive (false);
-			batHoldBox.SetActive(true);
+			batHoldBox.SetActive (true);
+			rotationBarBG.SetActive (false);
 			tutorialEnemiesActive = 0;
 			am.PlayAmbientCubeAudio ();
 			foreach( Material mat in gridMats )
@@ -524,8 +406,7 @@ public class GameManager : MonoBehaviour {
 			timer = 5f;
 			countdownText.SetActive (true);
 			batHoldBox.SetActive (false);
-//			if(GameObject.Find("LoadingBarBackground").activeInHierarchy == true)
-//				GameObject.Find("LoadingBarBackground").SetActive(false);
+
 			score = 0;
 			streak = 0;
 			streakMultiplier = 1;
@@ -533,7 +414,8 @@ public class GameManager : MonoBehaviour {
 			break;
 		case GameMode.TUTORIAL:
 			countdownText.SetActive (false);
-			SwitchTutorialState (TutorialState.ONE);
+			batHoldBox.SetActive (false);
+			SwitchTutorialState (TutorialState.ROTATE);
 
 			break;
 		case GameMode.GAME:
@@ -576,7 +458,22 @@ public class GameManager : MonoBehaviour {
 	{
 		switch (ts) 
 		{
-		case TutorialState.ONE:
+		case TutorialState.ROTATE:
+			
+			initialYRot = cameraTransform.rotation.eulerAngles.y;
+			minRot = 0;
+			maxRot = 360;
+			rotationBarBG.SetActive (true);
+			rotationBar.gameObject.SetActive (true);
+			break;
+
+		case TutorialState.HITBALL:
+			rotationBarBG.SetActive (false);
+			tutBallLerpTimer = 0f;
+			TutorialBallSpawn (tutorialBallSpawnPos + new Vector3(0, -3f, 0));
+			break;
+
+		case TutorialState.HITENEMY:
 			for (int i = 0; i < tutorialEnemies.Length; i++) {
 				tutorialEnemies [i].SetActive (true);
 				tutorialEnemies [i].GetComponent<Enemy> ().inTutorialMode = true;
@@ -584,15 +481,12 @@ public class GameManager : MonoBehaviour {
 			}
 			tutorialEnemiesActive = tutorialEnemies.Length;
 
-//			if(tutorialBall.activeSelf == false)
-//				tutorialBall.SetActive (true);
-
-			tutBallTimer = 1f;
-			TutorialBallSpawn ();
+			tutBallTimer = 2.5f;
+			TutorialBallSpawn (tutorialBallSpawnPos);
 
 			break;
 
-		case TutorialState.TWO:
+		case TutorialState.ENEMYJUMP:
 			for (int i = 0; i < tutorialEnemies.Length; i++) {
 				tutorialEnemies [i].SetActive (true);
 				tutorialEnemies [i].GetComponent<Enemy> ().StartCoroutine ("Hop", tutorialEnemies [i].GetComponent<Enemy> ().tutorialHop);
@@ -605,11 +499,11 @@ public class GameManager : MonoBehaviour {
 
 			tutBallTimer = 1f;
 			if(tutorialBall == null)
-				TutorialBallSpawn ();
+				TutorialBallSpawn (tutorialBallSpawnPos);
 
 			break;
 		
-		case TutorialState.THREE:
+		case TutorialState.ENEMYTHROW:
 			for (int i = 0; i < tutorialEnemies.Length; i++) {
 				tutorialEnemies [i].SetActive (true);
 				tutorialEnemies [i].GetComponent<Enemy> ().StartCoroutine ("Hop", tutorialEnemies [i].GetComponent<Enemy> ().tutorialHop);
@@ -633,12 +527,12 @@ public class GameManager : MonoBehaviour {
 		tutMode = ts;
 	}
 
-	void TutorialBallSpawn()
+	void TutorialBallSpawn(Vector3 spawnPos)
 	{
 		tutorialBall = StaticPool.GetObj (ballPrefab);
 		tutorialBall.GetComponent<EnemyBall> ().Reset ();
 		tutorialBall.GetComponent<EnemyBall> ().tutorialBall = true;
-		tutorialBall.transform.position = tutorialBallSpawn;
+		tutorialBall.transform.position = spawnPos;
 	}
 
 	IEnumerator SpawnEnemy() {
@@ -751,28 +645,6 @@ public class GameManager : MonoBehaviour {
 //			}
 //		}
 	}
-	
-//	public void AdjustGameSetting(string setting, float value) {
-//		switch(setting) 
-//		{
-//		case "Game Time":
-//			gameTimer = value;
-//			break;
-//		default:
-//			break;
-//		}
-//	}
-//
-//	public void AdjustGameSetting(string setting, bool value) {
-//		switch(setting)
-//		{
-//		case "Quit Game":
-//			ChangeScene( "Intro" );
-//			break;
-//		default:
-//			break;
-//		}
-//	}
 
 	public void AddScore(int p_score) 
 	{
@@ -783,7 +655,11 @@ public class GameManager : MonoBehaviour {
 	public void StartGame(bool tutorialOn)
 	{
 		inTutorialMode = tutorialOn;
-		SwitchGameMode (GameMode.COUNTDOWN);
+		if (inTutorialMode) {
+			SwitchGameMode (GameMode.TUTORIAL);
+		} else {
+			SwitchGameMode (GameMode.COUNTDOWN);
+		}
 	}
 
 	public void AddToStreak()
