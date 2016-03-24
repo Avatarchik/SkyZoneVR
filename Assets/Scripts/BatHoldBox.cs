@@ -44,7 +44,7 @@ public class BatHoldBox : MonoBehaviour {
 			if (timer >= timeToHold) 
 			{
 				timer = 0f;
-				gm.StartGame (tutorial);
+				gm.StartTutorialOrCountdown (tutorial);
 				loadingBarGO.SetActive (false);
 			} 
 		}

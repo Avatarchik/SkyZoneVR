@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour {
 
 	private GameObject gameMan;
 	private GameObject audioMan;
+	private TutorialManager tutMan;
 
 	public GameObject ballPrefab;
 	public float throwInterval = 2f;
@@ -77,6 +78,8 @@ public class Enemy : MonoBehaviour {
 
 		gameMan = GameObject.Find ("GameManager");
 		audioMan = GameObject.Find ("AudioManager");
+		tutMan = gameMan.GetComponent<TutorialManager> ();
+
 		floor = GameObject.Find ("Floor").GetComponent<SpawnFloor> ();
 		player = GameObject.Find("Player");
 		playerPos = player.transform.position;
@@ -175,7 +178,7 @@ public class Enemy : MonoBehaviour {
 
 			if (inTutorialMode) 
 			{
-				gameMan.GetComponent<GameManager> ().tutorialEnemiesActive -= 1;
+				tutMan.tutorialEnemiesActive -= 1;
 			}
 
 			int pointsToAdd = 1;
