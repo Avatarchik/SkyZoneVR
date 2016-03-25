@@ -151,6 +151,10 @@ public class GameManager : MonoBehaviour {
 				inTutorialMode = true;
 			}
 
+			if (Input.GetKeyDown (KeyCode.C)) {
+				SwitchGameMode (GameMode.CONFIG);
+			}
+
 			break;
 
 		case GameMode.COUNTDOWN:
@@ -238,6 +242,14 @@ public class GameManager : MonoBehaviour {
 			timer -= Time.deltaTime;
 			break;
 		case GameMode.CONFIG:
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				OVRManager.display.RecenterPose ();
+			}
+
+			if (Input.GetKeyDown (KeyCode.Escape)) {
+				SwitchGameMode (GameMode.STANDBY);
+			}
+
 			if(Input.GetKeyDown(KeyCode.L)) {
 				//mode = GameMode.STANDBY;
 				Application.LoadLevel("Intro");

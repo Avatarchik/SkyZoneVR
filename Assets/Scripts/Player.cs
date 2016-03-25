@@ -15,8 +15,8 @@ public class Player : MonoBehaviour
 	void Update () 
 	{
 		//Re-Center HMD
-		if(Input.GetKeyDown(KeyCode.C))
-			OVRManager.display.RecenterPose();
+//		if(Input.GetKeyDown(KeyCode.C))
+//			OVRManager.display.RecenterPose();
 
 		//Keyboard Camera Movement
 		if (Input.GetKey (KeyCode.A))
