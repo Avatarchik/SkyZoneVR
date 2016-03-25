@@ -53,6 +53,8 @@ public class TutorialManager : MonoBehaviour
 		tutorialBallSpawnPos = GameObject.Find ("TutBallSpawn").transform.position;
 		cameraTransform = Camera.main.transform;
 
+		rotationBarBG.SetActive (false);
+
 		for (int i = 0; i < tutorialEnemies.Length; i++) 
 		{
 			tutorialEnemies [i].SetActive (false);
@@ -285,5 +287,11 @@ public class TutorialManager : MonoBehaviour
 	public void EndTutorial()
 	{
 		inTutorial = false;
+		gm.inTutorialMode = false;
+
+		foreach (GameObject tutEnemy in tutorialEnemies) 
+		{
+			tutEnemy.SetActive (false);
+		}
 	}
 }
