@@ -272,11 +272,15 @@ public class TutorialManager : MonoBehaviour
 			tutBall1Timer = 1f;
 			tutBall2Timer = 1f;
 
-			if(tutorialBall1 == null)
+			if (tutorialBall1 == null)
 				TutorialBallSpawn (tutorialBallSpawnPos1, 1);
+			else
+				tutorialBall1.transform.position = tutorialBallSpawnPos1;
 
-			if(tutorialBall2 == null)
+			if (tutorialBall2 == null)
 				TutorialBallSpawn (tutorialBallSpawnPos2, 2);
+			else
+				tutorialBall2.transform.position = tutorialBallSpawnPos2;
 
 			break;
 
