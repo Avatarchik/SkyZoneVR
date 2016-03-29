@@ -25,6 +25,9 @@ public class Enemy : MonoBehaviour {
 	Vector3 playerPos;
 	bool canThrow = false;
 	GameObject player;
+	public bool onCourt;
+
+	AimAssistManager aam;
 
 	public GameObject hitParticle;
 
@@ -79,6 +82,7 @@ public class Enemy : MonoBehaviour {
 		gameMan = GameObject.Find ("GameManager");
 		audioMan = GameObject.Find ("AudioManager");
 		tutMan = gameMan.GetComponent<TutorialManager> ();
+		aam = GameObject.Find("GameManager").GetComponent<AimAssistManager> ();
 
 		floor = GameObject.Find ("Floor").GetComponent<SpawnFloor> ();
 		player = GameObject.Find("Player");
@@ -145,6 +149,8 @@ public class Enemy : MonoBehaviour {
 
 		animator.enabled = true;
 
+		onCourt = false;
+
 //		foreach (Rigidbody rb in rbs)
 //		{
 //			rb.useGravity = false;
@@ -180,6 +186,8 @@ public class Enemy : MonoBehaviour {
 			{
 				tutMan.tutorialEnemiesActive -= 1;
 			}
+
+			aam.onCourtEnemies.Remove (this.gameObject);
 
 			int pointsToAdd = 1;
 			gameMan.GetComponent<GameManager> ().AddScore (pointsToAdd);
@@ -283,6 +291,7 @@ public class Enemy : MonoBehaviour {
 		}
 		else {
 			startPos = new Vector3 (transform.position.x, 3f, transform.position.z);
+			onCourt = true;
 		}
 		float timer = 0.0f;
 
@@ -408,6 +417,10 @@ public class Enemy : MonoBehaviour {
 
 	public void StartMove() {
 		StartCoroutine( "Move" );
+		if (aam == null) {
+			aam = GameObject.Find ("GameManager").GetComponent<AimAssistManager> ();
+		}
+		aam.onCourtEnemies.Add (this.gameObject);
 	}
 
 	public void GoToQueuePos( Waypoint wp ) {

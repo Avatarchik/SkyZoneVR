@@ -7,6 +7,7 @@ public class TutorialManager : MonoBehaviour
 {
 	AudioManager am;
 	GameManager gm;
+	AimAssistManager aam;
 
 	public List<Material> gridMats;
 
@@ -52,6 +53,7 @@ public class TutorialManager : MonoBehaviour
 	{
 		am = GameObject.Find ("AudioManager").GetComponent<AudioManager> ();
 		gm = GameObject.Find ("GameManager").GetComponent<GameManager> ();
+		aam = gm.gameObject.GetComponent<AimAssistManager> ();
 
 		tutorialBallSpawnPos1 = GameObject.Find ("TutBallSpawn1").transform.position;
 		tutorialBallSpawnPos2 = GameObject.Find ("TutBallSpawn2").transform.position;
@@ -235,6 +237,8 @@ public class TutorialManager : MonoBehaviour
 				tutorialEnemies [i].SetActive (true);
 				tutorialEnemies [i].GetComponent<Enemy> ().inTutorialMode = true;
 				tutorialEnemies [i].transform.position = new Vector3 (tutorialEnemies [i].transform.position.x, 3f, tutorialEnemies [i].transform.position.z);
+
+				aam.onCourtEnemies.Add (tutorialEnemies [i]);
 			}
 			tutorialEnemiesActive = tutorialEnemies.Length;
 
@@ -255,6 +259,8 @@ public class TutorialManager : MonoBehaviour
 				tutorialEnemies [i].SetActive (true);
 				tutorialEnemies [i].GetComponent<Enemy> ().StartCoroutine ("Hop", tutorialEnemies [i].GetComponent<Enemy> ().tutorialHop);
 				tutorialEnemies [i].GetComponent<Enemy> ().inTutorialMode = true;
+
+				aam.onCourtEnemies.Add (tutorialEnemies [i]);
 			}
 			tutorialEnemiesActive = tutorialEnemies.Length;
 
@@ -293,6 +299,8 @@ public class TutorialManager : MonoBehaviour
 				tutorialEnemies [i].GetComponent<Enemy> ().waitToThrow = true;
 				tutorialEnemies [i].GetComponent<Enemy> ().throwWaitTime = i + i;
 				tutorialEnemies [i].GetComponent<Enemy> ().StartCoroutine ("ThrowRoutine");
+
+				aam.onCourtEnemies.Add (tutorialEnemies [i]);
 			}
 			tutorialEnemiesActive = tutorialEnemies.Length;
 

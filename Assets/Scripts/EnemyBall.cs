@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class EnemyBall : MonoBehaviour {
 
@@ -12,11 +13,14 @@ public class EnemyBall : MonoBehaviour {
 	bool streakChain = false;
 	bool hitGround = false;
 
+	GameObject autoAimEnemy;
+
 	Rigidbody rb;
 	TrailRenderer trail;
 
 	GameManager gm;
 	AudioManager am;
+	AimAssistManager aam;
 
 	void Start () 
 	{
@@ -26,6 +30,7 @@ public class EnemyBall : MonoBehaviour {
 
 		am = GameObject.Find ("AudioManager").GetComponent<AudioManager> ();
 		gm = GameObject.Find ("GameManager").GetComponent<GameManager> ();
+		aam = gm.GetComponent < AimAssistManager> ();
 	}
 
 	void Update ()
@@ -74,6 +79,7 @@ public class EnemyBall : MonoBehaviour {
         gameObject.layer = 11;
 		streakChain = false;
 		hitGround = false;
+		autoAimEnemy = null;
 		//print ("Ball Reset");
 	}
 
@@ -89,6 +95,8 @@ public class EnemyBall : MonoBehaviour {
 		
 		if (coll.collider.tag == "Bat") 
 		{
+			AimAssist ();
+
 			if (tutorialBall) {
 				tutorialBall = false;
 			}
@@ -122,5 +130,27 @@ public class EnemyBall : MonoBehaviour {
 		gameObject.GetComponent<SphereCollider>().enabled = false;
 		colliderTimer = time;
 		trail.enabled = false;
+	}
+
+	void AimAssist()
+	{
+		autoAimEnemy = aam.ClosestEnemyToBallDirection (this.gameObject);
+
+		Vector3 dir = autoAimEnemy.transform.position - transform.position;
+		dir.y = 0;
+		dir.Normalize ();
+		//float relation = dir.x / dir.z;
+		float velY = rb.velocity.normalized.y;
+		dir.x = Mathf.Sqrt (1 - Mathf.Pow (velY, 2)) / ((dir.x + dir.z) / dir.x); //x^2 + (z/x)x^2 = 1 - y^2
+		dir.z = Mathf.Sqrt( 1 - Mathf.Pow (velY, 2) - Mathf.Pow (dir.x, 2) );//Mathf.Sqrt (1 - Mathf.Pow (velY, 2)) / ((dir.z + dir.x) / dir.z);
+
+		dir.y = velY;
+
+		dir.Normalize ();
+
+		float rbMagnitude = rb.velocity.magnitude;
+
+		rb.velocity = dir * rbMagnitude;
+
 	}
 }
