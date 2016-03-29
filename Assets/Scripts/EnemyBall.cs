@@ -150,7 +150,8 @@ public class EnemyBall : MonoBehaviour {
 
 		float rbMagnitude = rb.velocity.magnitude;
 
-		rb.velocity = dir * rbMagnitude;
+		rb.velocity = 0;// dir * rbMagnitude;
+		rb.AddForce( dir * rbMagnitude );
 
 	}
 }
