@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour {
 
 	private TutorialManager tm;
 	private AudioManager am;
+	private AimAssistManager aam;
 
 	private GameObject scoreText;
 	private GameObject timerText;
@@ -117,6 +118,7 @@ public class GameManager : MonoBehaviour {
 		playerManager = GetComponent<PlayerManager> ();
 		tm = GetComponent<TutorialManager> ();
 		am = GameObject.Find ("AudioManager").GetComponent<AudioManager> ();
+		aam = GetComponent<AimAssistManager> ();
 
 //		tutorialBallSpawnPos = GameObject.Find ("TutBallSpawn").transform.position;
 //		cameraTransform = Camera.main.transform;
@@ -293,6 +295,8 @@ public class GameManager : MonoBehaviour {
 			break;
 		case GameMode.GAME:
 
+			aam.ClearOnCourtEnemies ();
+
 			GameObject[] staticPoolBalls = GameObject.FindGameObjectsWithTag("Ball");
 			foreach (GameObject ball in staticPoolBalls) 
 			{
@@ -324,6 +328,7 @@ public class GameManager : MonoBehaviour {
 			streakText.SetActive (false);
 			finalScoreText.GetComponent<Text> ().text = "Score: " + score;
 			finalScoreText.SetActive (true);
+			aam.ClearOnCourtEnemies ();
 			break;
 		case GameMode.CONFIG:
 			break;

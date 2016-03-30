@@ -9,12 +9,12 @@ public class AimAssistManager : MonoBehaviour
 
 	void Start () 
 	{
-	
+
 	}
 
-	void Update () 
+	public void ClearOnCourtEnemies()
 	{
-	
+		onCourtEnemies.Clear();
 	}
 
 	public GameObject ClosestEnemyToBallDirection(GameObject ball)
@@ -35,7 +35,15 @@ public class AimAssistManager : MonoBehaviour
 			if (Vector3.Dot (ballDir, dir) > highestNumber) 
 			{
 				highestNumber = Vector3.Dot(ballDir, dir);
-				closestEnemy = enemy;
+
+				if (Vector3.Dot (ballDir, dir) > 0.75f) 
+				{
+					closestEnemy = enemy;
+				} 
+				else 
+				{
+					closestEnemy = null;
+				}
 			}
 		}
 

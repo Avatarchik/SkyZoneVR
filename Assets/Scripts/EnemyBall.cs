@@ -136,22 +136,42 @@ public class EnemyBall : MonoBehaviour {
 	{
 		autoAimEnemy = aam.ClosestEnemyToBallDirection (this.gameObject);
 
-		Vector3 dir = autoAimEnemy.transform.position - transform.position;
-		dir.y = 0;
-		dir.Normalize ();
-		//float relation = dir.x / dir.z;
-		float velY = rb.velocity.normalized.y;
-		dir.x = Mathf.Sqrt (1 - Mathf.Pow (velY, 2)) / ((dir.x + dir.z) / dir.x); //x^2 + (z/x)x^2 = 1 - y^2
-		dir.z = Mathf.Sqrt( 1 - Mathf.Pow (velY, 2) - Mathf.Pow (dir.x, 2) );//Mathf.Sqrt (1 - Mathf.Pow (velY, 2)) / ((dir.z + dir.x) / dir.z);
+		if (autoAimEnemy != null) 
+		{
+			Vector3 dir = autoAimEnemy.transform.position - transform.position;
+			dir.y = 0;
+			dir.Normalize ();
+			//float relation = dir.x / dir.z;
+			float velY = rb.velocity.normalized.y;
+			dir.x = Mathf.Sqrt (1 - Mathf.Pow (velY, 2)) / ((dir.x + dir.z) / dir.x); //x^2 + (z/x)x^2 = 1 - y^2
+			dir.z = Mathf.Sqrt( 1 - Mathf.Pow (velY, 2) - Mathf.Pow (dir.x, 2) );//Mathf.Sqrt (1 - Mathf.Pow (velY, 2)) / ((dir.z + dir.x) / dir.z);
 
-		dir.y = velY;
+			dir.y = velY;
 
-		dir.Normalize ();
+			dir.Normalize ();
 
-		float rbMagnitude = rb.velocity.magnitude;
+			float rbMagnitude = rb.velocity.magnitude;
 
-		rb.velocity = 0;// dir * rbMagnitude;
-		rb.AddForce( dir * rbMagnitude );
+			rb.velocity = Vector3.zero;// dir * rbMagnitude;
+			rb.AddForce( dir * rbMagnitude );
+		}
+
+//		Vector3 dir = autoAimEnemy.transform.position - transform.position;
+//		dir.y = 0;
+//		dir.Normalize ();
+//		//float relation = dir.x / dir.z;
+//		float velY = rb.velocity.normalized.y;
+//		dir.x = Mathf.Sqrt (1 - Mathf.Pow (velY, 2)) / ((dir.x + dir.z) / dir.x); //x^2 + (z/x)x^2 = 1 - y^2
+//		dir.z = Mathf.Sqrt( 1 - Mathf.Pow (velY, 2) - Mathf.Pow (dir.x, 2) );//Mathf.Sqrt (1 - Mathf.Pow (velY, 2)) / ((dir.z + dir.x) / dir.z);
+//
+//		dir.y = velY;
+//
+//		dir.Normalize ();
+//
+//		float rbMagnitude = rb.velocity.magnitude;
+//
+//		rb.velocity = Vector3.zero;// dir * rbMagnitude;
+//		rb.AddForce( dir * rbMagnitude );
 
 	}
 }
