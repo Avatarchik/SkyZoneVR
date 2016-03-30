@@ -36,7 +36,7 @@ public class AimAssistManager : MonoBehaviour
 			{
 				highestNumber = Vector3.Dot(ballDir, dir);
 
-				if (Vector3.Dot (ballDir, dir) > 0.75f) 
+				if (Vector3.Dot (ballDir, dir) > 0.9f) 
 				{
 					closestEnemy = enemy;
 				} 
@@ -47,6 +47,13 @@ public class AimAssistManager : MonoBehaviour
 			}
 		}
 
-		return closestEnemy.gameObject;
+		if (closestEnemy != null) 
+		{
+			return closestEnemy.gameObject;
+		} 
+		else 
+		{
+			return null;
+		}
 	}
 }

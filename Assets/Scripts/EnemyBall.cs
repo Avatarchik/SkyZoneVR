@@ -14,6 +14,7 @@ public class EnemyBall : MonoBehaviour {
 	bool hitGround = false;
 
 	GameObject autoAimEnemy;
+	//GameObject player;
 
 	Rigidbody rb;
 	TrailRenderer trail;
@@ -31,6 +32,8 @@ public class EnemyBall : MonoBehaviour {
 		am = GameObject.Find ("AudioManager").GetComponent<AudioManager> ();
 		gm = GameObject.Find ("GameManager").GetComponent<GameManager> ();
 		aam = gm.GetComponent < AimAssistManager> ();
+
+//		player = GameObject.Find ("Player");
 	}
 
 	void Update ()
@@ -138,23 +141,38 @@ public class EnemyBall : MonoBehaviour {
 
 		if (autoAimEnemy != null) 
 		{
-			Vector3 dir = autoAimEnemy.transform.position - transform.position;
-			dir.y = 0;
-			dir.Normalize ();
-			//float relation = dir.x / dir.z;
-			float velY = rb.velocity.normalized.y;
-			dir.x = Mathf.Sqrt (1 - Mathf.Pow (velY, 2)) / ((dir.x + dir.z) / dir.x); //x^2 + (z/x)x^2 = 1 - y^2
-			dir.z = Mathf.Sqrt( 1 - Mathf.Pow (velY, 2) - Mathf.Pow (dir.x, 2) );//Mathf.Sqrt (1 - Mathf.Pow (velY, 2)) / ((dir.z + dir.x) / dir.z);
+			float timeToEnemy = Vector3.Distance(autoAimEnemy.transform.position, transform.position) / 3f;
 
-			dir.y = velY;
+			float hVel = Vector3.Distance (autoAimEnemy.transform.position, transform.position) / timeToEnemy;
+			float vVel = (4f + 0.5f * -Physics.gravity.y * Mathf.Pow (timeToEnemy, 2) - transform.position.y) / timeToEnemy;
 
-			dir.Normalize ();
+			Vector3 ballDir = autoAimEnemy.transform.position - transform.position;
+			ballDir *= hVel;
+			ballDir.y = vVel/1.5f;
 
-			float rbMagnitude = rb.velocity.magnitude;
-
-			rb.velocity = Vector3.zero;// dir * rbMagnitude;
-			rb.AddForce( dir * rbMagnitude );
+			rb.velocity = ballDir / 2;
+			rb.AddTorque (Random.insideUnitSphere * 100f);
 		}
+
+//		if (autoAimEnemy != null) 
+//		{
+//			Vector3 dir = autoAimEnemy.transform.position - transform.position;
+//			dir.y = 0;
+//			dir.Normalize ();
+//			//float relation = dir.x / dir.z;
+//			float velY = rb.velocity.normalized.y;
+//			dir.x = Mathf.Sqrt (1 - Mathf.Pow (velY, 2)) / ((dir.x + dir.z) / dir.x); //x^2 + (z/x)x^2 = 1 - y^2
+//			dir.z = Mathf.Sqrt( 1 - Mathf.Pow (velY, 2) - Mathf.Pow (dir.x, 2) );//Mathf.Sqrt (1 - Mathf.Pow (velY, 2)) / ((dir.z + dir.x) / dir.z);
+//
+//			dir.y = velY;
+//
+//			dir.Normalize ();
+//
+//			float rbMagnitude = rb.velocity.magnitude;
+//
+//			rb.velocity = Vector3.zero;// dir * rbMagnitude;
+//			rb.AddForce( dir * rbMagnitude * 1.5f );
+//		}
 
 //		Vector3 dir = autoAimEnemy.transform.position - transform.position;
 //		dir.y = 0;
