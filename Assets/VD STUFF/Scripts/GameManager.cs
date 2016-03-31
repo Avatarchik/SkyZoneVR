@@ -17,6 +17,14 @@ public class GameManager : MonoBehaviour {
 		CONFIG
 	}
 
+	enum GamePhase
+	{
+		ONE, //2 enemies at a time
+		TWO, //6 enemies
+		THREE, //unlimited enemies
+		END //Game over/reset
+	}
+
 	private TutorialManager tm;
 	private AudioManager am;
 	private AimAssistManager aam;
@@ -41,6 +49,8 @@ public class GameManager : MonoBehaviour {
 	public float randomRange = 1f;
 
 	GameMode mode = GameMode.STANDBY;
+	GamePhase phase = GamePhase.ONE;
+	float phaseTimer;
 	bool gameStarted = false;
 	public bool inTutorialMode;
 
@@ -198,6 +208,49 @@ public class GameManager : MonoBehaviour {
 			break;
 
 		case GameMode.GAME:
+			switch (phase) 
+			{
+			case GamePhase.ONE:
+				if (aam.onCourtEnemies.Count >= 2) 
+				{
+					StopCoroutine ("StartEnemyMove");
+				} 
+				else 
+				{
+					StartCoroutine ("StartEnemyMove");
+				}
+
+				phaseTimer -= Time.deltaTime;
+				if (phaseTimer <= 0) 
+				{
+					SwitchGamePhase (GamePhase.TWO);
+				}
+
+				break;
+
+			case GamePhase.TWO:
+				if (aam.onCourtEnemies.Count >= 6) 
+				{
+					StopCoroutine ("StartEnemyMove");
+				} 
+				else 
+				{
+					StartCoroutine ("StartEnemyMove");
+				}
+
+				phaseTimer -= Time.deltaTime;
+				if (phaseTimer <= 0) 
+				{
+					SwitchGamePhase (GamePhase.THREE);
+				}
+
+				break;
+
+			case GamePhase.THREE:
+
+				break;
+			}
+
 			//SCORE TEXT
 			scoreText.GetComponent<Text> ().text = "Score: " + score;
 
@@ -335,6 +388,32 @@ public class GameManager : MonoBehaviour {
 		}
 		
 		mode = gm;
+	}
+
+	void SwitchGamePhase(GamePhase gp)
+	{
+		switch (gp) 
+		{
+		case GamePhase.ONE:
+			phaseTimer = 15f;
+
+			break;
+
+		case GamePhase.TWO:
+			phaseTimer = 20f;
+
+			break;
+
+		case GamePhase.THREE:
+
+			break;
+
+		case GamePhase.END:
+
+			break;
+		}
+
+		phase = gp;
 	}
 
 	IEnumerator SpawnEnemy() {
