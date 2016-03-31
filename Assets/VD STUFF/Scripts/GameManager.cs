@@ -212,13 +212,29 @@ public class GameManager : MonoBehaviour {
 			switch (phase) 
 			{
 			case GamePhase.ONE:
-				if (aam.onCourtEnemies.Count >= 3) {
-					StopCoroutine ("StartEnemyMove");
-					moveEnemyIsRunning = false;
-				} else {
-					if (!moveEnemyIsRunning)
-						StartCoroutine ("StartEnemyMove");
+				if (aam.onCourtEnemies.Count >= 3)// && moveEnemyIsRunning) 
+				{
+					if (moveEnemyIsRunning) {
+						StopCoroutine ("StartEnemyMove");
+						moveEnemyIsRunning = false;
+					}
+
+//					StopCoroutine ("StartEnemyMove");
+//					moveEnemyIsRunning = false;
+//					print ("on court enemies > 3");
+				} 
+				else
+				{
+					StartCoroutine ("StartEnemyMove");
+					print ("move enemy is not running OR oncourtenemies < 3");
 				}
+
+//				if (GameObject.Find ("StaticPool").transform.childCount == 0) 
+//				{
+//					queueManager.Reset ();
+//					StartCoroutine ("SpawnEnemy");
+//					print ("Static pool is empty");
+//				}
 
 //				phaseTimer -= Time.deltaTime;
 //				if (phaseTimer <= 0) 
@@ -299,8 +315,8 @@ public class GameManager : MonoBehaviour {
 			timer -= Time.deltaTime;
 			break;
 		case GameMode.GAMEOVER:
-			foreach( Material mat in gridMats )
-				mat.SetFloat("_Opacity_Slider", 2.5f - timer );
+			foreach (Material mat in gridMats)
+				mat.SetFloat ("_Opacity_Slider", 2.5f - timer);
 
 			if( timer <= 0 )
 			{
@@ -365,10 +381,13 @@ public class GameManager : MonoBehaviour {
 			aam.ClearOnCourtEnemies ();
 			SwitchGamePhase (GamePhase.ONE);
 
-			GameObject[] staticPoolBalls = GameObject.FindGameObjectsWithTag("Ball");
-			foreach (GameObject ball in staticPoolBalls) 
+			GameObject[] staticPoolBalls = GameObject.FindGameObjectsWithTag ("Ball");
+			if (staticPoolBalls.Length >= 1) 
 			{
-				ball.SetActive (false);
+				foreach (GameObject ball in staticPoolBalls) 
+				{
+					ball.SetActive (false);
+				}
 			}
 
 			score = 0;

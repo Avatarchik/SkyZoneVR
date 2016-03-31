@@ -271,6 +271,7 @@ public class Enemy : MonoBehaviour {
 //		print ("Ouch!");
 		PlayerManager.ReducePoints(1);
 
+		aam.onCourtEnemies.Remove (this.gameObject);
 		gameObject.SetActive(false);
 		StopAllCoroutines();
 	}
