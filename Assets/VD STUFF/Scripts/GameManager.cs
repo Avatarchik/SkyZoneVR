@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour {
 	GameMode mode = GameMode.STANDBY;
 	GamePhase phase = GamePhase.ONE;
 	float phaseTimer;
+	bool moveEnemyIsRunning;
 	bool gameStarted = false;
 	public bool inTutorialMode;
 
@@ -211,13 +212,15 @@ public class GameManager : MonoBehaviour {
 			switch (phase) 
 			{
 			case GamePhase.ONE:
-				if (aam.onCourtEnemies.Count >= 2) 
+				if (aam.onCourtEnemies.Count >= 3) 
 				{
 					StopCoroutine ("StartEnemyMove");
+					moveEnemyIsRunning = false;
 				} 
 				else 
 				{
-					StartCoroutine ("StartEnemyMove");
+					if(!moveEnemyIsRunning)
+						StartCoroutine ("StartEnemyMove");
 				}
 
 				phaseTimer -= Time.deltaTime;
@@ -232,10 +235,12 @@ public class GameManager : MonoBehaviour {
 				if (aam.onCourtEnemies.Count >= 6) 
 				{
 					StopCoroutine ("StartEnemyMove");
+					moveEnemyIsRunning = false;
 				} 
 				else 
 				{
-					StartCoroutine ("StartEnemyMove");
+					if(!moveEnemyIsRunning)
+						StartCoroutine ("StartEnemyMove");
 				}
 
 				phaseTimer -= Time.deltaTime;
@@ -247,6 +252,8 @@ public class GameManager : MonoBehaviour {
 				break;
 
 			case GamePhase.THREE:
+				if (!moveEnemyIsRunning)
+					StartCoroutine ("StartEnemyMove");
 
 				break;
 			}
@@ -349,6 +356,7 @@ public class GameManager : MonoBehaviour {
 		case GameMode.GAME:
 
 			aam.ClearOnCourtEnemies ();
+			SwitchGamePhase (GamePhase.ONE);
 
 			GameObject[] staticPoolBalls = GameObject.FindGameObjectsWithTag("Ball");
 			foreach (GameObject ball in staticPoolBalls) 
@@ -405,6 +413,7 @@ public class GameManager : MonoBehaviour {
 			break;
 
 		case GamePhase.THREE:
+			phaseTimer = gameTimer;
 
 			break;
 
@@ -426,6 +435,7 @@ public class GameManager : MonoBehaviour {
 	IEnumerator StartEnemyMove() {
 		while( true ) {
 			queueManager.StartNextInQueue();
+			moveEnemyIsRunning = true;
 			yield return new WaitForSeconds( 1.5f );
 		}
 	}

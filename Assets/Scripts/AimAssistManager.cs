@@ -6,6 +6,7 @@ public class AimAssistManager : MonoBehaviour
 {
 
 	public List<GameObject> onCourtEnemies;
+	public float aimAssistThreshold = 0.9f;
 
 	void Start () 
 	{
@@ -36,7 +37,7 @@ public class AimAssistManager : MonoBehaviour
 			{
 				highestNumber = Vector3.Dot(ballDir, dir);
 
-				if (Vector3.Dot (ballDir, dir) > 0.9f) 
+				if (Vector3.Dot (ballDir, dir) > aimAssistThreshold) 
 				{
 					closestEnemy = enemy;
 				} 
