@@ -212,19 +212,21 @@ public class GameManager : MonoBehaviour {
 			switch (phase) 
 			{
 			case GamePhase.ONE:
-				if (aam.onCourtEnemies.Count >= 3) 
-				{
+				if (aam.onCourtEnemies.Count >= 3) {
 					StopCoroutine ("StartEnemyMove");
 					moveEnemyIsRunning = false;
-				} 
-				else 
-				{
-					if(!moveEnemyIsRunning)
+				} else {
+					if (!moveEnemyIsRunning)
 						StartCoroutine ("StartEnemyMove");
 				}
 
-				phaseTimer -= Time.deltaTime;
-				if (phaseTimer <= 0) 
+//				phaseTimer -= Time.deltaTime;
+//				if (phaseTimer <= 0) 
+//				{
+//					SwitchGamePhase (GamePhase.TWO);
+//				}
+
+				if (score >= 3) 
 				{
 					SwitchGamePhase (GamePhase.TWO);
 				}
@@ -243,8 +245,13 @@ public class GameManager : MonoBehaviour {
 						StartCoroutine ("StartEnemyMove");
 				}
 
-				phaseTimer -= Time.deltaTime;
-				if (phaseTimer <= 0) 
+//				phaseTimer -= Time.deltaTime;
+//				if (phaseTimer <= 0) 
+//				{
+//					SwitchGamePhase (GamePhase.THREE);
+//				}
+
+				if (score >= 10) 
 				{
 					SwitchGamePhase (GamePhase.THREE);
 				}
