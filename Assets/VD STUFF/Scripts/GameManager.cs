@@ -214,27 +214,20 @@ public class GameManager : MonoBehaviour {
 			case GamePhase.ONE:
 				if (aam.onCourtEnemies.Count >= 3)// && moveEnemyIsRunning) 
 				{
-					if (moveEnemyIsRunning) {
+					if (moveEnemyIsRunning) 
+					{
 						StopCoroutine ("StartEnemyMove");
 						moveEnemyIsRunning = false;
 					}
 
 //					StopCoroutine ("StartEnemyMove");
 //					moveEnemyIsRunning = false;
-//					print ("on court enemies > 3");
 				} 
 				else
 				{
-					StartCoroutine ("StartEnemyMove");
-					print ("move enemy is not running OR oncourtenemies < 3");
+					if(!moveEnemyIsRunning)
+						StartCoroutine ("StartEnemyMove");
 				}
-
-//				if (GameObject.Find ("StaticPool").transform.childCount == 0) 
-//				{
-//					queueManager.Reset ();
-//					StartCoroutine ("SpawnEnemy");
-//					print ("Static pool is empty");
-//				}
 
 //				phaseTimer -= Time.deltaTime;
 //				if (phaseTimer <= 0) 
@@ -252,8 +245,12 @@ public class GameManager : MonoBehaviour {
 			case GamePhase.TWO:
 				if (aam.onCourtEnemies.Count >= 6) 
 				{
-					StopCoroutine ("StartEnemyMove");
-					moveEnemyIsRunning = false;
+					if (moveEnemyIsRunning) 
+					{
+						StopCoroutine ("StartEnemyMove");
+						moveEnemyIsRunning = false;
+					}
+
 				} 
 				else 
 				{
@@ -454,6 +451,7 @@ public class GameManager : MonoBehaviour {
 	IEnumerator SpawnEnemy() {
 		while(true) {
 			queueManager.SpawnNewEnemy( enemy );
+			Debug.Log ("Spawning Enemy from GM");
 			yield return new WaitForSeconds( 0.25f );
 		}
 	}
@@ -461,6 +459,7 @@ public class GameManager : MonoBehaviour {
 	IEnumerator StartEnemyMove() {
 		while( true ) {
 			queueManager.StartNextInQueue();
+			Debug.Log ("Start Enemy Move from GM");
 			moveEnemyIsRunning = true;
 			yield return new WaitForSeconds( 1.5f );
 		}

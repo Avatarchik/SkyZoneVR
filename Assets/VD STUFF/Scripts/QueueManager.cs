@@ -6,8 +6,12 @@ public class QueueManager : MonoBehaviour {
 	
 	public Waypoint m_queueFront;
 
+	public Waypoint m_lastWaypoint;
+
 	[System.NonSerialized]
 	public Waypoint m_queueEnd;
+
+	public Waypoint[] waypoints;
 
 	SpawnFloor floor;
 
@@ -16,6 +20,7 @@ public class QueueManager : MonoBehaviour {
 		floor = GameObject.Find("Floor").GetComponent<SpawnFloor>();
 		m_queueEnd = m_queueFront;
 
+		waypoints = transform.GetComponentsInChildren<Waypoint> ();
 	}
 	
 	public void SpawnNewEnemy(GameObject enemyObject) {
@@ -93,6 +98,7 @@ public class QueueManager : MonoBehaviour {
 			wp.m_occupant.GetComponent<Enemy>().GoToQueuePos( m_tempWp );
 			m_tempWp.m_reserved = true;
 			wp.m_occupant = null;
+			//wp.m_reserved = false;
 
 //			if( wp.m_previous != null ) {
 //				m_queueEnd = wp.m_previous;
@@ -112,16 +118,28 @@ public class QueueManager : MonoBehaviour {
 	public void Reset() {
 		StopAllCoroutines();
 
-		Waypoint temp = m_queueFront;
-		while( temp != null ) {
-			if( temp.m_occupant != null ) {
-				temp.m_occupant.GetComponent<Enemy>().StopAllCoroutines();
-				temp.m_occupant.SetActive( false );
-				temp.m_occupant = null;
+		foreach (Waypoint wp in waypoints) 
+		{
+			if (wp.m_occupant != null) 
+			{
+				wp.m_occupant.GetComponent<Enemy> ().StopAllCoroutines ();
+				wp.m_occupant.SetActive (false);
 			}
-
-			temp = temp.m_next;
+			wp.m_occupant = null;
+			wp.m_reserved = false;
 		}
+
+//		Waypoint temp = m_lastWaypoint;
+//		while( temp != null ) {
+//			if( temp.m_occupant != null ) {
+//				temp.m_occupant.GetComponent<Enemy>().StopAllCoroutines();
+//				temp.m_occupant.SetActive( false );
+//				temp.m_occupant = null;
+//				temp.m_reserved = false;
+//			}
+//
+//			temp = temp.m_next;
+//		}
 		m_queueEnd = m_queueFront;
 	}
 

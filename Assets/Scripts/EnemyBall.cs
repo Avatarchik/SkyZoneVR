@@ -98,7 +98,10 @@ public class EnemyBall : MonoBehaviour {
 		
 		if (coll.collider.tag == "Bat") 
 		{
-			AimAssist ();
+			print (rb.velocity.magnitude);
+
+			if(rb.velocity.magnitude > 5)
+				AimAssist ();
 
 			if (tutorialBall) {
 				tutorialBall = false;
@@ -141,7 +144,12 @@ public class EnemyBall : MonoBehaviour {
 
 		if (autoAimEnemy != null) 
 		{
-			float timeToEnemy = Vector3.Distance(autoAimEnemy.transform.position, transform.position) / 3f;
+			float timeToEnemy;
+
+			if(rb.velocity.magnitude > 15)
+				timeToEnemy = Vector3.Distance(autoAimEnemy.transform.position, transform.position) / 4f;
+			else
+				timeToEnemy = Vector3.Distance(autoAimEnemy.transform.position, transform.position) / 3f;
 
 			float hVel = Vector3.Distance (autoAimEnemy.transform.position, transform.position) / timeToEnemy;
 			float vVel = (4f + 0.5f * -Physics.gravity.y * Mathf.Pow (timeToEnemy, 2) - transform.position.y) / timeToEnemy;
