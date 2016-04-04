@@ -98,7 +98,7 @@ public class EnemyBall : MonoBehaviour {
 		
 		if (coll.collider.tag == "Bat") 
 		{
-			print (rb.velocity.magnitude);
+			//print (rb.velocity.magnitude);
 
 			if(rb.velocity.magnitude > 5)
 				AimAssist ();
