@@ -363,6 +363,16 @@ public class GameManager : MonoBehaviour {
 			countdownText.SetActive (true);
 			batHoldBox.SetActive (false);
 
+			timerText.SetActive (true);
+			int minutes = Mathf.FloorToInt (gameTimer / 60F);
+			int seconds = Mathf.FloorToInt (gameTimer - minutes * 60);
+			string stringTimer = string.Format ("{0:0}:{1:00}", minutes, seconds);
+			timerText.GetComponent<Text> ().text = "Time: " + stringTimer;
+
+			scoreText.SetActive(true);
+			streakText.SetActive (true);
+
+
 			score = 0;
 			streak = 0;
 			streakMultiplier = 1;
@@ -409,9 +419,11 @@ public class GameManager : MonoBehaviour {
 			break;
 		case GameMode.GAMEOVER:
 			timer = 3f;
-			scoreText.SetActive (false);
-			timerText.SetActive (false);
-			streakText.SetActive (false);
+
+			timerText.GetComponent<Text> ().text = "Time: 0:00";
+			scoreText.GetComponent<Text> ().text = "Score: " + score;
+			streakText.GetComponent<Text> ().text = "Streak: " + streak + " (x" + streakMultiplier + ")";
+
 			finalScoreText.GetComponent<Text> ().text = "Score: " + score;
 			finalScoreText.SetActive (true);
 			aam.ClearOnCourtEnemies ();
