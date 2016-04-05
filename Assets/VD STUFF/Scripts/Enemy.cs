@@ -255,6 +255,7 @@ public class Enemy : MonoBehaviour {
 				}
 				floor.tilesFilled[curColumn, curRow] = true;
 
+
 //				float rand = Random.Range(0f, 100f);
 //				if(rand < moveForwardChancePct) {
 //					curRow++; 			// Forward
@@ -349,6 +350,8 @@ public class Enemy : MonoBehaviour {
 	}
 
 	IEnumerator ThrowRoutine(){
+
+		SwitchThrowInterval ();
 
 		if (inTutorialMode && waitToThrow) {
 			//throwWaitTime = Random.Range (0, 4);
@@ -454,6 +457,22 @@ public class Enemy : MonoBehaviour {
 
 
 			}
+		}
+	}
+
+	void SwitchThrowInterval()
+	{
+		switch (gameMan.GetComponent<GameManager> ().gamePhaseInt) 
+		{
+		case 1:
+			throwInterval = Random.Range(3, 5); //~4
+			break;
+		case 2:
+			throwInterval = Random.Range (6, 8); //~6
+			break;
+		case 3:
+			throwInterval = Random.Range(6, 8); //~6
+			break;
 		}
 	}
 

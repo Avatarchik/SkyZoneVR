@@ -54,6 +54,7 @@ public class GameManager : MonoBehaviour {
 	bool moveEnemyIsRunning;
 	bool gameStarted = false;
 	public bool inTutorialMode;
+	public int gamePhaseInt;
 
 	public SpawnFloor spawnFloor;
 
@@ -345,6 +346,7 @@ public class GameManager : MonoBehaviour {
 		switch( gm )
 		{
 		case GameMode.STANDBY:
+			gamePhaseInt = 0;
 			StaticPool.DestroyAllObjects ();
 			countdownText.SetActive (false);
 			scoreText.SetActive (false);
@@ -427,16 +429,19 @@ public class GameManager : MonoBehaviour {
 		{
 		case GamePhase.ONE:
 			phaseTimer = 30f;
+			gamePhaseInt = 1;
 
 			break;
 
 		case GamePhase.TWO:
 			phaseTimer = 30f;
+			gamePhaseInt++;
 
 			break;
 
 		case GamePhase.THREE:
 			phaseTimer = gameTimer;
+			gamePhaseInt++;
 
 			break;
 
