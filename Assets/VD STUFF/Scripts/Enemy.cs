@@ -368,12 +368,12 @@ public class Enemy : MonoBehaviour {
 
 		yield return new WaitForSeconds (throwInterval);
 
-		playerPos = player.transform.position;
+		playerPos = player.transform.position + new Vector3(0, 0.5f, 0);
 		dir = playerPos - transform.position;
 		dir.y = 0;
 		transform.rotation = Quaternion.LookRotation (dir.normalized * -1);
 
-		yield return new WaitForSeconds (throwWaitTime);
+		yield return new WaitForSeconds (throwWaitTime); //this is for tutorial mode
 
 		Throw ();
 
@@ -384,7 +384,15 @@ public class Enemy : MonoBehaviour {
 
 		GameObject ball = StaticPool.GetObj (ballPrefab);
 
-		timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 14f;
+		if (Vector3.Distance (transform.position, playerPos) < 8f) 
+		{
+			playerPos -= new Vector3 (0, 0.5f, 0);
+			timeToPlayer = 4 * Vector3.Distance (transform.position, playerPos) / 14f;
+		} 
+		else 
+		{
+			timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 14f;
+		}
 		//print(Vector3.Distance (transform.position, playerPos));
 
 		ball.GetComponent<EnemyBall> ().tutorialBall = false;
@@ -405,6 +413,7 @@ public class Enemy : MonoBehaviour {
 		ballRB.AddTorque (Random.insideUnitSphere * 100f);
 
 		//print("Ball thrown by enemy");
+		print("PlayerPos: " + playerPos + ", Distance: " + Vector3.Distance(transform.position, playerPos));
 	}
 
 	Transform ClosestTile(Vector3 pos) {

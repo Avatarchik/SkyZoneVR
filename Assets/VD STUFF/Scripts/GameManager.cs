@@ -468,7 +468,7 @@ public class GameManager : MonoBehaviour {
 	IEnumerator SpawnEnemy() {
 		while(true) {
 			queueManager.SpawnNewEnemy( enemy );
-			Debug.Log ("Spawning Enemy from GM");
+			//Debug.Log ("Spawning Enemy from GM");
 			yield return new WaitForSeconds( 0.25f );
 		}
 	}
@@ -476,7 +476,7 @@ public class GameManager : MonoBehaviour {
 	IEnumerator StartEnemyMove() {
 		while( true ) {
 			queueManager.StartNextInQueue();
-			Debug.Log ("Start Enemy Move from GM");
+			//Debug.Log ("Start Enemy Move from GM");
 			moveEnemyIsRunning = true;
 			yield return new WaitForSeconds( 1.5f );
 		}
