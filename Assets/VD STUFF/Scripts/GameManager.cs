@@ -229,11 +229,11 @@ public class GameManager : MonoBehaviour {
 						StartCoroutine ("StartEnemyMove");
 				}
 
-//				phaseTimer -= Time.deltaTime;
-//				if (phaseTimer <= 0) 
-//				{
-//					SwitchGamePhase (GamePhase.TWO);
-//				}
+				phaseTimer -= Time.deltaTime;
+				if (phaseTimer <= 0) 
+				{
+					SwitchGamePhase (GamePhase.TWO);
+				}
 
 				if (score >= 3) 
 				{
@@ -258,11 +258,11 @@ public class GameManager : MonoBehaviour {
 						StartCoroutine ("StartEnemyMove");
 				}
 
-//				phaseTimer -= Time.deltaTime;
-//				if (phaseTimer <= 0) 
-//				{
-//					SwitchGamePhase (GamePhase.THREE);
-//				}
+				phaseTimer -= Time.deltaTime;
+				if (phaseTimer <= 0) 
+				{
+					SwitchGamePhase (GamePhase.THREE);
+				}
 
 				if (score >= 10) 
 				{
@@ -426,12 +426,12 @@ public class GameManager : MonoBehaviour {
 		switch (gp) 
 		{
 		case GamePhase.ONE:
-			phaseTimer = 15f;
+			phaseTimer = 30f;
 
 			break;
 
 		case GamePhase.TWO:
-			phaseTimer = 20f;
+			phaseTimer = 30f;
 
 			break;
 
