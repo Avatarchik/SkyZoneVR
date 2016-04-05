@@ -386,7 +386,7 @@ public class Enemy : MonoBehaviour {
 
 		if (Vector3.Distance (transform.position, playerPos) < 8f) 
 		{
-			playerPos -= new Vector3 (0, 0.5f, 0);
+			playerPos -= new Vector3 (0, 0.5f, -0.5f);
 			timeToPlayer = 4 * Vector3.Distance (transform.position, playerPos) / 14f;
 		} 
 		else 
@@ -413,7 +413,7 @@ public class Enemy : MonoBehaviour {
 		ballRB.AddTorque (Random.insideUnitSphere * 100f);
 
 		//print("Ball thrown by enemy");
-		print("PlayerPos: " + playerPos + ", Distance: " + Vector3.Distance(transform.position, playerPos));
+		//print("PlayerPos: " + playerPos + ", Distance: " + Vector3.Distance(transform.position, playerPos));
 	}
 
 	Transform ClosestTile(Vector3 pos) {
@@ -477,10 +477,10 @@ public class Enemy : MonoBehaviour {
 			throwInterval = Random.Range(3, 5); //~4
 			break;
 		case 2:
-			throwInterval = Random.Range (6, 8); //~6
+			throwInterval = Random.Range (5, 8); //~6
 			break;
 		case 3:
-			throwInterval = Random.Range(6, 8); //~6
+			throwInterval = Random.Range(5, 10); //~6
 			break;
 		}
 	}
