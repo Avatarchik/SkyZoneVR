@@ -23,9 +23,16 @@ public class EnemyBall : MonoBehaviour {
 	AudioManager am;
 	AimAssistManager aam;
 
-	void Start () 
+    Renderer renderer;
+    public Material defaultMat;
+    public Material bounceBackMat;
+
+    bool bounceBack = false;
+
+	void Awake () 
 	{
 		rb = GetComponent<Rigidbody> ();
+        renderer = GetComponent<Renderer>();
 		trail = GetComponent<TrailRenderer> ();
 		trail.enabled = false;
 
@@ -83,6 +90,8 @@ public class EnemyBall : MonoBehaviour {
 		streakChain = false;
 		hitGround = false;
 		autoAimEnemy = null;
+        bounceBack = false;
+        GetComponent<Renderer>().material = defaultMat;
 		//print ("Ball Reset");
 	}
 
@@ -121,6 +130,11 @@ public class EnemyBall : MonoBehaviour {
 		{
 			//gm.AddToStreak ();
 			streakChain = true;
+
+            if (bounceBack)
+            {
+                BounceBackPowerUp();
+            }
 		}
 
 		if (gameObject.layer == 12 && coll.collider.gameObject.layer == 0 )//&& !streakChain) 
@@ -200,4 +214,59 @@ public class EnemyBall : MonoBehaviour {
 //		rb.AddForce( dir * rbMagnitude );
 
 	}
+
+    public void ChoosePowerUp()
+    {
+        int powerUpChoice = Random.Range(0, 24);
+
+        if(powerUpChoice == 0)
+        {
+            //1st power up
+            renderer.material = bounceBackMat;
+            bounceBack = true;
+        }
+
+        if(powerUpChoice == 1)
+        {
+            //2nd power up
+        }
+    }
+
+    void BounceBackPowerUp()
+    {
+        bounceBack = true;
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        gameObject.layer = 11;
+        //fromEnemy = true;
+        lifeTime -= 5f;
+
+        float timeToPlayer;
+        Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position + new Vector3(0, 4f, -4f);
+
+        if (Vector3.Distance(transform.position, playerPos) < 8f)
+        {
+            playerPos -= new Vector3(0, 0.5f, -0.5f);
+            timeToPlayer = 4 * Vector3.Distance(transform.position, playerPos) / 14f;
+        }
+        else
+        {
+            timeToPlayer = 2 * Vector3.Distance(transform.position, playerPos) / 14f;
+        }
+        //print(Vector3.Distance (transform.position, playerPos));
+
+        //ball.GetComponent<EnemyBall> ().SetColliderEnableTime( timeToPlayer * 1f / 4f );
+        //ball.transform.position = transform.localPosition + new Vector3(0, 2.5f, 0) - Vector3.forward;
+
+        float hVel = Vector3.Distance(playerPos + new Vector3(0, -0.25f, 0.25f), transform.position) / timeToPlayer;
+        float vVel = (4f + 0.5f * -Physics.gravity.y * Mathf.Pow(timeToPlayer, 2) - transform.position.y) / timeToPlayer;
+
+        Vector3 ballDir = playerPos - transform.position;
+        ballDir.Normalize();
+        ballDir *= hVel;
+        ballDir.y = vVel / 1.5f;
+
+        rb.velocity = ballDir;
+        rb.AddTorque(Random.insideUnitSphere * 100f);
+    }
 }

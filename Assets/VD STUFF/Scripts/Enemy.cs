@@ -412,6 +412,8 @@ public class Enemy : MonoBehaviour {
 		ballRB.velocity = ballDir;
 		ballRB.AddTorque (Random.insideUnitSphere * 100f);
 
+        ball.GetComponent<EnemyBall>().ChoosePowerUp();
+
 		//print("Ball thrown by enemy");
 		//print("PlayerPos: " + playerPos + ", Distance: " + Vector3.Distance(transform.position, playerPos));
 	}
@@ -474,10 +476,10 @@ public class Enemy : MonoBehaviour {
 		switch (gameMan.GetComponent<GameManager> ().gamePhaseInt) 
 		{
 		case 1:
-			throwInterval = Random.Range(3, 5); //~4
+			throwInterval = Random.Range(3, 6); //~4
 			break;
 		case 2:
-			throwInterval = Random.Range (5, 8); //~6
+			throwInterval = Random.Range (5, 10); //~6
 			break;
 		case 3:
 			throwInterval = Random.Range(5, 10); //~6
