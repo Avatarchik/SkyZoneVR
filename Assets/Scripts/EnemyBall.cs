@@ -249,15 +249,15 @@ public class EnemyBall : MonoBehaviour {
     {
         int powerUpChoice = Random.Range(0, 99);
 
-		//1st Power Up
-        if(powerUpChoice <= 4)
+		//1st Power Up (Bounce Back)
+        if(powerUpChoice <= 14)
         {
             renderer.material = bounceBackMat;
             bounceBack = true;
         }
 
-		//2nd Power Up
-        if(powerUpChoice >= 5 && powerUpChoice <= 9)
+		//2nd Power Up (Heat Seeking)
+        if(powerUpChoice >= 15 && powerUpChoice <= 20)
         {
 			renderer.material = autoAimMat;
 			autoAim = true;
