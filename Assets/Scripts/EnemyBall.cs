@@ -26,8 +26,16 @@ public class EnemyBall : MonoBehaviour {
     Renderer renderer;
     public Material defaultMat;
     public Material bounceBackMat;
+	public Material autoAimMat;
 
     bool bounceBack = false;
+	bool autoAim = false;
+
+	bool shouldLerp;
+	float lerpTimer = 0f;
+	public float autoAimLerpTime = 0.3f;
+	GameObject lerpEnemy;
+	Vector3 lerpBallStart;
 
 	void Awake () 
 	{
@@ -77,6 +85,19 @@ public class EnemyBall : MonoBehaviour {
 			rb.useGravity = true;
 			//GetComponent<Rigidbody> ().isKinematic = false;
 		}
+
+		if (autoAim && shouldLerp) 
+		{
+			Vector3 lerpEnemyPos = lerpEnemy.transform.position;
+			lerpTimer += Time.deltaTime;
+			transform.position = Vector3.Lerp (lerpBallStart, lerpEnemyPos, lerpTimer / autoAimLerpTime);
+
+			if (transform.position == lerpEnemyPos || lerpEnemy.activeSelf == false || lerpEnemy == null)
+				shouldLerp = false;
+			
+//			Debug.Log ("LerpBall position: " + lerpBall);
+//			Debug.Log ("LerpEnemy position: " + lerpEnemy);
+		}
 	}
 
 	public void Reset()
@@ -90,8 +111,7 @@ public class EnemyBall : MonoBehaviour {
 		streakChain = false;
 		hitGround = false;
 		autoAimEnemy = null;
-        bounceBack = false;
-        GetComponent<Renderer>().material = defaultMat;
+		ResetPowerUps ();
 		//print ("Ball Reset");
 	}
 
@@ -109,11 +129,19 @@ public class EnemyBall : MonoBehaviour {
 		{
 			//print (rb.velocity.magnitude);
 
-			if(rb.velocity.magnitude > 5)
+			if(rb.velocity.magnitude > 5 && !autoAim)
 				AimAssist ();
 
 			if (tutorialBall) {
 				tutorialBall = false;
+			}
+
+			if (autoAim) 
+			{
+				//AutoAimPowerUp ();
+				lerpEnemy = ClosestEnemy();
+				lerpBallStart = transform.position;
+				shouldLerp = true;
 			}
 
 			fromEnemy = false;
@@ -135,6 +163,8 @@ public class EnemyBall : MonoBehaviour {
             {
                 BounceBackPowerUp();
             }
+
+			shouldLerp = false;
 		}
 
 		if (gameObject.layer == 12 && coll.collider.gameObject.layer == 0 )//&& !streakChain) 
@@ -217,20 +247,34 @@ public class EnemyBall : MonoBehaviour {
 
     public void ChoosePowerUp()
     {
-        int powerUpChoice = Random.Range(0, 24);
+        int powerUpChoice = Random.Range(0, 99);
 
-        if(powerUpChoice == 0)
+		//1st Power Up
+        if(powerUpChoice <= 4)
         {
-            //1st power up
             renderer.material = bounceBackMat;
             bounceBack = true;
         }
 
-        if(powerUpChoice == 1)
+		//2nd Power Up
+        if(powerUpChoice >= 5 && powerUpChoice <= 9)
         {
-            //2nd power up
+			renderer.material = autoAimMat;
+			autoAim = true;
         }
     }
+
+	void ResetPowerUps()
+	{
+		GetComponent<Renderer>().material = defaultMat;
+		bounceBack = false;
+		autoAim = false;
+
+		lerpEnemy = null;
+		lerpBallStart = Vector3.zero;
+		shouldLerp = false;
+		lerpTimer = 0;
+	}
 
     void BounceBackPowerUp()
     {
@@ -246,7 +290,7 @@ public class EnemyBall : MonoBehaviour {
 
         if (Vector3.Distance(transform.position, playerPos) < 8f)
         {
-            playerPos -= new Vector3(0, 0.5f, -0.5f);
+			playerPos = GameObject.FindGameObjectWithTag("Player").transform.position + new Vector3(0, 1f, 0.5f);
             timeToPlayer = 4 * Vector3.Distance(transform.position, playerPos) / 14f;
         }
         else
@@ -269,4 +313,52 @@ public class EnemyBall : MonoBehaviour {
         rb.velocity = ballDir;
         rb.AddTorque(Random.insideUnitSphere * 100f);
     }
+
+	void AutoAimPowerUp()
+	{
+		//float timeToEnemy = 1f;
+		lerpEnemy = ClosestEnemy();
+		lerpBallStart = transform.position;
+
+//		if(rb.velocity.magnitude > 15)
+//			timeToEnemy = Vector3.Distance(enemy, transform.position) / 4f;
+//		else
+//		timeToEnemy = Vector3.Distance(enemy, transform.position) / 4f;
+//
+//		float hVel = Vector3.Distance (enemy, transform.position) / timeToEnemy;
+//		float vVel = (4f + 0.5f * -Physics.gravity.y * Mathf.Pow (timeToEnemy, 2) - transform.position.y) / timeToEnemy;
+//
+//		Vector3 ballDir = enemy - transform.position;
+//		ballDir *= hVel;
+//		ballDir.y = vVel/1.5f;
+//
+//		rb.velocity = ballDir / 2;
+//		rb.AddTorque (Random.insideUnitSphere * 100f);
+
+		//transform.position = Vector3.Lerp (currentPos, enemy, timeToEnemy);
+	}
+
+	GameObject ClosestEnemy()
+	{
+		GameObject closestEnemy = null;
+		float closestDistance = 30;
+
+		foreach (GameObject enemy in aam.onCourtEnemies) 
+		{
+			float distance = Vector3.Distance (transform.position, enemy.transform.position);
+
+			if (distance < closestDistance) 
+			{
+				closestDistance = distance;
+				closestEnemy = enemy;
+			}
+		}
+
+		if (closestEnemy == null) 
+		{
+			closestEnemy = aam.onCourtEnemies[0];
+		}
+			
+		return closestEnemy;
+	}
 }
