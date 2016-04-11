@@ -8,6 +8,7 @@ public class AudioManager : MonoBehaviour {
 	public AudioSource ambientCubeAudio;
 	public AudioSource dodgeballHit;
 	public AudioSource enemyHit;
+	public AudioSource bombExplosion;
 
 	bool updateBackgroundAudio = false;
 	AudioSource switchToAudio;
@@ -61,5 +62,10 @@ public class AudioManager : MonoBehaviour {
 	public void EnemyHitSound()
 	{
 		enemyHit.Play ();
+	}
+
+	public void BombExplosionSound()
+	{
+		bombExplosion.Play ();
 	}
 }

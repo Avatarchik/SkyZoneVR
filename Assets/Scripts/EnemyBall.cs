@@ -356,6 +356,7 @@ public class EnemyBall : MonoBehaviour {
 			i++;
 		}
 
+		am.BombExplosionSound ();
 		Instantiate (bombExplosionParticle, transform.position, Quaternion.Euler(Vector3.right * 90));
 		this.gameObject.SetActive (false);
 	}

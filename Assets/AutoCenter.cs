@@ -4,6 +4,8 @@ using System;
 
 public class AutoCenter : MonoBehaviour {
 
+	public bool noOculus = false; //does not calibrate when true (use when oculus is not connected)
+
 	public Transform oculusCamera;
 	OptitrackRigidBody currBody; 
 
@@ -20,7 +22,9 @@ public class AutoCenter : MonoBehaviour {
 	}
 
 	public void Calibrate(){
-		Vector3 targetOffset = new Vector3 (0, ((-1 * oculusCamera.localEulerAngles.y % 360) + ((currBody.currRot.y % 360))), 0f);
-		transform.localEulerAngles = targetOffset;
+		if (!noOculus) {
+			Vector3 targetOffset = new Vector3 (0, ((-1 * oculusCamera.localEulerAngles.y % 360) + ((currBody.currRot.y % 360))), 0f);
+			transform.localEulerAngles = targetOffset;
+		}
 	}
 }
