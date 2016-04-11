@@ -13,6 +13,12 @@ public class AutoCenter : MonoBehaviour {
 		currBody = GetComponent<OptitrackRigidBody>();
 	}
 
+	void Update(){
+		if(Input.GetKeyDown(KeyCode.O)){
+			Calibrate();
+		}
+	}
+
 	public void Calibrate(){
 		Vector3 targetOffset = new Vector3 (0, ((-1 * oculusCamera.localEulerAngles.y % 360) + ((currBody.currRot.y % 360))), 0f);
 		transform.localEulerAngles = targetOffset;

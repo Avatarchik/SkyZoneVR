@@ -28,6 +28,10 @@ public class GameManager : MonoBehaviour {
 	private TutorialManager tm;
 	private AudioManager am;
 	private AimAssistManager aam;
+	private AutoCenter ac;
+
+	private bool firstCalibrationDone;
+	private float firstCalibrationTimer = 0f;
 
 	private GameObject scoreText;
 	private GameObject timerText;
@@ -122,6 +126,8 @@ public class GameManager : MonoBehaviour {
 			if(_instance != this)
 				Destroy(gameObject);
 		}
+
+		ac = GameObject.FindGameObjectWithTag ("Player").GetComponent<AutoCenter> ();
 	}
 	#endregion
 
@@ -131,6 +137,8 @@ public class GameManager : MonoBehaviour {
 		tm = GetComponent<TutorialManager> ();
 		am = GameObject.Find ("AudioManager").GetComponent<AudioManager> ();
 		aam = GetComponent<AimAssistManager> ();
+
+		ac.Calibrate ();
 
 //		tutorialBallSpawnPos = GameObject.Find ("TutBallSpawn").transform.position;
 //		cameraTransform = Camera.main.transform;
@@ -151,6 +159,16 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void Update() {
+
+		if (firstCalibrationTimer < 0.1 && !firstCalibrationDone)
+			firstCalibrationTimer += Time.deltaTime;
+
+		if (firstCalibrationTimer > 0.1 && !firstCalibrationDone) 
+		{
+			ac.Calibrate ();
+			firstCalibrationDone = true;
+		}
+
 		switch(mode)
 		{
 		case GameMode.STANDBY:
@@ -346,6 +364,8 @@ public class GameManager : MonoBehaviour {
 		switch( gm )
 		{
 		case GameMode.STANDBY:
+			ac.Calibrate ();
+
 			gamePhaseInt = 0;
 			StaticPool.DestroyAllObjects ();
 			countdownText.SetActive (false);
@@ -359,6 +379,8 @@ public class GameManager : MonoBehaviour {
 				mat.SetFloat("_Opacity_Slider", 2.5f);
 			break;
 		case GameMode.COUNTDOWN:
+			ac.Calibrate ();
+
 			timer = 5f;
 			countdownText.SetActive (true);
 			batHoldBox.SetActive (false);

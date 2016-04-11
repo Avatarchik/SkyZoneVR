@@ -368,7 +368,7 @@ public class Enemy : MonoBehaviour {
 
 		yield return new WaitForSeconds (throwInterval);
 
-		playerPos = player.transform.position + new Vector3(0, 0.5f, 0);
+		playerPos = player.transform.position + new Vector3(0, 0.75f, 0f);
 		dir = playerPos - transform.position;
 		dir.y = 0;
 		transform.rotation = Quaternion.LookRotation (dir.normalized * -1);
@@ -386,13 +386,19 @@ public class Enemy : MonoBehaviour {
 
 		if (Vector3.Distance (transform.position, playerPos) < 8f) 
 		{
-			playerPos -= new Vector3 (0, 0.5f, -0.5f);
+			playerPos -= new Vector3 (0, 2f, -0.5f);
 			timeToPlayer = 4 * Vector3.Distance (transform.position, playerPos) / 14f;
 		} 
 		else 
 		{
-			timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 14f;
+			timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 18f;
 		}
+
+		if (Vector3.Distance (transform.position, playerPos) > 14f) 
+		{
+			timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 18f;
+		}
+
 		//print(Vector3.Distance (transform.position, playerPos));
 
 		ball.GetComponent<EnemyBall> ().tutorialBall = false;
