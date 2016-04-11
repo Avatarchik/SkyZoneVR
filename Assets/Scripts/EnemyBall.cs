@@ -27,15 +27,22 @@ public class EnemyBall : MonoBehaviour {
     public Material defaultMat;
     public Material bounceBackMat;
 	public Material autoAimMat;
+	public Material bombMat;
 
     bool bounceBack = false;
 	bool autoAim = false;
+	bool bomb = false;
+
+	int bounceBackVolleys = 0;
 
 	bool shouldLerp;
 	float lerpTimer = 0f;
 	public float autoAimLerpTime = 0.3f;
 	GameObject lerpEnemy;
 	Vector3 lerpBallStart;
+
+	public float bombExplosionRadius = 5f;
+	public GameObject bombExplosionParticle;
 
 	void Awake () 
 	{
@@ -46,7 +53,7 @@ public class EnemyBall : MonoBehaviour {
 
 		am = GameObject.Find ("AudioManager").GetComponent<AudioManager> ();
 		gm = GameObject.Find ("GameManager").GetComponent<GameManager> ();
-		aam = gm.GetComponent < AimAssistManager> ();
+		aam = gm.GetComponent <AimAssistManager> ();
 
 //		player = GameObject.Find ("Player");
 	}
@@ -94,9 +101,6 @@ public class EnemyBall : MonoBehaviour {
 
 			if (transform.position == lerpEnemyPos || lerpEnemy.activeSelf == false || lerpEnemy == null)
 				shouldLerp = false;
-			
-//			Debug.Log ("LerpBall position: " + lerpBall);
-//			Debug.Log ("LerpEnemy position: " + lerpEnemy);
 		}
 	}
 
@@ -112,7 +116,23 @@ public class EnemyBall : MonoBehaviour {
 		hitGround = false;
 		autoAimEnemy = null;
 		ResetPowerUps ();
+
 		//print ("Ball Reset");
+	}
+
+	void ResetPowerUps()
+	{
+		GetComponent<Renderer>().material = defaultMat;
+		bounceBack = false;
+		autoAim = false;
+		bomb = false;
+
+		bounceBackVolleys = 0;
+
+		lerpEnemy = null;
+		lerpBallStart = Vector3.zero;
+		shouldLerp = false;
+		lerpTimer = 0;
 	}
 
 	public void DebugHit() 
@@ -159,10 +179,13 @@ public class EnemyBall : MonoBehaviour {
 			//gm.AddToStreak ();
 			streakChain = true;
 
-            if (bounceBack)
-            {
-                BounceBackPowerUp();
-            }
+			if (bounceBack) {
+				BounceBackPowerUp ();
+				bounceBackVolleys += 1;
+			}
+
+			if (bomb)
+				BombPowerUp ();
 
 			shouldLerp = false;
 		}
@@ -170,6 +193,10 @@ public class EnemyBall : MonoBehaviour {
 		if (gameObject.layer == 12 && coll.collider.gameObject.layer == 0 )//&& !streakChain) 
 		{
 			hitGround = true;
+
+			if (bomb)
+				BombPowerUp ();
+
 			if( !streakChain )
 				gm.ResetStreak ();
 		}
@@ -205,49 +232,14 @@ public class EnemyBall : MonoBehaviour {
 			rb.velocity = ballDir / 2;
 			rb.AddTorque (Random.insideUnitSphere * 100f);
 		}
-
-//		if (autoAimEnemy != null) 
-//		{
-//			Vector3 dir = autoAimEnemy.transform.position - transform.position;
-//			dir.y = 0;
-//			dir.Normalize ();
-//			//float relation = dir.x / dir.z;
-//			float velY = rb.velocity.normalized.y;
-//			dir.x = Mathf.Sqrt (1 - Mathf.Pow (velY, 2)) / ((dir.x + dir.z) / dir.x); //x^2 + (z/x)x^2 = 1 - y^2
-//			dir.z = Mathf.Sqrt( 1 - Mathf.Pow (velY, 2) - Mathf.Pow (dir.x, 2) );//Mathf.Sqrt (1 - Mathf.Pow (velY, 2)) / ((dir.z + dir.x) / dir.z);
-//
-//			dir.y = velY;
-//
-//			dir.Normalize ();
-//
-//			float rbMagnitude = rb.velocity.magnitude;
-//
-//			rb.velocity = Vector3.zero;// dir * rbMagnitude;
-//			rb.AddForce( dir * rbMagnitude * 1.5f );
-//		}
-
-//		Vector3 dir = autoAimEnemy.transform.position - transform.position;
-//		dir.y = 0;
-//		dir.Normalize ();
-//		//float relation = dir.x / dir.z;
-//		float velY = rb.velocity.normalized.y;
-//		dir.x = Mathf.Sqrt (1 - Mathf.Pow (velY, 2)) / ((dir.x + dir.z) / dir.x); //x^2 + (z/x)x^2 = 1 - y^2
-//		dir.z = Mathf.Sqrt( 1 - Mathf.Pow (velY, 2) - Mathf.Pow (dir.x, 2) );//Mathf.Sqrt (1 - Mathf.Pow (velY, 2)) / ((dir.z + dir.x) / dir.z);
-//
-//		dir.y = velY;
-//
-//		dir.Normalize ();
-//
-//		float rbMagnitude = rb.velocity.magnitude;
-//
-//		rb.velocity = Vector3.zero;// dir * rbMagnitude;
-//		rb.AddForce( dir * rbMagnitude );
-
 	}
 
     public void ChoosePowerUp()
     {
         int powerUpChoice = Random.Range(0, 99);
+
+		if (tutorialBall)
+			powerUpChoice = 99;
 
 		//1st Power Up (Bounce Back)
         if(powerUpChoice <= 14)
@@ -256,25 +248,20 @@ public class EnemyBall : MonoBehaviour {
             bounceBack = true;
         }
 
-		//2nd Power Up (Heat Seeking)
+		//2nd Power Up (Heat Seeking / Auto Aim)
         if(powerUpChoice >= 15 && powerUpChoice <= 20)
         {
 			renderer.material = autoAimMat;
 			autoAim = true;
         }
+
+		//3rd Power Up (Bomb)
+		if (powerUpChoice >= 21 && powerUpChoice <= 25) 
+		{
+			renderer.material = bombMat;
+			bomb = true;
+		}
     }
-
-	void ResetPowerUps()
-	{
-		GetComponent<Renderer>().material = defaultMat;
-		bounceBack = false;
-		autoAim = false;
-
-		lerpEnemy = null;
-		lerpBallStart = Vector3.zero;
-		shouldLerp = false;
-		lerpTimer = 0;
-	}
 
     void BounceBackPowerUp()
     {
@@ -284,6 +271,9 @@ public class EnemyBall : MonoBehaviour {
         gameObject.layer = 11;
         //fromEnemy = true;
         lifeTime -= 5f;
+
+		if (bounceBackVolleys > 0)
+			streakChain = true;
 
         float timeToPlayer;
         Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position + new Vector3(0, 4f, -4f);
@@ -316,26 +306,10 @@ public class EnemyBall : MonoBehaviour {
 
 	void AutoAimPowerUp()
 	{
-		//float timeToEnemy = 1f;
+		streakChain = true;
+
 		lerpEnemy = ClosestEnemy();
 		lerpBallStart = transform.position;
-
-//		if(rb.velocity.magnitude > 15)
-//			timeToEnemy = Vector3.Distance(enemy, transform.position) / 4f;
-//		else
-//		timeToEnemy = Vector3.Distance(enemy, transform.position) / 4f;
-//
-//		float hVel = Vector3.Distance (enemy, transform.position) / timeToEnemy;
-//		float vVel = (4f + 0.5f * -Physics.gravity.y * Mathf.Pow (timeToEnemy, 2) - transform.position.y) / timeToEnemy;
-//
-//		Vector3 ballDir = enemy - transform.position;
-//		ballDir *= hVel;
-//		ballDir.y = vVel/1.5f;
-//
-//		rb.velocity = ballDir / 2;
-//		rb.AddTorque (Random.insideUnitSphere * 100f);
-
-		//transform.position = Vector3.Lerp (currentPos, enemy, timeToEnemy);
 	}
 
 	GameObject ClosestEnemy()
@@ -360,5 +334,29 @@ public class EnemyBall : MonoBehaviour {
 		}
 			
 		return closestEnemy;
+	}
+
+	void BombPowerUp()
+	{
+		streakChain = true;
+
+		Collider[] hitColliders = Physics.OverlapSphere (transform.position, bombExplosionRadius);
+
+		int i = 0;
+		while (i < hitColliders.Length) 
+		{
+			if (hitColliders [i].gameObject.tag == "Enemy") 
+			{
+				if (hitColliders [i].gameObject.GetComponent<Enemy> () == null)
+					hitColliders[i].gameObject.GetComponentInParent<Enemy>().CallHit(this.gameObject);
+				else
+					hitColliders[i].gameObject.GetComponent<Enemy>().CallHit(this.gameObject);
+			}
+
+			i++;
+		}
+
+		Instantiate (bombExplosionParticle, transform.position, Quaternion.Euler(Vector3.right * 90));
+		this.gameObject.SetActive (false);
 	}
 }

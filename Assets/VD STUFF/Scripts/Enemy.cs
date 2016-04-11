@@ -496,4 +496,9 @@ public class Enemy : MonoBehaviour {
 	//			}
 	//		}
 	//	}
+
+	public void CallHit(GameObject ball)
+	{
+		Hit (ball);
+	}
 }
