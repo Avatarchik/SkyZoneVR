@@ -29,6 +29,7 @@ public class OptitrackRigidBody : MonoBehaviour {
 
 	List<Vector3> pastPositions = new List<Vector3>();
 	Vector3 lastPosition = Vector3.zero;
+	public Vector3 currRot;
 
     void Start() 
 	{
@@ -94,7 +95,8 @@ public class OptitrackRigidBody : MonoBehaviour {
 					transform.position = newPos;//OptitrackRigidBodyManager.instance.rigidBodyPositions[index];
 				}
 			}
-
+			Quaternion newRot = OptitrackRigidBodyManager.instance.rigidBodyQuaternions[index];
+			currRot = newRot.eulerAngles;
             if (useRotationTracking)
 			{
                 if (originOverride != null)
@@ -110,7 +112,6 @@ public class OptitrackRigidBody : MonoBehaviour {
 //				}
                 else
 				{
-					Quaternion newRot = OptitrackRigidBodyManager.instance.rigidBodyQuaternions[index];
 //					float angle = Quaternion.Angle( transform.rotation, newRot );
 //					if( angle <= 120 )
 						transform.rotation = newRot;
