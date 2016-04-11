@@ -12,11 +12,9 @@ public class AutoCenter : MonoBehaviour {
 	void Start () {
 		currBody = GetComponent<OptitrackRigidBody>();
 	}
-	
-	// Update is called once per frame
-	void Update () {
 
-		Vector3 targetOffset = new Vector3(0,((-1*oculusCamera.localEulerAngles.y%360)+((currBody.currRot.y%360))),0f);
-		transform.localEulerAngles = new Vector3(0f,Mathf.LerpAngle(transform.localEulerAngles.y, targetOffset.y, 0.1f),0f);
+	public void Calibrate(){
+		Vector3 targetOffset = new Vector3 (0, ((-1 * oculusCamera.localEulerAngles.y % 360) + ((currBody.currRot.y % 360))), 0f);
+		transform.localEulerAngles = targetOffset;
 	}
 }
