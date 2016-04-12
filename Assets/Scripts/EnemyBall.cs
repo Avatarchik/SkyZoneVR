@@ -176,6 +176,11 @@ public class EnemyBall : MonoBehaviour {
 
 		if (gameObject.layer == 12 && coll.collider.gameObject.tag == "Enemy") 
 		{
+			if (coll.collider.gameObject.GetComponent<Enemy> () == null)
+				coll.collider.gameObject.SendMessageUpwards ("Hit", this.gameObject, SendMessageOptions.DontRequireReceiver);
+			else
+				coll.collider.gameObject.GetComponent<Enemy> ().CallHit (this.gameObject);
+
 			//gm.AddToStreak ();
 			streakChain = true;
 

@@ -128,7 +128,7 @@ public class Enemy : MonoBehaviour {
 			transform.GetChild(i).gameObject.SetActive(false);
 		}
 
-		int randChar = Random.Range(0, 3);
+		int randChar = Random.Range(0, 2);
 		transform.GetChild(randChar).gameObject.SetActive(true);
 		animator = transform.GetChild(randChar).GetComponent<Animator> ();
 		if(randChar == 0) {
@@ -467,15 +467,15 @@ public class Enemy : MonoBehaviour {
 		animator.CrossFade("Start", 0.2f, 0);
 	}
 
-	void OnCollisionEnter(Collision coll) {
-		if (coll.collider.tag == "Ball") {
-			if (coll.collider.gameObject.GetComponent<EnemyBall> ().fromEnemy == false) {
-				Hit (coll.collider.gameObject);
-
-
-			}
-		}
-	}
+//	void OnCollisionEnter(Collision coll) {
+//		if (coll.collider.tag == "Ball") {
+//			if (coll.collider.gameObject.GetComponent<EnemyBall> ().fromEnemy == false) {
+//				Hit (coll.collider.gameObject);
+//
+//
+//			}
+//		}
+//	}
 
 	void SwitchThrowInterval()
 	{
