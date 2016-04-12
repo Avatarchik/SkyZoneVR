@@ -11,7 +11,7 @@ public class AutoCenter : MonoBehaviour {
 
 	public Vector3 currentOffset;
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		currBody = GetComponent<OptitrackRigidBody>();
 	}
 
