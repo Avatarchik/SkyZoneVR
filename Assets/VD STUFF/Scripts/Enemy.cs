@@ -390,9 +390,7 @@ public class Enemy : MonoBehaviour {
 
 		GameObject ball = StaticPool.GetObj (ballPrefab);
 
-<<<<<<< HEAD
-		switch (curRow) 
-		{
+		switch (curRow) {
 		case 0:
 			playerPos += new Vector3 (0, 1.25f, 0);
 			timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 18f;
@@ -408,13 +406,16 @@ public class Enemy : MonoBehaviour {
 			{
 				playerPos += new Vector3 (0, -2f, 1f);
 				timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 8f;
-			}
-			else
+			} 
+			else 
 			{
 				playerPos += new Vector3 (0, -2f, 3f);
 				timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 10f;
 			}
-=======
+			break;
+		}
+		print ("Time to player: " + timeToPlayer + ", Current Row: " + curRow + ", Current Column: " + curColumn + ", PlayerPos: " + playerPos);
+
 //		if (Vector3.Distance (transform.position, playerPos) < 8f) 
 //		{
 //			playerPos -= new Vector3 (0, 2f, -0.5f);
@@ -429,28 +430,6 @@ public class Enemy : MonoBehaviour {
 //		{
 //			timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 18f;
 //		}
-
-		switch (curRow) 
-		{
-		case 0:
-			playerPos += new Vector3 (0, 1.25f, 0);
-			timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 18f;
-			print ("Time to player: " + timeToPlayer + ", Current Row: " + curRow + ", PlayerPos: " + playerPos);
-			break;
-
-		case 1:
-			playerPos += new Vector3 (0, 1.25f, 0);
-			timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 16f;
-			print ("Time to player: " + timeToPlayer + ", Current Row: " + curRow + ", PlayerPos: " + playerPos);
-			break;
-
-		case 2:
-			playerPos -= new Vector3 (0, 2f, -0.5f);
-			timeToPlayer = 4 * Vector3.Distance (transform.position, playerPos) / 14f;
-			print ("Time to player: " + timeToPlayer + ", Current Row: " + curRow + ", PlayerPos: " + playerPos);
->>>>>>> origin/master
-			break;
-		}
 
 		//print(Vector3.Distance (transform.position, playerPos));
 
