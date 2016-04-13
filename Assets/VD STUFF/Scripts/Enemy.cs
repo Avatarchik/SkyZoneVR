@@ -368,7 +368,7 @@ public class Enemy : MonoBehaviour {
 
 		yield return new WaitForSeconds (throwInterval);
 
-		playerPos = player.transform.position + new Vector3(0, 0.75f, 0f);
+		playerPos = player.transform.position;
 		dir = playerPos - transform.position;
 		dir.y = 0;
 		transform.rotation = Quaternion.LookRotation (dir.normalized * -1);
@@ -384,19 +384,40 @@ public class Enemy : MonoBehaviour {
 
 		GameObject ball = StaticPool.GetObj (ballPrefab);
 
-		if (Vector3.Distance (transform.position, playerPos) < 8f) 
+//		if (Vector3.Distance (transform.position, playerPos) < 8f) 
+//		{
+//			playerPos -= new Vector3 (0, 2f, -0.5f);
+//			timeToPlayer = 4 * Vector3.Distance (transform.position, playerPos) / 14f;
+//		} 
+//		else 
+//		{
+//			timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 16f;
+//		}
+//
+//		if (Vector3.Distance (transform.position, playerPos) > 14f) 
+//		{
+//			timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 18f;
+//		}
+
+		switch (curRow) 
 		{
+		case 0:
+			playerPos += new Vector3 (0, 1.25f, 0);
+			timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 18f;
+			print ("Time to player: " + timeToPlayer + ", Current Row: " + curRow + ", PlayerPos: " + playerPos);
+			break;
+
+		case 1:
+			playerPos += new Vector3 (0, 1.25f, 0);
+			timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 16f;
+			print ("Time to player: " + timeToPlayer + ", Current Row: " + curRow + ", PlayerPos: " + playerPos);
+			break;
+
+		case 2:
 			playerPos -= new Vector3 (0, 2f, -0.5f);
 			timeToPlayer = 4 * Vector3.Distance (transform.position, playerPos) / 14f;
-		} 
-		else 
-		{
-			timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 18f;
-		}
-
-		if (Vector3.Distance (transform.position, playerPos) > 14f) 
-		{
-			timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 18f;
+			print ("Time to player: " + timeToPlayer + ", Current Row: " + curRow + ", PlayerPos: " + playerPos);
+			break;
 		}
 
 		//print(Vector3.Distance (transform.position, playerPos));
