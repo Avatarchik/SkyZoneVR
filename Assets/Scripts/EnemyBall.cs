@@ -98,7 +98,7 @@ public class EnemyBall : MonoBehaviour {
 			if (lerpEnemy.activeSelf == false || lerpEnemy == null) 
 			{
 				AutoAimPowerUp ();
-				lerpTimer = lerpTimer / 2;
+				lerpTimer /= 2;
 			}
 
 			Vector3 lerpEnemyPos = lerpEnemy.transform.position + new Vector3(0, 1, 0);

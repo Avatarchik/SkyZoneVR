@@ -374,7 +374,7 @@ public class Enemy : MonoBehaviour {
 
 		yield return new WaitForSeconds (throwInterval);
 
-		playerPos = player.transform.position + new Vector3(0, 1.5f, 0f);
+		playerPos = player.transform.position;
 		dir = playerPos - transform.position;
 		dir.y = 0;
 		transform.rotation = Quaternion.LookRotation (dir.normalized * -1);
@@ -390,19 +390,30 @@ public class Enemy : MonoBehaviour {
 
 		GameObject ball = StaticPool.GetObj (ballPrefab);
 
-		if (Vector3.Distance (transform.position, playerPos) < 8f) 
+		switch (curRow) 
 		{
-			playerPos -= new Vector3 (0, 2f, -1f);
-			timeToPlayer = 3 * Vector3.Distance (transform.position, playerPos) / 14f;
-		} 
-		else if (Vector3.Distance(transform.position, playerPos) > 8f && Vector3.Distance(transform.position, playerPos) < 14f)
-		{
-			playerPos -= new Vector3 (0, 1, -1);
-			timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 16f;
-		}
-		else if (Vector3.Distance (transform.position, playerPos) > 14f) 
-		{
+		case 0:
+			playerPos += new Vector3 (0, 1.25f, 0);
 			timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 18f;
+			break;
+
+		case 1:
+			playerPos += new Vector3 (0, 1.25f, 0);
+			timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 16f;
+			break;
+
+		case 2:
+			if (curColumn == 1 || curColumn == 2) 
+			{
+				playerPos += new Vector3 (0, -2f, 1f);
+				timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 8f;
+			}
+			else
+			{
+				playerPos += new Vector3 (0, -2f, 3f);
+				timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 10f;
+			}
+			break;
 		}
 
 		//print(Vector3.Distance (transform.position, playerPos));
