@@ -95,7 +95,13 @@ public class EnemyBall : MonoBehaviour {
 
 		if (autoAim && shouldLerp) 
 		{
-			Vector3 lerpEnemyPos = lerpEnemy.transform.position;
+			if (lerpEnemy.activeSelf == false || lerpEnemy == null) 
+			{
+				AutoAimPowerUp ();
+				lerpTimer = lerpTimer / 2;
+			}
+
+			Vector3 lerpEnemyPos = lerpEnemy.transform.position + new Vector3(0, 1, 0);
 			lerpTimer += Time.deltaTime;
 			transform.position = Vector3.Lerp (lerpBallStart, lerpEnemyPos, lerpTimer / autoAimLerpTime);
 

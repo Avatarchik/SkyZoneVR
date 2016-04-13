@@ -139,6 +139,8 @@ public class Enemy : MonoBehaviour {
 			animator.GetComponentInChildren<SkinnedMeshRenderer>().material.mainTexture = femaleTextures[rand];
 		} 
 
+		gameObject.layer = 10; //reset layer to enemy layer
+
 		SetKinematic(true);
 
 		curRow = 0;
@@ -195,11 +197,15 @@ public class Enemy : MonoBehaviour {
 
 			Instantiate (hitParticle, p_hitBy.transform.position, Quaternion.LookRotation(dir));
 
-//			foreach (Rigidbody rb in rbs)
-//			{
+			Vector3 ragdollDir = (transform.position - p_hitBy.transform.position).normalized;
+			foreach (Rigidbody rb in rbs)
+			{
 //				rb.useGravity = true;
 //				rb.isKinematic = false;
-//			}
+				rb.velocity = (ragdollDir * 25);
+			}
+				
+			gameObject.layer = 11; //puts enemy on the enemy ball layer temporarily
 
 			if(animator == transform.GetChild(2).GetComponent<Animator>())
 				pointsToAdd++;
@@ -368,7 +374,7 @@ public class Enemy : MonoBehaviour {
 
 		yield return new WaitForSeconds (throwInterval);
 
-		playerPos = player.transform.position + new Vector3(0, 0.75f, 0f);
+		playerPos = player.transform.position + new Vector3(0, 1.5f, 0f);
 		dir = playerPos - transform.position;
 		dir.y = 0;
 		transform.rotation = Quaternion.LookRotation (dir.normalized * -1);
@@ -386,15 +392,15 @@ public class Enemy : MonoBehaviour {
 
 		if (Vector3.Distance (transform.position, playerPos) < 8f) 
 		{
-			playerPos -= new Vector3 (0, 2f, -0.5f);
-			timeToPlayer = 4 * Vector3.Distance (transform.position, playerPos) / 14f;
+			playerPos -= new Vector3 (0, 2f, -1f);
+			timeToPlayer = 3 * Vector3.Distance (transform.position, playerPos) / 14f;
 		} 
-		else 
+		else if (Vector3.Distance(transform.position, playerPos) > 8f && Vector3.Distance(transform.position, playerPos) < 14f)
 		{
-			timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 18f;
+			playerPos -= new Vector3 (0, 1, -1);
+			timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 16f;
 		}
-
-		if (Vector3.Distance (transform.position, playerPos) > 14f) 
+		else if (Vector3.Distance (transform.position, playerPos) > 14f) 
 		{
 			timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 18f;
 		}
