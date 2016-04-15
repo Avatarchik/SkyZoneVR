@@ -286,8 +286,8 @@ public class EnemyBall : MonoBehaviour {
 		if (bounceBackVolleys > 0)
 			streakChain = true;
 
-        float timeToPlayer;
-        Vector3 playerPos;
+        float timeToPlayer = 0f;
+		Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
 
 		if(lastHitEnemy.curRow != 2)
 			timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 18f;
@@ -295,9 +295,9 @@ public class EnemyBall : MonoBehaviour {
 			timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 12f;
 
 		if(lastHitEnemy.curColumn <= 1)
-			playerPos = GameObject.FindGameObjectWithTag("Player").transform.position + new Vector3 (-1f, -0.25f, 1.25f);
+			playerPos += new Vector3 (-1f, -0.25f, 1.25f);
 		else
-			playerPos = GameObject.FindGameObjectWithTag("Player").transform.position + new Vector3 (1f, -0.25f, 1.25f);
+			playerPos += new Vector3 (1f, -0.25f, 1.25f);
 
         //ball.GetComponent<EnemyBall> ().SetColliderEnableTime( timeToPlayer * 1f / 4f );
         //ball.transform.position = transform.localPosition + new Vector3(0, 2.5f, 0) - Vector3.forward;
