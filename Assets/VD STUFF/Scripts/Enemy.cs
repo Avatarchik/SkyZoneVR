@@ -27,6 +27,8 @@ public class Enemy : MonoBehaviour {
 	GameObject player;
 	public bool onCourt;
 
+	public Transform throwPoint; 
+
 	AimAssistManager aam;
 
 	public GameObject hitParticle;
@@ -374,8 +376,8 @@ public class Enemy : MonoBehaviour {
 
 		yield return new WaitForSeconds (throwInterval);
 
-		playerPos = player.transform.position;
-		dir = playerPos - transform.position;
+		Vector3 currentPlayerPos = player.transform.position;
+		dir = currentPlayerPos - transform.position;
 		dir.y = 0;
 		transform.rotation = Quaternion.LookRotation (dir.normalized * -1);
 
@@ -389,31 +391,46 @@ public class Enemy : MonoBehaviour {
 	void Throw() {
 
 		GameObject ball = StaticPool.GetObj (ballPrefab);
+		//playerPos = player.transform.FindChild("Sphere").transform.position;//shpere
 
-		switch (curRow) {
-		case 0:
-			playerPos += new Vector3 (0, 1.25f, 0);
-			timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 18f;
-			break;
+		playerPos = player.transform.position;
 
-		case 1:
-			playerPos += new Vector3 (0, 1.25f, 0);
-			timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 16f;
-			break;
+		if(curColumn <= 1)
+			playerPos += new Vector3 (-1f, -0.25f, 1.25f);
+		else
+			playerPos += new Vector3 (1f, -0.25f, 1.25f);
+		
+		//timeToPlayer = 2 * Vector3.Distance (throwPoint.position, playerPos) / 18f;
 
-		case 2:
-			if (curColumn == 1 || curColumn == 2) 
-			{
-				playerPos += new Vector3 (0, -2f, 1f);
-				timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 8f;
-			} 
-			else 
-			{
-				playerPos += new Vector3 (0, -2f, 3f);
-				timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 10f;
-			}
-			break;
-		}
+		if(curRow != 2)
+			timeToPlayer = 2 * Vector3.Distance (throwPoint.position, playerPos) / 18f;
+		else
+			timeToPlayer = 2 * Vector3.Distance (throwPoint.position, playerPos) / 12f;
+
+//		switch (curRow) {
+//		case 0:
+//			playerPos += new Vector3 (0, 1.25f, 0);
+//			timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 18f;
+//			break;
+//
+//		case 1:
+//			playerPos += new Vector3 (0, 1.25f, 0);
+//			timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 16f;
+//			break;
+//
+//		case 2:
+//			if (curColumn == 1 || curColumn == 2) 
+//			{
+//				playerPos += new Vector3 (0, -2f, 1f);
+//				timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 8f;
+//			} 
+//			else 
+//			{
+//				playerPos += new Vector3 (0, -2f, 3f);
+//				timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 10f;
+//			}
+//			break;
+//		}
 		print ("Time to player: " + timeToPlayer + ", Current Row: " + curRow + ", Current Column: " + curColumn + ", PlayerPos: " + playerPos);
 
 //		if (Vector3.Distance (transform.position, playerPos) < 8f) 
@@ -436,14 +453,15 @@ public class Enemy : MonoBehaviour {
 		ball.GetComponent<EnemyBall> ().tutorialBall = false;
 		ball.GetComponent<EnemyBall> ().Reset ();
 		//ball.GetComponent<EnemyBall> ().SetColliderEnableTime( timeToPlayer * 1f / 4f );
-		ball.transform.position = transform.localPosition + new Vector3(0,2.5f,0) - Vector3.forward;
+		ball.transform.position = throwPoint.position;
 
-		float hVel = Vector3.Distance (playerPos + new Vector3(0,-0.25f,0.25f), transform.position) / timeToPlayer;
-		float vVel = (4f + 0.5f * -Physics.gravity.y * Mathf.Pow (timeToPlayer, 2) - transform.position.y) / timeToPlayer;
+		float hVel = Vector3.Distance (playerPos, throwPoint.position) / timeToPlayer;
+		//float vVel = (4f + 0.5f * -Physics.gravity.y * Mathf.Pow (timeToPlayer, 2) - throwPoint.position.y) / timeToPlayer;
+		float vVel = (0.5f * Physics.gravity.y * Mathf.Pow (timeToPlayer, 2) + throwPoint.position.y - playerPos.y) / -timeToPlayer;
 
-		Vector3 ballDir = dir.normalized;
+		Vector3 ballDir = (playerPos - throwPoint.position).normalized;
 		ballDir *= hVel;
-		ballDir.y = vVel/1.5f;
+		ballDir.y = vVel;///1.5f;
 
 		Rigidbody ballRB = ball.GetComponent<Rigidbody> ();
 			

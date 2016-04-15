@@ -191,7 +191,8 @@ public class GameManager : MonoBehaviour {
 
 		case GameMode.COUNTDOWN:
 			foreach( Material mat in gridMats )
-				mat.SetFloat("_Opacity_Slider", timer );
+				mat.SetFloat("_Opacity_Slider", timer * 6f );
+			gridMats [1].SetFloat ("_Opacity_Slider", timer * .714f);
 
 			if (timer <= 0) 
 			{
@@ -332,7 +333,8 @@ public class GameManager : MonoBehaviour {
 			break;
 		case GameMode.GAMEOVER:
 			foreach (Material mat in gridMats)
-				mat.SetFloat ("_Opacity_Slider", 2.5f - timer);
+				mat.SetFloat ("_Opacity_Slider", 30f - timer * 10f);
+			gridMats [1].SetFloat ("_Opacity_Slider", 7f - timer * 2.3f);
 
 			if( timer <= 0 )
 			{
@@ -375,8 +377,9 @@ public class GameManager : MonoBehaviour {
 			finalScoreText.SetActive (false);
 			batHoldBox.SetActive (true);
 			am.PlayAmbientCubeAudio ();
-			foreach( Material mat in gridMats )
-				mat.SetFloat("_Opacity_Slider", 2.5f);
+			foreach (Material mat in gridMats)
+				mat.SetFloat ("_Opacity_Slider", 30f);
+			gridMats [1].SetFloat ("_Opacity_Slider", 7f);
 			break;
 		case GameMode.COUNTDOWN:
 			ac.Calibrate ();

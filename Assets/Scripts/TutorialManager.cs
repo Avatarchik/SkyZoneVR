@@ -116,7 +116,7 @@ public class TutorialManager : MonoBehaviour
 				tutTransitionTimer += Time.deltaTime;
 
 				foreach( Material mat in gridMats )
-					mat.SetFloat("_Opacity_Slider", 2.5f - tutTransitionTimer );
+					mat.SetFloat("_Opacity_Slider", 8f - tutTransitionTimer * 1.6f );
 
 				if (tutTransitionTimer > 2.5f) {
 
