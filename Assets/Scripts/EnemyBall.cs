@@ -13,7 +13,7 @@ public class EnemyBall : MonoBehaviour {
 	bool streakChain = false;
 	bool hitGround = false;
 
-	GameObject autoAimEnemy;
+	GameObject aimAssistEnemy;
 	//GameObject player;
 
 	Rigidbody rb;
@@ -120,7 +120,7 @@ public class EnemyBall : MonoBehaviour {
         gameObject.layer = 11;
 		streakChain = false;
 		hitGround = false;
-		autoAimEnemy = null;
+		aimAssistEnemy = null;
 		ResetPowerUps ();
 
 		//print ("Ball Reset");
@@ -164,10 +164,10 @@ public class EnemyBall : MonoBehaviour {
 
 			if (autoAim) 
 			{
-				//AutoAimPowerUp ();
-				lerpEnemy = ClosestEnemy();
-				lerpBallStart = transform.position;
-				shouldLerp = true;
+				AutoAimPowerUp ();
+//				lerpEnemy = ClosestEnemy();
+//				lerpBallStart = transform.position;
+//				shouldLerp = true;
 			}
 
 			fromEnemy = false;
@@ -191,7 +191,7 @@ public class EnemyBall : MonoBehaviour {
 			streakChain = true;
 
 			if (bounceBack) {
-				BounceBackPowerUp ();
+				BounceBackPowerUp (coll.collider.gameObject.GetComponent<Enemy>());
 				bounceBackVolleys += 1;
 			}
 
@@ -222,21 +222,21 @@ public class EnemyBall : MonoBehaviour {
 
 	void AimAssist()
 	{
-		autoAimEnemy = aam.ClosestEnemyToBallDirection (this.gameObject);
+		aimAssistEnemy = aam.ClosestEnemyToBallDirection (this.gameObject);
 
-		if (autoAimEnemy != null) 
+		if (aimAssistEnemy != null) 
 		{
 			float timeToEnemy;
 
 			if(rb.velocity.magnitude > 15)
-				timeToEnemy = Vector3.Distance(autoAimEnemy.transform.position, transform.position) / 4f;
+				timeToEnemy = Vector3.Distance(aimAssistEnemy.transform.position, transform.position) / 4f;
 			else
-				timeToEnemy = Vector3.Distance(autoAimEnemy.transform.position, transform.position) / 3f;
+				timeToEnemy = Vector3.Distance(aimAssistEnemy.transform.position, transform.position) / 3f;
 
-			float hVel = Vector3.Distance (autoAimEnemy.transform.position, transform.position) / timeToEnemy;
+			float hVel = Vector3.Distance (aimAssistEnemy.transform.position, transform.position) / timeToEnemy;
 			float vVel = (4f + 0.5f * -Physics.gravity.y * Mathf.Pow (timeToEnemy, 2) - transform.position.y) / timeToEnemy;
 
-			Vector3 ballDir = autoAimEnemy.transform.position - transform.position;
+			Vector3 ballDir = aimAssistEnemy.transform.position - transform.position;
 			ballDir *= hVel;
 			ballDir.y = vVel/1.5f;
 
@@ -274,7 +274,7 @@ public class EnemyBall : MonoBehaviour {
 		}
     }
 
-    void BounceBackPowerUp()
+    void BounceBackPowerUp(Enemy lastHitEnemy)
     {
         bounceBack = true;
         rb.velocity = Vector3.zero;
@@ -287,29 +287,27 @@ public class EnemyBall : MonoBehaviour {
 			streakChain = true;
 
         float timeToPlayer;
-        Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position + new Vector3(0, 4f, -4f);
+        Vector3 playerPos;
 
-        if (Vector3.Distance(transform.position, playerPos) < 8f)
-        {
-			playerPos = GameObject.FindGameObjectWithTag("Player").transform.position + new Vector3(0, 1f, 0.5f);
-            timeToPlayer = 4 * Vector3.Distance(transform.position, playerPos) / 14f;
-        }
-        else
-        {
-            timeToPlayer = 2 * Vector3.Distance(transform.position, playerPos) / 14f;
-        }
-        //print(Vector3.Distance (transform.position, playerPos));
+		if(lastHitEnemy.curRow != 2)
+			timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 18f;
+		else
+			timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 12f;
+
+		if(lastHitEnemy.curColumn <= 1)
+			playerPos = GameObject.FindGameObjectWithTag("Player").transform.position + new Vector3 (-1f, -0.25f, 1.25f);
+		else
+			playerPos = GameObject.FindGameObjectWithTag("Player").transform.position + new Vector3 (1f, -0.25f, 1.25f);
 
         //ball.GetComponent<EnemyBall> ().SetColliderEnableTime( timeToPlayer * 1f / 4f );
         //ball.transform.position = transform.localPosition + new Vector3(0, 2.5f, 0) - Vector3.forward;
 
-        float hVel = Vector3.Distance(playerPos + new Vector3(0, -0.25f, 0.25f), transform.position) / timeToPlayer;
-        float vVel = (4f + 0.5f * -Physics.gravity.y * Mathf.Pow(timeToPlayer, 2) - transform.position.y) / timeToPlayer;
+		float hVel = Vector3.Distance (playerPos, transform.position) / timeToPlayer;
+		float vVel = (0.5f * Physics.gravity.y * Mathf.Pow (timeToPlayer, 2) + transform.position.y - playerPos.y) / -timeToPlayer;
 
-        Vector3 ballDir = playerPos - transform.position;
-        ballDir.Normalize();
+		Vector3 ballDir = (playerPos - transform.position).normalized;
         ballDir *= hVel;
-        ballDir.y = vVel / 1.5f;
+		ballDir.y = vVel; // 1.5f;
 
         rb.velocity = ballDir;
         rb.AddTorque(Random.insideUnitSphere * 100f);
@@ -321,6 +319,8 @@ public class EnemyBall : MonoBehaviour {
 
 		lerpEnemy = ClosestEnemy();
 		lerpBallStart = transform.position;
+
+		shouldLerp = true;
 	}
 
 	GameObject ClosestEnemy()

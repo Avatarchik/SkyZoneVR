@@ -8,8 +8,8 @@ public class Enemy : MonoBehaviour {
 	public int curColumn;
 	[System.NonSerialized]
 	public int omittedColumns = 1;
-
-	int curRow;
+	[System.NonSerialized]
+	public int curRow;
 
 	public float jumpRate = 2f;
 	public float hopHeight = 2.25f;
