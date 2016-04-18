@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour {
 	private GameObject finalScoreText;
 	private int score;
 	private int streak = 0;
-	private int streakMultiplier;
+	public int streakMultiplier;
 
 	public GameObject enemy;
 	public Transform enemySpawnPoint;
