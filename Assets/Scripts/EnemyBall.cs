@@ -95,7 +95,7 @@ public class EnemyBall : MonoBehaviour {
 
 		if (autoAim && shouldLerp) 
 		{
-			if (lerpEnemy.activeSelf == false || lerpEnemy == null) 
+			if (aam.onCourtEnemies.Contains(lerpEnemy) == false) 
 			{
 				AutoAimPowerUp ();
 				lerpTimer /= 2;
@@ -165,6 +165,9 @@ public class EnemyBall : MonoBehaviour {
 			if (autoAim) 
 			{
 				AutoAimPowerUp ();
+
+				if (!shouldLerp)
+					shouldLerp = true;
 //				lerpEnemy = ClosestEnemy();
 //				lerpBallStart = transform.position;
 //				shouldLerp = true;
@@ -299,7 +302,7 @@ public class EnemyBall : MonoBehaviour {
 		else
 			playerPos += new Vector3 (1f, -0.25f, 1.25f);
 
-        //ball.GetComponent<EnemyBall> ().SetColliderEnableTime( timeToPlayer * 1f / 4f );
+        SetColliderEnableTime( timeToPlayer / 4f );
         //ball.transform.position = transform.localPosition + new Vector3(0, 2.5f, 0) - Vector3.forward;
 
 		float hVel = Vector3.Distance (playerPos, transform.position) / timeToPlayer;
