@@ -393,13 +393,20 @@ public class Enemy : MonoBehaviour {
 		GameObject ball = StaticPool.GetObj (ballPrefab);
 		//playerPos = player.transform.FindChild("Sphere").transform.position;//shpere
 
-		playerPos = player.transform.position;
+		//playerPos = player.transform.position;
+		playerPos = GameObject.Find("ThrowDestination").transform.position;
+		float randomX = Random.Range (0.8f, 1.6f);
+
+//		if(curColumn <= 1)
+//			playerPos += new Vector3 (-1f * randomX, -0.25f, 1.25f);
+//		else
+//			playerPos += new Vector3 (1f * randomX, -0.25f, 1.25f);
 
 		if(curColumn <= 1)
-			playerPos += new Vector3 (-1f, -0.25f, 1.25f);
+			playerPos += new Vector3 (-1f * randomX, 0, 0);
 		else
-			playerPos += new Vector3 (1f, -0.25f, 1.25f);
-		
+			playerPos += new Vector3 (1f * randomX, 0, 0);
+
 		//timeToPlayer = 2 * Vector3.Distance (throwPoint.position, playerPos) / 18f;
 
 		if(curRow != 2)
@@ -431,7 +438,6 @@ public class Enemy : MonoBehaviour {
 //			}
 //			break;
 //		}
-		print ("Time to player: " + timeToPlayer + ", Current Row: " + curRow + ", Current Column: " + curColumn + ", PlayerPos: " + playerPos);
 
 //		if (Vector3.Distance (transform.position, playerPos) < 8f) 
 //		{
@@ -472,6 +478,7 @@ public class Enemy : MonoBehaviour {
 
 		//print("Ball thrown by enemy");
 		//print("PlayerPos: " + playerPos + ", Distance: " + Vector3.Distance(transform.position, playerPos));
+		//print ("Time to player: " + timeToPlayer + ", Current Row: " + curRow + ", Current Column: " + curColumn + ", PlayerPos: " + playerPos);
 	}
 
 	Transform ClosestTile(Vector3 pos) {

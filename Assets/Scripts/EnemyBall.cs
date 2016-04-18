@@ -292,15 +292,27 @@ public class EnemyBall : MonoBehaviour {
         float timeToPlayer = 0f;
 		Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
 
-		if(lastHitEnemy.curRow != 2)
-			timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 18f;
-		else
-			timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 12f;
+		if (lastHitEnemy != null) 
+		{
+			if (lastHitEnemy.curRow != 2)
+				timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 18f;
+			else
+				timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 12f;
 
-		if(lastHitEnemy.curColumn <= 1)
-			playerPos += new Vector3 (-1f, -0.25f, 1.25f);
-		else
+			if (lastHitEnemy.curColumn <= 1)
+				playerPos += new Vector3 (-1f, -0.25f, 1.25f);
+			else
+				playerPos += new Vector3 (1f, -0.25f, 1.25f);
+
+		} 
+		else 
+		{
+			timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 18f;
 			playerPos += new Vector3 (1f, -0.25f, 1.25f);
+		}
+
+		if (bounceBackVolleys > 1)
+			timeToPlayer /= (bounceBackVolleys / 2f);
 
         SetColliderEnableTime( timeToPlayer / 4f );
         //ball.transform.position = transform.localPosition + new Vector3(0, 2.5f, 0) - Vector3.forward;
