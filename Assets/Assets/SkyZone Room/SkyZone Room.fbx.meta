@@ -70,6 +70,34 @@ ModelImporter:
     100124: Wall_2
     100126: Wall_3
     100128: Wall_4
+    100130: Entry_1
+    100132: Entry_2
+    100134: Entry_3
+    100136: Entry_4
+    100138: LowCover
+    100140: LowCover 1
+    100142: LowCover 2
+    100144: LowCover 3
+    100146: polySurface10
+    100148: polySurface10 1
+    100150: polySurface10 2
+    100152: polySurface10 3
+    100154: Wall1
+    100156: Wall1 1
+    100158: Wall1 2
+    100160: Wall1 3
+    100162: Wall_Entry
+    100164: Wall_Entry 1
+    100166: Wall_Entry 2
+    100168: Wall_Entry 3
+    100170: Window
+    100172: Window 1
+    100174: Window 2
+    100176: Window 3
+    100178: Window 4
+    100180: Window 5
+    100182: Window 6
+    100184: Window 7
     400000: BackPads
     400002: BackPads1
     400004: CeilingLamps01
@@ -135,6 +163,34 @@ ModelImporter:
     400124: Wall_2
     400126: Wall_3
     400128: Wall_4
+    400130: Entry_1
+    400132: Entry_2
+    400134: Entry_3
+    400136: Entry_4
+    400138: LowCover
+    400140: LowCover 1
+    400142: LowCover 2
+    400144: LowCover 3
+    400146: polySurface10
+    400148: polySurface10 1
+    400150: polySurface10 2
+    400152: polySurface10 3
+    400154: Wall1
+    400156: Wall1 1
+    400158: Wall1 2
+    400160: Wall1 3
+    400162: Wall_Entry
+    400164: Wall_Entry 1
+    400166: Wall_Entry 2
+    400168: Wall_Entry 3
+    400170: Window
+    400172: Window 1
+    400174: Window 2
+    400176: Window 3
+    400178: Window 4
+    400180: Window 5
+    400182: Window 6
+    400184: Window 7
     2300000: BackPads
     2300002: BackPads1
     2300004: CeilingLamps01
@@ -192,6 +248,30 @@ ModelImporter:
     2300108: Wall_2
     2300110: Wall_3
     2300112: Wall_4
+    2300114: LowCover
+    2300116: LowCover 1
+    2300118: LowCover 2
+    2300120: LowCover 3
+    2300122: polySurface10
+    2300124: polySurface10 1
+    2300126: polySurface10 2
+    2300128: polySurface10 3
+    2300130: Wall1
+    2300132: Wall1 1
+    2300134: Wall1 2
+    2300136: Wall1 3
+    2300138: Wall_Entry
+    2300140: Wall_Entry 1
+    2300142: Wall_Entry 2
+    2300144: Wall_Entry 3
+    2300146: Window
+    2300148: Window 1
+    2300150: Window 2
+    2300152: Window 3
+    2300154: Window 4
+    2300156: Window 5
+    2300158: Window 6
+    2300160: Window 7
     3300000: BackPads
     3300002: BackPads1
     3300004: CeilingLamps01
@@ -249,6 +329,30 @@ ModelImporter:
     3300108: Wall_2
     3300110: Wall_3
     3300112: Wall_4
+    3300114: LowCover
+    3300116: LowCover 1
+    3300118: LowCover 2
+    3300120: LowCover 3
+    3300122: polySurface10
+    3300124: polySurface10 1
+    3300126: polySurface10 2
+    3300128: polySurface10 3
+    3300130: Wall1
+    3300132: Wall1 1
+    3300134: Wall1 2
+    3300136: Wall1 3
+    3300138: Wall_Entry
+    3300140: Wall_Entry 1
+    3300142: Wall_Entry 2
+    3300144: Wall_Entry 3
+    3300146: Window
+    3300148: Window 1
+    3300150: Window 2
+    3300152: Window 3
+    3300154: Window 4
+    3300156: Window 5
+    3300158: Window 6
+    3300160: Window 7
     4300000: polySurface1
     4300002: polySurface2
     4300004: PadsHorizontal
@@ -306,6 +410,30 @@ ModelImporter:
     4300108: polySurface5
     4300110: BackPads3
     4300112: polySurface7
+    4300114: Wall_Entry
+    4300116: Window
+    4300118: LowCover
+    4300120: polySurface10
+    4300122: Window
+    4300124: Wall1
+    4300126: polySurface10
+    4300128: Window
+    4300130: Wall1
+    4300132: polySurface10
+    4300134: Window
+    4300136: Wall1
+    4300138: polySurface10
+    4300140: Window
+    4300142: Wall1
+    4300144: Wall_Entry
+    4300146: Window
+    4300148: LowCover
+    4300150: Wall_Entry
+    4300152: Window
+    4300154: LowCover
+    4300156: Wall_Entry
+    4300158: Window
+    4300160: LowCover
   materials:
     importMaterials: 1
     materialName: 0
