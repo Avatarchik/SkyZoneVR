@@ -98,6 +98,90 @@ ModelImporter:
     100180: Window 5
     100182: Window 6
     100184: Window 7
+    100186: Ceiling
+    100188: Ceiling 1
+    100190: Ceiling 2
+    100192: Ceiling 3
+    100194: Ceiling 4
+    100196: Ceiling 5
+    100198: Ceiling 6
+    100200: Ceiling 7
+    100202: Ceiling_1
+    100204: Ceiling_1 1
+    100206: Ceiling_1 2
+    100208: Ceiling_1 3
+    100210: CeilingRafters_1
+    100212: CeilingRafters_1 1
+    100214: CeilingRafters_1 2
+    100216: CeilingRafters_1 3
+    100218: CeilingRafters_2
+    100220: CeilingRafters_2 1
+    100222: CeilingRafters_2 2
+    100224: CeilingRafters_2 3
+    100226: CeilingTrim
+    100228: CeilingTrim 1
+    100230: CeilingTrim 2
+    100232: CeilingTrim 3
+    100234: CeilingTrim 4
+    100236: CeilingTrim 5
+    100238: CeilingTrim 6
+    100240: CeilingTrim 7
+    100242: DoorTrim
+    100244: DoorTrim 1
+    100246: DoorTrim 2
+    100248: DoorTrim 3
+    100250: Entry_1 1
+    100252: Entry_1 2
+    100254: Entry_1 3
+    100256: Floor_1
+    100258: Floor_1 1
+    100260: Floor_1 2
+    100262: Floor_1 3
+    100264: LowCover 4
+    100266: LowCover 5
+    100268: LowCover 6
+    100270: LowCover 7
+    100272: Rafters
+    100274: Rafters 1
+    100276: Rafters 2
+    100278: Rafters 3
+    100280: Room1
+    100282: Room2
+    100284: Room3
+    100286: transform1 1
+    100288: transform1 2
+    100290: transform1 3
+    100292: transform2
+    100294: transform2 1
+    100296: transform2 2
+    100298: transform2 3
+    100300: transform4
+    100302: transform4 1
+    100304: transform4 2
+    100306: transform4 3
+    100308: Wall2
+    100310: Wall2 1
+    100312: Wall2 2
+    100314: Wall2 3
+    100316: Wall3
+    100318: Wall3 1
+    100320: Wall3 2
+    100322: Wall3 3
+    100324: Wall_1 1
+    100326: Wall_1 2
+    100328: Wall_1 3
+    100330: Window1
+    100332: Window1 1
+    100334: Window1 2
+    100336: Window1 3
+    100338: WindowTrim
+    100340: WindowTrim 1
+    100342: WindowTrim 2
+    100344: WindowTrim 3
+    100346: WindowTrim 4
+    100348: WindowTrim 5
+    100350: WindowTrim 6
+    100352: WindowTrim 7
     400000: BackPads
     400002: BackPads1
     400004: CeilingLamps01
@@ -191,6 +275,90 @@ ModelImporter:
     400180: Window 5
     400182: Window 6
     400184: Window 7
+    400186: Ceiling
+    400188: Ceiling 1
+    400190: Ceiling 2
+    400192: Ceiling 3
+    400194: Ceiling 4
+    400196: Ceiling 5
+    400198: Ceiling 6
+    400200: Ceiling 7
+    400202: Ceiling_1
+    400204: Ceiling_1 1
+    400206: Ceiling_1 2
+    400208: Ceiling_1 3
+    400210: CeilingRafters_1
+    400212: CeilingRafters_1 1
+    400214: CeilingRafters_1 2
+    400216: CeilingRafters_1 3
+    400218: CeilingRafters_2
+    400220: CeilingRafters_2 1
+    400222: CeilingRafters_2 2
+    400224: CeilingRafters_2 3
+    400226: CeilingTrim
+    400228: CeilingTrim 1
+    400230: CeilingTrim 2
+    400232: CeilingTrim 3
+    400234: CeilingTrim 4
+    400236: CeilingTrim 5
+    400238: CeilingTrim 6
+    400240: CeilingTrim 7
+    400242: DoorTrim
+    400244: DoorTrim 1
+    400246: DoorTrim 2
+    400248: DoorTrim 3
+    400250: Entry_1 1
+    400252: Entry_1 2
+    400254: Entry_1 3
+    400256: Floor_1
+    400258: Floor_1 1
+    400260: Floor_1 2
+    400262: Floor_1 3
+    400264: LowCover 4
+    400266: LowCover 5
+    400268: LowCover 6
+    400270: LowCover 7
+    400272: Rafters
+    400274: Rafters 1
+    400276: Rafters 2
+    400278: Rafters 3
+    400280: Room1
+    400282: Room2
+    400284: Room3
+    400286: transform1 1
+    400288: transform1 2
+    400290: transform1 3
+    400292: transform2
+    400294: transform2 1
+    400296: transform2 2
+    400298: transform2 3
+    400300: transform4
+    400302: transform4 1
+    400304: transform4 2
+    400306: transform4 3
+    400308: Wall2
+    400310: Wall2 1
+    400312: Wall2 2
+    400314: Wall2 3
+    400316: Wall3
+    400318: Wall3 1
+    400320: Wall3 2
+    400322: Wall3 3
+    400324: Wall_1 1
+    400326: Wall_1 2
+    400328: Wall_1 3
+    400330: Window1
+    400332: Window1 1
+    400334: Window1 2
+    400336: Window1 3
+    400338: WindowTrim
+    400340: WindowTrim 1
+    400342: WindowTrim 2
+    400344: WindowTrim 3
+    400346: WindowTrim 4
+    400348: WindowTrim 5
+    400350: WindowTrim 6
+    400352: WindowTrim 7
     2300000: BackPads
     2300002: BackPads1
     2300004: CeilingLamps01
@@ -272,6 +440,46 @@ ModelImporter:
     2300156: Window 5
     2300158: Window 6
     2300160: Window 7
+    2300162: Ceiling 4
+    2300164: Ceiling 5
+    2300166: Ceiling 6
+    2300168: Ceiling 7
+    2300170: CeilingTrim
+    2300172: CeilingTrim 1
+    2300174: CeilingTrim 2
+    2300176: CeilingTrim 3
+    2300178: CeilingTrim 4
+    2300180: CeilingTrim 5
+    2300182: CeilingTrim 6
+    2300184: CeilingTrim 7
+    2300186: DoorTrim
+    2300188: DoorTrim 1
+    2300190: DoorTrim 2
+    2300192: DoorTrim 3
+    2300194: LowCover 4
+    2300196: LowCover 5
+    2300198: LowCover 6
+    2300200: LowCover 7
+    2300202: Rafters
+    2300204: Rafters 1
+    2300206: Rafters 2
+    2300208: Rafters 3
+    2300210: Wall2
+    2300212: Wall2 1
+    2300214: Wall2 2
+    2300216: Wall2 3
+    2300218: Window1
+    2300220: Window1 1
+    2300222: Window1 2
+    2300224: Window1 3
+    2300226: WindowTrim
+    2300228: WindowTrim 1
+    2300230: WindowTrim 2
+    2300232: WindowTrim 3
+    2300234: WindowTrim 4
+    2300236: WindowTrim 5
+    2300238: WindowTrim 6
+    2300240: WindowTrim 7
     3300000: BackPads
     3300002: BackPads1
     3300004: CeilingLamps01
@@ -353,6 +561,46 @@ ModelImporter:
     3300156: Window 5
     3300158: Window 6
     3300160: Window 7
+    3300162: Ceiling 4
+    3300164: Ceiling 5
+    3300166: Ceiling 6
+    3300168: Ceiling 7
+    3300170: CeilingTrim
+    3300172: CeilingTrim 1
+    3300174: CeilingTrim 2
+    3300176: CeilingTrim 3
+    3300178: CeilingTrim 4
+    3300180: CeilingTrim 5
+    3300182: CeilingTrim 6
+    3300184: CeilingTrim 7
+    3300186: DoorTrim
+    3300188: DoorTrim 1
+    3300190: DoorTrim 2
+    3300192: DoorTrim 3
+    3300194: LowCover 4
+    3300196: LowCover 5
+    3300198: LowCover 6
+    3300200: LowCover 7
+    3300202: Rafters
+    3300204: Rafters 1
+    3300206: Rafters 2
+    3300208: Rafters 3
+    3300210: Wall2
+    3300212: Wall2 1
+    3300214: Wall2 2
+    3300216: Wall2 3
+    3300218: Window1
+    3300220: Window1 1
+    3300222: Window1 2
+    3300224: Window1 3
+    3300226: WindowTrim
+    3300228: WindowTrim 1
+    3300230: WindowTrim 2
+    3300232: WindowTrim 3
+    3300234: WindowTrim 4
+    3300236: WindowTrim 5
+    3300238: WindowTrim 6
+    3300240: WindowTrim 7
     4300000: polySurface1
     4300002: polySurface2
     4300004: PadsHorizontal
@@ -434,6 +682,46 @@ ModelImporter:
     4300156: Wall_Entry
     4300158: Window
     4300160: LowCover
+    4300162: Rafters
+    4300164: Ceiling
+    4300166: Window1
+    4300168: Wall2
+    4300170: CeilingTrim
+    4300172: DoorTrim
+    4300174: WindowTrim
+    4300176: CeilingTrim
+    4300178: WindowTrim
+    4300180: Rafters
+    4300182: Ceiling
+    4300184: Window1
+    4300186: Wall2
+    4300188: CeilingTrim
+    4300190: DoorTrim
+    4300192: WindowTrim
+    4300194: CeilingTrim
+    4300196: WindowTrim
+    4300198: Rafters
+    4300200: Ceiling
+    4300202: LowCover
+    4300204: Window1
+    4300206: Wall2
+    4300208: CeilingTrim
+    4300210: DoorTrim
+    4300212: WindowTrim
+    4300214: CeilingTrim
+    4300216: LowCover
+    4300218: WindowTrim
+    4300220: Rafters
+    4300222: Ceiling
+    4300224: LowCover
+    4300226: Window1
+    4300228: Wall2
+    4300230: CeilingTrim
+    4300232: DoorTrim
+    4300234: WindowTrim
+    4300236: CeilingTrim
+    4300238: LowCover
+    4300240: WindowTrim
   materials:
     importMaterials: 1
     materialName: 0
