@@ -199,7 +199,7 @@ public class Enemy : MonoBehaviour {
 			audioMan.GetComponent<AudioManager> ().EnemyHitSound ();
 
 			Instantiate (hitParticle, p_hitBy.transform.position, Quaternion.LookRotation(dir));
-			Instantiate (hitTextPopUp, transform.position + new Vector3(0,1.5f,0), Quaternion.LookRotation (dir));
+			Instantiate (hitTextPopUp, transform.position + new Vector3(0,2f,0), Quaternion.LookRotation (dir));
 
 			Vector3 ragdollDir = (transform.position - p_hitBy.transform.position).normalized;
 			foreach (Rigidbody rb in rbs)

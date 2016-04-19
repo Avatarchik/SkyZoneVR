@@ -148,8 +148,8 @@ public class EnemyBall : MonoBehaviour {
 
     void OnCollisionEnter(Collision coll)
     {
-		if (hitGround)
-			return;
+//		if (hitGround)
+//			return;
 		
 		if (coll.collider.tag == "Bat") 
 		{
@@ -334,6 +334,7 @@ public class EnemyBall : MonoBehaviour {
 
 		lerpEnemy = ClosestEnemy();
 		lerpBallStart = transform.position;
+		lerpTimer = 0;
 
 		shouldLerp = true;
 	}
