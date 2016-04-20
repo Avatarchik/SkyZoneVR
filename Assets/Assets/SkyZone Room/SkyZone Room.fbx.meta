@@ -182,6 +182,48 @@ ModelImporter:
     100348: WindowTrim 5
     100350: WindowTrim 6
     100352: WindowTrim 7
+    100354: pCylinder1
+    100356: pCylinder2
+    100358: polySurface11
+    100360: polySurface11 1
+    100362: polySurface11 2
+    100364: polySurface11 3
+    100366: polySurface13
+    100368: polySurface13 1
+    100370: polySurface13 2
+    100372: polySurface13 3
+    100374: polySurface14
+    100376: polySurface14 1
+    100378: polySurface14 2
+    100380: polySurface14 3
+    100382: polySurface15
+    100384: polySurface15 1
+    100386: polySurface15 2
+    100388: polySurface15 3
+    100390: polySurface9
+    100392: polySurface9 1
+    100394: polySurface9 2
+    100396: polySurface9 3
+    100398: transform5
+    100400: transform5 1
+    100402: transform5 2
+    100404: transform5 3
+    100406: transform6
+    100408: transform6 1
+    100410: transform6 2
+    100412: transform6 3
+    100414: transform7
+    100416: transform7 1
+    100418: transform7 2
+    100420: transform7 3
+    100422: transform8
+    100424: transform8 1
+    100426: transform8 2
+    100428: transform8 3
+    100430: WindowTrim1
+    100432: WindowTrim1 1
+    100434: WindowTrim1 2
+    100436: WindowTrim1 3
     400000: BackPads
     400002: BackPads1
     400004: CeilingLamps01
@@ -359,6 +401,48 @@ ModelImporter:
     400348: WindowTrim 5
     400350: WindowTrim 6
     400352: WindowTrim 7
+    400354: pCylinder1
+    400356: pCylinder2
+    400358: polySurface11
+    400360: polySurface11 1
+    400362: polySurface11 2
+    400364: polySurface11 3
+    400366: polySurface13
+    400368: polySurface13 1
+    400370: polySurface13 2
+    400372: polySurface13 3
+    400374: polySurface14
+    400376: polySurface14 1
+    400378: polySurface14 2
+    400380: polySurface14 3
+    400382: polySurface15
+    400384: polySurface15 1
+    400386: polySurface15 2
+    400388: polySurface15 3
+    400390: polySurface9
+    400392: polySurface9 1
+    400394: polySurface9 2
+    400396: polySurface9 3
+    400398: transform5
+    400400: transform5 1
+    400402: transform5 2
+    400404: transform5 3
+    400406: transform6
+    400408: transform6 1
+    400410: transform6 2
+    400412: transform6 3
+    400414: transform7
+    400416: transform7 1
+    400418: transform7 2
+    400420: transform7 3
+    400422: transform8
+    400424: transform8 1
+    400426: transform8 2
+    400428: transform8 3
+    400430: WindowTrim1
+    400432: WindowTrim1 1
+    400434: WindowTrim1 2
+    400436: WindowTrim1 3
     2300000: BackPads
     2300002: BackPads1
     2300004: CeilingLamps01
@@ -480,6 +564,16 @@ ModelImporter:
     2300236: WindowTrim 5
     2300238: WindowTrim 6
     2300240: WindowTrim 7
+    2300242: pCylinder1
+    2300244: pCylinder2
+    2300246: polySurface11
+    2300248: polySurface11 1
+    2300250: polySurface11 2
+    2300252: polySurface11 3
+    2300254: polySurface9
+    2300256: polySurface9 1
+    2300258: polySurface9 2
+    2300260: polySurface9 3
     3300000: BackPads
     3300002: BackPads1
     3300004: CeilingLamps01
@@ -601,6 +695,16 @@ ModelImporter:
     3300236: WindowTrim 5
     3300238: WindowTrim 6
     3300240: WindowTrim 7
+    3300242: pCylinder1
+    3300244: pCylinder2
+    3300246: polySurface11
+    3300248: polySurface11 1
+    3300250: polySurface11 2
+    3300252: polySurface11 3
+    3300254: polySurface9
+    3300256: polySurface9 1
+    3300258: polySurface9 2
+    3300260: polySurface9 3
     4300000: polySurface1
     4300002: polySurface2
     4300004: PadsHorizontal
@@ -722,6 +826,16 @@ ModelImporter:
     4300236: CeilingTrim
     4300238: LowCover
     4300240: WindowTrim
+    4300242: polySurface9
+    4300244: polySurface11
+    4300246: pCylinder1
+    4300248: polySurface9
+    4300250: polySurface11
+    4300252: polySurface9
+    4300254: polySurface11
+    4300256: polySurface9
+    4300258: polySurface11
+    4300260: pCylinder2
   materials:
     importMaterials: 1
     materialName: 0
