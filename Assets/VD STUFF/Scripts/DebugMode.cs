@@ -28,18 +28,18 @@ public class DebugMode : MonoBehaviour {
 				if(Input.GetKeyDown(KeyCode.RightBracket))
 					FORCECHANGE += 100f;
 			}
-			if(Input.GetKeyDown(KeyCode.Z)) {
-				CURWARPPARTICLE--;
-				if(CURWARPPARTICLE < 0) {
-					CURWARPPARTICLE = gameObject.GetComponent<GameManager>().warpParticles.Length - 1;
-				}
-			}
-			if(Input.GetKeyDown(KeyCode.X)) {
-				CURWARPPARTICLE++;
-				if(CURWARPPARTICLE > gameObject.GetComponent<GameManager>().warpParticles.Length - 1) {
-					CURWARPPARTICLE = 0;
-				}
-			}
+//			if(Input.GetKeyDown(KeyCode.Z)) {
+//				CURWARPPARTICLE--;
+//				if(CURWARPPARTICLE < 0) {
+//					CURWARPPARTICLE = gameObject.GetComponent<GameManager>().warpParticles.Length - 1;
+//				}
+//			}
+//			if(Input.GetKeyDown(KeyCode.X)) {
+//				CURWARPPARTICLE++;
+//				if(CURWARPPARTICLE > gameObject.GetComponent<GameManager>().warpParticles.Length - 1) {
+//					CURWARPPARTICLE = 0;
+//				}
+//			}
 		}
 		if(Input.GetKeyDown(KeyCode.G)) {
 			SHOWGUI = !SHOWGUI;

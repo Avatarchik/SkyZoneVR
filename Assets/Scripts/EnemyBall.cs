@@ -11,7 +11,7 @@ public class EnemyBall : MonoBehaviour {
 	public bool tutorialBall = false;
 	public bool fromEnemy = true;
 	bool streakChain = false;
-	bool hitGround = false;
+	public bool hitGround = false;
 
 	GameObject aimAssistEnemy;
 	//GameObject player;
@@ -68,7 +68,7 @@ public class EnemyBall : MonoBehaviour {
 		lifeTime += Time.deltaTime;
 		if (lifeTime > destroyTime) 
 		{
-			gameObject.SetActive (false);
+			SetInactive ();
 		}
 
 		if (trail.enabled && trail.time < 1) {
@@ -209,6 +209,11 @@ public class EnemyBall : MonoBehaviour {
 
 			if( !streakChain )
 				gm.ResetStreak ();
+		}
+
+		if (coll.collider.gameObject.layer == 0 )
+		{
+			hitGround = true;
 		}
     }
 
@@ -403,6 +408,12 @@ public class EnemyBall : MonoBehaviour {
 
 		am.BombExplosionSound ();
 		Instantiate (bombExplosionParticle, transform.position, Quaternion.Euler(Vector3.right * 90));
-		this.gameObject.SetActive (false);
+		SetInactive ();
+	}
+
+	void SetInactive()
+	{
+		gameObject.SetActive (false);
+		gm.activeBalls.Remove (this);
 	}
 }

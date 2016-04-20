@@ -76,41 +76,43 @@ public class GameManager : MonoBehaviour {
 	public GameObject batHoldBox;
 	public GameObject ballPrefab;
 
+	public List<EnemyBall> activeBalls;
+
 	[System.NonSerialized]
 	public float timer = 0f;
 
-	// Spider values
-	private Spider gameSpider;
-	public int numSpiderAppearances = 4;
+//	// Spider values
+//	private Spider gameSpider;
+//	public int numSpiderAppearances = 4;
+//
+//
+////	GUIStyle guiStyle;
+//	public Font guiFont;
+//	public float guiLeft = 0.2f;
+//	public float guiTop = 0.8f;
 
-
-//	GUIStyle guiStyle;
-	public Font guiFont;
-	public float guiLeft = 0.2f;
-	public float guiTop = 0.8f;
-
-	public bool enemiesKnockback = false;
-
-	private GameObject redScoreBox, yellowScoreBox, blueScoreBox, greenScoreBox;
-//	private GUIText redScoreTxt, redPlaceTxt, redAccTxt,
-//						yellowScoreTxt, yellowPlaceTxt, yellowAccTxt,
-//						blueScoreTxt, bluePlaceTxt, blueAccTxt,
-//						greenScoreTxt, greenPlaceTxt, greenAccTxt;
-
-	private TextMesh redScoreTxt, redAccTxt,
-						yellowScoreTxt, yellowAccTxt,
-						blueScoreTxt, blueAccTxt,
-						greenScoreTxt, greenAccTxt;
-
+//	public bool enemiesKnockback = false;
+//
+//	private GameObject redScoreBox, yellowScoreBox, blueScoreBox, greenScoreBox;
+////	private GUIText redScoreTxt, redPlaceTxt, redAccTxt,
+////						yellowScoreTxt, yellowPlaceTxt, yellowAccTxt,
+////						blueScoreTxt, bluePlaceTxt, blueAccTxt,
+////						greenScoreTxt, greenPlaceTxt, greenAccTxt;
+//
+//	private TextMesh redScoreTxt, redAccTxt,
+//						yellowScoreTxt, yellowAccTxt,
+//						blueScoreTxt, blueAccTxt,
+//						greenScoreTxt, greenAccTxt;
+//
 	BallManager ballManager;
-	PlayerManager playerManager;
+//	PlayerManager playerManager;
 	QueueManager queueManager;
 
-	GameObject kinectErrorObj;
+//	GameObject kinectErrorObj;
 
 	StaticPool staticPool;
 
-	public GameObject[] warpParticles;
+//	public GameObject[] warpParticles;
 
 	#region Singleton Initialization
 	public static GameManager instance {
@@ -140,7 +142,7 @@ public class GameManager : MonoBehaviour {
 
 	void Start() {
 		ballManager = GetComponent<BallManager> ();
-		playerManager = GetComponent<PlayerManager> ();
+		//playerManager = GetComponent<PlayerManager> ();
 		tm = GetComponent<TutorialManager> ();
 		am = GameObject.Find ("AudioManager").GetComponent<AudioManager> ();
 		aam = GetComponent<AimAssistManager> ();
@@ -241,63 +243,50 @@ public class GameManager : MonoBehaviour {
 			break;
 
 		case GameMode.GAME:
-			switch (phase) 
-			{
+			switch (phase) {
 			case GamePhase.ONE:
-				if (aam.onCourtEnemies.Count >= 3)// && moveEnemyIsRunning) 
-				{
-					if (moveEnemyIsRunning) 
-					{
+				if (aam.onCourtEnemies.Count >= 3) {// && moveEnemyIsRunning) 
+					if (moveEnemyIsRunning) {
 						StopCoroutine ("StartEnemyMove");
 						moveEnemyIsRunning = false;
 					}
 
 //					StopCoroutine ("StartEnemyMove");
 //					moveEnemyIsRunning = false;
-				} 
-				else
-				{
-					if(!moveEnemyIsRunning)
+				} else {
+					if (!moveEnemyIsRunning)
 						StartCoroutine ("StartEnemyMove");
 				}
 
 				phaseTimer -= Time.deltaTime;
-				if (phaseTimer <= 0) 
-				{
+				if (phaseTimer <= 0) {
 					SwitchGamePhase (GamePhase.TWO);
 				}
 
-				if (score >= 3) 
-				{
+				if (score >= 3) {
 					SwitchGamePhase (GamePhase.TWO);
 				}
 
 				break;
 
 			case GamePhase.TWO:
-				if (aam.onCourtEnemies.Count >= 6) 
-				{
-					if (moveEnemyIsRunning) 
-					{
+				if (aam.onCourtEnemies.Count >= 6) {
+					if (moveEnemyIsRunning) {
 						StopCoroutine ("StartEnemyMove");
 						moveEnemyIsRunning = false;
 					}
 
-				} 
-				else 
-				{
-					if(!moveEnemyIsRunning)
+				} else {
+					if (!moveEnemyIsRunning)
 						StartCoroutine ("StartEnemyMove");
 				}
 
 				phaseTimer -= Time.deltaTime;
-				if (phaseTimer <= 0) 
-				{
+				if (phaseTimer <= 0) {
 					SwitchGamePhase (GamePhase.THREE);
 				}
 
-				if (score >= 10) 
-				{
+				if (score >= 10) {
 					SwitchGamePhase (GamePhase.THREE);
 				}
 
@@ -323,25 +312,36 @@ public class GameManager : MonoBehaviour {
 			streakText.GetComponent<Text> ().text = "Streak: " + streak + " (x" + streakMultiplier + ")";
 			streakMultiplier = Mathf.Clamp (1 + Mathf.Clamp (streak, 0, 1) + (int)(streak / 3), 1, 3);
 
-			if(timer <= 0) {
-				ballManager.StopAllCoroutines();
-				StopAllCoroutines();
-				timer = scoreboardTimer;
-				SwitchGameMode(GameMode.GAMEOVER);
-
-				Enemy[] enemies = GameObject.FindObjectsOfType<Enemy>();
-				foreach( Enemy enemy in enemies ) {
-					enemy.StopAllCoroutines();
-					enemy.gameObject.SetActive( false );
+			if (timer <= 0) {
+				Enemy[] enemies = GameObject.FindObjectsOfType<Enemy> ();
+				foreach (Enemy enemy in enemies) 
+				{
+					enemy.StopCoroutine ("ThrowRoutine");
 				}
-				// Fuck you eric
-				spawnFloor.ResetTilesFilled();
-				queueManager.Reset();
 
-				return;
+				if (!BallsAreStillInAir ()) {
+					ballManager.StopAllCoroutines ();
+					StopAllCoroutines ();
+					foreach (Enemy enemy in enemies) {
+						enemy.StopAllCoroutines ();
+						enemy.gameObject.SetActive (false);
+					}
+
+					timer = scoreboardTimer;
+					SwitchGameMode (GameMode.GAMEOVER);
+
+					// Fuck you eric
+					spawnFloor.ResetTilesFilled ();
+					queueManager.Reset ();
+
+					return;
+				}
 			}
 
-			timer -= Time.deltaTime;
+			if (timer < 0)
+				timer = 0;
+			else
+				timer -= Time.deltaTime;
 			break;
 		case GameMode.GAMEOVER:
 			foreach (Material mat in gridMats)
@@ -508,6 +508,20 @@ public class GameManager : MonoBehaviour {
 		phase = gp;
 	}
 
+	bool BallsAreStillInAir()
+	{
+		for (int i = 0; i < activeBalls.Count; i++) 
+		{
+			if (activeBalls[i].hitGround == true || activeBalls[i].gameObject.activeSelf == false) 
+				activeBalls.Remove (activeBalls[i]);
+		}
+
+		if (activeBalls.Count > 0)
+			return true;
+		else
+			return false;
+	}
+
 	IEnumerator SpawnEnemy() {
 		while(true) {
 			queueManager.SpawnNewEnemy( enemy );
@@ -537,7 +551,7 @@ public class GameManager : MonoBehaviour {
 		case "Intro":
 			timer = 0f;
 			gameStarted = false;
-			playerManager.playerData.Clear();
+			//playerManager.playerData.Clear();
 			//mode = GameMode.STANDBY;			
 			Application.LoadLevel("Intro");
 			break;

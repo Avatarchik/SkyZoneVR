@@ -14,8 +14,8 @@ public class Enemy : MonoBehaviour {
 	public float jumpRate = 2f;
 	public float hopHeight = 2.25f;
 
-	private GameObject gameMan;
-	private GameObject audioMan;
+	private GameManager gameMan;
+	private AudioManager audioMan;
 	private TutorialManager tutMan;
 
 	public GameObject ballPrefab;
@@ -82,10 +82,10 @@ public class Enemy : MonoBehaviour {
 
 		//tutorialHop = new HopData(transform.position, 1.7f);
 
-		gameMan = GameObject.Find ("GameManager");
-		audioMan = GameObject.Find ("AudioManager");
-		tutMan = gameMan.GetComponent<TutorialManager> ();
-		aam = GameObject.Find("GameManager").GetComponent<AimAssistManager> ();
+		gameMan = GameObject.Find ("GameManager").GetComponent<GameManager>();
+		audioMan = GameObject.Find ("AudioManager").GetComponent<AudioManager>();
+		tutMan = gameMan.gameObject.GetComponent<TutorialManager> ();
+		aam = gameMan.gameObject.GetComponent<AimAssistManager> ();
 
 		floor = GameObject.Find ("Floor").GetComponent<SpawnFloor> ();
 		player = GameObject.Find("Player");
@@ -393,8 +393,9 @@ public class Enemy : MonoBehaviour {
 	void Throw() {
 
 		GameObject ball = StaticPool.GetObj (ballPrefab);
-		//playerPos = player.transform.FindChild("Sphere").transform.position;//shpere
+		gameMan.activeBalls.Add (ball.GetComponent<EnemyBall>());
 
+		//playerPos = player.transform.FindChild("Sphere").transform.position;//shpere
 		//playerPos = player.transform.position;
 		playerPos = GameObject.Find("ThrowDestination").transform.position;
 		float randomX = Random.Range (0.8f, 1.6f);
@@ -538,7 +539,7 @@ public class Enemy : MonoBehaviour {
 
 	void SwitchThrowInterval()
 	{
-		switch (gameMan.GetComponent<GameManager> ().gamePhaseInt) 
+		switch (gameMan.gamePhaseInt) 
 		{
 		case 1:
 			throwInterval = Random.Range(3, 6); //~4
