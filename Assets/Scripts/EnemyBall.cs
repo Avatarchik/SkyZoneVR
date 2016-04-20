@@ -18,16 +18,12 @@ public class EnemyBall : MonoBehaviour {
 
 	Rigidbody rb;
 	TrailRenderer trail;
+	Renderer renderer;
 
 	GameManager gm;
 	AudioManager am;
 	AimAssistManager aam;
-
-    Renderer renderer;
-    public Material defaultMat;
-    public Material bounceBackMat;
-	public Material autoAimMat;
-	public Material bombMat;
+	EnemyBallManager ebm;
 
     bool bounceBack = false;
 	bool autoAim = false;
@@ -54,6 +50,7 @@ public class EnemyBall : MonoBehaviour {
 		am = GameObject.Find ("AudioManager").GetComponent<AudioManager> ();
 		gm = GameObject.Find ("GameManager").GetComponent<GameManager> ();
 		aam = gm.GetComponent <AimAssistManager> ();
+		ebm = gm.GetComponent<EnemyBallManager> ();
 
 //		player = GameObject.Find ("Player");
 	}
@@ -128,7 +125,7 @@ public class EnemyBall : MonoBehaviour {
 
 	void ResetPowerUps()
 	{
-		GetComponent<Renderer>().material = defaultMat;
+		SetBallAndTrailMaterials("Standard");
 		bounceBack = false;
 		autoAim = false;
 		bomb = false;
@@ -248,6 +245,29 @@ public class EnemyBall : MonoBehaviour {
 		}
 	}
 
+	void SetBallAndTrailMaterials(string matName)
+	{
+		if (matName != null) 
+		{
+			foreach (Material mat in ebm.materialList) 
+			{
+				if (mat.name.Contains (matName))
+					renderer.material = mat;
+			}
+
+			foreach (Material mat in ebm.trailMaterialList) 
+			{
+				if (mat.name.Contains (matName))
+					trail.material = mat;
+			}
+		} 
+		else 
+		{
+			renderer.material = ebm.materialList [0];
+			trail.material = ebm.trailMaterialList [0];
+		}
+	}
+
     public void ChoosePowerUp()
     {
         int powerUpChoice = Random.Range(0, 99);
@@ -258,21 +278,21 @@ public class EnemyBall : MonoBehaviour {
 		//1st Power Up (Bounce Back)
         if(powerUpChoice <= 14)
         {
-            renderer.material = bounceBackMat;
+			SetBallAndTrailMaterials ("BounceBack");
             bounceBack = true;
         }
 
 		//2nd Power Up (Heat Seeking / Auto Aim)
         if(powerUpChoice >= 15 && powerUpChoice <= 20)
         {
-			renderer.material = autoAimMat;
+			SetBallAndTrailMaterials ("HeatSeek");
 			autoAim = true;
         }
 
 		//3rd Power Up (Bomb)
 		if (powerUpChoice >= 21 && powerUpChoice <= 25) 
 		{
-			renderer.material = bombMat;
+			SetBallAndTrailMaterials ("Bomb");
 			bomb = true;
 		}
     }
