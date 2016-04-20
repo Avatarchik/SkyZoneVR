@@ -13,6 +13,7 @@ public class PopUpText : MonoBehaviour
 
 	Vector3 startPos;
 	Vector3 endPos;
+	Vector3 startRot;
 
 	// Use this for initialization
 	void Start () 
@@ -20,6 +21,19 @@ public class PopUpText : MonoBehaviour
 		gm = GameObject.Find ("GameManager").GetComponent<GameManager> ();
 		text = GetComponentInChildren<TextMesh> ();
 		text.text = "+" + (int) 1 * gm.streakMultiplier;
+
+		switch (gm.streakMultiplier) 
+		{
+		case 1:
+			text.color = new Color (255, 0, 0);
+			break;
+		case 2:
+			text.color = new Color (255, 227, 0);
+			break;
+		case 3:
+			text.color = new Color (0, 255, 170);
+			break;
+		}
 
 		startPos = transform.position;
 		endPos = transform.position + new Vector3 (0, 0.5f, 0);
