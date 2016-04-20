@@ -145,8 +145,8 @@ public class EnemyBall : MonoBehaviour {
 
     void OnCollisionEnter(Collision coll)
     {
-		if (hitGround)
-			return;
+//		if (hitGround)
+//			return;
 		
 		if (coll.collider.tag == "Bat") 
 		{
@@ -155,9 +155,8 @@ public class EnemyBall : MonoBehaviour {
 			if(rb.velocity.magnitude > 5 && !autoAim)
 				AimAssist ();
 
-			if (tutorialBall) {
+			if (tutorialBall)
 				tutorialBall = false;
-			}
 
 			if (autoAim) 
 			{

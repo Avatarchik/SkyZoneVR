@@ -70,6 +70,9 @@ public class GameManager : MonoBehaviour {
 	public float gameTimer = 10f;
 	public float scoreboardTimer = 15f;
 
+	public Material skybox;
+	float skyboxRot;
+
 	public GameObject batHoldBox;
 	public GameObject ballPrefab;
 
@@ -159,6 +162,8 @@ public class GameManager : MonoBehaviour {
 //			tutorialEnemies [i].SetActive (false);
 //		}
 
+		CheckDebugInfoLog ();
+
 		SwitchGameMode(GameMode.STANDBY);
 	}
 
@@ -172,6 +177,9 @@ public class GameManager : MonoBehaviour {
 			ac.Calibrate ();
 			firstCalibrationDone = true;
 		}
+
+		skyboxRot -= Time.deltaTime;
+		skybox.SetFloat("_Rotation", skyboxRot);
 
 		switch(mode)
 		{
@@ -448,14 +456,19 @@ public class GameManager : MonoBehaviour {
 
 			break;
 		case GameMode.GAMEOVER:
+			if (score > GetHighScore ()) 
+			{
+				SetNewHighScore (score);
+			}
+
 			timer = 3f;
 
 			timerText.GetComponent<Text> ().text = "Time: 0:00";
 			scoreText.GetComponent<Text> ().text = "Score: " + score;
 			streakText.GetComponent<Text> ().text = "Streak: " + streak + " (x" + streakMultiplier + ")";
-
 			finalScoreText.GetComponent<Text> ().text = "Score: " + score;
 			finalScoreText.SetActive (true);
+
 			aam.ClearOnCourtEnemies ();
 			break;
 		case GameMode.CONFIG:
@@ -643,6 +656,70 @@ public class GameManager : MonoBehaviour {
 	void AdjustThrowDestinationHeightForNewPlayer()
 	{
 		throwDestination.position = new Vector3(throwDestination.position.x, player.transform.position.y - 0.25f, throwDestination.position.z);
+	}
+
+	int GetHighScore()
+	{
+		string filePath = Application.persistentDataPath + "/SkyzoneDebugInfo.txt";
+
+		string[] debugFile = System.IO.File.ReadAllLines(filePath);
+
+		if( debugFile.Length <= 0 )
+			return 0;
+
+		return int.Parse( debugFile[0] );
+	}
+
+	void SetNewHighScore( int score )
+	{
+		string filePath = Application.persistentDataPath + "/VRCubeDebugInfo.txt";
+
+		string[] debugFile = System.IO.File.ReadAllLines(filePath);
+
+		debugFile[0] = score.ToString();
+
+		System.IO.File.WriteAllLines( filePath, debugFile );
+	}
+
+	int GetGameTime()
+	{
+		string filePath = Application.persistentDataPath + "/SkyzoneDebugInfo.txt";
+
+		string[] debugFile = System.IO.File.ReadAllLines(filePath);
+
+		if( debugFile.Length <= 1 )
+			return 75; //default game time
+
+		return int.Parse( debugFile[1] );
+	}
+
+	void SetGameTimeLog( int time )
+	{
+		string filePath = Application.persistentDataPath + "/SkyzoneDebugInfo.txt";
+		string[] debugFile = System.IO.File.ReadAllLines(filePath);
+
+		if( debugFile.Length <= 1 )
+			System.IO.File.AppendAllText( filePath, "\n" + time.ToString() );
+		else
+		{
+			debugFile[1] = time.ToString();
+			System.IO.File.WriteAllLines( filePath, debugFile );
+		}
+	}
+
+	void CheckDebugInfoLog()
+	{
+		string filePath = Application.persistentDataPath + "/SkyzoneDebugInfo.txt";
+		if(!System.IO.File.Exists(filePath)) //TODO: check to see if certain info is missing
+		{
+			//System.IO.File.Create(filePath);
+			string[] debugInfo = new string[2];
+
+			debugInfo[0] = "0";
+			debugInfo[1] = "75";
+
+			System.IO.File.WriteAllLines( filePath, debugInfo );
+		}
 	}
 }
  
