@@ -33,6 +33,8 @@ public class GameManager : MonoBehaviour {
 	private bool firstCalibrationDone;
 	private float firstCalibrationTimer = 0f;
 
+	public GameObject player;
+
 	private GameObject scoreText;
 	private GameObject timerText;
 	private GameObject streakText;
@@ -45,6 +47,8 @@ public class GameManager : MonoBehaviour {
 	public GameObject enemy;
 	public Transform enemySpawnPoint;
 	public float spawnRate = 3f;
+
+	public Transform throwDestination;
 
 	public List<Material> gridMats;
 
@@ -394,9 +398,10 @@ public class GameManager : MonoBehaviour {
 			string stringTimer = string.Format ("{0:0}:{1:00}", minutes, seconds);
 			timerText.GetComponent<Text> ().text = "Time: " + stringTimer;
 
-			scoreText.SetActive(true);
+			scoreText.SetActive (true);
 			streakText.SetActive (true);
 
+			AdjustThrowDestinationHeightForNewPlayer ();
 
 			score = 0;
 			streak = 0;
@@ -633,6 +638,11 @@ public class GameManager : MonoBehaviour {
 	public void ResetStreak()
 	{
 		streak = 0;
+	}
+
+	void AdjustThrowDestinationHeightForNewPlayer()
+	{
+		throwDestination.position = new Vector3(throwDestination.position.x, player.transform.position.y - 0.25f, throwDestination.position.z);
 	}
 }
  
