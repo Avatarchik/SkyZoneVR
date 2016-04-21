@@ -338,7 +338,7 @@ public class EnemyBall : MonoBehaviour {
 		if (bounceBackVolleys > 1)
 			timeToPlayer /= (bounceBackVolleys / 2f);
 
-        SetColliderEnableTime( timeToPlayer / 4f );
+        //SetColliderEnableTime( timeToPlayer / 4f );
         //ball.transform.position = transform.localPosition + new Vector3(0, 2.5f, 0) - Vector3.forward;
 
 		float hVel = Vector3.Distance (playerPos, transform.position) / timeToPlayer;

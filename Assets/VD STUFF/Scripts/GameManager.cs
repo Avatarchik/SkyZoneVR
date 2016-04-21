@@ -690,7 +690,7 @@ public class GameManager : MonoBehaviour {
 
 	void SetNewHighScore( int score )
 	{
-		string filePath = Application.persistentDataPath + "/VRCubeDebugInfo.txt";
+		string filePath = Application.persistentDataPath + "/SkyzoneDebugInfo.txt";
 
 		string[] debugFile = System.IO.File.ReadAllLines(filePath);
 
