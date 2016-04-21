@@ -302,17 +302,15 @@ public class GameManager : MonoBehaviour {
 			//SCORE TEXT
 			scoreText.GetComponent<Text> ().text = "Score: " + score;
 
-			//TIMER TEXT
-			int minutes = Mathf.FloorToInt (timer / 60F);
-			int seconds = Mathf.FloorToInt (timer - minutes * 60);
-			string stringTimer = string.Format ("{0:0}:{1:00}", minutes, seconds);
-			timerText.GetComponent<Text> ().text = "Time: " + stringTimer;
-
 			//STREAK TEXT
 			streakText.GetComponent<Text> ().text = "Streak: " + streak + " (x" + streakMultiplier + ")";
 			streakMultiplier = Mathf.Clamp (1 + Mathf.Clamp (streak, 0, 1) + (int)(streak / 3), 1, 3);
 
-			if (timer <= 0) {
+			if (timer <= 0) 
+			{
+				timer = 0;
+				timerText.GetComponent<Text> ().text = "Time: 0:00";
+
 				Enemy[] enemies = GameObject.FindObjectsOfType<Enemy> ();
 				foreach (Enemy enemy in enemies) 
 				{
@@ -336,12 +334,18 @@ public class GameManager : MonoBehaviour {
 
 					return;
 				}
+			} 
+			else 
+			{
+				timer -= Time.deltaTime;
+
+				//TIMER TEXT
+				int minutes = Mathf.FloorToInt (timer / 60F);
+				int seconds = Mathf.FloorToInt (timer - minutes * 60);
+				string stringTimer = string.Format ("{0:0}:{1:00}", minutes, seconds);
+				timerText.GetComponent<Text> ().text = "Time: " + stringTimer;
 			}
 
-			if (timer < 0)
-				timer = 0;
-			else
-				timer -= Time.deltaTime;
 			break;
 		case GameMode.GAMEOVER:
 			foreach (Material mat in gridMats)
