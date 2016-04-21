@@ -162,28 +162,6 @@ public class IntroGUI : MonoBehaviour {
 //		}
 	}
 
-	public void ShowInstructions() {
-		GameObject.Find ("startText").GetComponent<Animation>().Stop ();
-		GameObject.Find ("text_start").GetComponent<TextMesh>().text = "GAME STARTING!";
-		gameStarted = true;
-		switch(state) {
-		case State.Splash:
-			splash.SetActive(false);
-			directions.SetActive(true);
-//			StartCoroutine("FadeOut", splash);
-			StartCoroutine("FadeIn", directions);
-			break;
-		case State.Score:
-			StartCoroutine("FadeOut", score);
-			StartCoroutine("FadeIn", directions);
-			break;
-		case State.Directions:
-//				StartCoroutine("FadeOut", directions);
-			StartCoroutine("FadeIn", directions);
-			break;
-		}
-	}
-
 	void FormatScores(List<Score> scores, TextMesh textMesh) {
 		textMesh.text = "";
 		for(int i = 0; i < scores.Count; i++) {
