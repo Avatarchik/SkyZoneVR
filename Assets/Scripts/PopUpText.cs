@@ -15,7 +15,6 @@ public class PopUpText : MonoBehaviour
 	Vector3 endPos;
 	Vector3 startRot;
 
-	// Use this for initialization
 	void Start () 
 	{
 		gm = GameObject.Find ("GameManager").GetComponent<GameManager> ();
@@ -38,8 +37,7 @@ public class PopUpText : MonoBehaviour
 		startPos = transform.position;
 		endPos = transform.position + new Vector3 (0, 0.5f, 0);
 	}
-	
-	// Update is called once per frame
+
 	void Update () 
 	{
 		timer += Time.deltaTime;
