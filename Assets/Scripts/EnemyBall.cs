@@ -198,6 +198,9 @@ public class EnemyBall : MonoBehaviour {
 				BombPowerUp ();
 
 			shouldLerp = false;
+
+			if (hitGround)
+				SetInactive ();
 		}
 
 		if (gameObject.layer == 12 && coll.collider.gameObject.layer == 0 )//&& !streakChain) 
