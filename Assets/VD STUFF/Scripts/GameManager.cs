@@ -81,38 +81,10 @@ public class GameManager : MonoBehaviour {
 	[System.NonSerialized]
 	public float timer = 0f;
 
-//	// Spider values
-//	private Spider gameSpider;
-//	public int numSpiderAppearances = 4;
-//
-//
-////	GUIStyle guiStyle;
-//	public Font guiFont;
-//	public float guiLeft = 0.2f;
-//	public float guiTop = 0.8f;
-
-//	public bool enemiesKnockback = false;
-//
-//	private GameObject redScoreBox, yellowScoreBox, blueScoreBox, greenScoreBox;
-////	private GUIText redScoreTxt, redPlaceTxt, redAccTxt,
-////						yellowScoreTxt, yellowPlaceTxt, yellowAccTxt,
-////						blueScoreTxt, bluePlaceTxt, blueAccTxt,
-////						greenScoreTxt, greenPlaceTxt, greenAccTxt;
-//
-//	private TextMesh redScoreTxt, redAccTxt,
-//						yellowScoreTxt, yellowAccTxt,
-//						blueScoreTxt, blueAccTxt,
-//						greenScoreTxt, greenAccTxt;
-//
 	BallManager ballManager;
-//	PlayerManager playerManager;
 	QueueManager queueManager;
 
-//	GameObject kinectErrorObj;
-
 	StaticPool staticPool;
-
-//	public GameObject[] warpParticles;
 
 	#region Singleton Initialization
 	public static GameManager instance {
@@ -142,15 +114,9 @@ public class GameManager : MonoBehaviour {
 
 	void Start() {
 		ballManager = GetComponent<BallManager> ();
-		//playerManager = GetComponent<PlayerManager> ();
 		tm = GetComponent<TutorialManager> ();
 		am = GameObject.Find ("AudioManager").GetComponent<AudioManager> ();
 		aam = GetComponent<AimAssistManager> ();
-
-		ac.Calibrate ();
-
-//		tutorialBallSpawnPos = GameObject.Find ("TutBallSpawn").transform.position;
-//		cameraTransform = Camera.main.transform;
 
 		scoreText = GameObject.Find ("ScoreText");
 		timerText = GameObject.Find ("TimerText");
@@ -159,10 +125,7 @@ public class GameManager : MonoBehaviour {
 		finalScoreText = GameObject.Find ("FinalScoreText");
 		queueManager = GameObject.Find( "QueueManager" ).GetComponent<QueueManager>();
 
-//		for (int i = 0; i < tutorialEnemies.Length; i++) 
-//		{
-//			tutorialEnemies [i].SetActive (false);
-//		}
+		ac.Calibrate ();
 
 		CheckDebugInfoLog ();
 
@@ -318,7 +281,7 @@ public class GameManager : MonoBehaviour {
 				}
 
 				if (!BallsAreStillInAir ()) {
-					ballManager.StopAllCoroutines ();
+//					ballManager.StopAllCoroutines ();
 					StopAllCoroutines ();
 					foreach (Enemy enemy in enemies) {
 						enemy.StopAllCoroutines ();

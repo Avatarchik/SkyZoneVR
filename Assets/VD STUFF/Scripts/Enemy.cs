@@ -98,10 +98,6 @@ public class Enemy : MonoBehaviour {
 	void OnEnable() {
 //		moveForwardChancePct = Mathf.Clamp(moveForwardChancePct, 0f, 100f);
 
-//		gameMan = GameObject.Find ("GameManager");
-//		audioMan = GameObject.Find ("AudioManager");
-//		floor = GameObject.Find ("Floor").GetComponent<SpawnFloor> ();
-
 		tutorialHop = new HopData(new Vector3(transform.position.x, 3f, transform.position.z), 1.7f);
 
 		Reset();
@@ -280,7 +276,7 @@ public class Enemy : MonoBehaviour {
 		}
 		floor.tilesFilled[curColumn, curRow] = false;
 //		print ("Ouch!");
-		PlayerManager.ReducePoints(1);
+		//PlayerManager.ReducePoints(1);
 
 		aam.onCourtEnemies.Remove (this.gameObject);
 		gameObject.SetActive(false);
@@ -417,48 +413,6 @@ public class Enemy : MonoBehaviour {
 		else
 			timeToPlayer = 2 * Vector3.Distance (throwPoint.position, playerPos) / 12f;
 
-//		switch (curRow) {
-//		case 0:
-//			playerPos += new Vector3 (0, 1.25f, 0);
-//			timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 18f;
-//			break;
-//
-//		case 1:
-//			playerPos += new Vector3 (0, 1.25f, 0);
-//			timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 16f;
-//			break;
-//
-//		case 2:
-//			if (curColumn == 1 || curColumn == 2) 
-//			{
-//				playerPos += new Vector3 (0, -2f, 1f);
-//				timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 8f;
-//			} 
-//			else 
-//			{
-//				playerPos += new Vector3 (0, -2f, 3f);
-//				timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 10f;
-//			}
-//			break;
-//		}
-
-//		if (Vector3.Distance (transform.position, playerPos) < 8f) 
-//		{
-//			playerPos -= new Vector3 (0, 2f, -0.5f);
-//			timeToPlayer = 4 * Vector3.Distance (transform.position, playerPos) / 14f;
-//		} 
-//		else 
-//		{
-//			timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 16f;
-//		}
-//
-//		if (Vector3.Distance (transform.position, playerPos) > 14f) 
-//		{
-//			timeToPlayer = 2 * Vector3.Distance (transform.position, playerPos) / 18f;
-//		}
-
-		//print(Vector3.Distance (transform.position, playerPos));
-
 		ball.GetComponent<EnemyBall> ().tutorialBall = false;
 		ball.GetComponent<EnemyBall> ().Reset ();
 		//ball.GetComponent<EnemyBall> ().SetColliderEnableTime( timeToPlayer * 1f / 4f );
@@ -526,16 +480,6 @@ public class Enemy : MonoBehaviour {
 		animator.SetBool("Walk", false);
 		animator.CrossFade("Start", 0.2f, 0);
 	}
-
-//	void OnCollisionEnter(Collision coll) {
-//		if (coll.collider.tag == "Ball") {
-//			if (coll.collider.gameObject.GetComponent<EnemyBall> ().fromEnemy == false) {
-//				Hit (coll.collider.gameObject);
-//
-//
-//			}
-//		}
-//	}
 
 	void SwitchThrowInterval()
 	{

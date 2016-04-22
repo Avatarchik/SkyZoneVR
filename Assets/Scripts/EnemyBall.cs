@@ -71,7 +71,8 @@ public class EnemyBall : MonoBehaviour {
 			SetInactive ();
 		}
 
-		if (trail.enabled && trail.time < 1) {
+		if (trail.enabled && trail.time < 1) 
+		{
 			trail.time += Time.deltaTime;
 			if (trail.time >= 1f)
 				trail.time = 1;
@@ -151,7 +152,6 @@ public class EnemyBall : MonoBehaviour {
 		if (coll.collider.tag == "Bat") 
 		{
 			//print (rb.velocity.magnitude);
-
 			if(rb.velocity.magnitude > 5 && !autoAim)
 				AimAssist ();
 
@@ -164,9 +164,6 @@ public class EnemyBall : MonoBehaviour {
 
 				if (!shouldLerp)
 					shouldLerp = true;
-//				lerpEnemy = ClosestEnemy();
-//				lerpBallStart = transform.position;
-//				shouldLerp = true;
 			}
 
 			fromEnemy = false;
