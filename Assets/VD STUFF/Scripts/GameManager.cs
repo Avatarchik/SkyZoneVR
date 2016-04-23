@@ -303,9 +303,8 @@ public class GameManager : MonoBehaviour {
 
                     if (timer < 6)
                     {
-                        if (am.playBeepOnce)
-                            return;
-                        am.StartCoroutine("CountdownBoopRoutine", timer);
+                        if (!am.playBeepOnce)
+                            am.StartCoroutine("CountdownBoopRoutine", timer);
                     }
                 }
 
