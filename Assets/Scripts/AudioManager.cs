@@ -15,6 +15,7 @@ public class AudioManager : MonoBehaviour {
 	public AudioSource enemyHit;
 	public AudioSource bombExplosion;
     public AudioSource countdownBoop;
+    public AudioSource finalBuzzer;
 
     public bool playBeepOnce;
 
@@ -73,24 +74,13 @@ public class AudioManager : MonoBehaviour {
 		bombExplosion.Play ();
 	}
 
-    public void CountdownBoopSound()
-    {
-        if (playBeepOnce)
-            return;
-
-        countdownBoop.Play();
-        countdownBoop.PlayDelayed(1);
-        countdownBoop.PlayDelayed(2);
-        countdownBoop.PlayDelayed(3);
-        countdownBoop.PlayDelayed(4);
-
-        playBeepOnce = true;
-    }
-
-    public IEnumerator CountdownBoopRoutine()
+    public IEnumerator CountdownBoopRoutine(float gmTimer)
     {
         playBeepOnce = true;
-        countdownBoop.Play();
+        if (gmTimer < 1)
+            finalBuzzer.Play();
+        else
+            countdownBoop.Play();
         yield return new WaitForSeconds(1);
         playBeepOnce = false;
     }

@@ -273,7 +273,7 @@ public class GameManager : MonoBehaviour {
 
                     if (!BallsAreStillInAir())
                     {
-                        //					ballManager.StopAllCoroutines ();
+                        //ballManager.StopAllCoroutines ();
                         StopAllCoroutines();
                         foreach (Enemy enemy in enemies)
                         {
@@ -305,7 +305,7 @@ public class GameManager : MonoBehaviour {
                     {
                         if (am.playBeepOnce)
                             return;
-                        am.StartCoroutine("CountdownBoopRoutine");
+                        am.StartCoroutine("CountdownBoopRoutine", timer);
                     }
                 }
 
@@ -330,11 +330,6 @@ public class GameManager : MonoBehaviour {
 
 			if (Input.GetKeyDown (KeyCode.Escape)) {
 				SwitchGameMode (GameMode.STANDBY);
-			}
-
-			if(Input.GetKeyDown(KeyCode.L)) {
-				//mode = GameMode.STANDBY;
-				Application.LoadLevel("Intro");
 			}
 			break;
 		}
