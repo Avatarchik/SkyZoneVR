@@ -45,16 +45,9 @@ public class GameManager : MonoBehaviour {
 	public int streakMultiplier;
 
 	public GameObject enemy;
-	public Transform enemySpawnPoint;
-	public float spawnRate = 3f;
-
 	public Transform throwDestination;
 
-	public List<Material> gridMats;
-
-	public bool randomSpawnTime = false;
-	bool screenChanged;
-	public float randomRange = 1f;
+    public List<Material> gridMats;
 
 	GameMode mode = GameMode.STANDBY;
 	GamePhase phase = GamePhase.ONE;
@@ -66,9 +59,7 @@ public class GameManager : MonoBehaviour {
 
 	public SpawnFloor spawnFloor;
 
-	public float joinTimer = 5f;
 	public float gameTimer = 10f;
-	public float scoreboardTimer = 15f;
 
 	public Material skybox;
 	float skyboxRot;
@@ -169,7 +160,7 @@ public class GameManager : MonoBehaviour {
 		case GameMode.COUNTDOWN:
 			foreach( Material mat in gridMats )
 				mat.SetFloat("_Opacity_Slider", timer * 6f );
-			gridMats [1].SetFloat ("_Opacity_Slider", timer * .714f);
+			//gridMats [1].SetFloat ("_Opacity_Slider", timer * .714f);
 
 			if (timer <= 0) 
 			{
@@ -269,51 +260,60 @@ public class GameManager : MonoBehaviour {
 			streakText.GetComponent<Text> ().text = "Streak: " + streak + " (x" + streakMultiplier + ")";
 			streakMultiplier = Mathf.Clamp (1 + Mathf.Clamp (streak, 0, 1) + (int)(streak / 3), 1, 3);
 
-			if (timer <= 0) 
-			{
-				timer = 0;
-				timerText.GetComponent<Text> ().text = "Time: 0:00";
+                if (timer <= 0)
+                {
+                    timer = 0;
+                    timerText.GetComponent<Text>().text = "Time: 0:00";
 
-				Enemy[] enemies = GameObject.FindObjectsOfType<Enemy> ();
-				foreach (Enemy enemy in enemies) 
-				{
-					enemy.StopCoroutine ("ThrowRoutine");
-				}
+                    Enemy[] enemies = GameObject.FindObjectsOfType<Enemy>();
+                    foreach (Enemy enemy in enemies)
+                    {
+                        enemy.StopCoroutine("ThrowRoutine");
+                    }
 
-				if (!BallsAreStillInAir ()) {
-//					ballManager.StopAllCoroutines ();
-					StopAllCoroutines ();
-					foreach (Enemy enemy in enemies) {
-						enemy.StopAllCoroutines ();
-						enemy.gameObject.SetActive (false);
-					}
+                    if (!BallsAreStillInAir())
+                    {
+                        //					ballManager.StopAllCoroutines ();
+                        StopAllCoroutines();
+                        foreach (Enemy enemy in enemies)
+                        {
+                            enemy.StopAllCoroutines();
+                            enemy.gameObject.SetActive(false);
+                        }
 
-					timer = scoreboardTimer;
-					SwitchGameMode (GameMode.GAMEOVER);
+                        //timer = scoreboardTimer;
+                        SwitchGameMode(GameMode.GAMEOVER);
 
-					// Fuck you eric
-					spawnFloor.ResetTilesFilled ();
-					queueManager.Reset ();
+                        // Fuck you eric
+                        spawnFloor.ResetTilesFilled();
+                        queueManager.Reset();
 
-					return;
-				}
-			} 
-			else 
-			{
-				timer -= Time.deltaTime;
+                        return;
+                    }
+                }
+                else
+                {
+                    timer -= Time.deltaTime;
 
-				//TIMER TEXT
-				int minutes = Mathf.FloorToInt (timer / 60F);
-				int seconds = Mathf.FloorToInt (timer - minutes * 60);
-				string stringTimer = string.Format ("{0:0}:{1:00}", minutes, seconds);
-				timerText.GetComponent<Text> ().text = "Time: " + stringTimer;
-			}
+                    //TIMER TEXT
+                    int minutes = Mathf.FloorToInt(timer / 60F);
+                    int seconds = Mathf.FloorToInt(timer - minutes * 60);
+                    string stringTimer = string.Format("{0:0}:{1:00}", minutes, seconds);
+                    timerText.GetComponent<Text>().text = "Time: " + stringTimer;
+
+                    if (timer < 6)
+                    {
+                        if (am.playBeepOnce)
+                            return;
+                        am.StartCoroutine("CountdownBoopRoutine");
+                    }
+                }
 
 			break;
 		case GameMode.GAMEOVER:
 			foreach (Material mat in gridMats)
 				mat.SetFloat ("_Opacity_Slider", 30f - timer * 10f);
-			gridMats [1].SetFloat ("_Opacity_Slider", 7f - timer * 2.3f);
+			//gridMats [1].SetFloat ("_Opacity_Slider", 7f - timer * 2.3f);
 
 			if( timer <= 0 )
 			{
@@ -358,7 +358,7 @@ public class GameManager : MonoBehaviour {
 			am.PlayAmbientCubeAudio ();
 			foreach (Material mat in gridMats)
 				mat.SetFloat ("_Opacity_Slider", 30f);
-			gridMats [1].SetFloat ("_Opacity_Slider", 7f);
+			//gridMats [1].SetFloat ("_Opacity_Slider", 7f);
 			break;
 		case GameMode.COUNTDOWN:
 			ac.Calibrate ();
@@ -436,7 +436,8 @@ public class GameManager : MonoBehaviour {
 			finalScoreText.GetComponent<Text> ().text = "Score: " + score;
 			finalScoreText.SetActive (true);
 
-			aam.ClearOnCourtEnemies ();
+            am.StopAllCoroutines();
+            aam.ClearOnCourtEnemies ();
 			break;
 		case GameMode.CONFIG:
 			break;

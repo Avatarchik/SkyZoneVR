@@ -6,13 +6,17 @@ public class AudioManager : MonoBehaviour {
 
 	public AudioSource backgroundMusic;
 	public AudioSource ambientCubeAudio;
-	public AudioSource dodgeballHit;
+
+    bool updateBackgroundAudio = false;
+    AudioSource switchToAudio;
+    AudioSource switchFromAudio;
+
+    public AudioSource dodgeballHit;
 	public AudioSource enemyHit;
 	public AudioSource bombExplosion;
+    public AudioSource countdownBoop;
 
-	bool updateBackgroundAudio = false;
-	AudioSource switchToAudio;
-	AudioSource switchFromAudio;
+    public bool playBeepOnce;
 
 	void Start()
 	{
@@ -68,4 +72,26 @@ public class AudioManager : MonoBehaviour {
 	{
 		bombExplosion.Play ();
 	}
+
+    public void CountdownBoopSound()
+    {
+        if (playBeepOnce)
+            return;
+
+        countdownBoop.Play();
+        countdownBoop.PlayDelayed(1);
+        countdownBoop.PlayDelayed(2);
+        countdownBoop.PlayDelayed(3);
+        countdownBoop.PlayDelayed(4);
+
+        playBeepOnce = true;
+    }
+
+    public IEnumerator CountdownBoopRoutine()
+    {
+        playBeepOnce = true;
+        countdownBoop.Play();
+        yield return new WaitForSeconds(1);
+        playBeepOnce = false;
+    }
 }
