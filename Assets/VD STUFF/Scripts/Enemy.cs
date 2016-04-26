@@ -2,7 +2,8 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Enemy : MonoBehaviour {
+public class Enemy : MonoBehaviour 
+{
 
 	[System.NonSerialized]
 	public int curColumn;
@@ -17,6 +18,7 @@ public class Enemy : MonoBehaviour {
 	private GameManager gameMan;
 	private AudioManager audioMan;
 	private TutorialManager tutMan;
+	private AimAssistManager aam;
 
 	public GameObject ballPrefab;
 	public float throwInterval = 2f;
@@ -29,8 +31,6 @@ public class Enemy : MonoBehaviour {
 
 	public Transform throwPoint; 
 
-	AimAssistManager aam;
-
 	public GameObject hitParticle;
 	public GameObject hitTextPopUp;
 
@@ -42,8 +42,6 @@ public class Enemy : MonoBehaviour {
 	public List<Texture> femaleTextures;
 
 	Rigidbody[] rbs;
-
-//	public float moveForwardChancePct = 50f;
 
 	bool hit;
 
@@ -95,9 +93,8 @@ public class Enemy : MonoBehaviour {
 //		tutorialHop.time = 2f;
     }
 
-	void OnEnable() {
-//		moveForwardChancePct = Mathf.Clamp(moveForwardChancePct, 0f, 100f);
-
+	void OnEnable() 
+	{
 		tutorialHop = new HopData(new Vector3(transform.position.x, 3f, transform.position.z), 1.7f);
 
 		Reset();
@@ -151,12 +148,6 @@ public class Enemy : MonoBehaviour {
 		animator.enabled = true;
 
 		onCourt = false;
-
-//		foreach (Rigidbody rb in rbs)
-//		{
-//			rb.useGravity = false;
-//			rb.isKinematic = true;
-//		}
 	}
 
 	void Update() {
@@ -165,13 +156,7 @@ public class Enemy : MonoBehaviour {
 				gameObject.SetActive(false);
 			}
 		}
-
-//		//Face the player
-//		playerPos = player.transform.position;
-//		dir = playerPos - transform.position;
-//		dir.y = 0;
-//		transform.rotation = Quaternion.LookRotation (dir.normalized * -1);
-
+			
 		//Throw
 		if (canThrow) {
 			//Throw ();
