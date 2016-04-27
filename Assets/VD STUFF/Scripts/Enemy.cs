@@ -124,7 +124,7 @@ public class Enemy : MonoBehaviour
 			transform.GetChild(i).gameObject.SetActive(false);
 		}
 
-		int randChar = Random.Range(0, 2);
+		int randChar = Random.Range(0, 3);
 		transform.GetChild(randChar).gameObject.SetActive(true);
 		animator = transform.GetChild(randChar).GetComponent<Animator> ();
 		if(randChar == 0) {
