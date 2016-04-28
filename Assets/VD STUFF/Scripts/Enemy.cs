@@ -199,6 +199,12 @@ public class Enemy : MonoBehaviour
 				gameObject.SetActive (false);
 				aam.onCourtEnemies.Remove (this.gameObject);
 			}
+		} 
+		else 
+		{
+			if (renderers [0].material.color.a == 1)
+				return;
+			FadeOut (1);
 		}
 	}
 
