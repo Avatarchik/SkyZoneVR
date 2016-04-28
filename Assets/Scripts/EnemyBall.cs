@@ -12,6 +12,7 @@ public class EnemyBall : MonoBehaviour {
 	public bool fromEnemy = true;
 	bool streakChain = false;
 	public bool hitGround = false;
+	bool addedToWarmUpBallsDone = false;
 
 	GameObject aimAssistEnemy;
 	//GameObject player;
@@ -118,6 +119,7 @@ public class EnemyBall : MonoBehaviour {
         gameObject.layer = 11;
 		streakChain = false;
 		hitGround = false;
+		addedToWarmUpBallsDone = false;
 		aimAssistEnemy = null;
 		ResetPowerUps ();
 
@@ -198,10 +200,24 @@ public class EnemyBall : MonoBehaviour {
 
 			if (hitGround)
 				SetInactive ();
+
+			//Warm Up
+			if (gm.gamePhaseInt == 1 && !hitGround && !addedToWarmUpBallsDone) 
+			{
+				gm.warmUpBallsDone += 1;
+				addedToWarmUpBallsDone = true;
+			}
 		}
 
 		if (gameObject.layer == 12 && coll.collider.gameObject.layer == 0 )//&& !streakChain) 
 		{
+			//Warm Up
+			if (gm.gamePhaseInt == 1 && !hitGround && !addedToWarmUpBallsDone) 
+			{
+				gm.warmUpBallsDone += 1;
+				addedToWarmUpBallsDone = true;
+			}
+
 			hitGround = true;
 
 			if (bomb)
@@ -213,8 +229,12 @@ public class EnemyBall : MonoBehaviour {
 
 		if (coll.collider.gameObject.layer == 0 )
 		{
-			if (gm.gamePhaseInt == 1 && !hitGround)
+			//Warm Up
+			if (gm.gamePhaseInt == 1 && !hitGround && !addedToWarmUpBallsDone) 
+			{
 				gm.warmUpBallsDone += 1;
+				addedToWarmUpBallsDone = true;
+			}
 
 			hitGround = true;
 		}
@@ -279,7 +299,7 @@ public class EnemyBall : MonoBehaviour {
     {
         int powerUpChoice = Random.Range(0, 99);
 
-		if (tutorialBall)
+		if (tutorialBall || gm.gamePhaseInt == 1)
 			powerUpChoice = 99;
 
 		//1st Power Up (Bounce Back)
