@@ -109,9 +109,9 @@ public class Enemy : MonoBehaviour
 		renderers = gameObject.GetComponentsInChildren<Renderer> ();
 		fadeOutTimer = fadeOutTime;
 
-		foreach (Renderer rend in renderers) 
+		for (int i = 0; i < renderers.Length; i++) 
 		{
-			rend.material.color = new Color(rend.material.color.r, rend.material.color.g, rend.material.color.b, 1);
+			renderers[i].material.color = new Color(renderers[i].material.color.r, renderers[i].material.color.g, renderers[i].material.color.b, 1);
 		}
 
 		Reset();
@@ -167,9 +167,9 @@ public class Enemy : MonoBehaviour
 		onCourt = false;
 
 		fade = false;
-		foreach (Renderer rend in renderers) 
+		for (int i = 0; i < renderers.Length; i++) 
 		{
-			rend.material.color = new Color(rend.material.color.r, rend.material.color.g, rend.material.color.b, 1);
+			renderers[i].material.color = new Color(renderers[i].material.color.r, renderers[i].material.color.g, renderers[i].material.color.b, 1);
 		}
 	}
 
@@ -550,9 +550,10 @@ public class Enemy : MonoBehaviour
 //		{
 //			mat.color = new Color(mat.color.r, mat.color.g, mat.color.b, 1 / timer);
 //		}
-		foreach (Renderer rend in renderers) 
+
+		for (int i = 0; i < renderers.Length; i++) 
 		{
-			rend.material.color = new Color(rend.material.color.r, rend.material.color.g, rend.material.color.b, timer);
+			renderers[i].material.color = new Color(renderers[i].material.color.r, renderers[i].material.color.g, renderers[i].material.color.b, timer);
 		}
 	}
 
