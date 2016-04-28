@@ -141,13 +141,13 @@ public class Enemy : MonoBehaviour
 			transform.GetChild(i).gameObject.SetActive(false);
 		}
 
-		int randChar = Random.Range(0, 3);
+		int randChar = Random.Range(0, 2);
 		transform.GetChild(randChar).gameObject.SetActive(true);
 		animator = transform.GetChild(randChar).GetComponent<Animator> ();
-		if(randChar == 0) {
+		if(randChar == 3) {
 			int rand = Random.Range(0, maleTextures.Count - 1);
 			animator.GetComponentInChildren<SkinnedMeshRenderer>().material.mainTexture = maleTextures[rand];
-		} else if(randChar == 1) {
+		} else if(randChar == 4) {
 			int rand = Random.Range(0, femaleTextures.Count - 1);
 			animator.GetComponentInChildren<SkinnedMeshRenderer>().material.mainTexture = femaleTextures[rand];
 		} 
@@ -312,10 +312,11 @@ public class Enemy : MonoBehaviour
 		bool coroutineRunning = true;
 		animator.transform.localPosition = Vector3.zero;
 		animator.SetBool("Jump", true);
-		if(animator == transform.GetChild(2).GetComponent<Animator>())
-			animator.SetInteger("RandomJump", 1);
-		else
-			animator.SetInteger("RandomJump", Random.Range(1, 10));
+		animator.SetInteger ("RandomJump", 1);
+//		if(animator == transform.GetChild(2).GetComponent<Animator>())
+//			animator.SetInteger("RandomJump", 1);
+//		else
+//			animator.SetInteger("RandomJump", Random.Range(1, 10));
 
 		ClosestTile(transform.position).GetComponent<Animator>().SetTrigger("Bounce");
 		Vector3 startPos = transform.position;
