@@ -211,6 +211,8 @@ public class GameManager : MonoBehaviour {
 					SwitchGamePhase (GamePhase.ONE);
 				}
 
+				textManager.hitXBallsNumberText.text = (3 - warmUpBallsDone).ToString();
+
 				break;
 
 			case GamePhase.ONE:
@@ -380,14 +382,7 @@ public class GameManager : MonoBehaviour {
 			textManager.countdownText.gameObject.SetActive (true);
 			batHoldBox.SetActive (false);
 
-			textManager.timerText.gameObject.SetActive (true);
-			int minutes = Mathf.FloorToInt (gameTimer / 60F);
-			int seconds = Mathf.FloorToInt (gameTimer - minutes * 60);
-			string stringTimer = string.Format ("{0:0}:{1:00}", minutes, seconds);
-			textManager.timerText.text = "Time: " + stringTimer;
-
-			textManager.scoreText.gameObject.SetActive (true);
-			textManager.streakText.gameObject.SetActive (true);
+			textManager.warmUpText.gameObject.SetActive (true);
 
 			AdjustThrowDestinationHeightForNewPlayer ();
 
@@ -419,9 +414,6 @@ public class GameManager : MonoBehaviour {
 				}
 			}
 
-			score = 0;
-			streak = 0;
-			streakMultiplier = 1;
 			am.PlayBackgroundMusic ();
 			timer = gameTimer;
 			textManager.countdownText.gameObject.SetActive (false);
@@ -459,10 +451,13 @@ public class GameManager : MonoBehaviour {
 		switch (gp) 
 		{
 		case GamePhase.WARMUP:
-			textManager.timerText.gameObject.SetActive (false);
-			textManager.scoreText.gameObject.SetActive (false);
-			textManager.streakText.gameObject.SetActive (false);
-			textManager.warmUpText.gameObject.SetActive (true);
+//			textManager.timerText.gameObject.SetActive (false);
+//			textManager.scoreText.gameObject.SetActive (false);
+//			textManager.streakText.gameObject.SetActive (false);
+
+			textManager.warmUpText.gameObject.SetActive (false);
+			textManager.hitXBallsText.gameObject.SetActive (true);
+			textManager.hitXBallsNumberText.gameObject.SetActive (true);
 
 			gamePhaseInt = 1;
 
@@ -471,10 +466,16 @@ public class GameManager : MonoBehaviour {
 
 			break;
 		case GamePhase.ONE:
-			textManager.warmUpText.gameObject.SetActive (false);
+			textManager.hitXBallsText.gameObject.SetActive (false);
+			textManager.hitXBallsNumberText.gameObject.SetActive (false);
+
 			textManager.timerText.gameObject.SetActive (true);
 			textManager.scoreText.gameObject.SetActive (true);
 			textManager.streakText.gameObject.SetActive (true);
+
+			score = 0;
+			streak = 0;
+			streakMultiplier = 1;
 
 			StartCoroutine( "StartEnemyMove" );
 
