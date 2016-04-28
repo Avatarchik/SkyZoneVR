@@ -116,6 +116,8 @@ public class GameManager : MonoBehaviour {
 
 		CheckDebugInfoLog ();
 
+		gameTimer += 5;
+
 		SwitchGameMode(GameMode.STANDBY);
 	}
 
@@ -321,6 +323,18 @@ public class GameManager : MonoBehaviour {
                 string stringTimer = string.Format("{0:0}:{1:00}", minutes, seconds);
 				textManager.timerText.text = "Time: " + stringTimer;
 
+				if (gamePhaseInt == 2 && timer > gameTimer - 4) 
+				{
+					textManager.gameStartingText.gameObject.SetActive (true);
+				} 
+				else if (gamePhaseInt >= 2 && timer <= gameTimer - 4)
+				{
+					textManager.gameStartingText.gameObject.SetActive (false);
+					textManager.timerText.gameObject.SetActive (true);
+					textManager.scoreText.gameObject.SetActive (true);
+					textManager.streakText.gameObject.SetActive (true);
+				}
+
                 if (timer < 6)
                 {
                     if (!am.playBeepOnce)
@@ -469,9 +483,9 @@ public class GameManager : MonoBehaviour {
 			textManager.hitXBallsText.gameObject.SetActive (false);
 			textManager.hitXBallsNumberText.gameObject.SetActive (false);
 
-			textManager.timerText.gameObject.SetActive (true);
-			textManager.scoreText.gameObject.SetActive (true);
-			textManager.streakText.gameObject.SetActive (true);
+//			textManager.timerText.gameObject.SetActive (true);
+//			textManager.scoreText.gameObject.SetActive (true);
+//			textManager.streakText.gameObject.SetActive (true);
 
 			score = 0;
 			streak = 0;

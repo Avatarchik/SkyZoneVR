@@ -108,7 +108,7 @@ public class Enemy : MonoBehaviour
 		//materials = gameObject.GetComponentsInChildren<Material>();
 		renderers = gameObject.GetComponentsInChildren<Renderer> ();
 		fadeOutTimer = fadeOutTime;
-
+		fade = false;
 		for (int i = 0; i < renderers.Length; i++) 
 		{
 			renderers[i].material.color = new Color(renderers[i].material.color.r, renderers[i].material.color.g, renderers[i].material.color.b, 1);
@@ -165,18 +165,13 @@ public class Enemy : MonoBehaviour
 		animator.enabled = true;
 
 		onCourt = false;
-
-		fade = false;
-		for (int i = 0; i < renderers.Length; i++) 
-		{
-			renderers[i].material.color = new Color(renderers[i].material.color.r, renderers[i].material.color.g, renderers[i].material.color.b, 1);
-		}
 	}
 
 	void Update() {
 		if(lifeEndTime > 0f) {
 			if(Time.time > lifeEndTime) {
-				gameObject.SetActive(false);
+				//gameObject.SetActive(false);
+				fade = true;
 			}
 		}
 			
@@ -239,7 +234,6 @@ public class Enemy : MonoBehaviour
 			if(animator == transform.GetChild(2).GetComponent<Animator>())
 				pointsToAdd++;
 			
-			fade = true;
 			hit = true;
 			StopCoroutine ("Move");
 			StopCoroutine ("Hop");
