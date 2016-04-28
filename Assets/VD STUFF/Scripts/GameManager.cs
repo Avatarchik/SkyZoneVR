@@ -19,12 +19,14 @@ public class GameManager : MonoBehaviour {
 
 	enum GamePhase
 	{
+		WARMUP,
 		ONE, //2 enemies at a time
 		TWO, //6 enemies
 		THREE, //unlimited enemies
 		END //Game over/reset
 	}
 
+	private TextManager textManager;
 	private TutorialManager tm;
 	private AudioManager am;
 	private AimAssistManager aam;
@@ -35,11 +37,6 @@ public class GameManager : MonoBehaviour {
 
 	public GameObject player;
 
-	private GameObject scoreText;
-	private GameObject timerText;
-	private GameObject streakText;
-	private GameObject countdownText;
-	private GameObject finalScoreText;
 	private int score;
 	private int streak = 0;
 	public int streakMultiplier;
@@ -68,6 +65,9 @@ public class GameManager : MonoBehaviour {
 	public GameObject ballPrefab;
 
 	public List<EnemyBall> activeBalls;
+
+	public int warmUpBallsThrown;
+	public int warmUpBallsDone;
 
 	[System.NonSerialized]
 	public float timer = 0f;
@@ -108,12 +108,8 @@ public class GameManager : MonoBehaviour {
 		tm = GetComponent<TutorialManager> ();
 		am = GameObject.Find ("AudioManager").GetComponent<AudioManager> ();
 		aam = GetComponent<AimAssistManager> ();
+		textManager = GetComponent<TextManager> ();
 
-		scoreText = GameObject.Find ("ScoreText");
-		timerText = GameObject.Find ("TimerText");
-		streakText = GameObject.Find ("StreakText");
-		countdownText = GameObject.Find ("CountdownText");
-		finalScoreText = GameObject.Find ("FinalScoreText");
 		queueManager = GameObject.Find( "QueueManager" ).GetComponent<QueueManager>();
 
 		ac.Calibrate ();
@@ -174,18 +170,18 @@ public class GameManager : MonoBehaviour {
 			} 
 			else if (timer <= 1) 
 			{
-				countdownText.GetComponent<Text> ().text = "Go!";
+				textManager.countdownText.text = "Go!";
 			} 
 			else if (timer >= 4)
 			{
 				if (!inTutorialMode)
-					countdownText.GetComponent<Text> ().text = "Get Ready!";
+					textManager.countdownText.text = "Get Ready!";
 				else
-					countdownText.GetComponent<Text> ().text = "Tutorial";
+					textManager.countdownText.text = "Tutorial";
 			}
 			else
 			{
-				countdownText.GetComponent<Text>().text = ((int)timer).ToString();
+				textManager.countdownText.text = ((int)timer).ToString();
 			}
 
 			timer -= Time.deltaTime;
@@ -198,8 +194,27 @@ public class GameManager : MonoBehaviour {
 
 		case GameMode.GAME:
 			switch (phase) {
+			case GamePhase.WARMUP:
+				if (aam.onCourtEnemies.Count >= 1) {
+					if (moveEnemyIsRunning) {
+						StopCoroutine ("StartEnemyMove");
+						moveEnemyIsRunning = false;
+					}
+
+				} else {
+					if (!moveEnemyIsRunning)
+						StartCoroutine ("StartEnemyMove");
+				}
+
+				if (warmUpBallsThrown >= 3 && warmUpBallsDone >= 3) {
+					aam.onCourtEnemies [0].GetComponent<Enemy> ().CallFade ();
+					SwitchGamePhase (GamePhase.ONE);
+				}
+
+				break;
+
 			case GamePhase.ONE:
-				if (aam.onCourtEnemies.Count >= 3) {// && moveEnemyIsRunning) 
+				if (aam.onCourtEnemies.Count >= 3) { 
 					if (moveEnemyIsRunning) {
 						StopCoroutine ("StartEnemyMove");
 						moveEnemyIsRunning = false;
@@ -254,59 +269,62 @@ public class GameManager : MonoBehaviour {
 			}
 
 			//SCORE TEXT
-			scoreText.GetComponent<Text> ().text = "Score: " + score;
+			textManager.scoreText.text = "Score: " + score;
 
 			//STREAK TEXT
-			streakText.GetComponent<Text> ().text = "Streak: " + streak + " (x" + streakMultiplier + ")";
+			textManager.streakText.text = "Streak: " + streak + " (x" + streakMultiplier + ")";
 			streakMultiplier = Mathf.Clamp (1 + Mathf.Clamp (streak, 0, 1) + (int)(streak / 3), 1, 3);
 
-                if (timer <= 0)
-                {
-                    timer = 0;
-                    timerText.GetComponent<Text>().text = "Time: 0:00";
+            if (timer <= 0)
+            {
+                timer = 0;
+				textManager.timerText.text = "Time: 0:00";
 
-                    Enemy[] enemies = GameObject.FindObjectsOfType<Enemy>();
+                Enemy[] enemies = GameObject.FindObjectsOfType<Enemy>();
+                foreach (Enemy enemy in enemies)
+                {
+                    enemy.StopCoroutine("ThrowRoutine");
+                }
+
+                if (!BallsAreStillInAir())
+                {
+                    //ballManager.StopAllCoroutines ();
+                    StopAllCoroutines();
                     foreach (Enemy enemy in enemies)
                     {
-                        enemy.StopCoroutine("ThrowRoutine");
+                        enemy.StopAllCoroutines();
+                        enemy.gameObject.SetActive(false);
                     }
 
-                    if (!BallsAreStillInAir())
-                    {
-                        //ballManager.StopAllCoroutines ();
-                        StopAllCoroutines();
-                        foreach (Enemy enemy in enemies)
-                        {
-                            enemy.StopAllCoroutines();
-                            enemy.gameObject.SetActive(false);
-                        }
+                    //timer = scoreboardTimer;
+                    SwitchGameMode(GameMode.GAMEOVER);
 
-                        //timer = scoreboardTimer;
-                        SwitchGameMode(GameMode.GAMEOVER);
+                    // Fuck you eric
+                    spawnFloor.ResetTilesFilled();
+                    queueManager.Reset();
 
-                        // Fuck you eric
-                        spawnFloor.ResetTilesFilled();
-                        queueManager.Reset();
-
-                        return;
-                    }
+                    return;
                 }
-                else
+            }
+            else
+            {
+				if (phase == GamePhase.WARMUP)
+					timer = gameTimer;
+				else
+					timer -= Time.deltaTime;
+
+                //TIMER TEXT
+                int minutes = Mathf.FloorToInt(timer / 60F);
+                int seconds = Mathf.FloorToInt(timer - minutes * 60);
+                string stringTimer = string.Format("{0:0}:{1:00}", minutes, seconds);
+				textManager.timerText.text = "Time: " + stringTimer;
+
+                if (timer < 6)
                 {
-                    timer -= Time.deltaTime;
-
-                    //TIMER TEXT
-                    int minutes = Mathf.FloorToInt(timer / 60F);
-                    int seconds = Mathf.FloorToInt(timer - minutes * 60);
-                    string stringTimer = string.Format("{0:0}:{1:00}", minutes, seconds);
-                    timerText.GetComponent<Text>().text = "Time: " + stringTimer;
-
-                    if (timer < 6)
-                    {
-                        if (!am.playBeepOnce)
-                            am.StartCoroutine("CountdownBoopRoutine", timer);
-                    }
+                    if (!am.playBeepOnce)
+                        am.StartCoroutine("CountdownBoopRoutine", timer);
                 }
+            }
 
 			break;
 		case GameMode.GAMEOVER:
@@ -343,11 +361,12 @@ public class GameManager : MonoBehaviour {
 
 			gamePhaseInt = 0;
 			StaticPool.DestroyAllObjects ();
-			countdownText.SetActive (false);
-			scoreText.SetActive (false);
-			timerText.SetActive (false);
-			streakText.SetActive (false);
-			finalScoreText.SetActive (false);
+			textManager.countdownText.gameObject.SetActive (false);
+			textManager.scoreText.gameObject.SetActive (false);
+			textManager.timerText.gameObject.SetActive (false);
+			textManager.streakText.gameObject.SetActive (false);
+			textManager.finalScoreText.gameObject.SetActive (false);
+
 			batHoldBox.SetActive (true);
 			am.PlayAmbientCubeAudio ();
 			foreach (Material mat in gridMats)
@@ -358,26 +377,28 @@ public class GameManager : MonoBehaviour {
 			ac.Calibrate ();
 
 			timer = 5f;
-			countdownText.SetActive (true);
+			textManager.countdownText.gameObject.SetActive (true);
 			batHoldBox.SetActive (false);
 
-			timerText.SetActive (true);
+			textManager.timerText.gameObject.SetActive (true);
 			int minutes = Mathf.FloorToInt (gameTimer / 60F);
 			int seconds = Mathf.FloorToInt (gameTimer - minutes * 60);
 			string stringTimer = string.Format ("{0:0}:{1:00}", minutes, seconds);
-			timerText.GetComponent<Text> ().text = "Time: " + stringTimer;
+			textManager.timerText.text = "Time: " + stringTimer;
 
-			scoreText.SetActive (true);
-			streakText.SetActive (true);
+			textManager.scoreText.gameObject.SetActive (true);
+			textManager.streakText.gameObject.SetActive (true);
 
 			AdjustThrowDestinationHeightForNewPlayer ();
 
 			score = 0;
 			streak = 0;
 			streakMultiplier = 1;
+			warmUpBallsThrown = 0;
+			warmUpBallsDone = 0;
 			break;
 		case GameMode.TUTORIAL:
-			countdownText.SetActive (false);
+			textManager.countdownText.gameObject.SetActive (false);
 			batHoldBox.SetActive (false);
 
 			inTutorialMode = true;
@@ -387,7 +408,7 @@ public class GameManager : MonoBehaviour {
 		case GameMode.GAME:
 
 			aam.ClearOnCourtEnemies ();
-			SwitchGamePhase (GamePhase.ONE);
+			SwitchGamePhase (GamePhase.WARMUP);
 
 			GameObject[] staticPoolBalls = GameObject.FindGameObjectsWithTag ("Ball");
 			if (staticPoolBalls.Length >= 1) 
@@ -403,18 +424,11 @@ public class GameManager : MonoBehaviour {
 			streakMultiplier = 1;
 			am.PlayBackgroundMusic ();
 			timer = gameTimer;
-			countdownText.SetActive(false);
-			scoreText.SetActive(true);
-			timerText.SetActive(true);
-			streakText.SetActive (true);
+			textManager.countdownText.gameObject.SetActive (false);
 
 			//StaticPool.DisableAllObjects();
 			//StaticPool.DestroyAllObjects(); // Ghetto fix for now. Wasting an allocation somewhere also I think.
 			queueManager.Reset();
-
-			StartCoroutine ("SpawnEnemy");
-			StartCoroutine( "StartEnemyMove" );
-
 			break;
 		case GameMode.GAMEOVER:
 			if (score > GetHighScore ()) 
@@ -424,11 +438,11 @@ public class GameManager : MonoBehaviour {
 
 			timer = 3f;
 
-			timerText.GetComponent<Text> ().text = "Time: 0:00";
-			scoreText.GetComponent<Text> ().text = "Score: " + score;
-			streakText.GetComponent<Text> ().text = "Streak: " + streak + " (x" + streakMultiplier + ")";
-			finalScoreText.GetComponent<Text> ().text = "Score: " + score;
-			finalScoreText.SetActive (true);
+			textManager.timerText.text = "Time: 0:00";
+			textManager.scoreText.text = "Score: " + score;
+			textManager.streakText.text = "Streak: " + streak + " (x" + streakMultiplier + ")";
+			textManager.finalScoreText.text = "Score: " + score;
+			textManager.finalScoreText.gameObject.SetActive (true);
 
             am.StopAllCoroutines();
             aam.ClearOnCourtEnemies ();
@@ -444,9 +458,28 @@ public class GameManager : MonoBehaviour {
 	{
 		switch (gp) 
 		{
-		case GamePhase.ONE:
-			phaseTimer = 30f;
+		case GamePhase.WARMUP:
+			textManager.timerText.gameObject.SetActive (false);
+			textManager.scoreText.gameObject.SetActive (false);
+			textManager.streakText.gameObject.SetActive (false);
+			textManager.warmUpText.gameObject.SetActive (true);
+
 			gamePhaseInt = 1;
+
+			StartCoroutine ("SpawnEnemy");
+			moveEnemyIsRunning = false;
+
+			break;
+		case GamePhase.ONE:
+			textManager.warmUpText.gameObject.SetActive (false);
+			textManager.timerText.gameObject.SetActive (true);
+			textManager.scoreText.gameObject.SetActive (true);
+			textManager.streakText.gameObject.SetActive (true);
+
+			StartCoroutine( "StartEnemyMove" );
+
+			phaseTimer = 30f;
+			gamePhaseInt++;
 
 			break;
 

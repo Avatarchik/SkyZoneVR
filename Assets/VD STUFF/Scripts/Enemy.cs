@@ -38,14 +38,19 @@ public class Enemy : MonoBehaviour
 
 	Animator animator;
 
+	public Renderer[] renderers;
+	Material[] materials;
 	public List<Texture> maleTextures;
 	public List<Texture> femaleTextures;
 
 	Rigidbody[] rbs;
 
 	bool hit;
-
 	float lifeEndTime;
+
+	public float fadeOutTime = 1.5f;
+	float fadeOutTimer;
+	bool fade;
 
 	[System.NonSerialized]
 	public GameObject hitBy;
@@ -89,6 +94,9 @@ public class Enemy : MonoBehaviour
 		player = GameObject.Find("Player");
 		playerPos = player.transform.position;
 
+		//materials = gameObject.GetComponentsInChildren<Material>();
+		renderers = gameObject.GetComponentsInChildren<Renderer> ();
+
 //		tutorialHop.dest = transform.position + new Vector3(0, hopHeight, 0);
 //		tutorialHop.time = 2f;
     }
@@ -96,6 +104,15 @@ public class Enemy : MonoBehaviour
 	void OnEnable() 
 	{
 		tutorialHop = new HopData(new Vector3(transform.position.x, 3f, transform.position.z), 1.7f);
+
+		//materials = gameObject.GetComponentsInChildren<Material>();
+		renderers = gameObject.GetComponentsInChildren<Renderer> ();
+		fadeOutTimer = fadeOutTime;
+
+		foreach (Renderer rend in renderers) 
+		{
+			rend.material.color = new Color(rend.material.color.r, rend.material.color.g, rend.material.color.b, 1);
+		}
 
 		Reset();
 	}
@@ -148,6 +165,12 @@ public class Enemy : MonoBehaviour
 		animator.enabled = true;
 
 		onCourt = false;
+
+		fade = false;
+		foreach (Renderer rend in renderers) 
+		{
+			rend.material.color = new Color(rend.material.color.r, rend.material.color.g, rend.material.color.b, 1);
+		}
 	}
 
 	void Update() {
@@ -161,6 +184,21 @@ public class Enemy : MonoBehaviour
 		if (canThrow) {
 			//Throw ();
 			StartCoroutine ("ThrowRoutine");
+		}
+
+		if (fade) 
+		{
+			StopCoroutine ("ThrowRoutine");
+
+			fadeOutTimer -= Time.deltaTime;
+			FadeOut (fadeOutTimer / fadeOutTime);
+
+			if (fadeOutTimer <= 0) 
+			{
+				fade = false;
+				gameObject.SetActive (false);
+				aam.onCourtEnemies.Remove (this.gameObject);
+			}
 		}
 	}
 
@@ -194,7 +232,8 @@ public class Enemy : MonoBehaviour
 
 			if(animator == transform.GetChild(2).GetComponent<Animator>())
 				pointsToAdd++;
-
+			
+			fade = true;
 			hit = true;
 			StopCoroutine ("Move");
 			StopCoroutine ("Hop");
@@ -264,7 +303,8 @@ public class Enemy : MonoBehaviour
 		//PlayerManager.ReducePoints(1);
 
 		aam.onCourtEnemies.Remove (this.gameObject);
-		gameObject.SetActive(false);
+		//gameObject.SetActive(false);
+		fade = true;
 		StopAllCoroutines();
 	}
 
@@ -375,6 +415,8 @@ public class Enemy : MonoBehaviour
 
 		GameObject ball = StaticPool.GetObj (ballPrefab);
 		gameMan.activeBalls.Add (ball.GetComponent<EnemyBall>());
+		if (gameMan.gamePhaseInt == 1)
+			gameMan.warmUpBallsThrown += 1;
 
 		//playerPos = player.transform.FindChild("Sphere").transform.position;//shpere
 		//playerPos = player.transform.position;
@@ -471,12 +513,15 @@ public class Enemy : MonoBehaviour
 		switch (gameMan.gamePhaseInt) 
 		{
 		case 1:
-			throwInterval = Random.Range(3, 6); //~4
+			throwInterval = 5f;
 			break;
 		case 2:
-			throwInterval = Random.Range (5, 10); //~6
+			throwInterval = Random.Range(3, 6); //~4
 			break;
 		case 3:
+			throwInterval = Random.Range (5, 10); //~6
+			break;
+		case 4:
 			throwInterval = Random.Range(5, 10); //~6
 			break;
 		}
@@ -492,8 +537,25 @@ public class Enemy : MonoBehaviour
 	//		}
 	//	}
 
+	void FadeOut(float timer)
+	{
+//		foreach (Material mat in materials) 
+//		{
+//			mat.color = new Color(mat.color.r, mat.color.g, mat.color.b, 1 / timer);
+//		}
+		foreach (Renderer rend in renderers) 
+		{
+			rend.material.color = new Color(rend.material.color.r, rend.material.color.g, rend.material.color.b, timer);
+		}
+	}
+
 	public void CallHit(GameObject ball)
 	{
 		Hit (ball);
+	}
+
+	public void CallFade()
+	{
+		fade = true;
 	}
 }

@@ -9,7 +9,7 @@
      Category
      {
          Lighting Off
-         ZWrite Off
+         ZWrite On
                  //ZWrite On  // uncomment if you have problems like the sprite disappear in some rotations.
          Cull back
          Blend SrcAlpha OneMinusSrcAlpha

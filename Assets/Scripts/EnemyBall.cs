@@ -213,6 +213,9 @@ public class EnemyBall : MonoBehaviour {
 
 		if (coll.collider.gameObject.layer == 0 )
 		{
+			if (gm.gamePhaseInt == 1 && !hitGround)
+				gm.warmUpBallsDone += 1;
+
 			hitGround = true;
 		}
     }
