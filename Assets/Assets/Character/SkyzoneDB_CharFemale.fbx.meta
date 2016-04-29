@@ -73,6 +73,7 @@ ModelImporter:
     100130: mixamorig:Spine2
     100132: SkyzoneDB_Character
     100134: //RootNode
+    100136: Mesh_Ponytail1
     400000: Mesh_Arm_L
     400002: Mesh_Arm_R
     400004: Mesh_Body
@@ -141,6 +142,7 @@ ModelImporter:
     400130: mixamorig:Spine2
     400132: SkyzoneDB_Character
     400134: //RootNode
+    400136: Mesh_Ponytail1
     4300000: Mesh_Ponytail
     4300002: Mesh_Eye_L
     4300004: Mesh_Eye_R
@@ -150,6 +152,7 @@ ModelImporter:
     4300012: Mesh_Shorts
     4300014: Mesh_Leg_L
     4300016: Mesh_Leg_R
+    4300018: Mesh_Ponytail1
     7400000: mixamo.com
     9500000: //RootNode
     13700000: Mesh_Arm_L
@@ -161,6 +164,7 @@ ModelImporter:
     13700012: Mesh_Leg_R
     13700014: Mesh_Ponytail
     13700016: Mesh_Shorts
+    13700018: Mesh_Ponytail1
   materials:
     importMaterials: 1
     materialName: 0
