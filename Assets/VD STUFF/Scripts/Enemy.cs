@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour
 	GameObject player;
 
 	public GameObject ballPrefab;
-	public float throwInterval = 2f;
+	int throwInterval = 2;
 	public float timeToPlayer = 3f;
 	Vector3 dir;
 	Vector3 playerPos;
@@ -108,9 +108,6 @@ public class Enemy : MonoBehaviour
 
 		//materials = gameObject.GetComponentsInChildren<Material>();
 		renderers = gameObject.GetComponentsInChildren<Renderer> ();
-
-//		tutorialHop.dest = transform.position + new Vector3(0, hopHeight, 0);
-//		tutorialHop.time = 2f;
     }
 
 	void OnEnable() 
@@ -201,12 +198,12 @@ public class Enemy : MonoBehaviour
 				aam.onCourtEnemies.Remove (this.gameObject);
 			}
 		} 
-//		else 
-//		{
-//			if (renderers [0].material.color.a == 1)
-//				return;
-//			FadeOut (1);
-//		}
+		else 
+		{
+			if (renderers [0].material.color.a == 1 && renderers.Length >= 1)
+				return;
+			FadeOut (1);
+		}
 	}
 
 	void Hit(GameObject p_hitBy) {
@@ -433,36 +430,6 @@ public class Enemy : MonoBehaviour
 			yield return StartCoroutine ("Hop", tutorialHop);
 		}
 	}
-
-//	IEnumerator ThrowRoutine(){
-//
-//		SwitchThrowInterval ();
-//
-//		if (inTutorialMode && waitToThrow) {
-//			//throwWaitTime = Random.Range (0, 4);
-//
-//			waitToThrow = false;
-//		} 
-//		else if (!waitToThrow) 
-//		{
-//			throwWaitTime = 0;
-//		}
-//
-//		canThrow = false;
-//
-//		yield return new WaitForSeconds (throwInterval);
-//
-//		Vector3 currentPlayerPos = player.transform.position;
-//		dir = currentPlayerPos - transform.position;
-//		dir.y = 0;
-//		transform.rotation = Quaternion.LookRotation (dir.normalized * -1);
-//
-//		yield return new WaitForSeconds (throwWaitTime); //this is for tutorial mode
-//
-//		Throw ();
-//
-//		canThrow = true;
-//	}
 
 	void Throw() {
 
