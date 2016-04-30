@@ -35,6 +35,7 @@ public class Enemy : MonoBehaviour
 	public List<GameObject> fakeBalls;
 	int powerUpChoice;
 
+    public bool inWarmUp = false;
 	bool canThrow = false;
 	public bool onCourt;
 
@@ -120,14 +121,9 @@ public class Enemy : MonoBehaviour
 	{
 		tutorialHop = new HopData(new Vector3(transform.position.x, 3f, transform.position.z), 1.7f);
 
-		//materials = gameObject.GetComponentsInChildren<Material>();
-		//renderers = gameObject.GetComponentsInChildren<Renderer> ();
 		fadeOutTimer = fadeOutTime;
 		fade = false;
-//		for (int i = 0; i < renderers.Length; i++) 
-//		{
-//			renderers[i].material.color = new Color(renderers[i].material.color.r, renderers[i].material.color.g, renderers[i].material.color.b, 1);
-//		}
+
 		for (int i = 0; i < allRenderers.Count; i++) 
 		{
 			allRenderers[i].material.color = new Color(allRenderers[i].material.color.r, allRenderers[i].material.color.g, allRenderers[i].material.color.b, 1);
@@ -178,6 +174,8 @@ public class Enemy : MonoBehaviour
 		lifeEndTime = -1f;
 		animator.enabled = true;
 		onCourt = false;
+        if (gameMan.gamePhaseInt > 1)
+            inWarmUp = false;
 
 		activeFakeBall = fakeBalls [randChar];
 		ChooseBallPowerUp ();
@@ -600,8 +598,20 @@ public class Enemy : MonoBehaviour
 		
 	public void ChooseBallPowerUp()
 	{
-		powerUpChoice = Random.Range(0, 99);
+		//powerUpChoice = Random.Range(0, 99);
 		string matName = "";
+
+        if(gameMan.gamePhaseInt == 1)
+        {
+            if (inWarmUp || onCourt)
+            {
+                powerUpChoice = 99;
+            }
+        }
+        else
+        {
+            powerUpChoice = Random.Range(0, 99);
+        }
 
 		if (powerUpChoice >= 26) 
 		{

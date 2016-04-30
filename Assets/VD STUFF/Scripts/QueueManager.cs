@@ -29,6 +29,11 @@ public class QueueManager : MonoBehaviour {
 			GameObject enemy = StaticPool.GetObj(enemyObject);
 			enemy.transform.position = m_queueEnd.transform.position;
 			enemy.GetComponent<Enemy>().Reset();
+            if (m_queueEnd.gameObject.name == "Waypoint 0" || m_queueEnd.gameObject.name == "Waypoint 1" || m_queueEnd.gameObject.name == "Waypoint 2")
+            {
+                enemy.GetComponent<Enemy>().inWarmUp = true;
+                enemy.GetComponent<Enemy>().ChooseBallPowerUp();
+            }
 			// (GameObject)Instantiate( enemyObject, m_queueEnd.transform.position, Quaternion.identity );
 
 			// Turn colliders off when they spawn in the line
