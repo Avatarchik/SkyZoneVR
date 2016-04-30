@@ -289,7 +289,25 @@ public class EnemyBall : MonoBehaviour
 				if (mat.name.Contains (matName))
 					trail.material = mat;
 			}
-		} 
+
+            foreach (GameObject particle in ebm.particlesList)
+            {
+                if (particle.name.Contains(matName))
+                {
+                    if (gameObject.transform.childCount > 0)
+                    {
+                        for (int i = 0; i < gameObject.transform.childCount; i++)
+                        {
+                            Destroy(gameObject.transform.GetChild(i).gameObject);
+                        }
+                    }
+
+                    GameObject newParticle = Instantiate(particle);
+                    newParticle.transform.parent = gameObject.transform;
+                    newParticle.transform.localPosition = Vector3.zero;
+                }
+            }
+        } 
 		else 
 		{
 			renderer.material = ebm.materialList [0];

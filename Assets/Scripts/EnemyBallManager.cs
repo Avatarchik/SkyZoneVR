@@ -7,6 +7,7 @@ public class EnemyBallManager : MonoBehaviour
 
 	public List<Material> materialList;
 	public List<Material> trailMaterialList;
+    public List<GameObject> particlesList;
 
 	// Use this for initialization
 	void Start () 

@@ -650,6 +650,24 @@ public class Enemy : MonoBehaviour
 				activeFakeBall.GetComponent<Renderer> ().material = mat;
 			}
 		}
+
+        foreach(GameObject particle in ebm.particlesList)
+        {
+            if (particle.name.Contains(matName))
+            {
+                if(activeFakeBall.transform.childCount > 0)
+                {
+                    for(int i = 0; i < activeFakeBall.transform.childCount; i++)
+                    {
+                        Destroy(activeFakeBall.transform.GetChild(i).gameObject);
+                    }
+                }
+
+                GameObject newParticle = Instantiate(particle);
+                newParticle.transform.parent = activeFakeBall.transform;
+                newParticle.transform.localPosition = Vector3.zero;
+            }
+        }
 	}
 
 	void FadeOut(float timer)
