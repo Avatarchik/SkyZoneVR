@@ -109,6 +109,9 @@ public class EnemyBall : MonoBehaviour
 			if (transform.position == lerpEnemyPos || lerpEnemy.activeSelf == false || lerpEnemy == null)
 				shouldLerp = false;
 		}
+
+        if (hitGround && transform.GetChild(0).gameObject.activeSelf == true)
+            transform.GetChild(0).gameObject.SetActive(false);
 	}
 
 	public void Reset()
@@ -182,10 +185,16 @@ public class EnemyBall : MonoBehaviour
 
 		if (gameObject.layer == 12 && coll.collider.gameObject.tag == "Enemy") 
 		{
-			if (coll.collider.gameObject.GetComponent<Enemy> () == null && !hitGround)
-				coll.collider.gameObject.SendMessageUpwards ("Hit", this.gameObject, SendMessageOptions.DontRequireReceiver);
-			else
-				coll.collider.gameObject.GetComponent<Enemy> ().CallHit (this.gameObject);
+            if (coll.collider.gameObject.GetComponent<Enemy>() == null && !hitGround)
+            {
+                coll.collider.gameObject.SendMessageUpwards("Hit", this.gameObject, SendMessageOptions.DontRequireReceiver);
+            }
+            else
+            {
+                coll.collider.gameObject.GetComponent<Enemy>().CallHit(this.gameObject);
+                print(this.gameObject + ": ball");
+                print("Enemy: " + coll.collider.gameObject);
+            }
 
 			//gm.AddToStreak ();
 			streakChain = true;
@@ -289,24 +298,6 @@ public class EnemyBall : MonoBehaviour
 				if (mat.name.Contains (matName))
 					trail.material = mat;
 			}
-
-            foreach (GameObject particle in ebm.particlesList)
-            {
-                if (particle.name.Contains(matName))
-                {
-                    if (gameObject.transform.childCount > 0)
-                    {
-                        for (int i = 0; i < gameObject.transform.childCount; i++)
-                        {
-                            Destroy(gameObject.transform.GetChild(i).gameObject);
-                        }
-                    }
-
-                    GameObject newParticle = Instantiate(particle);
-                    newParticle.transform.parent = gameObject.transform;
-                    newParticle.transform.localPosition = Vector3.zero;
-                }
-            }
         } 
 		else 
 		{

@@ -55,7 +55,7 @@ public class Enemy : MonoBehaviour
 	public List<Texture> maleTextures;
 	public List<Texture> femaleTextures;
 
-	Rigidbody[] rbs;
+	public Rigidbody[] rbs;
 
 	bool hit;
 	float lifeEndTime;
@@ -86,18 +86,18 @@ public class Enemy : MonoBehaviour
 
     void Awake()
     {
-        rbs = gameObject.GetComponentsInChildren<Rigidbody>();
+        //rbs = gameObject.GetComponentsInChildren<Rigidbody>();
 
-//        foreach (Rigidbody rb in rbs)
-//        {
-//            //rb.mass *= 8;
-//			rb.useGravity = false;
-//			rb.isKinematic = true;
-//        }
+        foreach (Rigidbody rb in rbs)
+        {
+            //rb.mass *= 8;
+            rb.useGravity = false;
+            rb.isKinematic = true;
+        }
 
-		//tutorialHop = new HopData(transform.position, 1.7f);
+        //tutorialHop = new HopData(transform.position, 1.7f);
 
-		gameMan = GameObject.Find ("GameManager").GetComponent<GameManager>();
+        gameMan = GameObject.Find ("GameManager").GetComponent<GameManager>();
 		audioMan = GameObject.Find ("AudioManager").GetComponent<AudioManager>();
 		tutMan = gameMan.gameObject.GetComponent<TutorialManager> ();
 		aam = gameMan.gameObject.GetComponent<AimAssistManager> ();
@@ -167,6 +167,12 @@ public class Enemy : MonoBehaviour
 			animator.GetComponentInChildren<SkinnedMeshRenderer>().material.mainTexture = femaleTextures[rand];
 		} 
 
+        foreach(Rigidbody rb in rbs)
+        {
+            rb.useGravity = false;
+            rb.isKinematic = true;
+        }
+
 		gameObject.layer = 10; //reset layer to enemy layer
 		SetKinematic(true);
 		curRow = 0;
@@ -178,6 +184,7 @@ public class Enemy : MonoBehaviour
             inWarmUp = false;
 
 		activeFakeBall = fakeBalls [randChar];
+        activeFakeBall.SetActive(true);
 		ChooseBallPowerUp ();
 	}
 
@@ -202,6 +209,7 @@ public class Enemy : MonoBehaviour
 				StopAllCoroutines ();
 				gameObject.SetActive (false);
 				aam.onCourtEnemies.Remove (this.gameObject);
+                onCourt = false;
 			}
 		} 
 		else 
@@ -212,7 +220,7 @@ public class Enemy : MonoBehaviour
 				return;
 			FadeOut (1);
 		}
-	}
+    }
 
 	void Hit(GameObject p_hitBy) {
 		if(!hit) {
@@ -224,6 +232,7 @@ public class Enemy : MonoBehaviour
 			}
 
 			aam.onCourtEnemies.Remove (this.gameObject);
+            onCourt = false;
 
 			int pointsToAdd = 1;
 			gameMan.GetComponent<GameManager> ().AddScore (pointsToAdd);
@@ -235,9 +244,9 @@ public class Enemy : MonoBehaviour
 			Vector3 ragdollDir = (transform.position - p_hitBy.transform.position).normalized;
 			foreach (Rigidbody rb in rbs)
 			{
-//				rb.useGravity = true;
-//				rb.isKinematic = false;
-				rb.velocity = (ragdollDir * 25);
+                rb.useGravity = true;
+                rb.isKinematic = false;
+                rb.velocity = (ragdollDir * 25);
 			}
 				
 			gameObject.layer = 11; //puts enemy on the enemy ball layer temporarily
@@ -315,6 +324,7 @@ public class Enemy : MonoBehaviour
 
 		aam.onCourtEnemies.Remove (this.gameObject);
 		fade = true;
+        onCourt = false;
 
 		yield return StartCoroutine ("Hop", new HopData (floor.tiles [curColumn, curRow-1].transform.position, Random.Range (1.5f, 1.7f)));
 		//StopAllCoroutines();
@@ -471,7 +481,14 @@ public class Enemy : MonoBehaviour
 		ball.transform.position = activeFakeBall.transform.position; //throwPoint.position;
 		ball.transform.rotation = activeFakeBall.transform.rotation;
 
-		float hVel = Vector3.Distance (playerPos, throwPoint.position) / timeToPlayer;
+        if (ball.transform.childCount > 0)
+            for (int i = 0; i < ball.transform.childCount; i++)
+                Destroy(ball.transform.GetChild(i).gameObject);
+        GameObject particle = activeFakeBall.transform.GetChild(0).gameObject;
+        particle.transform.parent = ball.transform;
+        particle.transform.localPosition = Vector3.zero;
+
+        float hVel = Vector3.Distance (playerPos, throwPoint.position) / timeToPlayer;
 		//float vVel = (4f + 0.5f * -Physics.gravity.y * Mathf.Pow (timeToPlayer, 2) - throwPoint.position.y) / timeToPlayer;
 		float vVel = (0.5f * Physics.gravity.y * Mathf.Pow (timeToPlayer, 2) + throwPoint.position.y - playerPos.y) / -timeToPlayer;
 
@@ -508,6 +525,7 @@ public class Enemy : MonoBehaviour
 			aam = GameObject.Find ("GameManager").GetComponent<AimAssistManager> ();
 		}
 		aam.onCourtEnemies.Add (this.gameObject);
+        onCourt = true;
 	}
 
 	public void GoToQueuePos( Waypoint wp ) {
