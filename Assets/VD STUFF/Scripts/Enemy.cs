@@ -439,36 +439,6 @@ public class Enemy : MonoBehaviour
 		}
 	}
 
-//	IEnumerator ThrowRoutine(){
-//
-//		SwitchThrowInterval ();
-//
-//		if (inTutorialMode && waitToThrow) {
-//			//throwWaitTime = Random.Range (0, 4);
-//
-//			waitToThrow = false;
-//		} 
-//		else if (!waitToThrow) 
-//		{
-//			throwWaitTime = 0;
-//		}
-//
-//		canThrow = false;
-//
-//		yield return new WaitForSeconds (throwInterval);
-//
-//		Vector3 currentPlayerPos = player.transform.position;
-//		dir = currentPlayerPos - transform.position;
-//		dir.y = 0;
-//		transform.rotation = Quaternion.LookRotation (dir.normalized * -1);
-//
-//		yield return new WaitForSeconds (throwWaitTime); //this is for tutorial mode
-//
-//		Throw ();
-//
-//		canThrow = true;
-//	}
-
 	void Throw() {
 
 		Transform activeFakeBallTransform = activeFakeBall.transform;
