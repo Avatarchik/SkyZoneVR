@@ -19,17 +19,27 @@ public class Enemy : MonoBehaviour
 	private AudioManager audioMan;
 	private TutorialManager tutMan;
 	private AimAssistManager aam;
+	private EnemyBallManager ebm;
+
+	GameObject player;
 
 	public GameObject ballPrefab;
 	public float throwInterval = 2f;
 	public float timeToPlayer = 3f;
 	Vector3 dir;
 	Vector3 playerPos;
+
+	float throwTimer;
+	public int jumps = 0;
+	public GameObject activeFakeBall;
+	public List<GameObject> fakeBalls;
+	int powerUpChoice;
+
 	bool canThrow = false;
-	GameObject player;
 	public bool onCourt;
 
-	public Transform throwPoint; 
+	public Transform throwPoint;
+	private Transform throwDestination;
 
 	public GameObject hitParticle;
 	public GameObject hitTextPopUp;
@@ -72,7 +82,7 @@ public class Enemy : MonoBehaviour
 	public bool waitToThrow;
 	public float throwWaitTime = 0f;
 
-    void Start()
+    void Awake()
     {
         rbs = gameObject.GetComponentsInChildren<Rigidbody>();
 
@@ -89,10 +99,12 @@ public class Enemy : MonoBehaviour
 		audioMan = GameObject.Find ("AudioManager").GetComponent<AudioManager>();
 		tutMan = gameMan.gameObject.GetComponent<TutorialManager> ();
 		aam = gameMan.gameObject.GetComponent<AimAssistManager> ();
+		ebm = gameMan.gameObject.GetComponent<EnemyBallManager> ();
 
 		floor = GameObject.Find ("Floor").GetComponent<SpawnFloor> ();
 		player = GameObject.Find("Player");
 		playerPos = player.transform.position;
+		throwDestination = GameObject.Find ("ThrowDestination").transform;
 
 		//materials = gameObject.GetComponentsInChildren<Material>();
 		renderers = gameObject.GetComponentsInChildren<Renderer> ();
@@ -153,54 +165,48 @@ public class Enemy : MonoBehaviour
 		} 
 
 		gameObject.layer = 10; //reset layer to enemy layer
-
 		SetKinematic(true);
-
 		curRow = 0;
-
 		hit = false;
-
 		lifeEndTime = -1f;
-
 		animator.enabled = true;
-
 		onCourt = false;
+
+//		if(transform.GetChild (randChar).GetComponentInChildren<FakeBall> ().gameObject.activeSelf == true)
+//			activeFakeBall = transform.GetChild (randChar).GetComponentInChildren<FakeBall> ().gameObject;
+		activeFakeBall = fakeBalls [randChar];
+		ChooseBallPowerUp ();
 	}
 
 	void Update() {
+		//Die
 		if(lifeEndTime > 0f) {
 			if(Time.time > lifeEndTime) {
 				//gameObject.SetActive(false);
 				fade = true;
 			}
 		}
-			
-		//Throw
-		if (canThrow) {
-			//Throw ();
-			StartCoroutine ("ThrowRoutine");
-		}
 
+		//Fade
 		if (fade) 
 		{
-			StopCoroutine ("ThrowRoutine");
-
 			fadeOutTimer -= Time.deltaTime;
 			FadeOut (fadeOutTimer / fadeOutTime);
 
 			if (fadeOutTimer <= 0) 
 			{
 				fade = false;
+				StopAllCoroutines ();
 				gameObject.SetActive (false);
 				aam.onCourtEnemies.Remove (this.gameObject);
 			}
 		} 
-		else 
-		{
-			if (renderers [0].material.color.a == 1)
-				return;
-			FadeOut (1);
-		}
+//		else 
+//		{
+//			if (renderers [0].material.color.a == 1)
+//				return;
+//			FadeOut (1);
+//		}
 	}
 
 	void Hit(GameObject p_hitBy) {
@@ -303,16 +309,29 @@ public class Enemy : MonoBehaviour
 		//PlayerManager.ReducePoints(1);
 
 		aam.onCourtEnemies.Remove (this.gameObject);
-		//gameObject.SetActive(false);
 		fade = true;
-		StopAllCoroutines();
+
+		yield return StartCoroutine ("Hop", new HopData (floor.tiles [curColumn, curRow-1].transform.position, Random.Range (1.5f, 1.7f)));
+		//StopAllCoroutines();
 	}
 
 	IEnumerator Hop(HopData data) {
 		bool coroutineRunning = true;
+		bool throwBall;
+		bool turnTowardsPlayer;
+
 		animator.transform.localPosition = Vector3.zero;
 		animator.SetBool("Jump", true);
-		animator.SetInteger ("RandomJump", 1);
+		if (ReadyToThrow ()) {
+			animator.SetInteger ("RandomJump", -1);
+			throwBall = true;
+			turnTowardsPlayer = true;
+		} else {
+			animator.SetInteger ("RandomJump", 1);
+			throwBall = false;
+			turnTowardsPlayer = false;
+		}
+		
 //		if(animator == transform.GetChild(2).GetComponent<Animator>())
 //			animator.SetInteger("RandomJump", 1);
 //		else
@@ -330,6 +349,9 @@ public class Enemy : MonoBehaviour
 		float timer = 0.0f;
 
 		switch(animator.GetInteger("RandomJump")) {
+			case -1:
+				animator.Play (Animator.StringToHash ("jump " + -1), 0, 0f);
+				break;
 			case 1:
 				animator.Play(Animator.StringToHash("jump " + 1), 0, 0f);
 				break;
@@ -372,79 +394,107 @@ public class Enemy : MonoBehaviour
 			transform.position = Vector3.Lerp(startPos, data.dest, timer) + Vector3.up * height; 
 			
 			timer += Time.deltaTime / data.time;
+
+			if (throwBall) 
+			{
+				throwTimer += Time.deltaTime;
+				if (throwTimer >= .34f) 
+				{
+					if (activeFakeBall.activeSelf == false) 
+					{
+						activeFakeBall.SetActive (true);
+						ChooseBallPowerUp ();
+					}
+				}
+
+				if (throwTimer >= 0.87f) 
+				{
+					throwBall = false;
+					Throw ();
+					activeFakeBall.SetActive (false);
+				}
+			}
+
+			if (turnTowardsPlayer) 
+			{
+				Vector3 currentPlayerPos = player.transform.position;
+				dir = currentPlayerPos - transform.position;
+				dir.y = 0;
+				transform.rotation = Quaternion.LookRotation (dir.normalized * -1);
+			}
+
 			yield return null;
 		}
-		coroutineRunning = false;
+		jumps++;
+		throwTimer = 0f;
 
+		coroutineRunning = false;
 		if (inTutorialMode && !coroutineRunning) {
 			yield return StartCoroutine ("Hop", tutorialHop);
 		}
 	}
 
-	IEnumerator ThrowRoutine(){
-
-		SwitchThrowInterval ();
-
-		if (inTutorialMode && waitToThrow) {
-			//throwWaitTime = Random.Range (0, 4);
-
-			waitToThrow = false;
-
-		} 
-		else if (!waitToThrow) 
-		{
-			throwWaitTime = 0;
-		}
-
-		canThrow = false;
-
-		yield return new WaitForSeconds (throwInterval);
-
-		Vector3 currentPlayerPos = player.transform.position;
-		dir = currentPlayerPos - transform.position;
-		dir.y = 0;
-		transform.rotation = Quaternion.LookRotation (dir.normalized * -1);
-
-		yield return new WaitForSeconds (throwWaitTime); //this is for tutorial mode
-
-		Throw ();
-
-		canThrow = true;
-	}
+//	IEnumerator ThrowRoutine(){
+//
+//		SwitchThrowInterval ();
+//
+//		if (inTutorialMode && waitToThrow) {
+//			//throwWaitTime = Random.Range (0, 4);
+//
+//			waitToThrow = false;
+//		} 
+//		else if (!waitToThrow) 
+//		{
+//			throwWaitTime = 0;
+//		}
+//
+//		canThrow = false;
+//
+//		yield return new WaitForSeconds (throwInterval);
+//
+//		Vector3 currentPlayerPos = player.transform.position;
+//		dir = currentPlayerPos - transform.position;
+//		dir.y = 0;
+//		transform.rotation = Quaternion.LookRotation (dir.normalized * -1);
+//
+//		yield return new WaitForSeconds (throwWaitTime); //this is for tutorial mode
+//
+//		Throw ();
+//
+//		canThrow = true;
+//	}
 
 	void Throw() {
+
+		Transform activeFakeBallTransform = activeFakeBall.transform;
 
 		GameObject ball = StaticPool.GetObj (ballPrefab);
 		gameMan.activeBalls.Add (ball.GetComponent<EnemyBall>());
 		if (gameMan.gamePhaseInt == 1)
 			gameMan.warmUpBallsThrown += 1;
 
-		//playerPos = player.transform.FindChild("Sphere").transform.position;//shpere
-		//playerPos = player.transform.position;
-		playerPos = GameObject.Find("ThrowDestination").transform.position;
-		float randomX = Random.Range (0.8f, 1.6f);
+		ball.GetComponent<EnemyBall>().ChoosePowerUp(powerUpChoice);
+		//SwitchFakeBallMaterial (ball.GetComponent<EnemyBall> ().powerUpInt);
 
-//		if(curColumn <= 1)
-//			playerPos += new Vector3 (-1f * randomX, -0.25f, 1.25f);
-//		else
-//			playerPos += new Vector3 (1f * randomX, -0.25f, 1.25f);
+		playerPos = throwDestination.position;
+		float randomX = Random.Range (0.8f, 1.6f);
 
 		if(curColumn <= 1)
 			playerPos += new Vector3 (-1f * randomX, 0, 0);
 		else
 			playerPos += new Vector3 (1f * randomX, 0, 0);
 
-		//timeToPlayer = 2 * Vector3.Distance (throwPoint.position, playerPos) / 18f;
-
 		if(curRow != 2)
-			timeToPlayer = 2 * Vector3.Distance (throwPoint.position, playerPos) / 18f;
+			timeToPlayer = 2 * Vector3.Distance (activeFakeBall.transform.position, playerPos) / 18f;
 		else
-			timeToPlayer = 2 * Vector3.Distance (throwPoint.position, playerPos) / 12f;
+			timeToPlayer = 2 * Vector3.Distance (activeFakeBall.transform.position, playerPos) / 12f;
 
 		ball.GetComponent<EnemyBall> ().tutorialBall = false;
 		ball.GetComponent<EnemyBall> ().Reset ();
+		ball.GetComponent<EnemyBall> ().ChoosePowerUp (powerUpChoice);
 		//ball.GetComponent<EnemyBall> ().SetColliderEnableTime( timeToPlayer * 1f / 4f );
-		ball.transform.position = throwPoint.position;
+		ball.transform.position = activeFakeBall.transform.position; //throwPoint.position;
+		ball.transform.rotation = activeFakeBall.transform.rotation;
 
 		float hVel = Vector3.Distance (playerPos, throwPoint.position) / timeToPlayer;
 		//float vVel = (4f + 0.5f * -Physics.gravity.y * Mathf.Pow (timeToPlayer, 2) - throwPoint.position.y) / timeToPlayer;
@@ -452,14 +502,12 @@ public class Enemy : MonoBehaviour
 
 		Vector3 ballDir = (playerPos - throwPoint.position).normalized;
 		ballDir *= hVel;
-		ballDir.y = vVel;///1.5f;
+		ballDir.y = vVel;// /1.5f;
 
 		Rigidbody ballRB = ball.GetComponent<Rigidbody> ();
 			
 		ballRB.velocity = ballDir;
 		ballRB.AddTorque (Random.insideUnitSphere * 100f);
-
-        ball.GetComponent<EnemyBall>().ChoosePowerUp();
 
 		//print("Ball thrown by enemy");
 		//print("PlayerPos: " + playerPos + ", Distance: " + Vector3.Distance(transform.position, playerPos));
@@ -480,6 +528,7 @@ public class Enemy : MonoBehaviour
 
 	public void StartMove() {
 		StartCoroutine( "Move" );
+
 		if (aam == null) {
 			aam = GameObject.Find ("GameManager").GetComponent<AimAssistManager> ();
 		}
@@ -509,42 +558,85 @@ public class Enemy : MonoBehaviour
 		animator.CrossFade("Start", 0.2f, 0);
 	}
 
+	bool ReadyToThrow()
+	{
+		SwitchThrowInterval ();
+		if (jumps > throwInterval) 
+		{
+			jumps = 0;
+			return true;
+		} 
+		else 
+		{
+			return false;
+		}
+	}
+
 	void SwitchThrowInterval()
 	{
 		switch (gameMan.gamePhaseInt) 
 		{
 		case 1:
-			throwInterval = 5f;
+			throwInterval = 2;
 			break;
 		case 2:
-			throwInterval = Random.Range(3, 6); //~4
+			throwInterval = 2; //~4
 			break;
 		case 3:
-			throwInterval = Random.Range (5, 10); //~6
+			throwInterval = 3; //~6
 			break;
 		case 4:
-			throwInterval = Random.Range(5, 10); //~6
+			throwInterval = 3; //~6
 			break;
 		}
 	}
+		
+	public void ChooseBallPowerUp()
+	{
+		powerUpChoice = Random.Range(0, 99);
+		string matName = "";
 
-	//	void OnCollisionEnter(Collision col) {
-	//		if(GameManager.instance.enemiesKnockback) {
-	//			if(col.gameObject.tag == "Enemy") {
-	//				hitBy = col.transform.GetComponentInParent<Enemy>().hitBy;
-	//				Hit (hitBy);
-	//			//	col.gameObject.SendMessageUpwards("Hit", hitBy, SendMessageOptions.DontRequireReceiver);
-	//			}
-	//		}
-	//	}
+		if (powerUpChoice >= 26) 
+		{
+			matName = "Standard";
+			SwitchFakeBallMaterial (matName);
+		}
+
+		//1st Power Up (Bounce Back)
+		if(powerUpChoice <= 14)
+		{
+			matName = "BounceBack";
+			SwitchFakeBallMaterial (matName);
+		}
+
+		//2nd Power Up (Heat Seeking / Auto Aim)
+		if(powerUpChoice >= 15 && powerUpChoice <= 20)
+		{
+			matName = "HeatSeek";
+			SwitchFakeBallMaterial (matName);
+		}
+
+		//3rd Power Up (Bomb)
+		if (powerUpChoice >= 21 && powerUpChoice <= 25) 
+		{
+			matName = "Bomb";
+			SwitchFakeBallMaterial (matName);
+		}
+	}
+
+	void SwitchFakeBallMaterial(string matName)
+	{
+		foreach (Material mat in ebm.materialList) 
+		{
+			if(mat.name.Contains(matName))
+			{
+				activeFakeBall.GetComponent<Renderer> ().material = mat;
+			}
+		}
+	}
 
 	void FadeOut(float timer)
 	{
-//		foreach (Material mat in materials) 
-//		{
-//			mat.color = new Color(mat.color.r, mat.color.g, mat.color.b, 1 / timer);
-//		}
-
 		for (int i = 0; i < renderers.Length; i++) 
 		{
 			renderers[i].material.color = new Color(renderers[i].material.color.r, renderers[i].material.color.g, renderers[i].material.color.b, timer);

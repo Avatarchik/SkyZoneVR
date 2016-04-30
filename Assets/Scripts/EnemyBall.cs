@@ -2,8 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class EnemyBall : MonoBehaviour {
-
+public class EnemyBall : MonoBehaviour 
+{
 	public float destroyTime = 10f;
 	float lifeTime = 0;
 	float colliderTimer = 0.0f;
@@ -25,6 +25,8 @@ public class EnemyBall : MonoBehaviour {
 	AudioManager am;
 	AimAssistManager aam;
 	EnemyBallManager ebm;
+
+	public int powerUpInt;
 
     bool bounceBack = false;
 	bool autoAim = false;
@@ -180,7 +182,7 @@ public class EnemyBall : MonoBehaviour {
 
 		if (gameObject.layer == 12 && coll.collider.gameObject.tag == "Enemy") 
 		{
-			if (coll.collider.gameObject.GetComponent<Enemy> () == null)
+			if (coll.collider.gameObject.GetComponent<Enemy> () == null && !hitGround)
 				coll.collider.gameObject.SendMessageUpwards ("Hit", this.gameObject, SendMessageOptions.DontRequireReceiver);
 			else
 				coll.collider.gameObject.GetComponent<Enemy> ().CallHit (this.gameObject);
@@ -295,26 +297,54 @@ public class EnemyBall : MonoBehaviour {
 		}
 	}
 
-    public void ChoosePowerUp()
-    {
-        int powerUpChoice = Random.Range(0, 99);
+//    public void ChoosePowerUp()
+//    {
+//        int powerUpChoice = Random.Range(0, 99);
+//		powerUpInt = powerUpChoice;
+//
+//		if (tutorialBall || gm.gamePhaseInt == 1)
+//			powerUpChoice = 99;
+//
+//		//1st Power Up (Bounce Back)
+//        if(powerUpChoice <= 14)
+//        {
+//			SetBallAndTrailMaterials ("BounceBack");
+//            bounceBack = true;
+//        }
+//
+//		//2nd Power Up (Heat Seeking / Auto Aim)
+//        if(powerUpChoice >= 15 && powerUpChoice <= 20)
+//        {
+//			SetBallAndTrailMaterials ("HeatSeek");
+//			autoAim = true;
+//        }
+//
+//		//3rd Power Up (Bomb)
+//		if (powerUpChoice >= 21 && powerUpChoice <= 25) 
+//		{
+//			SetBallAndTrailMaterials ("Bomb");
+//			bomb = true;
+//		}
+//    }
 
-		if (tutorialBall || gm.gamePhaseInt == 1)
-			powerUpChoice = 99;
+	public void ChoosePowerUp(int powerUpChoice)
+	{
+		if (powerUpChoice >= 26)
+			SetBallAndTrailMaterials ("Standard");
 
 		//1st Power Up (Bounce Back)
-        if(powerUpChoice <= 14)
-        {
+		if(powerUpChoice <= 14)
+		{
 			SetBallAndTrailMaterials ("BounceBack");
-            bounceBack = true;
-        }
+			bounceBack = true;
+		}
 
 		//2nd Power Up (Heat Seeking / Auto Aim)
-        if(powerUpChoice >= 15 && powerUpChoice <= 20)
-        {
+		if(powerUpChoice >= 15 && powerUpChoice <= 20)
+		{
 			SetBallAndTrailMaterials ("HeatSeek");
 			autoAim = true;
-        }
+		}
 
 		//3rd Power Up (Bomb)
 		if (powerUpChoice >= 21 && powerUpChoice <= 25) 
@@ -322,7 +352,7 @@ public class EnemyBall : MonoBehaviour {
 			SetBallAndTrailMaterials ("Bomb");
 			bomb = true;
 		}
-    }
+	}
 
     void BounceBackPowerUp(Enemy lastHitEnemy)
     {
