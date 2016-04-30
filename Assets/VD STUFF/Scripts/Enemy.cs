@@ -48,6 +48,7 @@ public class Enemy : MonoBehaviour
 
 	Animator animator;
 
+	public List<Renderer> allRenderers;
 	public Renderer[] renderers;
 	Material[] materials;
 	public List<Texture> maleTextures;
@@ -111,6 +112,8 @@ public class Enemy : MonoBehaviour
 
 //		tutorialHop.dest = transform.position + new Vector3(0, hopHeight, 0);
 //		tutorialHop.time = 2f;
+
+		//renderers = gameObject.GetComponentsInChildren<Renderer> ();
     }
 
 	void OnEnable() 
@@ -118,12 +121,16 @@ public class Enemy : MonoBehaviour
 		tutorialHop = new HopData(new Vector3(transform.position.x, 3f, transform.position.z), 1.7f);
 
 		//materials = gameObject.GetComponentsInChildren<Material>();
-		renderers = gameObject.GetComponentsInChildren<Renderer> ();
+		//renderers = gameObject.GetComponentsInChildren<Renderer> ();
 		fadeOutTimer = fadeOutTime;
 		fade = false;
-		for (int i = 0; i < renderers.Length; i++) 
+//		for (int i = 0; i < renderers.Length; i++) 
+//		{
+//			renderers[i].material.color = new Color(renderers[i].material.color.r, renderers[i].material.color.g, renderers[i].material.color.b, 1);
+//		}
+		for (int i = 0; i < allRenderers.Count; i++) 
 		{
-			renderers[i].material.color = new Color(renderers[i].material.color.r, renderers[i].material.color.g, renderers[i].material.color.b, 1);
+			allRenderers[i].material.color = new Color(allRenderers[i].material.color.r, allRenderers[i].material.color.g, allRenderers[i].material.color.b, 1);
 		}
 
 		Reset();
@@ -172,8 +179,6 @@ public class Enemy : MonoBehaviour
 		animator.enabled = true;
 		onCourt = false;
 
-//		if(transform.GetChild (randChar).GetComponentInChildren<FakeBall> ().gameObject.activeSelf == true)
-//			activeFakeBall = transform.GetChild (randChar).GetComponentInChildren<FakeBall> ().gameObject;
 		activeFakeBall = fakeBalls [randChar];
 		ChooseBallPowerUp ();
 	}
@@ -201,12 +206,14 @@ public class Enemy : MonoBehaviour
 				aam.onCourtEnemies.Remove (this.gameObject);
 			}
 		} 
-//		else 
-//		{
-//			if (renderers [0].material.color.a == 1)
+		else 
+		{
+//			if (renderers [0].material.color.a == 1 && renderers.Length >= 1)
 //				return;
-//			FadeOut (1);
-//		}
+			if (allRenderers [0].material.color.a == 1 && allRenderers.Count >= 1)
+				return;
+			FadeOut (1);
+		}
 	}
 
 	void Hit(GameObject p_hitBy) {
@@ -637,9 +644,13 @@ public class Enemy : MonoBehaviour
 
 	void FadeOut(float timer)
 	{
-		for (int i = 0; i < renderers.Length; i++) 
+//		for (int i = 0; i < renderers.Length; i++) 
+//		{
+//			renderers[i].material.color = new Color(renderers[i].material.color.r, renderers[i].material.color.g, renderers[i].material.color.b, timer);
+//		}
+		for (int i = 0; i < allRenderers.Count; i++) 
 		{
-			renderers[i].material.color = new Color(renderers[i].material.color.r, renderers[i].material.color.g, renderers[i].material.color.b, timer);
+			allRenderers[i].material.color = new Color(allRenderers[i].material.color.r, allRenderers[i].material.color.g, allRenderers[i].material.color.b, timer);
 		}
 	}
 
