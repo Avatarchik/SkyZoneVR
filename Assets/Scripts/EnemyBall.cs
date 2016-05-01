@@ -185,15 +185,18 @@ public class EnemyBall : MonoBehaviour
 
 		if (gameObject.layer == 12 && coll.collider.gameObject.tag == "Enemy") 
 		{
-            if (coll.collider.gameObject.GetComponent<Enemy>() == null && !hitGround)
+            if (hitGround && !bounceBack)
+            {
+                SetInactive();
+            }
+
+            if (coll.collider.gameObject.GetComponent<Enemy>() == null)
             {
                 coll.collider.gameObject.SendMessageUpwards("Hit", this.gameObject, SendMessageOptions.DontRequireReceiver);
             }
             else
             {
                 coll.collider.gameObject.GetComponent<Enemy>().CallHit(this.gameObject);
-                print(this.gameObject + ": ball");
-                print("Enemy: " + coll.collider.gameObject);
             }
 
 			//gm.AddToStreak ();
@@ -208,9 +211,6 @@ public class EnemyBall : MonoBehaviour
 				BombPowerUp ();
 
 			shouldLerp = false;
-
-			if (hitGround)
-				SetInactive ();
 
 			//Warm Up
 			if (gm.gamePhaseInt == 1 && !hitGround && !addedToWarmUpBallsDone) 
