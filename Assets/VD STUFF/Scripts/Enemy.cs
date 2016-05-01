@@ -554,7 +554,7 @@ public class Enemy : MonoBehaviour
 	bool ReadyToThrow()
 	{
 		SwitchThrowInterval ();
-		if (jumps > throwInterval) 
+		if (jumps > throwInterval && gameMan.timer > 0) 
 		{
 			jumps = 0;
 			return true;
