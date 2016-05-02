@@ -13,7 +13,8 @@ public class GameManager : MonoBehaviour {
 		COUNTDOWN,
 		TUTORIAL,
 		GAME, 
-		GAMEOVER, 
+		GAMEOVER,
+		SCORECARD,
 		CONFIG
 	}
 
@@ -348,6 +349,15 @@ public class GameManager : MonoBehaviour {
 
 			if( timer <= 0 )
 			{
+				SwitchGameMode( GameMode.SCORECARD );
+				return;
+			}
+
+			timer -= Time.deltaTime;
+			break;
+		case GameMode.SCORECARD:
+			if( timer <= 0 )
+			{
 				SwitchGameMode( GameMode.STANDBY );
 				return;
 			}
@@ -455,6 +465,10 @@ public class GameManager : MonoBehaviour {
 
             am.StopAllCoroutines();
             aam.ClearOnCourtEnemies ();
+			break;
+
+		case GameMode.SCORECARD:
+			timer = 7f;
 			break;
 		case GameMode.CONFIG:
 			break;
