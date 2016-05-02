@@ -192,23 +192,29 @@ public class GameManager : MonoBehaviour {
 		case GameMode.GAME:
 			switch (phase) {
 			case GamePhase.WARMUP:
+				if (warmUpBallsThrown >= 3 && warmUpBallsDone >= 3) {
+					for (int i = 0; i < aam.onCourtEnemies.Count; i++) 
+					{
+						if (aam.onCourtEnemies [i].GetComponent<Enemy> ().inWarmUp == true)
+							aam.onCourtEnemies [i].GetComponent<Enemy> ().CallFade ();
+					}
+
+					SwitchGamePhase (GamePhase.ONE);
+					return;
+				}
+
 				if (aam.onCourtEnemies.Count >= 1)
-                {
+				{
 					if (moveEnemyIsRunning)
-                    {
+					{
 						StopCoroutine ("StartEnemyMove");
 						moveEnemyIsRunning = false;
 					}
 				}
-                else
-                {
+				else
+				{
 					if (!moveEnemyIsRunning)
 						StartCoroutine ("StartEnemyMove");
-				}
-
-				if (warmUpBallsThrown >= 3 && warmUpBallsDone >= 3) {
-					aam.onCourtEnemies [0].GetComponent<Enemy> ().CallFade ();
-					SwitchGamePhase (GamePhase.ONE);
 				}
 
 				textManager.hitXBallsNumberText.text = (3 - warmUpBallsDone).ToString();

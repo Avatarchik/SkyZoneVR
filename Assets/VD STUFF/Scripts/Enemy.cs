@@ -217,7 +217,9 @@ public class Enemy : MonoBehaviour
 			Instantiate (hitParticle, p_hitBy.transform.position, Quaternion.LookRotation(dir));
 			Instantiate (hitTextPopUp, transform.position + new Vector3(0,1.5f,0), Quaternion.identity); //rotation is set in the PopUpText script because of lerp
 
-			Vector3 ragdollDir = (transform.position - p_hitBy.transform.position).normalized;
+			Vector3 enemyPos = transform.position;
+			enemyPos.y = p_hitBy.transform.position.y;
+			Vector3 ragdollDir = (enemyPos - p_hitBy.transform.position).normalized;
 			foreach (Rigidbody rb in rbs)
 			{
                 rb.useGravity = true;
@@ -523,21 +525,27 @@ public class Enemy : MonoBehaviour
 
 	void SwitchThrowInterval()
 	{
-		switch (gameMan.gamePhaseInt) 
-		{
-		case 1:
+//		switch (gameMan.gamePhaseInt) 
+//		{
+//		case 1:
+//			throwInterval = 2;
+//			break;
+//		case 2:
+//			throwInterval = 2; //~4
+//			break;
+//		case 3:
+//			throwInterval = 3; //~6
+//			break;
+//		case 4:
+//			throwInterval = 3; //~6
+//			break;
+//		}
+		if (aam.onCourtEnemies.Count < 3)
 			throwInterval = 2;
-			break;
-		case 2:
-			throwInterval = 2; //~4
-			break;
-		case 3:
-			throwInterval = 3; //~6
-			break;
-		case 4:
-			throwInterval = 3; //~6
-			break;
-		}
+		if (aam.onCourtEnemies.Count >= 4 && aam.onCourtEnemies.Count <= 6)
+			throwInterval = 3;
+		if (aam.onCourtEnemies.Count >= 7)
+			throwInterval = 3;
 	}
 		
 	public void ChooseBallPowerUp()
