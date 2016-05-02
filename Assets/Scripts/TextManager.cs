@@ -18,9 +18,16 @@ public class TextManager : MonoBehaviour
 	public Text countdownText;
 	public Text finalScoreText;
 
+	//ScoreCard
+	public Text scHighScore;
+	public Text scScore;
+	public Text scBestStreak;
+	public Transform scoreCardTrans;
+	public Transform scoreCardNewHighScoreTrans;
+
 	// Use this for initialization
 	void Start () {
-	
+
 	}
 	
 	// Update is called once per frame

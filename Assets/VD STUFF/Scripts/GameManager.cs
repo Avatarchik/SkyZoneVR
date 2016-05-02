@@ -40,6 +40,8 @@ public class GameManager : MonoBehaviour {
 	private int score;
 	private int streak = 0;
 	public int streakMultiplier;
+	bool newHighScore = false;
+	int bestStreak;
 
 	public GameObject enemy;
 	public Transform throwDestination;
@@ -377,7 +379,8 @@ public class GameManager : MonoBehaviour {
 			textManager.scoreText.gameObject.SetActive (false);
 			textManager.timerText.gameObject.SetActive (false);
 			textManager.streakText.gameObject.SetActive (false);
-			textManager.finalScoreText.gameObject.SetActive (false);
+			//textManager.finalScoreText.gameObject.SetActive (false);
+			DeactivateScoreCard();
 
 			batHoldBox.SetActive (true);
 			am.PlayAmbientCubeAudio ();
@@ -396,6 +399,8 @@ public class GameManager : MonoBehaviour {
 
 			AdjustThrowDestinationHeightForNewPlayer ();
 
+			newHighScore = false;
+			bestStreak = 0;
 			score = 0;
 			streak = 0;
 			streakMultiplier = 1;
@@ -436,6 +441,7 @@ public class GameManager : MonoBehaviour {
 			if (score > GetHighScore ()) 
 			{
 				SetNewHighScore (score);
+				newHighScore = true;
 			}
 
 			timer = 3f;
@@ -443,8 +449,9 @@ public class GameManager : MonoBehaviour {
 			textManager.timerText.text = "Time: 0:00";
 			textManager.scoreText.text = "Score: " + score;
 			textManager.streakText.text = "Streak: " + streak + " (x" + streakMultiplier + ")";
-			textManager.finalScoreText.text = "Score: " + score;
-			textManager.finalScoreText.gameObject.SetActive (true);
+			//textManager.finalScoreText.text = "Score: " + score;
+			//textManager.finalScoreText.gameObject.SetActive (true);
+			ActivateScoreCard();
 
             am.StopAllCoroutines();
             aam.ClearOnCourtEnemies ();
@@ -589,6 +596,9 @@ public class GameManager : MonoBehaviour {
 	public void AddToStreak()
 	{
 		streak += 1;
+
+		if (streak > bestStreak)
+			bestStreak = streak;
 	}
 
 	public void ResetStreak()
@@ -599,6 +609,26 @@ public class GameManager : MonoBehaviour {
 	void AdjustThrowDestinationHeightForNewPlayer()
 	{
 		throwDestination.position = new Vector3(throwDestination.position.x, player.transform.position.y - 0.15f, throwDestination.position.z);
+	}
+
+	void ActivateScoreCard()
+	{
+		textManager.scoreCardTrans.gameObject.SetActive (true);
+		if (newHighScore)
+			textManager.scoreCardNewHighScoreTrans.gameObject.SetActive (true);
+		else
+			textManager.scoreCardNewHighScoreTrans.gameObject.SetActive (false);
+
+		textManager.scHighScore.text = GetHighScore ().ToString();
+		textManager.scScore.text = score.ToString();
+		textManager.scBestStreak.text = bestStreak.ToString();
+	}
+
+	void DeactivateScoreCard()
+	{
+		textManager.scoreCardTrans.gameObject.SetActive (false);
+		if (textManager.scoreCardNewHighScoreTrans.gameObject.activeSelf == true)
+			textManager.scoreCardNewHighScoreTrans.gameObject.SetActive (false);
 	}
 
 	int GetHighScore()
