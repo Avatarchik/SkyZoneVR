@@ -217,7 +217,9 @@ public class Enemy : MonoBehaviour
 			Instantiate (hitParticle, p_hitBy.transform.position, Quaternion.LookRotation(dir));
 			Instantiate (hitTextPopUp, transform.position + new Vector3(0,1.5f,0), Quaternion.identity); //rotation is set in the PopUpText script because of lerp
 
-			Vector3 ragdollDir = (transform.position - p_hitBy.transform.position).normalized;
+			Vector3 enemyPos = transform.position;
+			enemyPos.y = p_hitBy.transform.position.y;
+			Vector3 ragdollDir = (enemyPos - p_hitBy.transform.position).normalized;
 			foreach (Rigidbody rb in rbs)
 			{
                 rb.useGravity = true;
