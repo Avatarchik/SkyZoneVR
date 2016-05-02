@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	private TextManager textManager;
-	private TutorialManager tm;
+	//private TutorialManager tm;
 	private AudioManager am;
 	private AimAssistManager aam;
 	private AutoCenter ac;
@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour {
 	float phaseTimer;
 	bool moveEnemyIsRunning;
 	bool gameStarted = false;
-	public bool inTutorialMode;
+	//public bool inTutorialMode;
 	public int gamePhaseInt;
 
 	public SpawnFloor spawnFloor;
@@ -105,7 +105,7 @@ public class GameManager : MonoBehaviour {
 
 	void Start() {
 		ballManager = GetComponent<BallManager> ();
-		tm = GetComponent<TutorialManager> ();
+		//tm = GetComponent<TutorialManager> ();
 		am = GameObject.Find ("AudioManager").GetComponent<AudioManager> ();
 		aam = GetComponent<AimAssistManager> ();
 		textManager = GetComponent<TextManager> ();
@@ -141,12 +141,12 @@ public class GameManager : MonoBehaviour {
 
 			if (Input.GetKeyDown (KeyCode.Space)) {
 				SwitchGameMode (GameMode.COUNTDOWN);
-				inTutorialMode = false;
+				//inTutorialMode = false;
 			}
 
 			if (Input.GetKeyDown (KeyCode.T)) {
 				SwitchGameMode (GameMode.TUTORIAL);
-				inTutorialMode = true;
+				//inTutorialMode = true;
 			}
 
 			if (Input.GetKeyDown (KeyCode.C)) {
@@ -162,13 +162,8 @@ public class GameManager : MonoBehaviour {
 
 			if (timer <= 0) 
 			{
-				if (!inTutorialMode) {
-					SwitchGameMode (GameMode.GAME);
-					return;
-				} else {
-					SwitchGameMode (GameMode.TUTORIAL);
-					return;
-				}
+				SwitchGameMode (GameMode.GAME);
+				return;
 			} 
 			else if (timer <= 1) 
 			{
@@ -176,10 +171,7 @@ public class GameManager : MonoBehaviour {
 			} 
 			else if (timer >= 4)
 			{
-				if (!inTutorialMode)
-					textManager.countdownText.text = "Get Ready!";
-				else
-					textManager.countdownText.text = "Tutorial";
+				textManager.countdownText.text = "Get Ready!";
 			}
 			else
 			{
@@ -197,13 +189,16 @@ public class GameManager : MonoBehaviour {
 		case GameMode.GAME:
 			switch (phase) {
 			case GamePhase.WARMUP:
-				if (aam.onCourtEnemies.Count >= 1) {
-					if (moveEnemyIsRunning) {
+				if (aam.onCourtEnemies.Count >= 1)
+                {
+					if (moveEnemyIsRunning)
+                    {
 						StopCoroutine ("StartEnemyMove");
 						moveEnemyIsRunning = false;
 					}
-
-				} else {
+				}
+                else
+                {
 					if (!moveEnemyIsRunning)
 						StartCoroutine ("StartEnemyMove");
 				}
@@ -218,15 +213,16 @@ public class GameManager : MonoBehaviour {
 				break;
 
 			case GamePhase.ONE:
-				if (aam.onCourtEnemies.Count >= 3) { 
-					if (moveEnemyIsRunning) {
+				if (aam.onCourtEnemies.Count >= 3)
+                { 
+					if (moveEnemyIsRunning)
+                    {
 						StopCoroutine ("StartEnemyMove");
 						moveEnemyIsRunning = false;
 					}
-
-//					StopCoroutine ("StartEnemyMove");
-//					moveEnemyIsRunning = false;
-				} else {
+				}
+                else
+                {
 					if (!moveEnemyIsRunning)
 						StartCoroutine ("StartEnemyMove");
 				}
@@ -410,8 +406,8 @@ public class GameManager : MonoBehaviour {
 			textManager.countdownText.gameObject.SetActive (false);
 			batHoldBox.SetActive (false);
 
-			inTutorialMode = true;
-			tm.StartTutorial();
+			//inTutorialMode = true;
+			//tm.StartTutorial();
 
 			break;
 		case GameMode.GAME:
@@ -573,17 +569,19 @@ public class GameManager : MonoBehaviour {
 		AddToStreak ();
 	}
 
-	public void StartTutorialOrCountdown(bool tutorialOn)
-	{
-		inTutorialMode = tutorialOn;
-		if (inTutorialMode) {
-			SwitchGameMode (GameMode.TUTORIAL);
-		} else {
-			SwitchGameMode (GameMode.COUNTDOWN);
-		}
-	}
+    public void StartTutorialOrCountdown(bool tutorialOn)
+    {
+        //inTutorialMode = tutorialOn;
+        if (tutorialOn) //(inTutorialMode)
+        {
+            SwitchGameMode(GameMode.TUTORIAL);
+        }
+        else {
+            SwitchGameMode(GameMode.COUNTDOWN);
+        }
+    }
 
-	public void StartGame()
+    public void StartGame()
 	{
 		SwitchGameMode (GameMode.GAME);
 	}

@@ -17,7 +17,6 @@ public class Enemy : MonoBehaviour
 
 	private GameManager gameMan;
 	private AudioManager audioMan;
-	private TutorialManager tutMan;
 	private AimAssistManager aam;
 	private EnemyBallManager ebm;
 
@@ -79,14 +78,9 @@ public class Enemy : MonoBehaviour
 		public int y;
 	}
 
-	public HopData tutorialHop;// = new HopData();
-	public bool inTutorialMode;
-	public bool waitToThrow;
-	public float throwWaitTime = 0f;
-
     void Awake()
     {
-        //rbs = gameObject.GetComponentsInChildren<Rigidbody>();
+        //rbs = gameObject.GetComponentsInChildren<Rigidbody>(); <-- doesn't work
 
         foreach (Rigidbody rb in rbs)
         {
@@ -95,11 +89,8 @@ public class Enemy : MonoBehaviour
             rb.isKinematic = true;
         }
 
-        //tutorialHop = new HopData(transform.position, 1.7f);
-
         gameMan = GameObject.Find ("GameManager").GetComponent<GameManager>();
 		audioMan = GameObject.Find ("AudioManager").GetComponent<AudioManager>();
-		tutMan = gameMan.gameObject.GetComponent<TutorialManager> ();
 		aam = gameMan.gameObject.GetComponent<AimAssistManager> ();
 		ebm = gameMan.gameObject.GetComponent<EnemyBallManager> ();
 
@@ -108,19 +99,11 @@ public class Enemy : MonoBehaviour
 		playerPos = player.transform.position;
 		throwDestination = GameObject.Find ("ThrowDestination").transform;
 
-		//materials = gameObject.GetComponentsInChildren<Material>();
 		renderers = gameObject.GetComponentsInChildren<Renderer> ();
-
-//		tutorialHop.dest = transform.position + new Vector3(0, hopHeight, 0);
-//		tutorialHop.time = 2f;
-
-		//renderers = gameObject.GetComponentsInChildren<Renderer> ();
     }
 
 	void OnEnable() 
 	{
-		tutorialHop = new HopData(new Vector3(transform.position.x, 3f, transform.position.z), 1.7f);
-
 		fadeOutTimer = fadeOutTime;
 		fade = false;
 
@@ -214,8 +197,6 @@ public class Enemy : MonoBehaviour
 		} 
 		else 
 		{
-//			if (renderers [0].material.color.a == 1 && renderers.Length >= 1)
-//				return;
 			if (allRenderers [0].material.color.a == 1 && allRenderers.Count >= 1)
 				return;
 			FadeOut (1);
@@ -225,11 +206,6 @@ public class Enemy : MonoBehaviour
 	void Hit(GameObject p_hitBy) {
 		if(!hit) {
 			hitBy = p_hitBy;
-
-			if (inTutorialMode) 
-			{
-				tutMan.tutorialEnemiesActive -= 1;
-			}
 
 			aam.onCourtEnemies.Remove (this.gameObject);
             onCourt = false;
@@ -330,8 +306,8 @@ public class Enemy : MonoBehaviour
 		//StopAllCoroutines();
 	}
 
-	IEnumerator Hop(HopData data) {
-		bool coroutineRunning = true;
+	IEnumerator Hop(HopData data)
+    {
 		bool throwBall;
 		bool turnTowardsPlayer;
 
@@ -354,13 +330,8 @@ public class Enemy : MonoBehaviour
 
 		ClosestTile(transform.position).GetComponent<Animator>().SetTrigger("Bounce");
 		Vector3 startPos = transform.position;
-		if (!inTutorialMode) {
-			startPos = transform.position;
-		}
-		else {
-			startPos = new Vector3 (transform.position.x, 3f, transform.position.z);
-			onCourt = true;
-		}
+		startPos = new Vector3 (transform.position.x, 3f, transform.position.z);
+		onCourt = true;
 		float timer = 0.0f;
 
 		switch(animator.GetInteger("RandomJump")) {
@@ -442,33 +413,21 @@ public class Enemy : MonoBehaviour
 		}
 		jumps++;
 		throwTimer = 0f;
-
-		coroutineRunning = false;
-		if (inTutorialMode && !coroutineRunning) {
-			yield return StartCoroutine ("Hop", tutorialHop);
-		}
 	}
 
-	void Throw() {
-
-		Transform activeFakeBallTransform = activeFakeBall.transform;
-
+	void Throw()
+    {
 		GameObject ball = StaticPool.GetObj (ballPrefab);
 		gameMan.activeBalls.Add (ball.GetComponent<EnemyBall>());
 		if (gameMan.gamePhaseInt == 1)
 			gameMan.warmUpBallsThrown += 1;
 
-		ball.GetComponent<EnemyBall>().ChoosePowerUp(powerUpChoice);
-		//SwitchFakeBallMaterial (ball.GetComponent<EnemyBall> ().powerUpInt);
-
 		playerPos = throwDestination.position;
 		float randomX = Random.Range (0.8f, 1.6f);
-
 		if(curColumn <= 1)
 			playerPos += new Vector3 (-1f * randomX, 0, 0);
 		else
 			playerPos += new Vector3 (1f * randomX, 0, 0);
-
 		if(curRow != 2)
 			timeToPlayer = 2 * Vector3.Distance (activeFakeBall.transform.position, playerPos) / 18f;
 		else
@@ -477,9 +436,9 @@ public class Enemy : MonoBehaviour
 		ball.GetComponent<EnemyBall> ().tutorialBall = false;
 		ball.GetComponent<EnemyBall> ().Reset ();
 		ball.GetComponent<EnemyBall> ().ChoosePowerUp (powerUpChoice);
-		//ball.GetComponent<EnemyBall> ().SetColliderEnableTime( timeToPlayer * 1f / 4f );
 		ball.transform.position = activeFakeBall.transform.position; //throwPoint.position;
 		ball.transform.rotation = activeFakeBall.transform.rotation;
+        //ball.GetComponent<EnemyBall> ().SetColliderEnableTime( timeToPlayer * 1f / 4f );
 
         if (ball.transform.childCount > 0)
             for (int i = 0; i < ball.transform.childCount; i++)
@@ -500,10 +459,6 @@ public class Enemy : MonoBehaviour
 			
 		ballRB.velocity = ballDir;
 		ballRB.AddTorque (Random.insideUnitSphere * 100f);
-
-		//print("Ball thrown by enemy");
-		//print("PlayerPos: " + playerPos + ", Distance: " + Vector3.Distance(transform.position, playerPos));
-		//print ("Time to player: " + timeToPlayer + ", Current Row: " + curRow + ", Current Column: " + curColumn + ", PlayerPos: " + playerPos);
 	}
 
 	Transform ClosestTile(Vector3 pos) {
@@ -533,7 +488,8 @@ public class Enemy : MonoBehaviour
 	}
 
 	IEnumerator MoveToPos( Waypoint dest ) {
-		animator.SetBool("Walk", true);
+
+        animator.SetBool("Walk", true);
 		animator.Play("Walk", 0, 0f);
 		Vector3 startPos = transform.position;
 		float moveTime = 0.5f;
