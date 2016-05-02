@@ -399,7 +399,6 @@ public class GameManager : MonoBehaviour {
 			DeactivateScoreCard();
 
 			batHoldBox.SetActive (true);
-			am.PlayAmbientCubeAudio ();
 			foreach (Material mat in gridMats)
 				mat.SetFloat ("_Opacity_Slider", 30f);
 			//gridMats [1].SetFloat ("_Opacity_Slider", 7f);
@@ -469,6 +468,7 @@ public class GameManager : MonoBehaviour {
 			//textManager.finalScoreText.gameObject.SetActive (true);
 			ActivateScoreCard();
 
+			am.PlayAmbientCubeAudio ();
             am.StopAllCoroutines();
             aam.ClearOnCourtEnemies ();
 			break;
