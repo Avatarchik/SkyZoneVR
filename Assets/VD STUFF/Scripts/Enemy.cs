@@ -523,21 +523,27 @@ public class Enemy : MonoBehaviour
 
 	void SwitchThrowInterval()
 	{
-		switch (gameMan.gamePhaseInt) 
-		{
-		case 1:
+//		switch (gameMan.gamePhaseInt) 
+//		{
+//		case 1:
+//			throwInterval = 2;
+//			break;
+//		case 2:
+//			throwInterval = 2; //~4
+//			break;
+//		case 3:
+//			throwInterval = 3; //~6
+//			break;
+//		case 4:
+//			throwInterval = 3; //~6
+//			break;
+//		}
+		if (aam.onCourtEnemies.Count < 3)
 			throwInterval = 2;
-			break;
-		case 2:
-			throwInterval = 2; //~4
-			break;
-		case 3:
-			throwInterval = 3; //~6
-			break;
-		case 4:
-			throwInterval = 3; //~6
-			break;
-		}
+		if (aam.onCourtEnemies.Count >= 4 && aam.onCourtEnemies.Count <= 6)
+			throwInterval = 3;
+		if (aam.onCourtEnemies.Count >= 7)
+			throwInterval = 3;
 	}
 		
 	public void ChooseBallPowerUp()
