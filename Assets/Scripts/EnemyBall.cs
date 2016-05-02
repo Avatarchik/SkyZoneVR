@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -173,6 +174,7 @@ public class EnemyBall : MonoBehaviour
 					shouldLerp = true;
 			}
 
+			hitGround = false;
 			fromEnemy = false;
 			trail.enabled = true;
 			trail.time = 0;
@@ -188,6 +190,7 @@ public class EnemyBall : MonoBehaviour
             if (hitGround && !bounceBack)
             {
                 SetInactive();
+				return;
             }
 
             if (coll.collider.gameObject.GetComponent<Enemy>() == null)
