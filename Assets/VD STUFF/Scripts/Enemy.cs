@@ -333,6 +333,8 @@ public class Enemy : MonoBehaviour
 		ClosestTile(transform.position).GetComponent<Animator>().SetTrigger("Bounce");
 		Vector3 startPos = transform.position;
 		startPos = new Vector3 (transform.position.x, 3f, transform.position.z);
+		if(activeFakeBall.transform.childCount > 0)
+			activeFakeBall.transform.GetChild (0).gameObject.SetActive (true);
 		onCourt = true;
 		float timer = 0.0f;
 
@@ -618,6 +620,8 @@ public class Enemy : MonoBehaviour
                 GameObject newParticle = Instantiate(particle);
                 newParticle.transform.parent = activeFakeBall.transform;
                 newParticle.transform.localPosition = Vector3.zero;
+				if (!onCourt)
+					newParticle.SetActive (false);
             }
         }
 	}
