@@ -169,6 +169,8 @@ public class Enemy : MonoBehaviour
 		activeFakeBall = fakeBalls [randChar];
         activeFakeBall.SetActive(true);
 		ChooseBallPowerUp ();
+
+		jumpRate = 10;
 	}
 
 	void Update() {
@@ -256,9 +258,18 @@ public class Enemy : MonoBehaviour
 
 			timer += Time.time - t_time;
 
+			if (curRow == 2)
+				jumpRate = 4;
+
 			if(timer > jumpRate) {
 				timer = 0f;
 				floor.tilesFilled[curColumn, curRow] = false;
+
+				if (curRow == 2) {
+					curRow +=  1;
+					curColumn = curColumn;
+					break;
+				}
 
 				List<int2> availableTiles = new List<int2>();
 				if(curColumn > 0) {
@@ -282,7 +293,6 @@ public class Enemy : MonoBehaviour
 					curColumn = nextTile.x;
 				}
 				floor.tilesFilled[curColumn, curRow] = true;
-
 
 //				float rand = Random.Range(0f, 100f);
 //				if(rand < moveForwardChancePct) {
@@ -345,30 +355,30 @@ public class Enemy : MonoBehaviour
 			case 1:
 				animator.Play(Animator.StringToHash("jump " + 1), 0, 0f);
 				break;
-			case 2:
-				animator.Play(Animator.StringToHash("jump " + 2), 0, 0f);
-				break;
-			case 3:
-				animator.Play(Animator.StringToHash("jump " + 3), 0, 0f);
-				break;
-			case 4:
-				animator.Play(Animator.StringToHash("jump " + 4), 0, 0f);
-				break;
-			case 5:
-				animator.Play(Animator.StringToHash("jump " + 5), 0, 0f);
-				break;
-			case 6:
-				animator.Play(Animator.StringToHash("jump " + 6), 0, 0f);
-				break;
-			case 7:
-				animator.Play(Animator.StringToHash("jump " + 7), 0, 0f);
-				break;
-			case 8:
-				animator.Play(Animator.StringToHash("jump " + 8), 0, 0f);
-				break;
-			case 9:
-				animator.Play(Animator.StringToHash("jump " + 9), 0, 0f);
-				break;
+//			case 2:
+//				animator.Play(Animator.StringToHash("jump " + 2), 0, 0f);
+//				break;
+//			case 3:
+//				animator.Play(Animator.StringToHash("jump " + 3), 0, 0f);
+//				break;
+//			case 4:
+//				animator.Play(Animator.StringToHash("jump " + 4), 0, 0f);
+//				break;
+//			case 5:
+//				animator.Play(Animator.StringToHash("jump " + 5), 0, 0f);
+//				break;
+//			case 6:
+//				animator.Play(Animator.StringToHash("jump " + 6), 0, 0f);
+//				break;
+//			case 7:
+//				animator.Play(Animator.StringToHash("jump " + 7), 0, 0f);
+//				break;
+//			case 8:
+//				animator.Play(Animator.StringToHash("jump " + 8), 0, 0f);
+//				break;
+//			case 9:
+//				animator.Play(Animator.StringToHash("jump " + 9), 0, 0f);
+//				break;
 			default:
 				print ("wtf");
 				break;
@@ -411,6 +421,7 @@ public class Enemy : MonoBehaviour
 				dir = currentPlayerPos - transform.position;
 				dir.y = 0;
 				transform.rotation = Quaternion.LookRotation (dir.normalized * -1);
+				turnTowardsPlayer = false;
 			}
 
 			yield return null;
@@ -492,7 +503,7 @@ public class Enemy : MonoBehaviour
 	}
 
 	IEnumerator MoveToPos( Waypoint dest ) {
-
+		
         animator.SetBool("Walk", true);
 		animator.Play("Walk", 0, 0f);
 		Vector3 startPos = transform.position;
