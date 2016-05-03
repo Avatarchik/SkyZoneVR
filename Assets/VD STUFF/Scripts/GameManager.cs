@@ -271,8 +271,16 @@ public class GameManager : MonoBehaviour {
 				break;
 
 			case GamePhase.THREE:
-				if (!moveEnemyIsRunning)
-					StartCoroutine ("StartEnemyMove");
+				if (aam.onCourtEnemies.Count >= 6) {
+					if (moveEnemyIsRunning) {
+						StopCoroutine ("StartEnemyMove");
+						moveEnemyIsRunning = false;
+					}
+
+				} else {
+					if (!moveEnemyIsRunning)
+						StartCoroutine ("StartEnemyMove");
+				}
 
 				break;
 			}
