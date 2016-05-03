@@ -187,7 +187,7 @@ public class EnemyBall : MonoBehaviour
 
 		if (gameObject.layer == 12 && coll.collider.gameObject.tag == "Enemy") 
 		{
-            if (hitGround && !bounceBack)
+            if (hitGround)
             {
                 SetInactive();
 				return;
@@ -205,7 +205,7 @@ public class EnemyBall : MonoBehaviour
 			//gm.AddToStreak ();
 			streakChain = true;
 
-			if (bounceBack) {
+			if (bounceBack && coll.collider.gameObject.GetComponent<Enemy>().hit == false) {
 				BounceBackPowerUp (coll.collider.gameObject.GetComponent<Enemy>());
 				bounceBackVolleys += 1;
 			}
