@@ -195,7 +195,8 @@ public class EnemyBall : MonoBehaviour
 				
 			streakChain = true;
 
-			if (bounceBack && coll.collider.gameObject.GetComponent<Enemy>().hit == false) {
+			if (bounceBack) //&& coll.collider.gameObject.GetComponent<Enemy>().hit == false) 
+			{
 				BounceBackPowerUp (coll.collider.gameObject.GetComponent<Enemy>());
 				bounceBackVolleys += 1;
 			}
