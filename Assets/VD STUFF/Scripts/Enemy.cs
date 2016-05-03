@@ -56,7 +56,7 @@ public class Enemy : MonoBehaviour
 
 	public Rigidbody[] rbs;
 
-	bool hit;
+	public bool hit;
 	float lifeEndTime;
 
 	public float fadeOutTime = 1.5f;
