@@ -192,17 +192,7 @@ public class EnemyBall : MonoBehaviour
                 SetInactive();
 				return;
             }
-
-            if (coll.collider.gameObject.GetComponent<Enemy>() == null)
-            {
-                coll.collider.gameObject.SendMessageUpwards("Hit", this.gameObject, SendMessageOptions.DontRequireReceiver);
-            }
-            else
-            {
-                coll.collider.gameObject.GetComponent<Enemy>().CallHit(this.gameObject);
-            }
-
-			//gm.AddToStreak ();
+				
 			streakChain = true;
 
 			if (bounceBack && coll.collider.gameObject.GetComponent<Enemy>().hit == false) {
@@ -214,6 +204,15 @@ public class EnemyBall : MonoBehaviour
 				BombPowerUp ();
 
 			shouldLerp = false;
+
+			if (coll.collider.gameObject.GetComponent<Enemy>() == null)
+			{
+				coll.collider.gameObject.SendMessageUpwards("Hit", this.gameObject, SendMessageOptions.DontRequireReceiver);
+			}
+			else
+			{
+				coll.collider.gameObject.GetComponent<Enemy>().CallHit(this.gameObject);
+			}
 
 			//Warm Up
 			if (gm.gamePhaseInt == 1 && !hitGround && !addedToWarmUpBallsDone) 
