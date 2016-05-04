@@ -160,7 +160,7 @@ public class EnemyBall : MonoBehaviour
 		if (coll.collider.tag == "Bat") 
 		{
 			//print (rb.velocity.magnitude);
-			if(rb.velocity.magnitude > 5 && !autoAim)
+			if(rb.velocity.magnitude > 0 && !autoAim)
 				AimAssist ();
 
 			if (tutorialBall)
@@ -269,7 +269,7 @@ public class EnemyBall : MonoBehaviour
 			float timeToEnemy;
 
 			Vector3 aimAssistEnemyPos = aimAssistEnemy.transform.position;
-			aimAssistEnemyPos.y = 4f;
+			aimAssistEnemyPos.y = 3f;
 
 			if(rb.velocity.magnitude > 15)
 				timeToEnemy = Vector3.Distance(aimAssistEnemyPos, transform.position) / 4f;
@@ -282,11 +282,15 @@ public class EnemyBall : MonoBehaviour
 
 			Vector3 ballDir = aimAssistEnemy.transform.position - transform.position;
 			ballDir *= hVel;
-			ballDir.y = vVel;
-			//ballDir.y = vVel/1.5f;
+			//ballDir.y = vVel;
+			//ballDir.y = (vVel/1.5f);
+			ballDir.y = Mathf.Clamp(vVel/1.5f, 8, 10);
 
-			rb.velocity = ballDir; // / 2;
+			rb.velocity = ballDir / 2;
 			rb.AddTorque (Random.insideUnitSphere * 100f);
+
+//			print ("velocity: " + rb.velocity);
+//			print("ballDir.y: " + ballDir.y);
 		}
 	}
 
