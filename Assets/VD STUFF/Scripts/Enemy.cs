@@ -139,31 +139,48 @@ public class Enemy : MonoBehaviour
 		}
 
 		int randChar = Random.Range(0, 2);
-		int randTexture = Random.Range (0, maleTextures.Count - 1);
+		int randTexture = Random.Range (0, maleTextures.Count);
+//		print ("randchar: " + randChar + ", randTexture: " + randTexture);
 		transform.GetChild(randChar).gameObject.SetActive(true);
 		animator = transform.GetChild(randChar).GetComponent<Animator> ();
-		switch (randChar) 
-		{
-		case 1:
-			for (int i = 0; i < renderers.Length; i++) 
+//		switch (randChar) 
+//		{
+//		case 0:
+////			for (int i = 0; i < allRenderers.Count; i++) 
+////			{
+////				allRenderers [i].material.mainTexture = maleTextures [randTexture];
+////			}
+//			animator.GetComponentsInChildren<SkinnedMeshRenderer>().material.mainTexture = maleTextures[randTexture];
+//			break;
+//		case 1:
+//			for (int i = 0; i < renderers.Length; i++) 
+//			{
+//				allRenderers [i].material.mainTexture = femaleTextures [randTexture];
+//			}
+//			break;
+//		}
+		if (randChar == 0) {
+			int rand = Random.Range(0, maleTextures.Count);
+			//animator.GetComponentInChildren<SkinnedMeshRenderer>().material.mainTexture = maleTextures[rand];
+			for (int i = 0; i < allRenderers.Count; i++) 
 			{
-				renderers [i].material.mainTexture = maleTextures [randTexture];
+				allRenderers [i].material.mainTexture = maleTextures [rand];
 			}
-			break;
-		case 2:
-			for (int i = 0; i < renderers.Length; i++) 
-			{
-				renderers [i].material.mainTexture = femaleTextures [randTexture];
-			}
-			break;
 		}
-		if(randChar == 3) {
-			int rand = Random.Range(0, maleTextures.Count - 1);
-			animator.GetComponentInChildren<SkinnedMeshRenderer>().material.mainTexture = maleTextures[rand];
-		} else if(randChar == 4) {
-			int rand = Random.Range(0, femaleTextures.Count - 1);
-			animator.GetComponentInChildren<SkinnedMeshRenderer>().material.mainTexture = femaleTextures[rand];
-		} 
+		if (randChar == 1) {
+			int rand = Random.Range(0, femaleTextures.Count);
+			for (int i = 0; i < allRenderers.Count; i++) 
+			{
+				allRenderers [i].material.mainTexture = femaleTextures [rand];
+			}
+		}
+//		if(randChar == 3) {
+//			int rand = Random.Range(0, maleTextures.Count - 1);
+//			animator.GetComponentInChildren<SkinnedMeshRenderer>().material.mainTexture = maleTextures[rand];
+//		} else if(randChar == 4) {
+//			int rand = Random.Range(0, femaleTextures.Count - 1);
+//			animator.GetComponentInChildren<SkinnedMeshRenderer>().material.mainTexture = femaleTextures[rand];
+//		} 
 
         foreach(Rigidbody rb in rbs)
         {
@@ -246,8 +263,8 @@ public class Enemy : MonoBehaviour
 				
 			gameObject.layer = 11; //puts enemy on the enemy ball layer temporarily
 
-			if(animator == transform.GetChild(2).GetComponent<Animator>())
-				pointsToAdd++;
+//			if(animator == transform.GetChild(2).GetComponent<Animator>())
+//				pointsToAdd++;
 			
 			hit = true;
 			StopCoroutine ("Move");
