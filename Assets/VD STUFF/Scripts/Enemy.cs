@@ -48,7 +48,6 @@ public class Enemy : MonoBehaviour
 	Animator animator;
 
 	public List<Renderer> allRenderers;
-	public Renderer[] renderers;
 	Material[] materials;
 	public List<Texture> maleTextures;
 	public List<Texture> femaleTextures;
@@ -97,8 +96,6 @@ public class Enemy : MonoBehaviour
 		player = GameObject.Find("Player");
 		playerPos = player.transform.position;
 		throwDestination = GameObject.Find ("ThrowDestination").transform;
-
-		renderers = gameObject.GetComponentsInChildren<Renderer> ();
     }
 
 	void OnEnable() 
@@ -140,25 +137,9 @@ public class Enemy : MonoBehaviour
 
 		int randChar = Random.Range(0, 2);
 		int randTexture = Random.Range (0, maleTextures.Count);
-//		print ("randchar: " + randChar + ", randTexture: " + randTexture);
 		transform.GetChild(randChar).gameObject.SetActive(true);
 		animator = transform.GetChild(randChar).GetComponent<Animator> ();
-//		switch (randChar) 
-//		{
-//		case 0:
-////			for (int i = 0; i < allRenderers.Count; i++) 
-////			{
-////				allRenderers [i].material.mainTexture = maleTextures [randTexture];
-////			}
-//			animator.GetComponentsInChildren<SkinnedMeshRenderer>().material.mainTexture = maleTextures[randTexture];
-//			break;
-//		case 1:
-//			for (int i = 0; i < renderers.Length; i++) 
-//			{
-//				allRenderers [i].material.mainTexture = femaleTextures [randTexture];
-//			}
-//			break;
-//		}
+
 		if (randChar == 0) {
 			int rand = Random.Range(0, maleTextures.Count);
 			//animator.GetComponentInChildren<SkinnedMeshRenderer>().material.mainTexture = maleTextures[rand];
@@ -174,13 +155,6 @@ public class Enemy : MonoBehaviour
 				allRenderers [i].material.mainTexture = femaleTextures [rand];
 			}
 		}
-//		if(randChar == 3) {
-//			int rand = Random.Range(0, maleTextures.Count - 1);
-//			animator.GetComponentInChildren<SkinnedMeshRenderer>().material.mainTexture = maleTextures[rand];
-//		} else if(randChar == 4) {
-//			int rand = Random.Range(0, femaleTextures.Count - 1);
-//			animator.GetComponentInChildren<SkinnedMeshRenderer>().material.mainTexture = femaleTextures[rand];
-//		} 
 
         foreach(Rigidbody rb in rbs)
         {
@@ -245,8 +219,8 @@ public class Enemy : MonoBehaviour
             onCourt = false;
 
 			int pointsToAdd = 1;
-			gameMan.GetComponent<GameManager> ().AddScore (pointsToAdd);
-			audioMan.GetComponent<AudioManager> ().EnemyHitSound ();
+			gameMan.AddScore (pointsToAdd);
+			audioMan.EnemyHitSound ();
 
 			Instantiate (hitParticle, p_hitBy.transform.position, Quaternion.LookRotation(dir));
 			Instantiate (hitTextPopUp, transform.position + new Vector3(0,1.5f,0), Quaternion.identity); //rotation is set in the PopUpText script because of lerp
@@ -607,7 +581,14 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            powerUpChoice = Random.Range(0, 99);
+			if (gameMan.easyMode) 
+			{
+				powerUpChoice = Random.Range (0, 49);
+			} 
+			else 
+			{
+				powerUpChoice = Random.Range (0, 99);
+			}
         }
 
 		if (powerUpChoice >= 26) 

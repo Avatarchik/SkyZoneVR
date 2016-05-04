@@ -57,6 +57,8 @@ public class GameManager : MonoBehaviour {
 	//public bool inTutorialMode;
 	public int gamePhaseInt;
 
+	public bool easyMode;
+
 	public SpawnFloor spawnFloor;
 
 	public float gameTimer = 10f;
@@ -143,14 +145,14 @@ public class GameManager : MonoBehaviour {
 		case GameMode.STANDBY:
 
 			if (Input.GetKeyDown (KeyCode.Space)) {
-				SwitchGameMode (GameMode.COUNTDOWN);
-				//inTutorialMode = false;
+				//SwitchGameMode (GameMode.COUNTDOWN);
+				StartCountdown(true);
 			}
 
-			if (Input.GetKeyDown (KeyCode.T)) {
-				SwitchGameMode (GameMode.TUTORIAL);
-				//inTutorialMode = true;
-			}
+//			if (Input.GetKeyDown (KeyCode.T)) {
+//				SwitchGameMode (GameMode.TUTORIAL);
+//				//inTutorialMode = true;
+//			}
 
 			if (Input.GetKeyDown (KeyCode.C)) {
 				SwitchGameMode (GameMode.CONFIG);
@@ -420,6 +422,7 @@ public class GameManager : MonoBehaviour {
 
 			textManager.warmUpText.gameObject.SetActive (true);
 
+			aam.AdjustAimAssist (easyMode);
 			AdjustThrowDestinationHeightForNewPlayer ();
 
 			newHighScore = false;
@@ -604,16 +607,10 @@ public class GameManager : MonoBehaviour {
 		AddToStreak ();
 	}
 
-    public void StartTutorialOrCountdown(bool tutorialOn)
+    public void StartCountdown(bool mode)
     {
-        //inTutorialMode = tutorialOn;
-        if (tutorialOn) //(inTutorialMode)
-        {
-            SwitchGameMode(GameMode.TUTORIAL);
-        }
-        else {
-            SwitchGameMode(GameMode.COUNTDOWN);
-        }
+		easyMode = mode;
+    	SwitchGameMode(GameMode.COUNTDOWN);
     }
 
     public void StartGame()

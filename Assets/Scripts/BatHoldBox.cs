@@ -6,10 +6,12 @@ public class BatHoldBox : MonoBehaviour {
 
 	GameManager gm;
 	float timer;
-	public float timeToHold = 2f;
+	public float timeToHold = 1.5f;
 	public Image loadingBar;
 	public GameObject loadingBarGO;
-	public bool tutorial;
+	public BatHoldBox otherBatHoldBox;
+	public bool batEntered = false;
+	public bool easyMode;
 
 	void Start () 
 	{
@@ -31,7 +33,9 @@ public class BatHoldBox : MonoBehaviour {
 	{
 		if (coll.gameObject.tag == "Bat") 
 		{
-			loadingBarGO.SetActive (true);
+			batEntered = true;
+			if(otherBatHoldBox.batEntered == false)
+				loadingBarGO.SetActive (true);
 		}
 	}
 
@@ -39,14 +43,21 @@ public class BatHoldBox : MonoBehaviour {
 	{
 		if (coll.gameObject.tag == "Bat") 
 		{
-			timer += Time.deltaTime;
-			loadingBar.fillAmount = timer / timeToHold;
-			if (timer >= timeToHold) 
+			if (otherBatHoldBox.batEntered == false) 
 			{
-				timer = 0f;
-				gm.StartTutorialOrCountdown (tutorial);
-				loadingBarGO.SetActive (false);
+				timer += Time.deltaTime;
+				loadingBar.fillAmount = timer / timeToHold;
+				if (timer >= timeToHold) 
+				{
+					timer = 0f;
+					gm.StartCountdown (easyMode);
+					loadingBarGO.SetActive (false);
+				} 
 			} 
+			else 
+			{
+				loadingBarGO.SetActive (false);
+			}
 		}
 	}
 
@@ -54,5 +65,6 @@ public class BatHoldBox : MonoBehaviour {
 	{
 		timer = 0f;
 		loadingBar.fillAmount = 0;
+		batEntered = false;
 	}
 }

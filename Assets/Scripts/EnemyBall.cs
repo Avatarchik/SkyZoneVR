@@ -29,7 +29,7 @@ public class EnemyBall : MonoBehaviour
 
 	public int powerUpInt;
 
-    public bool bounceBack = false;
+    bool bounceBack = false;
 	bool autoAim = false;
 	bool bomb = false;
 
