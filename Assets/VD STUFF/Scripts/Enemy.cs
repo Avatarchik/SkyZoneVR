@@ -263,8 +263,8 @@ public class Enemy : MonoBehaviour
 				
 			gameObject.layer = 11; //puts enemy on the enemy ball layer temporarily
 
-			if(animator == transform.GetChild(2).GetComponent<Animator>())
-				pointsToAdd++;
+//			if(animator == transform.GetChild(2).GetComponent<Animator>())
+//				pointsToAdd++;
 			
 			hit = true;
 			StopCoroutine ("Move");
