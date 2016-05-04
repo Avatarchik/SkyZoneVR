@@ -245,6 +245,12 @@ public class Enemy : MonoBehaviour
 			StopAllCoroutines();
 			lifeEndTime = Time.time + 1f;
 		}
+
+		if (hit && p_hitBy.GetComponent<EnemyBall> ().bounceBack == true) 
+		{
+			p_hitBy.GetComponent<Rigidbody> ().velocity = Vector3.zero;
+			p_hitBy.GetComponent<Rigidbody> ().angularVelocity = Vector3.zero;
+		}
 	}
 
 	IEnumerator Move() {

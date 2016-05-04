@@ -29,7 +29,7 @@ public class EnemyBall : MonoBehaviour
 
 	public int powerUpInt;
 
-    bool bounceBack = false;
+    public bool bounceBack = false;
 	bool autoAim = false;
 	bool bomb = false;
 
@@ -198,7 +198,6 @@ public class EnemyBall : MonoBehaviour
 			if (bounceBack) //&& coll.collider.gameObject.GetComponent<Enemy>().hit == false) 
 			{
 				BounceBackPowerUp (coll.collider.gameObject.GetComponent<Enemy>());
-				bounceBackVolleys += 1;
 			}
 
 			if (bomb)
@@ -368,6 +367,7 @@ public class EnemyBall : MonoBehaviour
 
     void BounceBackPowerUp(Enemy lastHitEnemy)
     {
+		bounceBackVolleys += 1;
         bounceBack = true;
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
