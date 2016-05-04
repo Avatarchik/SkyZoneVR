@@ -185,7 +185,7 @@ public class EnemyBall : MonoBehaviour
         if (coll.collider.tag == "Ball" && coll.collider.gameObject.GetComponent<EnemyBall>().fromEnemy == false)
             fromEnemy = false;
 
-		if (gameObject.layer == 12 && coll.collider.gameObject.tag == "Enemy") 
+		if (gameObject.layer == 12 && coll.collider.gameObject.layer == 10) //coll.collider.gameObject.tag == "Enemy") 
 		{
             if (hitGround)
             {
