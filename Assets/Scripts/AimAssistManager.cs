@@ -16,7 +16,7 @@ public class AimAssistManager : MonoBehaviour
 	public void AdjustAimAssist(bool easyMode)
 	{
 		if (easyMode)
-			aimAssistThreshold = 0.95f;
+			aimAssistThreshold = 0f;
 		else
 			aimAssistThreshold = 0.9f;
 	}

@@ -268,19 +268,24 @@ public class EnemyBall : MonoBehaviour
 		{
 			float timeToEnemy;
 
-			if(rb.velocity.magnitude > 15)
-				timeToEnemy = Vector3.Distance(aimAssistEnemy.transform.position, transform.position) / 4f;
-			else
-				timeToEnemy = Vector3.Distance(aimAssistEnemy.transform.position, transform.position) / 3f;
+			Vector3 aimAssistEnemyPos = aimAssistEnemy.transform.position;
+			aimAssistEnemyPos.y = 4f;
 
-			float hVel = Vector3.Distance (aimAssistEnemy.transform.position, transform.position) / timeToEnemy;
-			float vVel = (4f + 0.5f * -Physics.gravity.y * Mathf.Pow (timeToEnemy, 2) - transform.position.y) / timeToEnemy;
+			if(rb.velocity.magnitude > 15)
+				timeToEnemy = Vector3.Distance(aimAssistEnemyPos, transform.position) / 4f;
+			else
+				timeToEnemy = Vector3.Distance(aimAssistEnemyPos, transform.position) / 3f;
+
+			float hVel = Vector3.Distance (aimAssistEnemyPos, transform.position) / timeToEnemy;
+			//float vVel = (4f + 0.5f * -Physics.gravity.y * Mathf.Pow (timeToEnemy, 2) - transform.position.y) / timeToEnemy;
+			float vVel = (0.5f * Physics.gravity.y * Mathf.Pow (timeToEnemy, 2) + transform.position.y - aimAssistEnemyPos.y) / -timeToEnemy;
 
 			Vector3 ballDir = aimAssistEnemy.transform.position - transform.position;
 			ballDir *= hVel;
-			ballDir.y = vVel/1.5f;
+			ballDir.y = vVel;
+			//ballDir.y = vVel/1.5f;
 
-			rb.velocity = ballDir / 2;
+			rb.velocity = ballDir; // / 2;
 			rb.AddTorque (Random.insideUnitSphere * 100f);
 		}
 	}
