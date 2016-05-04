@@ -38,7 +38,6 @@ public class Enemy : MonoBehaviour
 	bool canThrow = false;
 	public bool onCourt;
 
-	public Transform throwPoint;
 	private Transform throwDestination;
 
 	public GameObject hitParticle;
@@ -140,8 +139,24 @@ public class Enemy : MonoBehaviour
 		}
 
 		int randChar = Random.Range(0, 2);
+		int randTexture = Random.Range (0, maleTextures.Count - 1);
 		transform.GetChild(randChar).gameObject.SetActive(true);
 		animator = transform.GetChild(randChar).GetComponent<Animator> ();
+		switch (randChar) 
+		{
+		case 1:
+			for (int i = 0; i < renderers.Length; i++) 
+			{
+				renderers [i].material.mainTexture = maleTextures [randTexture];
+			}
+			break;
+		case 2:
+			for (int i = 0; i < renderers.Length; i++) 
+			{
+				renderers [i].material.mainTexture = femaleTextures [randTexture];
+			}
+			break;
+		}
 		if(randChar == 3) {
 			int rand = Random.Range(0, maleTextures.Count - 1);
 			animator.GetComponentInChildren<SkinnedMeshRenderer>().material.mainTexture = maleTextures[rand];
@@ -462,11 +477,11 @@ public class Enemy : MonoBehaviour
         particle.transform.parent = ball.transform;
         particle.transform.localPosition = Vector3.zero;
 
-        float hVel = Vector3.Distance (playerPos, throwPoint.position) / timeToPlayer;
+		float hVel = Vector3.Distance (playerPos, activeFakeBall.transform.position) / timeToPlayer;
 		//float vVel = (4f + 0.5f * -Physics.gravity.y * Mathf.Pow (timeToPlayer, 2) - throwPoint.position.y) / timeToPlayer;
-		float vVel = (0.5f * Physics.gravity.y * Mathf.Pow (timeToPlayer, 2) + throwPoint.position.y - playerPos.y) / -timeToPlayer;
+		float vVel = (0.5f * Physics.gravity.y * Mathf.Pow (timeToPlayer, 2) + activeFakeBall.transform.position.y - playerPos.y) / -timeToPlayer;
 
-		Vector3 ballDir = (playerPos - throwPoint.position).normalized;
+		Vector3 ballDir = (playerPos - activeFakeBall.transform.position).normalized;
 		ballDir *= hVel;
 		ballDir.y = vVel;// /1.5f;
 
