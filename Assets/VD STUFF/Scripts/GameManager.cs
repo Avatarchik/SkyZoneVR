@@ -117,7 +117,7 @@ public class GameManager : MonoBehaviour {
 
 		queueManager = GameObject.Find( "QueueManager" ).GetComponent<QueueManager>();
 
-		ac.Calibrate ();
+		//ac.Calibrate ();
 
 		CheckDebugInfoLog ();
 
@@ -128,14 +128,14 @@ public class GameManager : MonoBehaviour {
 
 	void Update() {
 
-		if (firstCalibrationTimer < 0.1 && !firstCalibrationDone)
-			firstCalibrationTimer += Time.deltaTime;
-
-		if (firstCalibrationTimer > 0.1 && !firstCalibrationDone) 
-		{
-			ac.Calibrate ();
-			firstCalibrationDone = true;
-		}
+//		if (firstCalibrationTimer < 0.1 && !firstCalibrationDone)
+//			firstCalibrationTimer += Time.deltaTime;
+//
+//		if (firstCalibrationTimer > 0.1 && !firstCalibrationDone) 
+//		{
+//			ac.Calibrate ();
+//			firstCalibrationDone = true;
+//		}
 
 		skyboxRot -= Time.deltaTime;
 		skybox.SetFloat("_Rotation", skyboxRot);
@@ -401,7 +401,7 @@ public class GameManager : MonoBehaviour {
 		switch( gm )
 		{
 		case GameMode.STANDBY:
-			ac.Calibrate ();
+			//ac.Calibrate ();
 
 			gamePhaseInt = 0;
 			StaticPool.DestroyAllObjects ();
@@ -418,7 +418,7 @@ public class GameManager : MonoBehaviour {
 			//gridMats [1].SetFloat ("_Opacity_Slider", 7f);
 			break;
 		case GameMode.COUNTDOWN:
-			ac.Calibrate ();
+			//ac.Calibrate ();
 
 			timer = 5f;
 			textManager.countdownText.gameObject.SetActive (true);
