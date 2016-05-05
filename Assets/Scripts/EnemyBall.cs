@@ -160,7 +160,7 @@ public class EnemyBall : MonoBehaviour
 		if (coll.collider.tag == "Bat") 
 		{
 			//print (rb.velocity.magnitude);
-			if(rb.velocity.magnitude > 0 && !autoAim)
+			if(rb.velocity.magnitude > 3 && !autoAim)
 				AimAssist ();
 
 			if (tutorialBall)

@@ -451,10 +451,13 @@ public class Enemy : MonoBehaviour
 			playerPos += new Vector3 (-1f * randomX, 0, 0);
 		else
 			playerPos += new Vector3 (1f * randomX, 0, 0);
+		
 		if(curRow != 2)
 			timeToPlayer = 2 * Vector3.Distance (activeFakeBall.transform.position, playerPos) / 18f;
 		else
 			timeToPlayer = 2 * Vector3.Distance (activeFakeBall.transform.position, playerPos) / 12f;
+		if (gameMan.easyMode == false)
+			timeToPlayer /= 1.33f;
 
 		ball.GetComponent<EnemyBall> ().tutorialBall = false;
 		ball.GetComponent<EnemyBall> ().Reset ();
@@ -479,7 +482,7 @@ public class Enemy : MonoBehaviour
 		ballDir.y = vVel;// /1.5f;
 
 		Rigidbody ballRB = ball.GetComponent<Rigidbody> ();
-			
+
 		ballRB.velocity = ballDir;
 		ballRB.AddTorque (Random.insideUnitSphere * 100f);
 	}

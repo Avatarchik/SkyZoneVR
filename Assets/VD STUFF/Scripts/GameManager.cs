@@ -640,7 +640,7 @@ public class GameManager : MonoBehaviour {
 
 	void AdjustThrowDestinationHeightForNewPlayer()
 	{
-		throwDestination.position = new Vector3(throwDestination.position.x, player.transform.position.y - 0.15f, throwDestination.position.z);
+		throwDestination.position = new Vector3(throwDestination.position.x, player.transform.position.y - 0.1f, throwDestination.position.z);
 	}
 
 	void ActivateScoreCard()
