@@ -651,6 +651,18 @@ public class GameManager : MonoBehaviour {
 		textManager.scHighScore.text = GetHighScore ().ToString();
 		textManager.scScore.text = score.ToString();
 		textManager.scBestStreak.text = bestStreak.ToString();
+
+		if (easyMode) 
+		{
+			textManager.easyModeStamp.gameObject.SetActive (true);
+			textManager.hardModeStamp.gameObject.SetActive (false);
+		} 
+		else 
+		{
+			textManager.hardModeStamp.gameObject.SetActive (true);
+			textManager.easyModeStamp.gameObject.SetActive (false);
+		}
+
 	}
 
 	void DeactivateScoreCard()

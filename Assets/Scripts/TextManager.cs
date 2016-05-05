@@ -24,6 +24,8 @@ public class TextManager : MonoBehaviour
 	public Text scBestStreak;
 	public Transform scoreCardTrans;
 	public Transform scoreCardNewHighScoreTrans;
+	public Image easyModeStamp;
+	public Image hardModeStamp;
 
 	// Use this for initialization
 	void Start () {
