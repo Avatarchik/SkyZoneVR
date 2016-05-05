@@ -684,7 +684,10 @@ public class GameManager : MonoBehaviour {
 		if( debugFile.Length <= 0 )
 			return 0;
 
-		return int.Parse( debugFile[0] );
+		if (easyMode)
+			return int.Parse (debugFile [0]);
+		else
+			return int.Parse (debugFile [1]);
 	}
 
 	void SetNewHighScore( int score )
@@ -693,36 +696,39 @@ public class GameManager : MonoBehaviour {
 
 		string[] debugFile = System.IO.File.ReadAllLines(filePath);
 
-		debugFile[0] = score.ToString();
+		if (easyMode)
+			debugFile [0] = score.ToString ();
+		else
+			debugFile [1] = score.ToString ();
 
 		System.IO.File.WriteAllLines( filePath, debugFile );
 	}
 
-	int GetGameTime()
-	{
-		string filePath = Application.persistentDataPath + "/SkyzoneDebugInfo.txt";
+//	int GetGameTime()
+//	{
+//		string filePath = Application.persistentDataPath + "/SkyzoneDebugInfo.txt";
+//
+//		string[] debugFile = System.IO.File.ReadAllLines(filePath);
+//
+//		if( debugFile.Length <= 1 )
+//			return 75; //default game time
+//
+//		return int.Parse( debugFile[1] );
+//	}
 
-		string[] debugFile = System.IO.File.ReadAllLines(filePath);
-
-		if( debugFile.Length <= 1 )
-			return 75; //default game time
-
-		return int.Parse( debugFile[1] );
-	}
-
-	void SetGameTimeLog( int time )
-	{
-		string filePath = Application.persistentDataPath + "/SkyzoneDebugInfo.txt";
-		string[] debugFile = System.IO.File.ReadAllLines(filePath);
-
-		if( debugFile.Length <= 1 )
-			System.IO.File.AppendAllText( filePath, "\n" + time.ToString() );
-		else
-		{
-			debugFile[1] = time.ToString();
-			System.IO.File.WriteAllLines( filePath, debugFile );
-		}
-	}
+//	void SetGameTimeLog( int time )
+//	{
+//		string filePath = Application.persistentDataPath + "/SkyzoneDebugInfo.txt";
+//		string[] debugFile = System.IO.File.ReadAllLines(filePath);
+//
+//		if( debugFile.Length <= 1 )
+//			System.IO.File.AppendAllText( filePath, "\n" + time.ToString() );
+//		else
+//		{
+//			debugFile[1] = time.ToString();
+//			System.IO.File.WriteAllLines( filePath, debugFile );
+//		}
+//	}
 
 	void CheckDebugInfoLog()
 	{
@@ -733,7 +739,7 @@ public class GameManager : MonoBehaviour {
 			string[] debugInfo = new string[2];
 
 			debugInfo[0] = "0";
-			debugInfo[1] = "75";
+			debugInfo[1] = "0";
 
 			System.IO.File.WriteAllLines( filePath, debugInfo );
 		}
