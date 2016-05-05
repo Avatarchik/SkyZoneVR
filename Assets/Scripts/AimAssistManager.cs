@@ -18,7 +18,7 @@ public class AimAssistManager : MonoBehaviour
 		if (easyMode)
 			aimAssistThreshold = 0f;
 		else
-			aimAssistThreshold = 0.9f;
+			aimAssistThreshold = 0.5f;
 	}
 
 	public void ClearOnCourtEnemies()

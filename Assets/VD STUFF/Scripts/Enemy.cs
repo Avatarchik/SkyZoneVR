@@ -142,7 +142,6 @@ public class Enemy : MonoBehaviour
 
 		if (randChar == 0) {
 			int rand = Random.Range(0, maleTextures.Count);
-			//animator.GetComponentInChildren<SkinnedMeshRenderer>().material.mainTexture = maleTextures[rand];
 			for (int i = 0; i < allRenderers.Count; i++) 
 			{
 				allRenderers [i].material.mainTexture = maleTextures [rand];
@@ -176,7 +175,10 @@ public class Enemy : MonoBehaviour
         activeFakeBall.SetActive(true);
 		ChooseBallPowerUp ();
 
-		jumpRate = 10;
+		if (gameMan.easyMode)
+			jumpRate = 10;
+		else
+			jumpRate = 6;
 	}
 
 	void Update() {
@@ -559,12 +561,24 @@ public class Enemy : MonoBehaviour
 //			throwInterval = 3; //~6
 //			break;
 //		}
-		if (aam.onCourtEnemies.Count < 3)
-			throwInterval = 2;
-		if (aam.onCourtEnemies.Count >= 4 && aam.onCourtEnemies.Count <= 6)
-			throwInterval = 3;
-		if (aam.onCourtEnemies.Count >= 7)
-			throwInterval = 3;
+		if (gameMan.easyMode)
+		{
+			if (aam.onCourtEnemies.Count < 3)
+				throwInterval = 2;
+			if (aam.onCourtEnemies.Count >= 4 && aam.onCourtEnemies.Count <= 6)
+				throwInterval = 3;
+			if (aam.onCourtEnemies.Count >= 7)
+				throwInterval = 3;
+		} 
+		else 
+		{
+			if (aam.onCourtEnemies.Count < 3)
+				throwInterval = 1;
+			if (aam.onCourtEnemies.Count >= 4 && aam.onCourtEnemies.Count <= 6)
+				throwInterval = 2;
+			if (aam.onCourtEnemies.Count >= 7)
+				throwInterval = 2;
+		}
 	}
 		
 	public void ChooseBallPowerUp()

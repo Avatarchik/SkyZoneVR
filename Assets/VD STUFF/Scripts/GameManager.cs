@@ -146,7 +146,11 @@ public class GameManager : MonoBehaviour {
 
 			if (Input.GetKeyDown (KeyCode.Space)) {
 				//SwitchGameMode (GameMode.COUNTDOWN);
-				StartCountdown(true);
+				StartCountdown (true);
+			}
+
+			if (Input.GetKeyDown (KeyCode.H)) {
+				StartCountdown (false);
 			}
 
 //			if (Input.GetKeyDown (KeyCode.T)) {
@@ -176,7 +180,7 @@ public class GameManager : MonoBehaviour {
 			} 
 			else if (timer >= 4)
 			{
-				textManager.countdownText.text = "Get Ready!";
+				textManager.countdownText.text = "Get Ready";
 			}
 			else
 			{
