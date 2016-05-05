@@ -27,9 +27,6 @@ public class BatHoldBox : MonoBehaviour {
 		{
 			loadingBarGO.SetActive (false);
 		}
-
-		if (gm.gamePhaseInt > 0 && loadingBarGO.activeSelf == true)
-			loadingBarGO.SetActive (false);
 	}
 
 	void OnTriggerEnter(Collider coll)

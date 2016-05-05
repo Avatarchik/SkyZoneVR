@@ -425,8 +425,9 @@ public class GameManager : MonoBehaviour {
 
 			timer = 5f;
 			textManager.countdownText.gameObject.SetActive (true);
-			batHoldBox.SetActive (false);
 
+			DisableLoadingBars ();
+			batHoldBox.SetActive (false);
 			textManager.warmUpText.gameObject.SetActive (true);
 
 			aam.AdjustAimAssist (easyMode);
@@ -618,6 +619,7 @@ public class GameManager : MonoBehaviour {
     {
 		easyMode = mode;
     	SwitchGameMode(GameMode.COUNTDOWN);
+		DisableLoadingBars ();
     }
 
     public void StartGame()
@@ -666,6 +668,15 @@ public class GameManager : MonoBehaviour {
 			textManager.easyModeStamp.gameObject.SetActive (false);
 		}
 
+	}
+
+	void DisableLoadingBars()
+	{
+		GameObject bar1 = batHoldBox.transform.FindChild ("EasyModeBox").GetComponent<BatHoldBox> ().loadingBarGO;
+		GameObject bar2 = batHoldBox.transform.FindChild ("HardModeBox").GetComponent<BatHoldBox> ().loadingBarGO;
+
+		bar1.SetActive (false);
+		bar2.SetActive (false);
 	}
 
 	void DeactivateScoreCard()
