@@ -176,12 +176,15 @@ public class GameManager : MonoBehaviour {
 			} 
 			else if (timer <= 1) 
 			{
-				textManager.countdownText.text = "Go!";
+				textManager.countdownText.text = "Get Ready";
 			} 
 			else if (timer >= 4)
 			{
-				textManager.countdownText.text = "Get Ready";
-			}
+                    if(easyMode)
+				        textManager.countdownText.text = "Easy Mode";
+                    else
+                        textManager.countdownText.text = "Hard Mode";
+                }
 			else
 			{
 				textManager.countdownText.text = ((int)timer).ToString();
