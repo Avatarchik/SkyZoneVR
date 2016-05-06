@@ -21,11 +21,17 @@ public class BatHoldBox : MonoBehaviour {
 		loadingBar.fillAmount = 0;
 	}
 
+	void OnEnable()
+	{
+		timer = 0f;
+	}
+
 	void Update()
 	{
 		if (timer <= 0) 
 		{
 			loadingBarGO.SetActive (false);
+			batEntered = false;
 		}
 	}
 
@@ -57,6 +63,7 @@ public class BatHoldBox : MonoBehaviour {
 			else 
 			{
 				loadingBarGO.SetActive (false);
+				timer = 0f;
 			}
 		}
 	}

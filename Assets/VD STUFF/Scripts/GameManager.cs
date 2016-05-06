@@ -117,8 +117,6 @@ public class GameManager : MonoBehaviour {
 
 		queueManager = GameObject.Find( "QueueManager" ).GetComponent<QueueManager>();
 
-		//ac.Calibrate ();
-
 		CheckDebugInfoLog ();
 
 		gameTimer += 5;
@@ -675,8 +673,10 @@ public class GameManager : MonoBehaviour {
 		GameObject bar1 = batHoldBox.transform.FindChild ("EasyModeBox").GetComponent<BatHoldBox> ().loadingBarGO;
 		GameObject bar2 = batHoldBox.transform.FindChild ("HardModeBox").GetComponent<BatHoldBox> ().loadingBarGO;
 
-		bar1.SetActive (false);
-		bar2.SetActive (false);
+		if(bar1.activeSelf == true)
+			bar1.SetActive (false);
+		if(bar2.activeSelf == true)
+			bar2.SetActive (false);
 	}
 
 	void DeactivateScoreCard()

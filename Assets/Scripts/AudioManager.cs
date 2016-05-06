@@ -13,6 +13,7 @@ public class AudioManager : MonoBehaviour {
 
     public AudioSource dodgeballHit;
 	public AudioSource enemyHit;
+	public AudioSource bounceBack;
 	public AudioSource bombExplosion;
     public AudioSource countdownBoop;
     public AudioSource finalBuzzer;
@@ -34,9 +35,9 @@ public class AudioManager : MonoBehaviour {
 			switchToAudio.volume += Time.deltaTime;
 			switchFromAudio.volume = 1f - switchToAudio.volume;
 
-			if (switchToAudio.volume >= 1) 
+			if (switchToAudio.volume >= 1f) 
 			{
-				switchToAudio.volume = 1;
+				switchToAudio.volume = 1f;
 				switchFromAudio.Stop ();
 				updateBackgroundAudio = false;
 			}
@@ -67,6 +68,11 @@ public class AudioManager : MonoBehaviour {
 	public void EnemyHitSound()
 	{
 		enemyHit.Play ();
+	}
+
+	public void BounceBackSound()
+	{
+		bounceBack.Play ();
 	}
 
 	public void BombExplosionSound()

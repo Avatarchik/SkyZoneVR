@@ -377,6 +377,7 @@ public class EnemyBall : MonoBehaviour
     void BounceBackPowerUp(Enemy lastHitEnemy)
     {
 		bounceBackVolleys += 1;
+		am.BounceBackSound ();
         bounceBack = true;
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
