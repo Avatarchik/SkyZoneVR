@@ -16,7 +16,7 @@ public class TextManager : MonoBehaviour
 
 	//HUD
 	public Text countdownText;
-	public Text finalScoreText;
+	//public Text finalScoreText;
 
 	//ScoreCard
 	public Text scHighScore;

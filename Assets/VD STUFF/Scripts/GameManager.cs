@@ -31,7 +31,6 @@ public class GameManager : MonoBehaviour {
 	//private TutorialManager tm;
 	private AudioManager am;
 	private AimAssistManager aam;
-	private AutoCenter ac;
 
 	private bool firstCalibrationDone;
 	private float firstCalibrationTimer = 0f;
@@ -103,14 +102,11 @@ public class GameManager : MonoBehaviour {
 			if(_instance != this)
 				Destroy(gameObject);
 		}
-
-		ac = GameObject.FindGameObjectWithTag ("Player").GetComponent<AutoCenter> ();
 	}
 	#endregion
 
 	void Start() {
 		ballManager = GetComponent<BallManager> ();
-		//tm = GetComponent<TutorialManager> ();
 		am = GameObject.Find ("AudioManager").GetComponent<AudioManager> ();
 		aam = GetComponent<AimAssistManager> ();
 		textManager = GetComponent<TextManager> ();
@@ -124,17 +120,8 @@ public class GameManager : MonoBehaviour {
 		SwitchGameMode(GameMode.STANDBY);
 	}
 
-	void Update() {
-
-//		if (firstCalibrationTimer < 0.1 && !firstCalibrationDone)
-//			firstCalibrationTimer += Time.deltaTime;
-//
-//		if (firstCalibrationTimer > 0.1 && !firstCalibrationDone) 
-//		{
-//			ac.Calibrate ();
-//			firstCalibrationDone = true;
-//		}
-
+	void Update()
+    {
 		skyboxRot -= Time.deltaTime;
 		skybox.SetFloat("_Rotation", skyboxRot);
 
@@ -386,9 +373,6 @@ public class GameManager : MonoBehaviour {
 			timer -= Time.deltaTime;
 			break;
 		case GameMode.CONFIG:
-			if (Input.GetKeyDown (KeyCode.Space)) {
-				OVRManager.display.RecenterPose ();
-			}
 
 			if (Input.GetKeyDown (KeyCode.Escape)) {
 				SwitchGameMode (GameMode.STANDBY);
@@ -402,7 +386,6 @@ public class GameManager : MonoBehaviour {
 		switch( gm )
 		{
 		case GameMode.STANDBY:
-			//ac.Calibrate ();
 
 			gamePhaseInt = 0;
 			StaticPool.DestroyAllObjects ();
@@ -410,7 +393,6 @@ public class GameManager : MonoBehaviour {
 			textManager.scoreText.gameObject.SetActive (false);
 			textManager.timerText.gameObject.SetActive (false);
 			textManager.streakText.gameObject.SetActive (false);
-			//textManager.finalScoreText.gameObject.SetActive (false);
 			DeactivateScoreCard();
 
 			batHoldBox.SetActive (true);
@@ -419,7 +401,6 @@ public class GameManager : MonoBehaviour {
 			//gridMats [1].SetFloat ("_Opacity_Slider", 7f);
 			break;
 		case GameMode.COUNTDOWN:
-			//ac.Calibrate ();
 
 			timer = 5f;
 			textManager.countdownText.gameObject.SetActive (true);
@@ -443,8 +424,6 @@ public class GameManager : MonoBehaviour {
 			textManager.countdownText.gameObject.SetActive (false);
 			batHoldBox.SetActive (false);
 
-			//inTutorialMode = true;
-			//tm.StartTutorial();
 
 			break;
 		case GameMode.GAME:
@@ -481,8 +460,7 @@ public class GameManager : MonoBehaviour {
 			textManager.timerText.text = "Time: 0:00";
 			textManager.scoreText.text = "Score: " + score;
 			textManager.streakText.text = "Streak: " + streak + " (x" + streakMultiplier + ")";
-			//textManager.finalScoreText.text = "Score: " + score;
-			//textManager.finalScoreText.gameObject.SetActive (true);
+
 			ActivateScoreCard();
 
 			am.PlayAmbientCubeAudio ();
