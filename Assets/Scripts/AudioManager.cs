@@ -17,6 +17,8 @@ public class AudioManager : MonoBehaviour {
 	public AudioSource bombExplosion;
     public AudioSource countdownBoop;
     public AudioSource finalBuzzer;
+	public AudioSource loading;
+	public AudioSource loadingDone;
 
     public bool playBeepOnce;
 
@@ -58,6 +60,16 @@ public class AudioManager : MonoBehaviour {
 		switchToAudio = ambientCubeAudio;
 		switchFromAudio = backgroundMusic;
 		ambientCubeAudio.Play ();
+	}
+
+	public void LoadingSound()
+	{
+		loading.Play ();
+	}
+
+	public void LoadingDoneSound()
+	{
+		loadingDone.Play ();
 	}
 
 	public void DodgeballHitSound()

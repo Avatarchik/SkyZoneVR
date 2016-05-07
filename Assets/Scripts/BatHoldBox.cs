@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class BatHoldBox : MonoBehaviour {
 
 	GameManager gm;
+	AudioManager am;
 	float timer;
 	public float timeToHold = 1.5f;
 	public Image loadingBar;
@@ -17,6 +18,7 @@ public class BatHoldBox : MonoBehaviour {
 	{
 		timer = 0f;
 		gm = GameObject.Find ("GameManager").GetComponent<GameManager> ();
+		am = GameObject.Find ("AudioManager").GetComponent<AudioManager> ();
 		loadingBarGO.SetActive(false);
 		loadingBar.fillAmount = 0;
 	}
@@ -32,6 +34,8 @@ public class BatHoldBox : MonoBehaviour {
 		{
 			loadingBarGO.SetActive (false);
 			batEntered = false;
+			if(!otherBatHoldBox.batEntered)
+				am.loading.Stop ();
 		}
 	}
 
@@ -40,6 +44,7 @@ public class BatHoldBox : MonoBehaviour {
 		if (coll.gameObject.tag == "Bat") 
 		{
 			batEntered = true;
+			am.LoadingSound ();
 			if(otherBatHoldBox.batEntered == false)
 				loadingBarGO.SetActive (true);
 		}
@@ -58,6 +63,8 @@ public class BatHoldBox : MonoBehaviour {
 					timer = 0f;
 					gm.StartCountdown (easyMode);
 					loadingBarGO.SetActive (false);
+					am.loading.Stop ();
+					am.LoadingDoneSound ();
 				} 
 			} 
 			else 
@@ -73,5 +80,7 @@ public class BatHoldBox : MonoBehaviour {
 		timer = 0f;
 		loadingBar.fillAmount = 0;
 		batEntered = false;
+		if (am.loading.isPlaying && !otherBatHoldBox.batEntered)
+			am.loading.Stop ();
 	}
 }
