@@ -435,6 +435,8 @@ public class EnemyBall : MonoBehaviour
 		lerpBallStart = transform.position;
 
 		shouldLerp = true;
+
+		am.HeatSeekSound ();
 	}
 
 	GameObject ClosestEnemy()
