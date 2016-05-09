@@ -11,7 +11,7 @@ public class SerialManager : MonoBehaviour {
   private Thread thread;
   SerialPort stream;// = new SerialPort("/dev/tty.usbmodem1411", 115200); 
 
-  int baudRate = 57600;
+  public int baudRate = 9600;
   int readTimeout = 20;
 
   private List<string> packetQueue = new List<string>();
@@ -42,6 +42,7 @@ public class SerialManager : MonoBehaviour {
     while(stream.IsOpen) {
       try{
         string lineToRead = stream.ReadLine(); 
+        print(lineToRead);
         if (lineToRead != null) {
           lock (packetQueue) {
             packetQueue.Add(lineToRead);
