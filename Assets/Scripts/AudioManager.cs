@@ -14,11 +14,13 @@ public class AudioManager : MonoBehaviour {
     public AudioSource dodgeballHit;
 	public AudioSource enemyHit;
 	public AudioSource bounceBack;
+	public AudioSource heatSeek;
 	public AudioSource bombExplosion;
     public AudioSource countdownBoop;
     public AudioSource finalBuzzer;
 	public AudioSource loading;
 	public AudioSource loadingDone;
+	public AudioSource newHighScore;
 
     public bool playBeepOnce;
 
@@ -87,9 +89,19 @@ public class AudioManager : MonoBehaviour {
 		bounceBack.Play ();
 	}
 
+	public void HeatSeekSound()
+	{
+		heatSeek.Play ();
+	}
+
 	public void BombExplosionSound()
 	{
 		bombExplosion.Play ();
+	}
+
+	public void NewHighScoreSound()
+	{
+		newHighScore.Play ();
 	}
 
     public IEnumerator CountdownBoopRoutine(float gmTimer)

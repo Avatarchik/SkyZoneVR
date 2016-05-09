@@ -449,7 +449,7 @@ public class GameManager : MonoBehaviour {
 			queueManager.Reset();
 			break;
 		case GameMode.GAMEOVER:
-			if (score > GetHighScore ()) 
+			if (score >= GetHighScore ()) 
 			{
 				SetNewHighScore (score);
 				newHighScore = true;
@@ -684,6 +684,8 @@ public class GameManager : MonoBehaviour {
 		string filePath = Application.persistentDataPath + "/SkyzoneDebugInfo.txt";
 
 		string[] debugFile = System.IO.File.ReadAllLines(filePath);
+
+		am.NewHighScoreSound ();
 
 		if (easyMode)
 			debugFile [0] = score.ToString ();
