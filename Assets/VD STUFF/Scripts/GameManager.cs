@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour {
 	//private TutorialManager tm;
 	private AudioManager am;
 	private AimAssistManager aam;
+	private DisplayManager displayMan;
 
 	private bool firstCalibrationDone;
 	private float firstCalibrationTimer = 0f;
@@ -81,6 +82,7 @@ public class GameManager : MonoBehaviour {
 
 	StaticPool staticPool;
 
+	public Camera standbyCamera;
 	public GameObject insertPaymentText;
 	SerialManager serialMan;
 	public int dollarsNeededToPlay = 1;
@@ -116,12 +118,15 @@ public class GameManager : MonoBehaviour {
 		aam = GetComponent<AimAssistManager> ();
 		textManager = GetComponent<TextManager> ();
 		serialMan = GetComponent<SerialManager> ();
+		displayMan = GetComponent<DisplayManager> ();
 
 		queueManager = GameObject.Find( "QueueManager" ).GetComponent<QueueManager>();
 
 		CheckDebugInfoLog ();
 
 		gameTimer += 5;
+
+		displayMan.EnableStandbyCamera ();
 
 		SwitchGameMode(GameMode.STANDBY);
 	}
@@ -392,6 +397,7 @@ public class GameManager : MonoBehaviour {
 		switch( gm )
 		{
 		case GameMode.STANDBY:
+			displayMan.EnableStandbyCamera ();
 
 			gamePhaseInt = 0;
 			StaticPool.DestroyAllObjects ();
@@ -409,6 +415,7 @@ public class GameManager : MonoBehaviour {
 			//gridMats [1].SetFloat ("_Opacity_Slider", 7f);
 			break;
 		case GameMode.COUNTDOWN:
+			displayMan.DisableStandbyCamera ();
 
 			timer = 5f;
 			textManager.countdownText.gameObject.SetActive (true);
