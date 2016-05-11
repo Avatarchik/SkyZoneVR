@@ -81,6 +81,11 @@ public class GameManager : MonoBehaviour {
 
 	StaticPool staticPool;
 
+	public GameObject insertPaymentText;
+	SerialManager serialMan;
+	public int dollarsNeededToPlay = 1;
+	int dollarsInserted;
+
 	#region Singleton Initialization
 	public static GameManager instance {
 		get { 
@@ -110,6 +115,7 @@ public class GameManager : MonoBehaviour {
 		am = GameObject.Find ("AudioManager").GetComponent<AudioManager> ();
 		aam = GetComponent<AimAssistManager> ();
 		textManager = GetComponent<TextManager> ();
+		serialMan = GetComponent<SerialManager> ();
 
 		queueManager = GameObject.Find( "QueueManager" ).GetComponent<QueueManager>();
 
@@ -395,7 +401,9 @@ public class GameManager : MonoBehaviour {
 			textManager.streakText.gameObject.SetActive (false);
 			DeactivateScoreCard();
 
-			batHoldBox.SetActive (true);
+			batHoldBox.SetActive (false);
+			insertPaymentText.SetActive (true);
+
 			foreach (Material mat in gridMats)
 				mat.SetFloat ("_Opacity_Slider", 30f);
 			//gridMats [1].SetFloat ("_Opacity_Slider", 7f);
@@ -466,6 +474,8 @@ public class GameManager : MonoBehaviour {
 			am.PlayAmbientCubeAudio ();
             am.StopAllCoroutines();
             aam.ClearOnCourtEnemies ();
+
+			SendSerialMessage ("s");
 			break;
 
 		case GameMode.SCORECARD:
@@ -734,6 +744,36 @@ public class GameManager : MonoBehaviour {
 
 			System.IO.File.WriteAllLines( filePath, debugInfo );
 		}
+	}
+
+	void PaymentAccepted()
+	{
+		dollarsInserted = 0;
+		SendSerialMessage ("s");
+		insertPaymentText.SetActive (false);
+		batHoldBox.SetActive (true);
+	}
+
+	void SerialInputRecieved(string message)
+	{
+		switch (message) 
+		{
+		case "!":
+//			print ("serial input recieved by gamemanager");
+//			print ("serial input message: " + message);
+			break;
+		case "$":
+			dollarsInserted += 1;
+			if(dollarsInserted >= dollarsNeededToPlay)
+				PaymentAccepted ();
+			break;
+		}
+	}
+
+	void SendSerialMessage(string send)
+	{
+		//serialMan.WriteToStream (send);
+		//print("String sent: " + send);
 	}
 }
  
