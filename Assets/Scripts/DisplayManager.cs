@@ -10,6 +10,14 @@ public class DisplayManager : MonoBehaviour
 	public Camera tutorialCamera;
 	public MovieTexture tutorialVideo;
 
+	void Awake()
+	{
+		for (int i = 0; i < Display.displays.Length; i++) 
+		{
+			Display.displays [i].Activate ();
+		}
+	}
+
 	// Use this for initialization
 	void Start () 
 	{

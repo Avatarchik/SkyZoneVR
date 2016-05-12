@@ -482,7 +482,7 @@ public class GameManager : MonoBehaviour {
             am.StopAllCoroutines();
             aam.ClearOnCourtEnemies ();
 
-			SendSerialMessage ("s");
+			SendSerialMessage ("e");
 			break;
 
 		case GameMode.SCORECARD:
@@ -779,8 +779,8 @@ public class GameManager : MonoBehaviour {
 
 	void SendSerialMessage(string send)
 	{
-		//serialMan.WriteToStream (send);
-		//print("String sent: " + send);
+		serialMan.WriteToStream (send);
+		print("String sent: " + send);
 	}
 }
  
