@@ -27,6 +27,11 @@ public class TextManager : MonoBehaviour
 	public Image easyModeStamp;
 	public Image hardModeStamp;
 
+	//TutorialScreen
+	public Text tutorialScreenText;
+	public Text tutorialScreenDollarsText;
+	public Text tutorialPleaseEnterText;
+
 	// Use this for initialization
 	void Start () {
 

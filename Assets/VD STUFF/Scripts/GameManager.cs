@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour {
 	public Camera standbyCamera;
 	public GameObject insertPaymentText;
 	SerialManager serialMan;
-	public int dollarsNeededToPlay = 1;
+	public int dollarsNeededToPlay = 3;
 	int dollarsInserted;
 
 	#region Singleton Initialization
@@ -127,6 +127,7 @@ public class GameManager : MonoBehaviour {
 		gameTimer += 5;
 
 		displayMan.EnableStandbyCamera ();
+		textManager.tutorialScreenDollarsText.text = "$" + dollarsNeededToPlay.ToString();
 
 		SwitchGameMode(GameMode.STANDBY);
 	}
@@ -156,6 +157,10 @@ public class GameManager : MonoBehaviour {
 
 			if (Input.GetKeyDown (KeyCode.C)) {
 				SwitchGameMode (GameMode.CONFIG);
+			}
+
+			if (Input.GetKeyDown (KeyCode.Alpha4)) {
+				SerialInputRecieved ("$");
 			}
 
 			break;
@@ -398,6 +403,8 @@ public class GameManager : MonoBehaviour {
 		{
 		case GameMode.STANDBY:
 			displayMan.EnableStandbyCamera ();
+			textManager.tutorialScreenText.gameObject.SetActive (true);
+			textManager.tutorialScreenDollarsText.gameObject.SetActive (true);
 
 			gamePhaseInt = 0;
 			StaticPool.DestroyAllObjects ();
@@ -416,6 +423,7 @@ public class GameManager : MonoBehaviour {
 			break;
 		case GameMode.COUNTDOWN:
 			displayMan.DisableStandbyCamera ();
+			textManager.tutorialPleaseEnterText.gameObject.SetActive (false);
 
 			timer = 5f;
 			textManager.countdownText.gameObject.SetActive (true);
@@ -757,8 +765,13 @@ public class GameManager : MonoBehaviour {
 	{
 		dollarsInserted = 0;
 		SendSerialMessage ("s");
+		am.PaymentAcceptedSound ();
+
 		insertPaymentText.SetActive (false);
 		batHoldBox.SetActive (true);
+		textManager.tutorialScreenText.gameObject.SetActive (false);
+		textManager.tutorialScreenDollarsText.gameObject.SetActive (false);
+		textManager.tutorialPleaseEnterText.gameObject.SetActive (true);
 	}
 
 	void SerialInputRecieved(string message)
@@ -771,14 +784,19 @@ public class GameManager : MonoBehaviour {
 			break;
 		case "$":
 			dollarsInserted += 1;
-			if(dollarsInserted >= dollarsNeededToPlay)
+			if (dollarsInserted >= dollarsNeededToPlay)
 				PaymentAccepted ();
+			int dollarsTextInt = dollarsNeededToPlay - dollarsInserted;
+			textManager.tutorialScreenDollarsText.text = "$" + dollarsTextInt.ToString();
 			break;
 		}
 	}
 
 	void SendSerialMessage(string send)
 	{
+		if (serialMan == null || serialMan.isActiveAndEnabled == false)
+			return;
+
 		serialMan.WriteToStream (send);
 		print("String sent: " + send);
 	}
