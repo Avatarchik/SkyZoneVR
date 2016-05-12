@@ -169,9 +169,15 @@ public class EnemyBall : MonoBehaviour
 			if (autoAim) 
 			{
 				AutoAimPowerUp ();
-
-				if (!shouldLerp)
+				if (!shouldLerp) 
+				{
 					shouldLerp = true;
+					if (hitGround) 
+					{
+						lifeTime -= 2;
+						lerpTimer = 0;
+					}
+				}
 			}
 
 			hitGround = false;

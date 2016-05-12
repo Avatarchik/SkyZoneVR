@@ -774,6 +774,11 @@ public class GameManager : MonoBehaviour {
 		textManager.tutorialPleaseEnterText.gameObject.SetActive (true);
 	}
 
+	public void SerialLEDflash()
+	{
+		SendSerialMessage ("x");
+	}
+
 	void SerialInputRecieved(string message)
 	{
 		switch (message) 

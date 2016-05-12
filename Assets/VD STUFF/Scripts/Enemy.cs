@@ -223,6 +223,7 @@ public class Enemy : MonoBehaviour
 			int pointsToAdd = 1;
 			gameMan.AddScore (pointsToAdd);
 			audioMan.EnemyHitSound ();
+			gameMan.SerialLEDflash ();
 
 			Instantiate (hitParticle, p_hitBy.transform.position, Quaternion.LookRotation(dir));
 			Instantiate (hitTextPopUp, transform.position + new Vector3(0,1.5f,0), Quaternion.identity); //rotation is set in the PopUpText script because of lerp
