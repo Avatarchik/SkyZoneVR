@@ -82,7 +82,6 @@ public class GameManager : MonoBehaviour {
 
 	StaticPool staticPool;
 
-	public Camera standbyCamera;
 	public GameObject insertPaymentText;
 	SerialManager serialMan;
 	public int dollarsNeededToPlay = 3;
