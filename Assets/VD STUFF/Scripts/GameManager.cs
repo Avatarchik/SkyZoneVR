@@ -87,6 +87,8 @@ public class GameManager : MonoBehaviour {
 	SerialManager serialMan;
 	public int dollarsNeededToPlay = 3;
 	int dollarsInserted;
+	bool paymentAccepted = false;
+	float timeSinceLastLEDFlash = 0;
 
 	#region Singleton Initialization
 	public static GameManager instance {
@@ -161,6 +163,13 @@ public class GameManager : MonoBehaviour {
 
 			if (Input.GetKeyDown (KeyCode.Alpha4)) {
 				SerialInputRecieved ("$");
+			}
+
+			if (paymentAccepted) 
+			{
+				timer -= Time.deltaTime;
+				if (timer <= 0)
+					StartCountdown (true);
 			}
 
 			break;
@@ -405,6 +414,7 @@ public class GameManager : MonoBehaviour {
 			displayMan.EnableStandbyCamera ();
 			textManager.tutorialScreenText.gameObject.SetActive (true);
 			textManager.tutorialScreenDollarsText.gameObject.SetActive (true);
+			timer = 30;
 
 			gamePhaseInt = 0;
 			StaticPool.DestroyAllObjects ();
@@ -424,6 +434,8 @@ public class GameManager : MonoBehaviour {
 		case GameMode.COUNTDOWN:
 			displayMan.DisableStandbyCamera ();
 			textManager.tutorialPleaseEnterText.gameObject.SetActive (false);
+			paymentAccepted = false;
+			dollarsInserted = 0;
 
 			timer = 5f;
 			textManager.countdownText.gameObject.SetActive (true);
@@ -472,8 +484,7 @@ public class GameManager : MonoBehaviour {
 			queueManager.Reset();
 			break;
 		case GameMode.GAMEOVER:
-			if (score >= GetHighScore ()) 
-			{
+			if (score >= GetHighScore ()) {
 				SetNewHighScore (score);
 				newHighScore = true;
 			}
@@ -484,13 +495,14 @@ public class GameManager : MonoBehaviour {
 			textManager.scoreText.text = "Score: " + score;
 			textManager.streakText.text = "Streak: " + streak + " (x" + streakMultiplier + ")";
 
-			ActivateScoreCard();
+			ActivateScoreCard ();
 
 			am.PlayAmbientCubeAudio ();
-            am.StopAllCoroutines();
-            aam.ClearOnCourtEnemies ();
+			am.StopAllCoroutines ();
+			aam.ClearOnCourtEnemies ();
 
 			SendSerialMessage ("e");
+			serialMan.ClearPacketQueue ();
 			break;
 
 		case GameMode.SCORECARD:
@@ -763,7 +775,8 @@ public class GameManager : MonoBehaviour {
 
 	void PaymentAccepted()
 	{
-		dollarsInserted = 0;
+		paymentAccepted = true;
+		dollarsInserted = Mathf.Clamp(0,0,0);
 		SendSerialMessage ("s");
 		am.PaymentAcceptedSound ();
 
@@ -776,7 +789,11 @@ public class GameManager : MonoBehaviour {
 
 	public void SerialLEDflash()
 	{
-		SendSerialMessage ("x");
+//		if (Time.time - timeSinceLastLEDFlash >= 1) 
+//		{
+//			timeSinceLastLEDFlash = Time.time;
+//			SendSerialMessage ("x");
+//		}
 	}
 
 	void SerialInputRecieved(string message)

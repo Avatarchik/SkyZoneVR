@@ -66,7 +66,7 @@ public class SerialManager : MonoBehaviour
 			foreach (string message in packetQueue) 
 			{
 				print ("CHECKING MESSAGES");
-				print (message);
+				print ("packet queue: " + message);
 				if (configured) 
 				{
 					//BroadcastMessage ("SerialInputRecieved", message, SendMessageOptions.DontRequireReceiver);
@@ -90,7 +90,7 @@ public class SerialManager : MonoBehaviour
 	  		try
 			{
 		    string lineToRead = stream.ReadLine(); 
-		    print(lineToRead);
+		    print("reading serial: " + lineToRead);
 
 		    if (lineToRead != null) 
 			{
@@ -146,5 +146,22 @@ public class SerialManager : MonoBehaviour
 	public void WriteToStream(string send)
 	{
 		stream.Write (send);
+	}
+
+	public void ClearPacketQueue()
+	{
+		packetQueue.Clear ();
+		stream.DiscardInBuffer ();
+		stream.DiscardOutBuffer ();
+
+		//print ("Thread state: " + thread.ThreadState);
+	}
+
+	public void OpenOrCloseStream(bool open)
+	{
+		if (open)
+			stream.Open ();
+		else
+			stream.Close ();
 	}
 }
