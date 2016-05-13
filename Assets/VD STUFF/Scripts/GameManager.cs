@@ -128,7 +128,7 @@ public class GameManager : MonoBehaviour {
 		gameTimer += 5;
 
 		displayMan.EnableStandbyCamera ();
-		textManager.tutorialScreenDollarsText.text = "$" + dollarsNeededToPlay.ToString();
+		textManager.tutorialScreenDollarsText.text = "$" + dollarsNeededToPlay.ToString() + "/$" + dollarsNeededToPlay.ToString();
 
 		SwitchGameMode(GameMode.STANDBY);
 	}
@@ -425,6 +425,8 @@ public class GameManager : MonoBehaviour {
 
 			batHoldBox.SetActive (false);
 			insertPaymentText.SetActive (true);
+			dollarsInserted = 0;
+			textManager.tutorialScreenDollarsText.text = "$" + (dollarsNeededToPlay - dollarsInserted).ToString() + "/$" + dollarsNeededToPlay.ToString();
 
 			foreach (Material mat in gridMats)
 				mat.SetFloat ("_Opacity_Slider", 30f);
@@ -433,7 +435,6 @@ public class GameManager : MonoBehaviour {
 		case GameMode.COUNTDOWN:
 			displayMan.DisableStandbyCamera ();
 			textManager.tutorialPleaseEnterText.gameObject.SetActive (false);
-			paymentAccepted = false;
 			dollarsInserted = 0;
 
 			timer = 5f;
@@ -500,8 +501,9 @@ public class GameManager : MonoBehaviour {
 			am.StopAllCoroutines ();
 			aam.ClearOnCourtEnemies ();
 
+			paymentAccepted = false;
 			SendSerialMessage ("e");
-			serialMan.ClearPacketQueue ();
+			serialMan.ClearPacketQueueAndBuffer ();
 			break;
 
 		case GameMode.SCORECARD:
@@ -775,7 +777,7 @@ public class GameManager : MonoBehaviour {
 	void PaymentAccepted()
 	{
 		paymentAccepted = true;
-		dollarsInserted = Mathf.Clamp(0,0,0);
+		//dollarsInserted = Mathf.Clamp(0,0,0);
 		SendSerialMessage ("s");
 		am.PaymentAcceptedSound ();
 
@@ -788,11 +790,11 @@ public class GameManager : MonoBehaviour {
 
 	public void SerialLEDflash()
 	{
-//		if (Time.time - timeSinceLastLEDFlash >= 1) 
-//		{
-//			timeSinceLastLEDFlash = Time.time;
-//			SendSerialMessage ("x");
-//		}
+		if (Time.time - timeSinceLastLEDFlash >= 1) 
+		{
+			timeSinceLastLEDFlash = Time.time;
+			SendSerialMessage ("x");
+		}
 	}
 
 	void SerialInputRecieved(string message)
@@ -804,11 +806,14 @@ public class GameManager : MonoBehaviour {
 //			print ("serial input message: " + message);
 			break;
 		case "$":
+			if (paymentAccepted)
+				return;
+
 			dollarsInserted += 1;
 			if (dollarsInserted >= dollarsNeededToPlay)
 				PaymentAccepted ();
-			int dollarsTextInt = dollarsNeededToPlay - dollarsInserted;
-			textManager.tutorialScreenDollarsText.text = "$" + dollarsTextInt.ToString();
+
+			textManager.tutorialScreenDollarsText.text = "$" + (dollarsNeededToPlay - dollarsInserted).ToString() + "/$" + dollarsNeededToPlay.ToString();
 			break;
 		}
 	}

@@ -15,7 +15,7 @@ public class SerialManager : MonoBehaviour
   	SerialPort stream;// = new SerialPort("/dev/tty.usbmodem1411", 115200); 
 
   	public int baudRate = 9600;
- 	int readTimeout = 20; //20
+ 	int readTimeout = 10; //20
 
   	private List<string> packetQueue = new List<string>();
 	private List<string> availableCOMPorts = new List<string>();
@@ -113,8 +113,9 @@ public class SerialManager : MonoBehaviour
 	void NewComPort(List<string> COMportList)
 	{
 		stream = new SerialPort (COMportList[0], baudRate);
+		//stream.ReadBufferSize = 9024;
 		stream.Open ();
-		stream.ReadTimeout = readTimeout;
+		stream.ReadTimeout = 1; //readTimeout;
 		stream.Write ("?");
 		COMportList.RemoveAt (0);
 
@@ -148,11 +149,15 @@ public class SerialManager : MonoBehaviour
 		stream.Write (send);
 	}
 
-	public void ClearPacketQueue()
+	public void ClearPacketQueueAndBuffer()
 	{
+		//stream.BreakState = true;
 		packetQueue.Clear ();
 		stream.DiscardInBuffer ();
 		stream.DiscardOutBuffer ();
+//		stream.ReadBufferSize = 0;
+//		stream.WriteBufferSize = 0;
+		stream.BaseStream.Flush();
 
 		//print ("Thread state: " + thread.ThreadState);
 	}
