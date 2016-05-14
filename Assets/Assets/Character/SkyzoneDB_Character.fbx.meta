@@ -80,6 +80,11 @@ ModelImporter:
     100144: Shorts
     100146: SkyzoneDB_Character
     100148: //RootNode
+    100150: Arm_R1
+    100152: Eye_R1
+    100154: Leg_R1
+    100156: Pants
+    100158: SkyzoneDB_CharMale
     400000: Arm_L
     400002: Arm_R
     400004: Body
@@ -155,6 +160,11 @@ ModelImporter:
     400144: Shorts
     400146: //RootNode
     400148: SkyzoneDB_Character
+    400150: Arm_R1
+    400152: Eye_R1
+    400154: Leg_R1
+    400156: Pants
+    400158: SkyzoneDB_CharMale
     4300000: Eye_L
     4300002: Eye_R
     4300004: Body
@@ -163,6 +173,10 @@ ModelImporter:
     4300010: Shorts
     4300012: Leg_L
     4300014: Leg_R
+    4300016: Pants
+    4300018: Eye_R1
+    4300020: Leg_R1
+    4300022: Arm_R1
     7400000: mixamo.com
     9500000: //RootNode
     13700000: Arm_L
@@ -173,6 +187,10 @@ ModelImporter:
     13700010: Leg_L
     13700012: Leg_R
     13700014: Shorts
+    13700016: Arm_R1
+    13700018: Eye_R1
+    13700020: Leg_R1
+    13700022: Pants
   materials:
     importMaterials: 1
     materialName: 0
