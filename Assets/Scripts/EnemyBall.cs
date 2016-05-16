@@ -171,12 +171,12 @@ public class EnemyBall : MonoBehaviour
 				AutoAimPowerUp ();
 				if (!shouldLerp) 
 				{
-					shouldLerp = true;
-					if (hitGround) 
+					if (gameObject.layer == 12) 
 					{
 						lifeTime -= 2;
 						lerpTimer = 0;
 					}
+					shouldLerp = true;
 				}
 			}
 
