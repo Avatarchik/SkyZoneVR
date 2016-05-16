@@ -428,6 +428,10 @@ public class GameManager : MonoBehaviour {
 			dollarsInserted = 0;
 			textManager.tutorialScreenDollarsText.text = "$" + (dollarsNeededToPlay - dollarsInserted).ToString() + "/$" + dollarsNeededToPlay.ToString();
 
+			paymentAccepted = false;
+			SendSerialMessage ("e");
+			serialMan.ClearPacketQueueAndBuffer ();
+
 			foreach (Material mat in gridMats)
 				mat.SetFloat ("_Opacity_Slider", 30f);
 			//gridMats [1].SetFloat ("_Opacity_Slider", 7f);
@@ -500,10 +504,6 @@ public class GameManager : MonoBehaviour {
 			am.PlayAmbientCubeAudio ();
 			am.StopAllCoroutines ();
 			aam.ClearOnCourtEnemies ();
-
-			paymentAccepted = false;
-			SendSerialMessage ("e");
-			serialMan.ClearPacketQueueAndBuffer ();
 			break;
 
 		case GameMode.SCORECARD:

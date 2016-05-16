@@ -41,18 +41,16 @@ public class SerialManager : MonoBehaviour
 				NewComPort (availableCOMPorts);
 				timeSinceLastConfig = Time.time;
 				return;
-			} 
-			else if (stream != null) 
-			{
-				if (stream.ReadLine () == "!") 
-				{
+			} else if (stream != null) {
+				stream.Write ("?");
+				if (stream.ReadLine () == "!") {
 					configured = true;
 					print ("Stream connected to port: " + stream.PortName);
 					port = stream.PortName;
 					thread = new Thread (new ThreadStart (readSerial));
 					thread.Start ();
 					print ("update: configured");
-				}
+				} 
 			}
 		} 
 		else 
