@@ -458,6 +458,8 @@ public class GameManager : MonoBehaviour {
 			streakMultiplier = 1;
 			warmUpBallsThrown = 0;
 			warmUpBallsDone = 0;
+
+			AddPlay ();
 			break;
 		case GameMode.TUTORIAL:
 			textManager.countdownText.gameObject.SetActive (false);
@@ -733,6 +735,19 @@ public class GameManager : MonoBehaviour {
 		System.IO.File.WriteAllLines( filePath, debugFile );
 	}
 
+	void AddPlay()
+	{
+		string filePath = Application.persistentDataPath + "/SkyzoneDebugInfo.txt";
+
+		string[] debugFile = System.IO.File.ReadAllLines(filePath);
+
+		int plays = int.Parse (debugFile [2]);
+		plays++;
+		debugFile [2] = plays.ToString ();
+
+		System.IO.File.WriteAllLines (filePath, debugFile);
+	}
+
 //	int GetGameTime()
 //	{
 //		string filePath = Application.persistentDataPath + "/SkyzoneDebugInfo.txt";
@@ -769,6 +784,7 @@ public class GameManager : MonoBehaviour {
 
 			debugInfo[0] = "0";
 			debugInfo[1] = "0";
+			debugInfo[2] = "0";
 
 			System.IO.File.WriteAllLines( filePath, debugInfo );
 		}
