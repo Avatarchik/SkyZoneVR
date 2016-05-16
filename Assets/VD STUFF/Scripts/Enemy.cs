@@ -159,6 +159,7 @@ public class Enemy : MonoBehaviour
         {
             rb.useGravity = false;
             rb.isKinematic = true;
+			rb.gameObject.layer = 10;
         }
 
 		gameObject.layer = 10; //reset layer to enemy layer
@@ -236,6 +237,7 @@ public class Enemy : MonoBehaviour
                 rb.useGravity = true;
                 rb.isKinematic = false;
                 rb.velocity = (ragdollDir * 25);
+				rb.gameObject.layer = 11;
 			}
 				
 			gameObject.layer = 11; //puts enemy on the enemy ball layer temporarily
