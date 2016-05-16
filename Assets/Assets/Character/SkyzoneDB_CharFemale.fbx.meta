@@ -74,6 +74,11 @@ ModelImporter:
     100132: SkyzoneDB_Character
     100134: //RootNode
     100136: Mesh_Ponytail1
+    100138: Foot_L
+    100140: Mesh_Ponytail_1
+    100142: Mesh_Ponytail_2
+    100144: Pants
+    100146: SkyzoneDB_CharFemale
     400000: Mesh_Arm_L
     400002: Mesh_Arm_R
     400004: Mesh_Body
@@ -143,6 +148,11 @@ ModelImporter:
     400132: SkyzoneDB_Character
     400134: //RootNode
     400136: Mesh_Ponytail1
+    400138: Foot_L
+    400140: Mesh_Ponytail_1
+    400142: Mesh_Ponytail_2
+    400144: Pants
+    400146: SkyzoneDB_CharFemale
     4300000: Mesh_Ponytail
     4300002: Mesh_Eye_L
     4300004: Mesh_Eye_R
@@ -153,6 +163,10 @@ ModelImporter:
     4300014: Mesh_Leg_L
     4300016: Mesh_Leg_R
     4300018: Mesh_Ponytail1
+    4300020: Pants
+    4300022: Foot_L
+    4300024: Mesh_Ponytail_2
+    4300026: Mesh_Ponytail_1
     7400000: mixamo.com
     9500000: //RootNode
     13700000: Mesh_Arm_L
@@ -165,6 +179,10 @@ ModelImporter:
     13700014: Mesh_Ponytail
     13700016: Mesh_Shorts
     13700018: Mesh_Ponytail1
+    13700020: Foot_L
+    13700022: Mesh_Ponytail_1
+    13700024: Mesh_Ponytail_2
+    13700026: Pants
   materials:
     importMaterials: 1
     materialName: 0
