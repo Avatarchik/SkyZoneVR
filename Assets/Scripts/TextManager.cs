@@ -32,6 +32,7 @@ public class TextManager : MonoBehaviour
 	public Text tutorialScreenDollarsText;
 	public Text tutorialPleaseEnterText;
     public Text tutorialGameInProgressText;
+    public Text tutorialGameEndingText;
 
 	// Use this for initialization
 	void Start () {

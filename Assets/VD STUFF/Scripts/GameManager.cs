@@ -411,7 +411,7 @@ public class GameManager : MonoBehaviour {
 		{
 		case GameMode.STANDBY:
 			displayMan.EnableStandbyCamera ();
-            textManager.tutorialGameInProgressText.gameObject.SetActive(false);
+            textManager.tutorialGameEndingText.gameObject.SetActive(false);
 			textManager.tutorialScreenText.gameObject.SetActive (true);
 			textManager.tutorialScreenDollarsText.gameObject.SetActive (true);
 			timer = 30;
@@ -502,6 +502,9 @@ public class GameManager : MonoBehaviour {
 			textManager.timerText.text = "Time: 0:00";
 			textManager.scoreText.text = "Score: " + score;
 			textManager.streakText.text = "Streak: " + streak + " (x" + streakMultiplier + ")";
+
+            textManager.tutorialGameInProgressText.gameObject.SetActive(false);
+            textManager.tutorialGameEndingText.gameObject.SetActive(true);
 
 			ActivateScoreCard ();
 
