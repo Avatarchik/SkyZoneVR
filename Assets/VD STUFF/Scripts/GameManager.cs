@@ -825,6 +825,8 @@ public class GameManager : MonoBehaviour {
 			if (paymentAccepted)
 				return;
 
+            SendSerialMessage("#");
+
 			dollarsInserted += 1;
 			if (dollarsInserted >= dollarsNeededToPlay)
 				PaymentAccepted ();
