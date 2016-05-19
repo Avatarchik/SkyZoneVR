@@ -149,6 +149,9 @@ public class SerialManager : MonoBehaviour
 
 	public void ClearPacketQueueAndBuffer()
 	{
+        if (this.isActiveAndEnabled == false)
+            return;
+
 		//stream.BreakState = true;
 		packetQueue.Clear ();
 		stream.DiscardInBuffer ();

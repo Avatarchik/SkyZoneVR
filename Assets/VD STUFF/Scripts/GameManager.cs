@@ -411,6 +411,7 @@ public class GameManager : MonoBehaviour {
 		{
 		case GameMode.STANDBY:
 			displayMan.EnableStandbyCamera ();
+            textManager.tutorialGameInProgressText.gameObject.SetActive(false);
 			textManager.tutorialScreenText.gameObject.SetActive (true);
 			textManager.tutorialScreenDollarsText.gameObject.SetActive (true);
 			timer = 30;
@@ -439,6 +440,7 @@ public class GameManager : MonoBehaviour {
 		case GameMode.COUNTDOWN:
 			displayMan.DisableStandbyCamera ();
 			textManager.tutorialPleaseEnterText.gameObject.SetActive (false);
+            textManager.tutorialGameInProgressText.gameObject.SetActive(true);
 			dollarsInserted = 0;
 
 			timer = 5f;
