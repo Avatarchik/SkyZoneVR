@@ -128,7 +128,7 @@ public class GameManager : MonoBehaviour {
 		gameTimer += 5;
 
 		displayMan.EnableStandbyCamera ();
-		textManager.tutorialScreenDollarsText.text = "$" + dollarsNeededToPlay.ToString() + "/$" + dollarsNeededToPlay.ToString();
+        textManager.tutorialScreenDollarsText.text = "$" + dollarsInserted.ToString() + "/$" + dollarsNeededToPlay.ToString();
 
 		SwitchGameMode(GameMode.STANDBY);
 	}
@@ -427,7 +427,7 @@ public class GameManager : MonoBehaviour {
 			batHoldBox.SetActive (false);
 			insertPaymentText.SetActive (true);
 			dollarsInserted = 0;
-			textManager.tutorialScreenDollarsText.text = "$" + (dollarsNeededToPlay - dollarsInserted).ToString() + "/$" + dollarsNeededToPlay.ToString();
+			textManager.tutorialScreenDollarsText.text = "$" + dollarsInserted.ToString() + "/$" + dollarsNeededToPlay.ToString();
 
 			paymentAccepted = false;
 			SendSerialMessage ("e");
@@ -836,7 +836,7 @@ public class GameManager : MonoBehaviour {
 			if (dollarsInserted >= dollarsNeededToPlay)
 				PaymentAccepted ();
 
-			textManager.tutorialScreenDollarsText.text = "$" + (dollarsNeededToPlay - dollarsInserted).ToString() + "/$" + dollarsNeededToPlay.ToString();
+			textManager.tutorialScreenDollarsText.text = "$" + dollarsInserted.ToString() + "/$" + dollarsNeededToPlay.ToString();
 			break;
 		}
 	}
