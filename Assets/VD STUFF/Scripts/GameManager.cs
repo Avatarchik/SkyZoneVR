@@ -129,6 +129,7 @@ public class GameManager : MonoBehaviour {
 
 		displayMan.EnableStandbyCamera ();
         textManager.tutorialScreenDollarsText.text = "$" + dollarsInserted.ToString() + "/$" + dollarsNeededToPlay.ToString();
+        textManager.standbyText.gameObject.SetActive(true);
 
 		SwitchGameMode(GameMode.STANDBY);
 	}
@@ -190,9 +191,9 @@ public class GameManager : MonoBehaviour {
 			else if (timer >= 4)
 			{
                     if(easyMode)
-				        textManager.countdownText.text = "Easy Mode";
+				        textManager.countdownText.text = "Normal Mode";
                     else
-                        textManager.countdownText.text = "Hard Mode";
+                        textManager.countdownText.text = "Expert Mode";
                 }
 			else
 			{
@@ -410,6 +411,7 @@ public class GameManager : MonoBehaviour {
 		switch( gm )
 		{
 		case GameMode.STANDBY:
+            textManager.standbyText.gameObject.SetActive(true);
 			displayMan.EnableStandbyCamera ();
             textManager.tutorialGameEndingText.gameObject.SetActive(false);
 			textManager.tutorialScreenText.gameObject.SetActive (true);
@@ -802,6 +804,7 @@ public class GameManager : MonoBehaviour {
 		SendSerialMessage ("s");
 		am.PaymentAcceptedSound ();
 
+        textManager.standbyText.gameObject.SetActive(false);
 		insertPaymentText.SetActive (false);
 		batHoldBox.SetActive (true);
 		textManager.tutorialScreenText.gameObject.SetActive (false);
