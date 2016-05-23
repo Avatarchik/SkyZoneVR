@@ -35,14 +35,36 @@ public class TextManager : MonoBehaviour
 	public Text tutorialPleaseEnterText;
     public Text tutorialGameInProgressText;
     public Text tutorialGameEndingText;
+	public Text tutorialFlashText;
 
-	// Use this for initialization
-	void Start () {
+	bool flash;
+	float flashTimer;
+
+	void Start () 
+	{
 
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	void Update () 
+	{
+		if (flash) 
+		{
+			flashTimer -= Time.deltaTime;
+			tutorialFlashText.color = new Color (255, 255, 255, flashTimer * 3); //new Color (25, 230, 8, flashTimer * 3);
+			if (flashTimer <= 0) 
+			{
+				tutorialFlashText.gameObject.SetActive (false);
+				flash = false;
+			}
+		}
+	}
+
+	public void FlashDollarAmount(int dollarAmount)
+	{
+		tutorialFlashText.gameObject.SetActive (true);
+		flash = true;
+		flashTimer = 1;
+		tutorialFlashText.color = new Color (255, 255, 255, 255); //new Color (25, 230, 8, 255);
+		tutorialFlashText.text = "+$" + dollarAmount;
 	}
 }

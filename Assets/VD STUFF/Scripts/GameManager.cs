@@ -884,6 +884,7 @@ public class GameManager : MonoBehaviour {
 
 			timer = 30;
 
+			textManager.FlashDollarAmount (1);
 			dollarsInserted++;
 			switch (dollarsInserted) {
 			case 3:
