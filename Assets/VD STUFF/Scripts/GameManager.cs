@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour {
 
 	StaticPool staticPool;
 
-	public GameObject insertPaymentText;
+	public GameObject standbyText;
 	SerialManager serialMan;
 	public int dollarsNeededToPlay = 3;
 	int dollarsInserted;
@@ -129,7 +129,7 @@ public class GameManager : MonoBehaviour {
 
 		displayMan.EnableStandbyCamera ();
         textManager.tutorialScreenDollarsText.text = "$" + dollarsInserted.ToString() + "/$" + dollarsNeededToPlay.ToString();
-        textManager.standbyText.gameObject.SetActive(true);
+        standbyText.SetActive(true);
 
 		SwitchGameMode(GameMode.STANDBY);
 	}
@@ -411,26 +411,24 @@ public class GameManager : MonoBehaviour {
 		switch( gm )
 		{
 		case GameMode.STANDBY:
-            textManager.standbyText.gameObject.SetActive(true);
 			displayMan.EnableStandbyCamera ();
             textManager.tutorialGameEndingText.gameObject.SetActive(false);
 			textManager.tutorialScreenText.gameObject.SetActive (true);
 			textManager.tutorialScreenDollarsText.gameObject.SetActive (true);
-			timer = 30;
-
-			gamePhaseInt = 0;
-			StaticPool.DestroyAllObjects ();
 			textManager.countdownText.gameObject.SetActive (false);
 			textManager.scoreText.gameObject.SetActive (false);
 			textManager.timerText.gameObject.SetActive (false);
 			textManager.streakText.gameObject.SetActive (false);
 			DeactivateScoreCard();
-
 			batHoldBox.SetActive (false);
-			insertPaymentText.SetActive (true);
+			standbyText.SetActive (true);
+
+			timer = 30;
+			gamePhaseInt = 0;
+			StaticPool.DestroyAllObjects ();
+
 			dollarsInserted = 0;
 			textManager.tutorialScreenDollarsText.text = "$" + dollarsInserted.ToString() + "/$" + dollarsNeededToPlay.ToString();
-
 			paymentAccepted = false;
 			SendSerialMessage ("e");
 			serialMan.ClearPacketQueueAndBuffer ();
@@ -804,8 +802,7 @@ public class GameManager : MonoBehaviour {
 		SendSerialMessage ("s");
 		am.PaymentAcceptedSound ();
 
-        textManager.standbyText.gameObject.SetActive(false);
-		insertPaymentText.SetActive (false);
+		standbyText.SetActive (false);
 		batHoldBox.SetActive (true);
 		textManager.tutorialScreenText.gameObject.SetActive (false);
 		textManager.tutorialScreenDollarsText.gameObject.SetActive (false);

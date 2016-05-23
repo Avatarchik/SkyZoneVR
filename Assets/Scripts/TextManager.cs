@@ -34,8 +34,6 @@ public class TextManager : MonoBehaviour
     public Text tutorialGameInProgressText;
     public Text tutorialGameEndingText;
 
-    public Text standbyText;
-
 	// Use this for initialization
 	void Start () {
 
