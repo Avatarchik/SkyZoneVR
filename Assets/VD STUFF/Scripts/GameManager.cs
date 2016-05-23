@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour {
 
 	public GameObject batHoldBox;
 	public GameObject ballPrefab;
-	public GameObject[] batMeshes;
+	public MeshRenderer[] batMeshes;
 
 	public List<EnemyBall> activeBalls;
 
@@ -414,10 +414,6 @@ public class GameManager : MonoBehaviour {
 		switch( gm )
 		{
 		case GameMode.STANDBY:
-			textManager.tutorialGameEndingText.gameObject.SetActive (false);
-			textManager.tutorialScreenText.gameObject.SetActive (true);
-			textManager.tutorialScreenDollarsText.gameObject.SetActive (true);
-
 			textManager.countdownText.gameObject.SetActive (false);
 			textManager.scoreText.gameObject.SetActive (false);
 			textManager.timerText.gameObject.SetActive (false);
@@ -431,12 +427,21 @@ public class GameManager : MonoBehaviour {
 			if (plays >= 1) 
 			{
 				ReadyToPlay ();
+				textManager.tutorialGameEndingText.gameObject.SetActive (false);
 			} 
 			else 
 			{
 				displayMan.EnableStandbyCamera ();
 				batHoldBox.SetActive (false);
 				standbyText.SetActive (true);
+				foreach (MeshRenderer mesh in batMeshes)
+					mesh.enabled = false;
+
+				textManager.tutorialGameEndingText.gameObject.SetActive (false);
+				textManager.tutorialScreenText.gameObject.SetActive (true);
+				textManager.tutorialScreenDollarsText.gameObject.SetActive (true);
+				textManager.tutorialPlaysText.gameObject.SetActive (false);
+				textManager.tutorialReadyText.gameObject.SetActive (false);
 
 				dollarsInserted = 0;
 				textManager.tutorialScreenDollarsText.text = "$" + dollarsInserted.ToString (); //+ "/$" + dollarsNeededToPlay.ToString ();
@@ -453,6 +458,8 @@ public class GameManager : MonoBehaviour {
 			SendSerialMessage ("s");
 			displayMan.DisableStandbyCamera ();
 			textManager.tutorialPleaseEnterText.gameObject.SetActive (false);
+			textManager.tutorialScreenDollarsText.gameObject.SetActive (false);
+			textManager.tutorialScreenText.gameObject.SetActive (false);
 			textManager.tutorialGameInProgressText.gameObject.SetActive (true);
 			dollarsInserted = 0;
 
@@ -816,6 +823,8 @@ public class GameManager : MonoBehaviour {
 		batHoldBox.SetActive (true);
 		textManager.tutorialReadyText.gameObject.SetActive (true);
 		textManager.tutorialPlaysText.gameObject.SetActive (true);
+		foreach (MeshRenderer mesh in batMeshes)
+			mesh.enabled = true;
 
 		switch (plays) 
 		{
@@ -837,9 +846,8 @@ public class GameManager : MonoBehaviour {
 	void PaymentAccepted()
 	{
 		paymentAccepted = true;
-		//dollarsInserted = Mathf.Clamp(0,0,0);
-		//SendSerialMessage ("s");
 		am.PaymentAcceptedSound ();
+		displayMan.DisableStandbyCamera ();
 
 		ReadyToPlay ();
 //		standbyText.SetActive (false);
@@ -877,8 +885,6 @@ public class GameManager : MonoBehaviour {
 			timer = 30;
 
 			dollarsInserted++;
-//			if (dollarsInserted >= dollarsNeededToPlay)
-//				PaymentAccepted ();
 			switch (dollarsInserted) {
 			case 3:
 				plays = 1;
