@@ -68,6 +68,7 @@ public class GameManager : MonoBehaviour {
 
 	public GameObject batHoldBox;
 	public GameObject ballPrefab;
+	public GameObject[] batMeshes;
 
 	public List<EnemyBall> activeBalls;
 
@@ -84,6 +85,8 @@ public class GameManager : MonoBehaviour {
 
 	public GameObject standbyText;
 	SerialManager serialMan;
+	int plays = 0;
+	bool readyToPlay;
 	public int dollarsNeededToPlay = 3;
 	int dollarsInserted;
 	bool paymentAccepted = false;
@@ -128,7 +131,7 @@ public class GameManager : MonoBehaviour {
 		gameTimer += 5;
 
 		displayMan.EnableStandbyCamera ();
-        textManager.tutorialScreenDollarsText.text = "$" + dollarsInserted.ToString() + "/$" + dollarsNeededToPlay.ToString();
+		textManager.tutorialScreenDollarsText.text = "$" + dollarsInserted.ToString (); //+ "/$" + dollarsNeededToPlay.ToString();
         standbyText.SetActive(true);
 
 		SwitchGameMode(GameMode.STANDBY);
@@ -411,47 +414,57 @@ public class GameManager : MonoBehaviour {
 		switch( gm )
 		{
 		case GameMode.STANDBY:
-			displayMan.EnableStandbyCamera ();
-            textManager.tutorialGameEndingText.gameObject.SetActive(false);
+			textManager.tutorialGameEndingText.gameObject.SetActive (false);
 			textManager.tutorialScreenText.gameObject.SetActive (true);
 			textManager.tutorialScreenDollarsText.gameObject.SetActive (true);
+
 			textManager.countdownText.gameObject.SetActive (false);
 			textManager.scoreText.gameObject.SetActive (false);
 			textManager.timerText.gameObject.SetActive (false);
 			textManager.streakText.gameObject.SetActive (false);
-			DeactivateScoreCard();
-			batHoldBox.SetActive (false);
-			standbyText.SetActive (true);
+			DeactivateScoreCard ();
 
 			timer = 30;
 			gamePhaseInt = 0;
 			StaticPool.DestroyAllObjects ();
 
-			dollarsInserted = 0;
-			textManager.tutorialScreenDollarsText.text = "$" + dollarsInserted.ToString() + "/$" + dollarsNeededToPlay.ToString();
-			paymentAccepted = false;
-			SendSerialMessage ("e");
-			serialMan.ClearPacketQueueAndBuffer ();
+			if (plays >= 1) 
+			{
+				ReadyToPlay ();
+			} 
+			else 
+			{
+				displayMan.EnableStandbyCamera ();
+				batHoldBox.SetActive (false);
+				standbyText.SetActive (true);
+
+				dollarsInserted = 0;
+				textManager.tutorialScreenDollarsText.text = "$" + dollarsInserted.ToString (); //+ "/$" + dollarsNeededToPlay.ToString ();
+				paymentAccepted = false;
+				SendSerialMessage ("e");
+				serialMan.ClearPacketQueueAndBuffer ();
+			}
 
 			foreach (Material mat in gridMats)
 				mat.SetFloat ("_Opacity_Slider", 30f);
 			//gridMats [1].SetFloat ("_Opacity_Slider", 7f);
 			break;
 		case GameMode.COUNTDOWN:
+			SendSerialMessage ("s");
 			displayMan.DisableStandbyCamera ();
 			textManager.tutorialPleaseEnterText.gameObject.SetActive (false);
-            textManager.tutorialGameInProgressText.gameObject.SetActive(true);
+			textManager.tutorialGameInProgressText.gameObject.SetActive (true);
 			dollarsInserted = 0;
 
 			timer = 5f;
 			textManager.countdownText.gameObject.SetActive (true);
-
 			DisableLoadingBars ();
 			batHoldBox.SetActive (false);
 			textManager.warmUpText.gameObject.SetActive (true);
 
 			aam.AdjustAimAssist (easyMode);
 			AdjustThrowDestinationHeightForNewPlayer ();
+			AddPlayToDebug ();
 
 			newHighScore = false;
 			bestStreak = 0;
@@ -461,7 +474,8 @@ public class GameManager : MonoBehaviour {
 			warmUpBallsThrown = 0;
 			warmUpBallsDone = 0;
 
-			AddPlay ();
+			if (am.loading.isPlaying)
+				am.loading.Stop ();
 			break;
 		case GameMode.TUTORIAL:
 			textManager.countdownText.gameObject.SetActive (false);
@@ -515,6 +529,7 @@ public class GameManager : MonoBehaviour {
 
 		case GameMode.SCORECARD:
 			timer = 7f;
+			plays--;
 			break;
 		case GameMode.CONFIG:
 			break;
@@ -740,7 +755,7 @@ public class GameManager : MonoBehaviour {
 		System.IO.File.WriteAllLines( filePath, debugFile );
 	}
 
-	void AddPlay()
+	void AddPlayToDebug()
 	{
 		string filePath = Application.persistentDataPath + "/SkyzoneDebugInfo.txt";
 
@@ -795,18 +810,45 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
+	void ReadyToPlay()
+	{
+		standbyText.SetActive (false);
+		batHoldBox.SetActive (true);
+		textManager.tutorialReadyText.gameObject.SetActive (true);
+		textManager.tutorialPlaysText.gameObject.SetActive (true);
+
+		switch (plays) 
+		{
+		case 1:
+			textManager.tutorialPlaysText.text = "1 Play";
+			break;
+		case 2:
+			textManager.tutorialPlaysText.text = "2 Plays";
+			break;
+		case 3:
+			textManager.tutorialPlaysText.text = "3 Plays";
+			break;
+		case 4:
+			textManager.tutorialPlaysText.text = "4 Plays";
+			break;
+		}
+	}
+
 	void PaymentAccepted()
 	{
 		paymentAccepted = true;
 		//dollarsInserted = Mathf.Clamp(0,0,0);
-		SendSerialMessage ("s");
+		//SendSerialMessage ("s");
 		am.PaymentAcceptedSound ();
 
-		standbyText.SetActive (false);
-		batHoldBox.SetActive (true);
-		textManager.tutorialScreenText.gameObject.SetActive (false);
-		textManager.tutorialScreenDollarsText.gameObject.SetActive (false);
-		textManager.tutorialPleaseEnterText.gameObject.SetActive (true);
+		ReadyToPlay ();
+//		standbyText.SetActive (false);
+//		batHoldBox.SetActive (true);
+//		textManager.tutorialReadyText.gameObject.SetActive (true);
+//		textManager.tutorialPlaysText.gameObject.SetActive (true);
+		//textManager.tutorialScreenText.gameObject.SetActive (false);
+		//textManager.tutorialScreenDollarsText.gameObject.SetActive (false);
+		//textManager.tutorialPleaseEnterText.gameObject.SetActive (true);
 	}
 
 	public void SerialLEDflash()
@@ -827,16 +869,32 @@ public class GameManager : MonoBehaviour {
 //			print ("serial input message: " + message);
 			break;
 		case "$":
-			if (paymentAccepted)
+			if (dollarsInserted >= 10)
 				return;
 
-            SendSerialMessage("#");
+			SendSerialMessage ("#");
 
-			dollarsInserted += 1;
-			if (dollarsInserted >= dollarsNeededToPlay)
+			timer = 30;
+
+			dollarsInserted++;
+//			if (dollarsInserted >= dollarsNeededToPlay)
+//				PaymentAccepted ();
+			switch (dollarsInserted) {
+			case 3:
+				plays = 1;
 				PaymentAccepted ();
+				break;
+			case 5:
+				plays = 2;
+				PaymentAccepted ();
+				break;
+			case 10:
+				plays = 4;
+				PaymentAccepted ();
+				break;
+			}
 
-			textManager.tutorialScreenDollarsText.text = "$" + dollarsInserted.ToString() + "/$" + dollarsNeededToPlay.ToString();
+			textManager.tutorialScreenDollarsText.text = "$" + dollarsInserted.ToString (); //+ "/$" + dollarsNeededToPlay.ToString();
 			break;
 		}
 	}

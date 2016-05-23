@@ -30,6 +30,8 @@ public class TextManager : MonoBehaviour
 	//TutorialScreen
 	public Text tutorialScreenText;
 	public Text tutorialScreenDollarsText;
+	public Text tutorialPlaysText;
+	public Text tutorialReadyText;
 	public Text tutorialPleaseEnterText;
     public Text tutorialGameInProgressText;
     public Text tutorialGameEndingText;
