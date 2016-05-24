@@ -877,7 +877,7 @@ public class GameManager : MonoBehaviour {
 //			print ("serial input message: " + message);
 			break;
 		case "1$":
-			SendSerialMessage ("#");
+			SendSerialMessage ("1#");
 
 			if (dollarsInserted >= 10)
 				return;
@@ -886,7 +886,7 @@ public class GameManager : MonoBehaviour {
 			dollarsInserted++;
 			break;
 		case "5$":
-			SendSerialMessage ("#");
+			SendSerialMessage ("5#");
 
 			if (dollarsInserted >= 10)
 				return;
@@ -895,7 +895,7 @@ public class GameManager : MonoBehaviour {
 			dollarsInserted += 5;
 			break;
 		case "10$":
-			SendSerialMessage ("#");
+			SendSerialMessage ("10#");
 
 			if (dollarsInserted >= 10)
 				return;
