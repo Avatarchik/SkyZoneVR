@@ -876,32 +876,60 @@ public class GameManager : MonoBehaviour {
 //			print ("serial input recieved by gamemanager");
 //			print ("serial input message: " + message);
 			break;
-		case "$":
+		case "1$":
+			SendSerialMessage ("#");
+
 			if (dollarsInserted >= 10)
 				return;
 
-			SendSerialMessage ("#");
-
-			timer = 30;
-
 			textManager.FlashDollarAmount (1);
 			dollarsInserted++;
-			switch (dollarsInserted) {
-			case 3:
-				plays = 1;
-				PaymentAccepted ();
-				break;
-			case 5:
-				plays = 2;
-				PaymentAccepted ();
-				break;
-			case 10:
-				plays = 4;
-				PaymentAccepted ();
-				break;
-			}
+			break;
+		case "5$":
+			SendSerialMessage ("#");
 
-			textManager.tutorialScreenDollarsText.text = "$" + dollarsInserted.ToString (); //+ "/$" + dollarsNeededToPlay.ToString();
+			if (dollarsInserted >= 10)
+				return;
+
+			textManager.FlashDollarAmount (5);
+			dollarsInserted += 5;
+			break;
+		case "10$":
+			SendSerialMessage ("#");
+
+			if (dollarsInserted >= 10)
+				return;
+
+			textManager.FlashDollarAmount (10);
+			dollarsInserted += 5;
+			break;
+//		case "$":
+//			if (dollarsInserted >= 10)
+//				return;
+//
+//			SendSerialMessage ("#");
+//
+//			textManager.FlashDollarAmount (1);
+//			dollarsInserted++;
+//
+//			textManager.tutorialScreenDollarsText.text = "$" + dollarsInserted.ToString (); //+ "/$" + dollarsNeededToPlay.ToString();
+//			break;
+		}
+
+		timer = 30;
+		textManager.tutorialScreenDollarsText.text = "$" + dollarsInserted.ToString ();
+		switch (dollarsInserted) {
+		case 3:
+			plays = 1;
+			PaymentAccepted ();
+			break;
+		case 5:
+			plays = 2;
+			PaymentAccepted ();
+			break;
+		case 10:
+			plays = 4;
+			PaymentAccepted ();
 			break;
 		}
 	}
