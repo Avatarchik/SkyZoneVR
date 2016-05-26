@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour 
+{
 
 	private static GameManager _instance;
 
@@ -92,6 +93,9 @@ public class GameManager : MonoBehaviour {
 	bool paymentAccepted = false;
 	float timeSinceLastLEDFlash = 0;
 
+	public GoogleAnalyticsV3 googleAnalytics;
+	bool sessionStarted;
+
 	#region Singleton Initialization
 	public static GameManager instance {
 		get { 
@@ -165,7 +169,11 @@ public class GameManager : MonoBehaviour {
 			}
 
 			if (Input.GetKeyDown (KeyCode.Alpha4)) {
-				SerialInputRecieved ("$");
+				SerialInputRecieved ("1$");
+			}
+
+			if (Input.GetKeyDown (KeyCode.G)) {
+				googleAnalytics.LogEvent ("Test", "test", "testing", 420);
 			}
 
 			if (paymentAccepted) 
@@ -537,6 +545,8 @@ public class GameManager : MonoBehaviour {
 		case GameMode.SCORECARD:
 			timer = 7f;
 			plays--;
+			SendAnalyticsData ();
+			googleAnalytics.StopSession ();
 			break;
 		case GameMode.CONFIG:
 			break;
@@ -841,6 +851,12 @@ public class GameManager : MonoBehaviour {
 			textManager.tutorialPlaysText.text = "4 Plays";
 			break;
 		}
+
+		if (!sessionStarted) 
+		{
+			googleAnalytics.StartSession ();
+			sessionStarted = true;
+		}
 	}
 
 	void PaymentAccepted()
@@ -941,6 +957,43 @@ public class GameManager : MonoBehaviour {
 
 		serialMan.WriteToStream (send);
 		print("String sent: " + send);
+	}
+
+	void SendAnalyticsData()
+	{
+//		if (easyMode)
+//			googleAnalytics.LogEvent ("Gameplay", "Mode", "Mode", 0);
+//		else
+//			googleAnalytics.LogEvent ("Gameplay", "Mode", "Mode", 1);
+
+		googleAnalytics.LogEvent ("Gameplay", "Score", "Score", score);
+
+		if (easyMode) {
+			googleAnalytics.LogEvent (new EventHitBuilder ()
+			.SetEventCategory ("Gameplay")
+			.SetEventAction ("Mode")
+			.SetEventLabel ("Easy or Hard Mode")
+			.SetEventValue (0)
+			.SetCustomMetric (0, "Easy"));
+		} 
+		else 
+		{
+			googleAnalytics.LogEvent(new EventHitBuilder()
+				.SetEventCategory("Gameplay")
+				.SetEventAction("Mode")
+				.SetEventLabel("Easy or Hard Mode")
+				.SetEventValue(1)
+				.SetCustomMetric(1, "Hard"));
+		}
+
+		googleAnalytics.LogEvent(new EventHitBuilder()
+			.SetEventCategory("Stats")
+			.SetEventAction("Time")
+			.SetEventLabel("Time Of Day")
+			.SetEventValue(0)
+			.SetCustomMetric(0, "Hour: " + System.DateTime.Now.Hour.ToString())
+			.SetCustomMetric(1, "Min: " + System.DateTime.Now.Minute.ToString())
+			.SetCustomMetric(2, "Second: " + System.DateTime.Now.Second.ToString()));
 	}
 }
  
