@@ -58,6 +58,7 @@ public class BatHoldBox : MonoBehaviour {
 			{
 				timer += Time.deltaTime;
 				loadingBar.fillAmount = timer / timeToHold;
+				coll.gameObject.GetComponent<Bat> ().TriggerHaptic (1000);
 				if (timer >= timeToHold) 
 				{
 					timer = 0f;

@@ -186,6 +186,8 @@ public class EnemyBall : MonoBehaviour
 			trail.time = 0;
 			am.DodgeballHitSound ();
 			gameObject.layer = 12;
+
+			coll.gameObject.GetComponent<Bat> ().TriggerHaptic(3500);
 		}
 
         if (coll.collider.tag == "Ball" && coll.collider.gameObject.GetComponent<EnemyBall>().fromEnemy == false)
