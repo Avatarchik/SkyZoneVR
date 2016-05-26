@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
 	private AudioManager am;
 	private AimAssistManager aam;
 	private DisplayManager displayMan;
+	private AnalyticsManager analyticsManager;
 
 	private bool firstCalibrationDone;
 	private float firstCalibrationTimer = 0f;
@@ -93,9 +94,6 @@ public class GameManager : MonoBehaviour
 	bool paymentAccepted = false;
 	float timeSinceLastLEDFlash = 0;
 
-	public GoogleAnalyticsV3 googleAnalytics;
-	bool sessionStarted;
-
 	#region Singleton Initialization
 	public static GameManager instance {
 		get { 
@@ -127,6 +125,7 @@ public class GameManager : MonoBehaviour
 		textManager = GetComponent<TextManager> ();
 		serialMan = GetComponent<SerialManager> ();
 		displayMan = GetComponent<DisplayManager> ();
+		analyticsManager = GetComponent<AnalyticsManager> ();
 
 		queueManager = GameObject.Find( "QueueManager" ).GetComponent<QueueManager>();
 
@@ -170,10 +169,7 @@ public class GameManager : MonoBehaviour
 
 			if (Input.GetKeyDown (KeyCode.Alpha4)) {
 				SerialInputRecieved ("1$");
-			}
-
-			if (Input.GetKeyDown (KeyCode.G)) {
-				googleAnalytics.LogEvent ("Test", "test", "testing", 420);
+				analyticsManager.free++;
 			}
 
 			if (paymentAccepted) 
@@ -545,8 +541,8 @@ public class GameManager : MonoBehaviour
 		case GameMode.SCORECARD:
 			timer = 7f;
 			plays--;
-			SendAnalyticsData ();
-			googleAnalytics.StopSession ();
+			analyticsManager.StopSession ();
+			analyticsManager.SendAnalyticsData (score, easyMode);
 			break;
 		case GameMode.CONFIG:
 			break;
@@ -852,11 +848,7 @@ public class GameManager : MonoBehaviour
 			break;
 		}
 
-		if (!sessionStarted) 
-		{
-			googleAnalytics.StartSession ();
-			sessionStarted = true;
-		}
+		analyticsManager.StartSession ();
 	}
 
 	void PaymentAccepted()
@@ -900,6 +892,7 @@ public class GameManager : MonoBehaviour
 
 			textManager.FlashDollarAmount (1);
 			dollarsInserted++;
+			analyticsManager.ones++;
 			break;
 		case "5$":
 			SendSerialMessage ("5#");
@@ -909,6 +902,7 @@ public class GameManager : MonoBehaviour
 
 			textManager.FlashDollarAmount (5);
 			dollarsInserted += 5;
+			analyticsManager.fives++;
 			break;
 		case "10$":
 			SendSerialMessage ("10#");
@@ -917,7 +911,11 @@ public class GameManager : MonoBehaviour
 				return;
 
 			textManager.FlashDollarAmount (10);
-			dollarsInserted += 5;
+			dollarsInserted += 10;
+			analyticsManager.tens++;
+			break;
+		case "ticketsEmpty":
+
 			break;
 //		case "$":
 //			if (dollarsInserted >= 10)
@@ -957,43 +955,6 @@ public class GameManager : MonoBehaviour
 
 		serialMan.WriteToStream (send);
 		print("String sent: " + send);
-	}
-
-	void SendAnalyticsData()
-	{
-//		if (easyMode)
-//			googleAnalytics.LogEvent ("Gameplay", "Mode", "Mode", 0);
-//		else
-//			googleAnalytics.LogEvent ("Gameplay", "Mode", "Mode", 1);
-
-		googleAnalytics.LogEvent ("Gameplay", "Score", "Score", score);
-
-		if (easyMode) {
-			googleAnalytics.LogEvent (new EventHitBuilder ()
-			.SetEventCategory ("Gameplay")
-			.SetEventAction ("Mode")
-			.SetEventLabel ("Easy or Hard Mode")
-			.SetEventValue (0)
-			.SetCustomMetric (0, "Easy"));
-		} 
-		else 
-		{
-			googleAnalytics.LogEvent(new EventHitBuilder()
-				.SetEventCategory("Gameplay")
-				.SetEventAction("Mode")
-				.SetEventLabel("Easy or Hard Mode")
-				.SetEventValue(1)
-				.SetCustomMetric(1, "Hard"));
-		}
-
-		googleAnalytics.LogEvent(new EventHitBuilder()
-			.SetEventCategory("Stats")
-			.SetEventAction("Time")
-			.SetEventLabel("Time Of Day")
-			.SetEventValue(0)
-			.SetCustomMetric(0, "Hour: " + System.DateTime.Now.Hour.ToString())
-			.SetCustomMetric(1, "Min: " + System.DateTime.Now.Minute.ToString())
-			.SetCustomMetric(2, "Second: " + System.DateTime.Now.Second.ToString()));
 	}
 }
  
