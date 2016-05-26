@@ -134,7 +134,7 @@ public class GameManager : MonoBehaviour
 		gameTimer += 5;
 
 		displayMan.EnableStandbyCamera ();
-		textManager.tutorialScreenDollarsText.text = "$" + dollarsInserted.ToString (); //+ "/$" + dollarsNeededToPlay.ToString();
+		textManager.tutorialScreenDollarsText.text = "$" + dollarsInserted.ToString () + "/$" + dollarsNeededToPlay.ToString();
         standbyText.SetActive(true);
 
 		SwitchGameMode(GameMode.STANDBY);
@@ -448,7 +448,7 @@ public class GameManager : MonoBehaviour
 				textManager.tutorialReadyText.gameObject.SetActive (false);
 
 				dollarsInserted = 0;
-				textManager.tutorialScreenDollarsText.text = "$" + dollarsInserted.ToString (); //+ "/$" + dollarsNeededToPlay.ToString ();
+				textManager.tutorialScreenDollarsText.text = "$" + dollarsInserted.ToString () + "/$" + dollarsNeededToPlay.ToString ();
 				paymentAccepted = false;
 				SendSerialMessage ("e");
 				serialMan.ClearPacketQueueAndBuffer ();
@@ -832,6 +832,13 @@ public class GameManager : MonoBehaviour
 		foreach (MeshRenderer mesh in batMeshes)
 			mesh.enabled = true;
 
+		if (dollarsInserted >= dollarsNeededToPlay) 
+		{
+			textManager.tutorialScreenDollarsText.gameObject.SetActive (false);
+			textManager.tutorialScreenText.gameObject.SetActive (false);
+			textManager.tutorialPleaseEnterText.gameObject.SetActive (true);
+		}
+
 		switch (plays) 
 		{
 		case 1:
@@ -887,7 +894,7 @@ public class GameManager : MonoBehaviour
 		case "1$":
 			SendSerialMessage ("1#");
 
-			if (dollarsInserted >= 10)
+			if (dollarsInserted >= dollarsNeededToPlay)
 				return;
 
 			textManager.FlashDollarAmount (1);
@@ -897,7 +904,7 @@ public class GameManager : MonoBehaviour
 		case "5$":
 			SendSerialMessage ("5#");
 
-			if (dollarsInserted >= 10)
+			if (dollarsInserted >= dollarsNeededToPlay)
 				return;
 
 			textManager.FlashDollarAmount (5);
@@ -907,15 +914,12 @@ public class GameManager : MonoBehaviour
 		case "10$":
 			SendSerialMessage ("10#");
 
-			if (dollarsInserted >= 10)
+			if (dollarsInserted >= dollarsNeededToPlay)
 				return;
 
 			textManager.FlashDollarAmount (10);
 			dollarsInserted += 10;
 			analyticsManager.tens++;
-			break;
-		case "ticketsEmpty":
-
 			break;
 //		case "$":
 //			if (dollarsInserted >= 10)
@@ -931,7 +935,7 @@ public class GameManager : MonoBehaviour
 		}
 
 		timer = 30;
-		textManager.tutorialScreenDollarsText.text = "$" + dollarsInserted.ToString ();
+		textManager.tutorialScreenDollarsText.text = "$" + dollarsInserted.ToString () + "/$" + dollarsNeededToPlay.ToString();
 		switch (dollarsInserted) {
 		case 3:
 			plays = 1;
