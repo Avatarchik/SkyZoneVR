@@ -459,7 +459,6 @@ public class GameManager : MonoBehaviour
 			//gridMats [1].SetFloat ("_Opacity_Slider", 7f);
 			break;
 		case GameMode.COUNTDOWN:
-			SendSerialMessage ("s");
 			displayMan.DisableStandbyCamera ();
 			textManager.tutorialPleaseEnterText.gameObject.SetActive (false);
 			textManager.tutorialScreenDollarsText.gameObject.SetActive (false);
@@ -860,7 +859,8 @@ public class GameManager : MonoBehaviour
 
 	void PaymentAccepted()
 	{
-		paymentAccepted = true;
+        SendSerialMessage("s");
+        paymentAccepted = true;
 		am.PaymentAcceptedSound ();
 		displayMan.DisableStandbyCamera ();
 
@@ -892,27 +892,30 @@ public class GameManager : MonoBehaviour
 //			print ("serial input message: " + message);
 			break;
 		case "1$":
-			SendSerialMessage ("1#");
+            if (dollarsInserted >= dollarsNeededToPlay)
+                return;
 
-			if (dollarsInserted >= dollarsNeededToPlay)
-				return;
+            SendSerialMessage ("1#");
 
 			textManager.FlashDollarAmount (1);
 			dollarsInserted++;
 			analyticsManager.ones++;
 			break;
 		case "5$":
-			SendSerialMessage ("5#");
+            if (dollarsInserted >= dollarsNeededToPlay)
+                return;
 
-			if (dollarsInserted >= dollarsNeededToPlay)
-				return;
+            SendSerialMessage ("5#");
 
 			textManager.FlashDollarAmount (5);
 			dollarsInserted += 5;
 			analyticsManager.fives++;
 			break;
 		case "10$":
-			SendSerialMessage ("10#");
+            if (dollarsInserted >= dollarsNeededToPlay)
+                return;
+
+            SendSerialMessage ("10#");
 
 			if (dollarsInserted >= dollarsNeededToPlay)
 				return;

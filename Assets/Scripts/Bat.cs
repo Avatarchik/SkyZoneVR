@@ -22,21 +22,27 @@ public class Bat : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
+        rb.MovePosition(controllerTransform.position);
+        rb.MoveRotation(controller.transform.rotation);
+
+        if (controller.gameObject.activeInHierarchy == false)
+            return;
+
 		var device = SteamVR_Controller.Input ((int)controller.index);
 
-		if (triggerHaptic) 
-		{
-			hapticTimer += Time.deltaTime;
-			device.TriggerHapticPulse (hapticIntensity);
-			if (hapticTimer >= 0.05f) 
-			{
-				triggerHaptic = false;
-				hapticTimer = 0;
-			}
-		}
-
-		rb.MovePosition (controllerTransform.position);
-		rb.MoveRotation(controller.transform.rotation);
+        if (device != null)
+        {
+            if (triggerHaptic)
+            {
+                hapticTimer += Time.deltaTime;
+                device.TriggerHapticPulse(hapticIntensity);
+                if (hapticTimer >= 0.05f)
+                {
+                    triggerHaptic = false;
+                    hapticTimer = 0;
+                }
+            }
+        }
 	}
 
 	public void TriggerHaptic(ushort pulse)
