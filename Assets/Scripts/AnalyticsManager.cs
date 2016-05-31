@@ -113,6 +113,8 @@ public class AnalyticsManager : MonoBehaviour
 
 		googleAnalytics.LogEvent ("Gameplay", "Plays", "Plays paid for", plays);
 
+		googleAnalytics.LogEvent ("Time", "Time of day game was played", System.DateTime.Now.ToString (), 0);
+
 		ResetData ();
 	}
 

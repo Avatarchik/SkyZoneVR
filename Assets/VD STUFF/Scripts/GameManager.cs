@@ -168,7 +168,7 @@ public class GameManager : MonoBehaviour
 			}
 
 			if (Input.GetKeyDown (KeyCode.Alpha4)) {
-				SerialInputRecieved ("1$");
+				SerialInputRecieved ("$");
 				analyticsManager.free++;
 			}
 
@@ -891,11 +891,11 @@ public class GameManager : MonoBehaviour
 //			print ("serial input recieved by gamemanager");
 //			print ("serial input message: " + message);
 			break;
-		case "1$":
+		case "$":
+			SendSerialMessage ("#");
+
             if (dollarsInserted >= dollarsNeededToPlay)
                 return;
-
-            SendSerialMessage ("1#");
 
 			textManager.FlashDollarAmount (1);
 			dollarsInserted++;
@@ -923,6 +923,9 @@ public class GameManager : MonoBehaviour
 			textManager.FlashDollarAmount (10);
 			dollarsInserted += 10;
 			analyticsManager.tens++;
+			break;
+		case "lo0o0o0ongstring":
+			print("LONG STRINGS WORK");
 			break;
 //		case "$":
 //			if (dollarsInserted >= 10)

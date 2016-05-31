@@ -22,6 +22,8 @@ public class SerialManager : MonoBehaviour
 
 	float timeSinceLastConfig, delay = 2.0f;
 
+	
+
 	void Start () 
 	{
 		availableCOMPorts = new List<string>(System.IO.Ports.SerialPort.GetPortNames());
@@ -50,6 +52,21 @@ public class SerialManager : MonoBehaviour
 					thread = new Thread (new ThreadStart (readSerial));
 					thread.Start ();
 					print ("update: configured");
+
+//					stream.RtsEnable = true;
+//					stream.DataBits = 8;
+//					stream.Parity = Parity.None;
+//					stream.StopBits = StopBits.One;
+//					stream.ReadTimeout = 5;
+//					stream.WriteTimeout = 1000;
+//					StartCoroutine
+//					(
+//						AsynchronousReadFromArduino
+//						(   (string s) => Debug.Log(s),     // Callback
+//							() => Debug.LogError("Error!"), // Error callback
+//							10f                             // Timeout (seconds)
+//						)
+//					);
 				} 
 			}
 		} 
@@ -77,6 +94,18 @@ public class SerialManager : MonoBehaviour
 		  	}
 		  packetQueue.Clear ();
 		}
+
+//		if (configured) 
+//		{
+//			StartCoroutine
+//			(
+//				AsynchronousReadFromArduino
+//				(   (string s) => Debug.Log(s),     // Callback
+//					() => Debug.LogError("Error!"), // Error callback
+//					10f                             // Timeout (seconds)
+//				)
+//			);
+//		}
 	}
 
 	private void readSerial()
@@ -145,6 +174,7 @@ public class SerialManager : MonoBehaviour
 	public void WriteToStream(string send)
 	{
 		stream.Write (send);
+		stream.BaseStream.Flush ();
 	}
 
 	public void ClearPacketQueueAndBuffer()
@@ -169,5 +199,47 @@ public class SerialManager : MonoBehaviour
 			stream.Open ();
 		else
 			stream.Close ();
+	}
+
+	public IEnumerator AsynchronousReadFromArduino(Action<string> callback, Action fail = null, float timeout = float.PositiveInfinity) {
+		DateTime initialTime = DateTime.Now;
+		DateTime nowTime;
+		TimeSpan diff = default(TimeSpan);
+
+		string dataString = null;
+
+		do {
+			try {
+				dataString = stream.ReadLine();
+			}
+			catch (TimeoutException) {
+				dataString = null;
+			}
+
+			if (dataString != null)
+			{
+				callback(dataString);
+				SendMessage("SerialInputRecieved", dataString, SendMessageOptions.DontRequireReceiver);
+				stream.BaseStream.Flush();
+				yield return null;
+			} else
+				yield return new WaitForSeconds(0.05f);
+
+			nowTime = DateTime.Now;
+			diff = nowTime - initialTime;
+
+		} while (diff.Milliseconds < timeout);
+
+		if (fail != null)
+			fail();
+		//yield return null;
+		StartCoroutine
+		(
+			AsynchronousReadFromArduino
+			(   (string s) => Debug.Log(s),     // Callback
+				() => Debug.LogError("Error!"), // Error callback
+				10f                             // Timeout (seconds)
+			)
+		);
 	}
 }
