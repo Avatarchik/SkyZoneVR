@@ -9,7 +9,7 @@ public class CreditCardProcessing : MonoBehaviour {
   string outputText;
   string magStripe;
   string gatewayUrl = "https://www.usaepay.com/gate.php";
-  bool readyToProcess = true;
+  public bool readyToProcess = true;
 
   float timeSinceLastSwipe, delay = 1f;
   void Update(){
@@ -43,10 +43,12 @@ public class CreditCardProcessing : MonoBehaviour {
     magStripe = "";
 		if (!string.IsNullOrEmpty(w.error)) {
 			print(w.error);
+      SendMessage("CreditCardTransaction", false);
 		}
 		else {
-      print(w.text);
 			print("Finished processed!");
+      // ADD IN GAME FUNCTIONALITY HERE GREG.
+      SendMessage("CreditCardTransaction", true);
 		}
  
   }
