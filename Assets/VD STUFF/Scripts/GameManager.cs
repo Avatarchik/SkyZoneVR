@@ -172,6 +172,14 @@ public class GameManager : MonoBehaviour
 				analyticsManager.free++;
 			}
 
+			if (Input.GetKeyDown (KeyCode.Alpha5)) {
+				CreditCardTransaction (false);
+			}
+
+			if (Input.GetKeyDown (KeyCode.Alpha6)) {
+				CreditCardTransaction (true);
+			}
+
 			if (paymentAccepted) 
 			{
 				timer -= Time.deltaTime;
@@ -831,12 +839,9 @@ public class GameManager : MonoBehaviour
 		foreach (MeshRenderer mesh in batMeshes)
 			mesh.enabled = true;
 
-		if (dollarsInserted >= dollarsNeededToPlay) 
-		{
-			textManager.tutorialScreenDollarsText.gameObject.SetActive (false);
-			textManager.tutorialScreenText.gameObject.SetActive (false);
-			textManager.tutorialPleaseEnterText.gameObject.SetActive (true);
-		}
+		textManager.tutorialScreenDollarsText.gameObject.SetActive (false);
+		textManager.tutorialScreenText.gameObject.SetActive (false);
+		textManager.tutorialPleaseEnterText.gameObject.SetActive (true);
 
 		switch (plays) 
 		{
@@ -965,6 +970,24 @@ public class GameManager : MonoBehaviour
 
 		serialMan.WriteToStream (send);
 		print("String sent: " + send);
+	}
+
+	void CreditCardTransaction( bool cardAccepted )
+	{
+		if ( cardAccepted ) 
+		{
+			plays = 1;
+			PaymentAccepted ();
+
+			analyticsManager.credit++;
+
+			if (textManager.tutorialCardDeclinedText.gameObject.activeInHierarchy)
+				textManager.tutorialCardDeclinedText.gameObject.SetActive (false);
+		} 
+		else 
+		{
+			textManager.StartCoroutine ("CardDeclinedText");
+		}
 	}
 }
  

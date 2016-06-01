@@ -36,6 +36,7 @@ public class TextManager : MonoBehaviour
     public Text tutorialGameInProgressText;
     public Text tutorialGameEndingText;
 	public Text tutorialFlashText;
+	public Text tutorialCardDeclinedText;
 
 	bool flash;
 	float flashTimer;
@@ -66,5 +67,12 @@ public class TextManager : MonoBehaviour
 		flashTimer = 1;
 		tutorialFlashText.color = new Color (255, 255, 255, 255); //new Color (25, 230, 8, 255);
 		tutorialFlashText.text = "+$" + dollarAmount;
+	}
+
+	public IEnumerator CardDeclinedText()
+	{
+		tutorialCardDeclinedText.gameObject.SetActive (true);
+		yield return new WaitForSeconds (3);
+		tutorialCardDeclinedText.gameObject.SetActive (false);
 	}
 }
