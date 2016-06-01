@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
 	private AimAssistManager aam;
 	private DisplayManager displayMan;
 	private AnalyticsManager analyticsManager;
+	private CreditCardProcessing ccProcessing;
 
 	private bool firstCalibrationDone;
 	private float firstCalibrationTimer = 0f;
@@ -94,6 +95,8 @@ public class GameManager : MonoBehaviour
 	bool paymentAccepted = false;
 	float timeSinceLastLEDFlash = 0;
 
+	public bool debugMode;
+
 	#region Singleton Initialization
 	public static GameManager instance {
 		get { 
@@ -126,6 +129,7 @@ public class GameManager : MonoBehaviour
 		serialMan = GetComponent<SerialManager> ();
 		displayMan = GetComponent<DisplayManager> ();
 		analyticsManager = GetComponent<AnalyticsManager> ();
+		ccProcessing = GetComponent<CreditCardProcessing> ();
 
 		queueManager = GameObject.Find( "QueueManager" ).GetComponent<QueueManager>();
 
@@ -149,35 +153,38 @@ public class GameManager : MonoBehaviour
 		{
 		case GameMode.STANDBY:
 
-			if (Input.GetKeyDown (KeyCode.Space)) {
-				//SwitchGameMode (GameMode.COUNTDOWN);
-				StartCountdown (true);
-			}
+			if (debugMode) {
 
-			if (Input.GetKeyDown (KeyCode.H)) {
-				StartCountdown (false);
-			}
+				if (Input.GetKeyDown (KeyCode.Space)) {
+					//SwitchGameMode (GameMode.COUNTDOWN);
+					StartCountdown (true);
+				}
+
+				if (Input.GetKeyDown (KeyCode.H)) {
+					StartCountdown (false);
+				}
 
 //			if (Input.GetKeyDown (KeyCode.T)) {
 //				SwitchGameMode (GameMode.TUTORIAL);
 //				//inTutorialMode = true;
 //			}
 
-			if (Input.GetKeyDown (KeyCode.C)) {
-				SwitchGameMode (GameMode.CONFIG);
-			}
+				if (Input.GetKeyDown (KeyCode.C)) {
+					SwitchGameMode (GameMode.CONFIG);
+				}
 
-			if (Input.GetKeyDown (KeyCode.Alpha4)) {
-				SerialInputRecieved ("$");
-				analyticsManager.free++;
-			}
+				if (Input.GetKeyDown (KeyCode.Alpha4)) {
+					SerialInputRecieved ("$");
+					analyticsManager.free++;
+				}
 
-			if (Input.GetKeyDown (KeyCode.Alpha5)) {
-				CreditCardTransaction (false);
-			}
+				if (Input.GetKeyDown (KeyCode.Alpha5)) {
+					CreditCardTransaction (false);
+				}
 
-			if (Input.GetKeyDown (KeyCode.Alpha6)) {
-				CreditCardTransaction (true);
+				if (Input.GetKeyDown (KeyCode.Alpha6)) {
+					CreditCardTransaction (true);
+				}
 			}
 
 			if (paymentAccepted) 
@@ -460,6 +467,7 @@ public class GameManager : MonoBehaviour
 				paymentAccepted = false;
 				SendSerialMessage ("e");
 				serialMan.ClearPacketQueueAndBuffer ();
+				ccProcessing.ResetMagStripeString ();
 			}
 
 			foreach (Material mat in gridMats)
@@ -945,7 +953,7 @@ public class GameManager : MonoBehaviour
 //			break;
 		}
 
-		timer = 30;
+		//timer = 30;
 		textManager.tutorialScreenDollarsText.text = "$" + dollarsInserted.ToString () + "/$" + dollarsNeededToPlay.ToString();
 		switch (dollarsInserted) {
 		case 3:

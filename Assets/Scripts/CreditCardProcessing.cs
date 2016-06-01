@@ -7,12 +7,13 @@ using System.Text;
 
 public class CreditCardProcessing : MonoBehaviour {
   string outputText;
-  string magStripe;
+  string magStripe = "";
   string gatewayUrl = "https://www.usaepay.com/gate.php";
   public bool readyToProcess = true;
 
   float timeSinceLastSwipe, delay = 1f;
   void Update(){
+		print (magStripe);
     if(readyToProcess){
       if(Input.inputString.Length > 0){
         magStripe = magStripe + Input.inputString;
@@ -20,14 +21,16 @@ public class CreditCardProcessing : MonoBehaviour {
       }else if(timeSinceLastSwipe + delay < Time.time && magStripe.Length > 10){
         readyToProcess = false;
         StartCoroutine(RunSale(magStripe));
-      }else{
-        magStripe = "";
       }
+
+			if(magStripe.Length > 1)
+				GetComponent<TextManager> ().tutorialProcessingCardText.gameObject.SetActive (true);
     }
   }
 
   private IEnumerator RunSale(string mag){
-    
+		print ("Running sale");
+
 		yield return new WaitForEndOfFrame();
     
     WWWForm form = new WWWForm();
@@ -51,5 +54,11 @@ public class CreditCardProcessing : MonoBehaviour {
       SendMessage("CreditCardTransaction", true);
 		}
  
+		GetComponent<TextManager> ().tutorialProcessingCardText.gameObject.SetActive (false);
   }
+
+	public void ResetMagStripeString()
+	{
+		magStripe = "";
+	}
 }

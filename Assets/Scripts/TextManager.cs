@@ -37,6 +37,7 @@ public class TextManager : MonoBehaviour
     public Text tutorialGameEndingText;
 	public Text tutorialFlashText;
 	public Text tutorialCardDeclinedText;
+	public Text tutorialProcessingCardText;
 
 	bool flash;
 	float flashTimer;
