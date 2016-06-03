@@ -117,6 +117,7 @@ public class AudioManager : MonoBehaviour {
             finalBuzzer.Play();
         else
             countdownBoop.Play();
+		//GameObject.Find("GameManager").GetComponent<TextManager> ().PulseScoreboardText (GameObject.Find("GameManager").GetComponent<TextManager> ().timerText);
         yield return new WaitForSeconds(1);
         playBeepOnce = false;
     }

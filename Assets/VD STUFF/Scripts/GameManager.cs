@@ -153,6 +153,14 @@ public class GameManager : MonoBehaviour
 		{
 		case GameMode.STANDBY:
 
+			if (Input.GetKeyDown (KeyCode.Escape)) 
+			{
+				if (debugMode)
+					debugMode = false;
+				else
+					debugMode = true;
+			}
+
 			if (debugMode) {
 
 				if (Input.GetKeyDown (KeyCode.Space)) {
@@ -467,6 +475,7 @@ public class GameManager : MonoBehaviour
 				paymentAccepted = false;
 				SendSerialMessage ("e");
 				serialMan.ClearPacketQueueAndBuffer ();
+				ccProcessing.readyToProcess = true;
 				ccProcessing.ResetMagStripeString ();
 			}
 
@@ -677,6 +686,7 @@ public class GameManager : MonoBehaviour
 	{
 		score += p_score * streakMultiplier;
 		AddToStreak ();
+		//textManager.PulseScoreboardText (textManager.scoreText);
 	}
 
     public void StartCountdown(bool mode)
@@ -876,6 +886,7 @@ public class GameManager : MonoBehaviour
         paymentAccepted = true;
 		am.PaymentAcceptedSound ();
 		displayMan.DisableStandbyCamera ();
+		ccProcessing.readyToProcess = false;
 
 		ReadyToPlay ();
 //		standbyText.SetActive (false);

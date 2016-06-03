@@ -13,18 +13,19 @@ public class CreditCardProcessing : MonoBehaviour {
 
   float timeSinceLastSwipe, delay = 1f;
   void Update(){
-		print (magStripe);
     if(readyToProcess){
+		print (magStripe);
       if(Input.inputString.Length > 0){
         magStripe = magStripe + Input.inputString;
         timeSinceLastSwipe = Time.time;
       }else if(timeSinceLastSwipe + delay < Time.time && magStripe.Length > 10){
         readyToProcess = false;
         StartCoroutine(RunSale(magStripe));
+		print (magStripe);
       }
 
-			if(magStripe.Length > 1)
-				GetComponent<TextManager> ().tutorialProcessingCardText.gameObject.SetActive (true);
+	if(magStripe.Length > 1)
+		GetComponent<TextManager> ().tutorialProcessingCardText.gameObject.SetActive (true);
     }
   }
 
@@ -44,17 +45,21 @@ public class CreditCardProcessing : MonoBehaviour {
 		yield return w;
     readyToProcess = true;
     magStripe = "";
-		if (!string.IsNullOrEmpty(w.error)) {
-			print(w.error);
-      SendMessage("CreditCardTransaction", false);
-		}
-		else {
-			print("Finished processed!");
-      // ADD IN GAME FUNCTIONALITY HERE GREG.
-      SendMessage("CreditCardTransaction", true);
+		if (!string.IsNullOrEmpty (w.error)) {
+			print (w.error);
+			SendMessage ("CreditCardTransaction", false);
+		} else if (w.text.Contains ("UMstatus=Approved")) {
+			print ("Finished processed!");
+
+			// ADD IN GAME FUNCTIONALITY HERE GREG.
+			SendMessage ("CreditCardTransaction", true);
+		} else {
+			print ("SALE FAILED");
+			GetComponent<TextManager> ().StartCoroutine ("CardDeclinedText");
 		}
  
 		GetComponent<TextManager> ().tutorialProcessingCardText.gameObject.SetActive (false);
+		print (w.text);
   }
 
 	public void ResetMagStripeString()

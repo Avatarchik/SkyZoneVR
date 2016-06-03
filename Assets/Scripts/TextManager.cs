@@ -42,6 +42,12 @@ public class TextManager : MonoBehaviour
 	bool flash;
 	float flashTimer;
 
+	bool pulse;
+	float pulseTimer;
+	Color originalTextColor;
+	Color pulseColor;
+	Text pulseText;
+
 	void Start () 
 	{
 
@@ -57,6 +63,18 @@ public class TextManager : MonoBehaviour
 			{
 				tutorialFlashText.gameObject.SetActive (false);
 				flash = false;
+			}
+		}
+
+		if (pulse) 
+		{
+			pulseTimer -= Time.deltaTime;
+			pulseText.color = Color.Lerp(originalTextColor, pulseColor, Mathf.PingPong(pulseTimer/1, 1));
+			if (pulseTimer <= 0) 
+			{
+				pulseText.color = originalTextColor;
+				pulse = false;
+				pulseText = null;
 			}
 		}
 	}
@@ -75,5 +93,15 @@ public class TextManager : MonoBehaviour
 		tutorialCardDeclinedText.gameObject.SetActive (true);
 		yield return new WaitForSeconds (3);
 		tutorialCardDeclinedText.gameObject.SetActive (false);
+	}
+
+	public void PulseScoreboardText(Text textToPulse)
+	{
+		originalTextColor = textToPulse.color;
+		pulseColor = new Color(1f, 0.67f, 0.67f, 1f);
+		pulse = true;
+		pulseTimer = 1;
+		pulseText = textToPulse;
+		//textToPulse.color = Color.Lerp(originalColor, pulseColor, Mathf.PingPong(
 	}
 }
