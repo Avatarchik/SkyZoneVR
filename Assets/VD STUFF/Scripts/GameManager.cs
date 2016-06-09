@@ -149,17 +149,14 @@ public class GameManager : MonoBehaviour
 		skyboxRot -= Time.deltaTime;
 		skybox.SetFloat("_Rotation", skyboxRot);
 
+		if (Input.GetKeyDown (KeyCode.Escape)) 
+		{
+			debugMode = !debugMode;
+		}
+
 		switch(mode)
 		{
 		case GameMode.STANDBY:
-
-			if (Input.GetKeyDown (KeyCode.Escape)) 
-			{
-				if (debugMode)
-					debugMode = false;
-				else
-					debugMode = true;
-			}
 
 			if (debugMode) {
 
@@ -918,10 +915,11 @@ public class GameManager : MonoBehaviour
 		case "$":
 			SendSerialMessage ("#");
 
-            if (dollarsInserted >= dollarsNeededToPlay)
-                return;
+			if (dollarsInserted >= dollarsNeededToPlay)
+				return;
 
 			textManager.FlashDollarAmount (1);
+			am.DollarInsertedSound ();
 			dollarsInserted++;
 			analyticsManager.ones++;
 			break;
@@ -932,6 +930,7 @@ public class GameManager : MonoBehaviour
             SendSerialMessage ("5#");
 
 			textManager.FlashDollarAmount (5);
+			am.DollarInsertedSound ();
 			dollarsInserted += 5;
 			analyticsManager.fives++;
 			break;
@@ -945,11 +944,9 @@ public class GameManager : MonoBehaviour
 				return;
 
 			textManager.FlashDollarAmount (10);
+			am.DollarInsertedSound ();
 			dollarsInserted += 10;
 			analyticsManager.tens++;
-			break;
-		case "lo0o0o0ongstring":
-			print("LONG STRINGS WORK");
 			break;
 //		case "$":
 //			if (dollarsInserted >= 10)

@@ -13,6 +13,9 @@ public class CreditCardProcessing : MonoBehaviour {
 
   float timeSinceLastSwipe, delay = 1f;
   void Update(){
+		if (GetComponent<GameManager> ().debugMode)
+			return;
+
     if(readyToProcess){
 		print (magStripe);
       if(Input.inputString.Length > 0){

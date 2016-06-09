@@ -22,6 +22,7 @@ public class AudioManager : MonoBehaviour {
 	public AudioSource loadingDone;
 	public AudioSource newHighScore;
 	public AudioSource paymentAccepted;
+	public AudioSource dollarInserted;
 
     public bool playBeepOnce;
 
@@ -108,6 +109,11 @@ public class AudioManager : MonoBehaviour {
 	public void PaymentAcceptedSound()
 	{
 		paymentAccepted.Play ();
+	}
+
+	public void DollarInsertedSound()
+	{
+		dollarInserted.Play ();
 	}
 
     public IEnumerator CountdownBoopRoutine(float gmTimer)
